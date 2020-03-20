@@ -1,0 +1,15 @@
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\FormsApp.exe.config
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\FormsApp.exe
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\FormsApp.pdb
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\FormsApp.xml
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.vbprojAssemblyReference.cache
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.Resources.resources
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.vbproj.GenerateResource.cache
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.exe
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.xml
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.pdb
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\StockLib.dll
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\StockLib.pdb
+C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\StockLib.xml
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.MainForm.resources
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.vbproj.CopyComplete

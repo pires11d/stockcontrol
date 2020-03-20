@@ -1,0 +1,124 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+StockLib
+</name>
+</assembly>
+<members>
+<member name="T:StockLib.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:StockLib.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:StockLib.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:StockLib.Extensions.ChooseLang(System.String,System.String,System.Boolean)">
+ <summary>
+ Selects from the input strings the one that is in the program's current language
+ </summary>
+ <param name="pt">Portuguese string</param>
+ <param name="en">English string</param>
+ <returns></returns>
+</member>
+<member name="M:StockLib.Extensions.ChangeSeparator(System.String)">
+ <summary>
+ Changes the number decimal separator to ".", even though if the system's is ","
+ </summary>
+</member>
+<member name="M:StockLib.Extensions.toRegular(System.String)">
+ <summary>
+ Converts a string in a ASCII format to a simpler format, 
+ replacing all problematic characters by regular letters
+ </summary>
+ <param name="arg"></param>
+ <returns></returns>
+</member>
+<member name="M:StockLib.Extensions.toIrregular(System.String)">
+ <summary>
+ Converts a coded string format to the UTF-8 format, 
+ replacing all problematic characters by special characters
+ </summary>
+ <param name="arg"></param>
+ <returns></returns>
+</member>
+<member name="F:StockLib.Extensions.Units">
+ <summary>
+ Unit conversion dictionary. Uses the following equation:    
+ <para></para>
+ Y = A + B.X,  where:            
+ <para></para>
+ Y = SI value 
+ <para></para>
+ X = Unit value    
+ <para></para>
+ Ex.: Converting 60 degrees celsius (°C) to Kelvin (K) 
+ <para></para>
+ Y = 273.15 + 1 * 60.0      
+ <para></para>
+ Y = 333.15 K
+ 
+ </summary>
+</member>
+<member name="F:StockLib.Extensions.ToDimension">
+ <summary>
+ Dictionary containing all SI units and their corresponding MLT values
+ </summary>
+</member>
+<member name="M:StockLib.Extensions.DataTableFromCSV(System.String,System.Boolean,System.String)">
+ <summary>
+ Reads a CSV file and loads its content into a <see cref="T:System.Data.DataTable"/> object
+ </summary>
+ <param name="fileName"></param>
+ <param name="hasTitles"></param>
+ <param name="delimiter"></param>
+ <returns></returns>
+</member>
+<member name="M:StockLib.Extensions.AddToDataTable(System.Data.DataTable,System.Collections.Generic.List{System.String})">
+ <summary>
+ Adds a row of data to the <see cref="T:System.Data.DataTable"/>
+ </summary>
+ <param name="table"></param>
+ <param name="dataList"></param>
+</member>
+<member name="M:StockLib.Extensions.AddHeaders(System.Data.DataTable,System.Boolean)">
+ <summary>
+ Inserts the values on the header for the CSV file
+ </summary>
+ <param name="table"></param>
+</member>
+<member name="M:StockLib.Extensions.WriteCSV(System.Data.DataTable,System.String,System.String,System.Boolean)">
+ <summary>
+ Writes a DataTable as a CSV file
+ </summary>
+ <param name="table"></param>
+ <param name="tableName"></param>
+</member>
+<member name="M:StockLib.Extensions.IPify">
+ <summary>
+ Retrieves the Public IP Adress using the Ipify API 
+ </summary>
+</member>
+<member name="M:StockLib.Extensions.GetIPv4Address">
+ <summary>
+ Gets user's IP address
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:StockLib.Extensions.GetMyMacAddress">
+ <summary>
+ Gets user's MAC address
+ </summary>
+ <returns></returns>
+</member>
+</members>
+</doc>
