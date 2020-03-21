@@ -3,12 +3,18 @@ Imports StockLib.Main
 Imports StockLib.Extensions
 
 
+''' <summary>
+''' Main Interface, contains a MenuStrip that works as a control panel.
+''' <para></para>
+''' Has all important tables displayed as DataGridView objects.
+''' </summary>
 Public Class MainForm
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         cbbCompany.SelectedIndex = 0
         Main.Start()
         LoadTables()
+        LoadClients()
 
     End Sub
 
@@ -115,6 +121,40 @@ Public Class MainForm
     End Sub
     Private Sub lvPurchases_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles lvPurchases.CellLeave
         WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
+    End Sub
+
+    Private Sub ProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
+        Dim orderForm As New OrderForm
+        With orderForm
+            .tbNF.Visible = True
+            .cbbClient.Visible = False
+            .lblID.Text = "N° da NF:"
+
+            .Show()
+        End With
+    End Sub
+
+    Private Sub OrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderToolStripMenuItem.Click
+        Dim orderForm As New OrderForm
+        With orderForm
+            .tbNF.Visible = False
+            .cbbClient.Visible = True
+            .lblID.Text = "Cliente:"
+
+            .Show()
+        End With
+    End Sub
+
+    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
+
     End Sub
 
 End Class

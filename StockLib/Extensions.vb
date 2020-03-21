@@ -21,6 +21,11 @@ Public Module Extensions
         Return If(Double.IsNaN(arg) OrElse Double.IsInfinity(arg), 0, arg)
     End Function
 
+    <Extension()>
+    Public Function NotNull(ByVal arg As String) As String
+        Return If(IsNothing(arg), "", arg)
+    End Function
+
     ''' <summary>
     ''' Selects from the input strings the one that is in the program's current language
     ''' </summary>
@@ -58,7 +63,7 @@ Public Module Extensions
     ''' <param name="arg"></param>
     ''' <returns></returns>
     <Runtime.CompilerServices.Extension>
-    Public Function toRegular(ByVal arg As String) As String
+    Public Function ToRegular(ByVal arg As String) As String
 
         arg = arg.Replace("à", "a")
         arg = arg.Replace("á", "a")
@@ -90,7 +95,7 @@ Public Module Extensions
     ''' <param name="arg"></param>
     ''' <returns></returns>
     <Runtime.CompilerServices.Extension>
-    Public Function toIrregular(ByVal arg As String) As String
+    Public Function ToIrregular(ByVal arg As String) As String
 
         arg = Replace(arg, "\~a", "ã")
         arg = Replace(arg, "\~o", "õ")
@@ -116,6 +121,29 @@ Public Module Extensions
 
         Return arg
 
+    End Function
+
+    ''' <summary>
+    ''' Function that joins words into a text, separated by a delimiter (ex.: ","), but only if the words aren't null
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function JoinText(words As String(), Optional delimiter As String = ",")
+        Dim text As String = ""
+        Dim i = 1
+        For Each word In words
+            If IsNothing(word) Or
+                word = "" Or
+                word = " " Or
+                word = "-" Then
+                If i = words.Count Then
+                    text += word
+                Else
+                    text += word + delimiter + " "
+                End If
+            End If
+            i += 1
+        Next
+        Return text
     End Function
 
     ''' <summary>
@@ -225,7 +253,7 @@ Public Module Extensions
             If hasTitles Then
                 currentRow = reader.ReadFields
                 For Each c In currentRow
-                    result.Columns.Add(c.toIrregular.ToUpper)
+                    result.Columns.Add(c.ToIrregular.ToUpper)
                 Next
             End If
 
@@ -236,8 +264,8 @@ Public Module Extensions
                 End While
                 fixedRow.Clear()
                 For Each c In currentRow
-                    c = c.toIrregular
-                    fixedRow.Add(c)
+                    c = c.ToIrregular
+                    fixedRow.Add(c.NotNull)
                 Next
                 result.Rows.Add(fixedRow.ToArray)
             End While

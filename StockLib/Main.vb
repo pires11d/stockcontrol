@@ -1,6 +1,9 @@
 ﻿Imports StockLib.Extensions
 
 
+''' <summary>
+''' Main Module, where the program events are located
+''' </summary>
 Public Module Main
 
     Public companyName As String = "ChoppExpress"
@@ -9,7 +12,11 @@ Public Module Main
     Public tableOrders As New DataTable
     Public tablePurchases As New DataTable
     Public tableClients As New DataTable
+    Public clientList As New List(Of Cliente)
 
+    ''' <summary>
+    ''' Sub responsible for loading all necessary tables for the App
+    ''' </summary>
     Public Sub Start()
 
         appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) &
@@ -40,7 +47,24 @@ Public Module Main
 
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    Public Sub LoadClients()
+        With tableClients
+            For i = 0 To .Rows.Count - 1
+                Dim client As New Cliente
+                client.Name = .Rows(i).Item(0)
+                client.Phone = .Rows(i).Item(1)
+                client.Address = .Rows(i).Item(2)
+                client.AddressComplement = .Rows(i).Item(3)
+                client.Neighborhood = .Rows(i).Item(4)
+                client.Location = .Rows(i).Item(5)
 
+                clientList.Add(client)
+            Next
+        End With
+    End Sub
 
 
 

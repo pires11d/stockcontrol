@@ -13,3 +13,5 @@ C:\Users\pires\source\repos\StockControl\FormsApp\bin\Debug\StockControl.xml
 C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\StockControl.exe
 C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\StockControl.xml
 C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\StockControl.pdb
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.InventoryForm.resources
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Debug\FormsApp.OrderForm.resources

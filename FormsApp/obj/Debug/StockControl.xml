@@ -147,5 +147,22 @@ StockControl
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="T:FormsApp.InventoryForm">
+ <summary>
+ 
+ </summary>
+</member>
+<member name="T:FormsApp.MainForm">
+ <summary>
+ Main Interface, contains a MenuStrip that works as a control panel.
+ <para></para>
+ Has all important tables displayed as DataGridView objects.
+ </summary>
+</member>
+<member name="T:FormsApp.OrderForm">
+ <summary>
+ Form used in the addition/edition of Orders and Purchases
+ </summary>
+</member>
 </members>
 </doc>

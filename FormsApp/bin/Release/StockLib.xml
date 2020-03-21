@@ -35,7 +35,7 @@ StockLib
  Changes the number decimal separator to ".", even though if the system's is ","
  </summary>
 </member>
-<member name="M:StockLib.Extensions.toRegular(System.String)">
+<member name="M:StockLib.Extensions.ToRegular(System.String)">
  <summary>
  Converts a string in a ASCII format to a simpler format, 
  replacing all problematic characters by regular letters
@@ -43,12 +43,18 @@ StockLib
  <param name="arg"></param>
  <returns></returns>
 </member>
-<member name="M:StockLib.Extensions.toIrregular(System.String)">
+<member name="M:StockLib.Extensions.ToIrregular(System.String)">
  <summary>
  Converts a coded string format to the UTF-8 format, 
  replacing all problematic characters by special characters
  </summary>
  <param name="arg"></param>
+ <returns></returns>
+</member>
+<member name="M:StockLib.Extensions.JoinText(System.String[],System.String)">
+ <summary>
+ Function that joins words into a text, separated by a delimiter (ex.: ","), but only if the words aren't null
+ </summary>
  <returns></returns>
 </member>
 <member name="F:StockLib.Extensions.Units">
@@ -90,7 +96,7 @@ StockLib
  <param name="table"></param>
  <param name="dataList"></param>
 </member>
-<member name="M:StockLib.Extensions.AddHeaders(System.Data.DataTable,System.Boolean)">
+<member name="M:StockLib.Extensions.AddHeader(System.Data.DataTable,System.Collections.Generic.List{System.String})">
  <summary>
  Inserts the values on the header for the CSV file
  </summary>
@@ -119,6 +125,21 @@ StockLib
  Gets user's MAC address
  </summary>
  <returns></returns>
+</member>
+<member name="T:StockLib.Main">
+ <summary>
+ Main Module, where the program events are located
+ </summary>
+</member>
+<member name="M:StockLib.Main.Start">
+ <summary>
+ Sub responsible for loading all necessary tables for the App
+ </summary>
+</member>
+<member name="M:StockLib.Main.LoadClients">
+ <summary>
+ 
+ </summary>
 </member>
 </members>
 </doc>

@@ -1,3 +1,8 @@
-﻿Public Class InventoryForm
+﻿
+
+''' <summary>
+''' 
+''' </summary>
+Public Class InventoryForm
 
 End Class
