@@ -14,7 +14,7 @@ Public Class MainForm
         cbbCompany.SelectedIndex = 0
         Main.Start()
         LoadTables()
-        LoadClients()
+        Main.LoadClients()
 
     End Sub
 
@@ -114,13 +114,25 @@ Public Class MainForm
     End Sub
 
     Private Sub lvClients_Change(sender As Object, e As DataGridViewCellEventArgs) Handles lvClients.CellLeave
-        WriteCSV(tableClients, NameOf(tableClients), "|", True)
+        Try
+            WriteCSV(tableClients, NameOf(tableClients), "|", True)
+        Catch ex As Exception
+
+        End Try
     End Sub
     Private Sub lvOrders_Change(sender As Object, e As DataGridViewCellEventArgs) Handles lvOrders.CellLeave
-        WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
+        Try
+            WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
+        Catch ex As Exception
+
+        End Try
     End Sub
     Private Sub lvPurchases_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles lvPurchases.CellLeave
-        WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
+        Try
+            WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub ProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductToolStripMenuItem.Click
@@ -133,7 +145,7 @@ Public Class MainForm
             .tbNF.Visible = True
             .cbbClient.Visible = False
             .lblID.Text = "N° da NF:"
-
+            .Width = 480
             .Show()
         End With
     End Sub
@@ -144,7 +156,7 @@ Public Class MainForm
             .tbNF.Visible = False
             .cbbClient.Visible = True
             .lblID.Text = "Cliente:"
-
+            .Width = 960
             .Show()
         End With
     End Sub

@@ -32,10 +32,10 @@ Partial Class OrderForm
         '
         'tvItems
         '
-        Me.tvItems.Location = New System.Drawing.Point(14, 125)
+        Me.tvItems.Location = New System.Drawing.Point(14, 102)
         Me.tvItems.Margin = New System.Windows.Forms.Padding(5)
         Me.tvItems.Name = "tvItems"
-        Me.tvItems.Size = New System.Drawing.Size(436, 406)
+        Me.tvItems.Size = New System.Drawing.Size(436, 436)
         Me.tvItems.TabIndex = 0
         '
         'cbbClient
@@ -71,7 +71,7 @@ Partial Class OrderForm
         '
         Me.lblItems.AutoSize = True
         Me.lblItems.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblItems.Location = New System.Drawing.Point(10, 96)
+        Me.lblItems.Location = New System.Drawing.Point(10, 73)
         Me.lblItems.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblItems.Name = "lblItems"
         Me.lblItems.Size = New System.Drawing.Size(142, 20)
@@ -82,7 +82,7 @@ Partial Class OrderForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(683, 545)
+        Me.ClientSize = New System.Drawing.Size(463, 552)
         Me.Controls.Add(Me.tbNF)
         Me.Controls.Add(Me.lblItems)
         Me.Controls.Add(Me.lblID)
@@ -92,6 +92,7 @@ Partial Class OrderForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "OrderForm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "OrderForm"
         Me.ResumeLayout(False)
         Me.PerformLayout()
