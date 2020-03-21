@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>FormsApp.My.MyApplication</StartupObject>
     <RootNamespace>FormsApp</RootNamespace>
-    <AssemblyName>FormsApp</AssemblyName>
+    <AssemblyName>StockControl</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>FormsApp.xml</DocumentationFile>
+    <DocumentationFile>StockControl.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>FormsApp.xml</DocumentationFile>
+    <DocumentationFile>StockControl.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -48,7 +48,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icon_CE2.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ChoppExpress\icon_CE2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -114,7 +114,6 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
-    <None Include="ClassDiagram1.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -125,21 +124,35 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Resources\ChoppExpress\logo.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\barril15.jpg" />
     <Content Include="Resources\barril30.jpg" />
+    <Content Include="Resources\btns\1.PNG" />
+    <Content Include="Resources\btns\2.PNG" />
+    <Content Include="Resources\btns\3.PNG" />
+    <Content Include="Resources\btns\4.PNG" />
+    <Content Include="Resources\btns\5.PNG" />
+    <None Include="Resources\btns\6.png" />
     <Content Include="Resources\c1.jpg" />
     <Content Include="Resources\c2.jpg" />
+    <None Include="Resources\L%27jaica\logo_ljaica.png" />
+    <None Include="Resources\L%27jaica\icon_ljaica21.png" />
+    <None Include="Resources\L%27jaica\icon_ljaica4.png" />
+    <None Include="Resources\L%27jaica\icon_ljaica3.png" />
+    <None Include="Resources\L%27jaica\icon_ljaica2.png" />
+    <None Include="Resources\L%27jaica\icon_ljaica.png" />
+    <None Include="Resources\ChoppExpress\icon_CE.ico" />
+    <None Include="Resources\ChoppExpress\icon_CE.png" />
+    <None Include="Resources\ChoppExpress\icon_CE2.ico" />
+    <None Include="Resources\ChoppExpress\icon_CE2.png" />
+    <None Include="Resources\ChoppExpress\logo_CE.png" />
+    <None Include="Resources\ChoppExpress\logo_CE1.png" />
+    <None Include="Resources\ChoppExpress\logo_CE2.png" />
+    <None Include="Resources\ChoppExpress\icon_CE1.png" />
     <Content Include="Resources\colour.png" />
     <Content Include="Resources\g.jpg" />
-    <None Include="Resources\icon_CE2.ico" />
-    <None Include="Resources\logo_CE2.png" />
-    <None Include="Resources\logo_CE1.png" />
-    <None Include="Resources\icon_CE.png" />
-    <None Include="Resources\icon_CE.ico" />
-    <None Include="Resources\logo_CE.png" />
-    <None Include="Resources\icon_CE2.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StockLib\StockLib.vbproj">
@@ -147,5 +160,6 @@
       <Name>StockLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

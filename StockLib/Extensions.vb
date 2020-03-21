@@ -8,8 +8,8 @@ Public Module Extensions
     <Extension()>
     Public Function IsValidNonZero(ByVal Arg As Double) As Boolean
         Return (Not Double.IsNaN(Arg) AndAlso
-                    Arg <> 0 AndAlso
-                    Not Double.IsInfinity(Arg))
+                Arg <> 0 AndAlso
+                Not Double.IsInfinity(Arg))
     End Function
 
     Friend Function GetxmlLine(prop As String, value As String) As String
@@ -111,7 +111,8 @@ Public Module Extensions
         arg = Replace(arg, "\'O", "Ó")
         arg = Replace(arg, "\'U", "Ú")
         arg = Replace(arg, "\c c", "ç")
-        arg = Replace(arg, "\C C", "ç")
+        arg = Replace(arg, "\C C", "Ç")
+        arg = Replace(arg, "�", "ç")
 
         Return arg
 

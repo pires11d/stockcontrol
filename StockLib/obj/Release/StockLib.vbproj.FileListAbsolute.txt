@@ -6,3 +6,4 @@ C:\Users\pires\source\repos\StockControl\StockLib\bin\Release\StockLib.xml
 C:\Users\pires\source\repos\StockControl\StockLib\obj\Release\StockLib.dll
 C:\Users\pires\source\repos\StockControl\StockLib\obj\Release\StockLib.xml
 C:\Users\pires\source\repos\StockControl\StockLib\obj\Release\StockLib.pdb
+C:\Users\pires\source\repos\StockControl\StockLib\obj\Release\StockLib.vbprojAssemblyReference.cache
