@@ -1,13 +1,11 @@
 ﻿
 
-Public Class Barril
+Public Class Valve
 
     Public Enum Kind
-        _E30L
-        _E50L
-        _S10L
-        _S15L
-        _S30L
+        _Simples
+        _SimplesComManometro
+        _Dupla
     End Enum
 
     Private p_ID As String
@@ -29,7 +27,6 @@ Public Class Barril
             p_State = value
         End Set
     End Property
-
 
 
 End Class

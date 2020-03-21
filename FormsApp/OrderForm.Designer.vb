@@ -35,7 +35,7 @@ Partial Class OrderForm
         Me.tvItems.Location = New System.Drawing.Point(14, 102)
         Me.tvItems.Margin = New System.Windows.Forms.Padding(5)
         Me.tvItems.Name = "tvItems"
-        Me.tvItems.Size = New System.Drawing.Size(436, 436)
+        Me.tvItems.Size = New System.Drawing.Size(436, 445)
         Me.tvItems.TabIndex = 0
         '
         'cbbClient
@@ -82,7 +82,7 @@ Partial Class OrderForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(463, 552)
+        Me.ClientSize = New System.Drawing.Size(944, 561)
         Me.Controls.Add(Me.tbNF)
         Me.Controls.Add(Me.lblItems)
         Me.Controls.Add(Me.lblID)

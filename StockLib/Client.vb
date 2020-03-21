@@ -1,6 +1,14 @@
 ﻿
-
-Public Class Cliente
+''' <summary>
+''' Class representing the Clients and all their associated information, for example:
+''' <para></para>Name;
+''' <para></para>Phone number;
+''' <para></para>Street name + house number;
+''' <para></para>Apartment number (if available);
+''' <para></para>Neighborhood;
+''' <para></para>Location (city and state).
+''' </summary>
+Public Class Client
 
     Private p_Name As String
     Public Property Name() As String

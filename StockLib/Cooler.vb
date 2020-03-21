@@ -1,11 +1,13 @@
 ﻿
-
-Public Class Valvula
+''' <summary>
+''' Class representing the Beer Cooler objects
+''' </summary>
+Public Class Cooler
 
     Public Enum Kind
-        _Simples
-        _SimplesComManometro
-        _Dupla
+        _1Torneira
+        _1TorneiraComGelo
+        _2Torneiras
     End Enum
 
     Private p_ID As String

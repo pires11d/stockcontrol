@@ -1,11 +1,15 @@
 ﻿
-
-Public Class Chopeira
+''' <summary>
+''' Class representing the identified Barrel objects
+''' </summary>
+Public Class Barrel
 
     Public Enum Kind
-        _1Torneira
-        _1TorneiraComGelo
-        _2Torneiras
+        _E30L
+        _E50L
+        _S10L
+        _S15L
+        _S30L
     End Enum
 
     Private p_ID As String
@@ -27,6 +31,7 @@ Public Class Chopeira
             p_State = value
         End Set
     End Property
+
 
 
 End Class

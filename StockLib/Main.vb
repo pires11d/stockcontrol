@@ -12,7 +12,7 @@ Public Module Main
     Public tableOrders As New DataTable
     Public tablePurchases As New DataTable
     Public tableClients As New DataTable
-    Public clientList As New List(Of Cliente)
+    Public clientList As New List(Of Client)
 
     ''' <summary>
     ''' Sub responsible for loading all necessary tables for the App
@@ -53,7 +53,7 @@ Public Module Main
     Public Sub LoadClients()
         With tableClients
             For i = 0 To .Rows.Count - 1
-                Dim client As New Cliente
+                Dim client As New Client
                 client.Name = .Rows(i).Item(0)
                 client.Phone = .Rows(i).Item(1)
                 client.Address = .Rows(i).Item(2)

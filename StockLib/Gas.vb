@@ -1,5 +1,7 @@
 ﻿
-
+''' <summary>
+''' Class representing the CO2 Gas Cylinder objects
+''' </summary>
 Public Class Gas
 
     Public Enum Kind
