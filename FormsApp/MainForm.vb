@@ -75,7 +75,11 @@ Public Class MainForm
                 menu.BackColor = SystemColors.Control
                 MenuToolStripMenuItem.BackColor = SystemColors.ControlDarkDark
         End Select
+
         split.BackColor = Color.Black
+        lvOrders.DefaultCellStyle.BackColor = Color.LightSalmon
+        lvPurchases.DefaultCellStyle.BackColor = Color.LightBlue
+        lvClients.DefaultCellStyle.BackColor = SystemColors.Control
 
     End Sub
 
@@ -101,6 +105,16 @@ Public Class MainForm
             End Try
         Next
 
+    End Sub
+
+    Private Sub lvClients_Change(sender As Object, e As DataGridViewCellEventArgs) Handles lvClients.CellLeave
+        WriteCSV(tableClients, NameOf(tableClients), "|", True)
+    End Sub
+    Private Sub lvOrders_Change(sender As Object, e As DataGridViewCellEventArgs) Handles lvOrders.CellLeave
+        WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
+    End Sub
+    Private Sub lvPurchases_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles lvPurchases.CellLeave
+        WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
     End Sub
 
 End Class

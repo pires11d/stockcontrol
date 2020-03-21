@@ -272,6 +272,32 @@
         3BzOCAr6H2yRwbDPB4aqAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="ToolStripMenuItem6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEnElE
+        QVRoQ+2ZWSitXRjHzVNSphQukCHDhSFjopAbQ6Yr452UxJXhChEuRIhkLEMuTBdCcYHM85CZzGPIzOVz
+        /Fdn7/bpfHXsd7979X1fZ9W/vb3e9az1e9d61n6e51X52/42Du3k5IQGBwepp6dHsLq7u9nn5OQkPTw8
+        0E/TfNrAwACFhoaSi4sLOTs7Cxb6BwYGUk1NDV1fX/OD6OjoICsrKwzIpKqqSmpqat8W7pfta29vT2Vl
+        ZXR2dsYHAgDW1tZscBMTE3J3dyd/f/9vC/CyEIDCtYyMDNrd3VU+hARAXV2dgoOD2X5eXV2llZWVbwkT
+        xaS/TJG2tjZpaGiw73gYaWlptLOzo1wIWYC4uDja2tqSa8DS0lIGgP4BAQHk6urKILAqxsbGlJKSQsvL
+        y8qDkAWIjY2lzc1NuQYrKSlhAJqammw1qqqqyNPTU7oSBgYGFBUVRaOjo/Tx8SE+iJgAubm5dHBwQO3t
+        7b9A6Orqsu05NDREb29v4kKIDXB3d0fPz8/U1tZGHh4eUgj839fXl/nY4+OjeBDKAMB1TLKpqUnqE1+X
+        2CdOucbGRrq9vRUHQkyAvLw8ur+/l/Z/enqilpYWNmkJBMZxdHSk8vJyury8VBxCLAD0h7O2trZSf38/
+        9fX1sc/m5maKjo4mPT09BgDhfltbWyouLqbT01PFIMQC+PpKWlpaZGhoSKampr8IJ5HkHolwzDo4OFBn
+        Z6dc4/3WxASQV4Crrq7Gd+FNUQCcKpGRkRQeHv5HRUREUFBQEFlaWrIVUCrAzc0NjY2NEaJVWY2MjNDh
+        4aF0UJwm6+vrtLa29kfhPoTu8Ak4NcINpQHMzc2x0MLNzY2d5xBOEzzBhoYGwYMeHx9Tamoq8xelAuBp
+        JSQkkJeXF/n4+EgVEhJCdXV1/36A19dXFm0iy5LVzMwMHR0d/TcAkG7u7+//pr29PRbrf1eYtCSQ4waw
+        uLhI8fHx5O3tzWIYocK2i4mJofHxcWYXD4ULwPT0NHNYc3NzsrCwECz0BwROMNjlBvDy8sKOPex5RbW0
+        tCRN9LkBfH5+smALe1ZRnZ+f0/v7O7OLv7kAbGxsUFZWFruG3wOhQv/09HRaWFhgdrmtwOzsLIWFhZGd
+        nR0LuoQKZRb40vDwMF+Aq6sr6u3tZckHEhOhQv+uri6WasIuNwDs2YuLi3/c0/IKPgCfgl38zQVge3ub
+        UDLJzMxkviBU6F9UVCS1y20FpqamWByETEpfX1+w0N/JyYltR9jlBoBlr6+vp4KCAiosLFRIqBVxXwFl
+        NW4+gKSltraW8vPz2SoIFfpjBRDUwS63FZiYmCA/Pz+WpKPGKVRGRkYsKeIeCyHmr6yspOzsbMrJyVFI
+        eF+AijfscvUBvC5Cboy8VxGhWsc9H1BWUyoAgi953w/I25S6hVC7QSkFcRBCabEFu/Pz85SYmMhqqaIC
+        oNBkY2PD6pvJycmUlJQkumAX2xRRKqp5ohW2JG8psQp4z6Wjo6M0wT7GwXhYAfxGsIkIbagiI+YxMzPj
+        LpTZFSmSsYa3iDCCs5q3KioqCBXAn1NRrOGc5i1JjvA/bSoqPwBhivkfFGotbwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="picLogoCE.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAXkAAADCCAYAAACsebI/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6

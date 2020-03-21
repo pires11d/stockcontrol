@@ -273,25 +273,9 @@ Public Module Extensions
     ''' Inserts the values on the header for the CSV file
     ''' </summary>
     ''' <param name="table"></param>
-    Public Sub AddHeaders(table As DataTable, Optional hasHeaders As Boolean = False)
+    Public Sub AddHeader(table As DataTable, header As List(Of String))
 
-        If Not hasHeaders Then Exit Sub
         If table.Columns.Count > 0 Then Exit Sub
-
-        Dim header As New List(Of String)
-        With header
-            .Add("ID")
-            .Add("FAT")
-            .Add("RET")
-            .Add("MISC")
-            .Add("Sout")
-            .Add("Lout")
-            .Add("T")
-            .Add("Slvl")
-            .Add("Eff")
-            .Add("yi")
-            .Add("EVAP")
-        End With
 
         Dim dr As DataRow = table.NewRow()
         For Each item In header
@@ -310,7 +294,7 @@ Public Module Extensions
     ''' <param name="tableName"></param>
     Sub WriteCSV(table As DataTable, tableName As String, Optional delimiter As String = ",", Optional includeHeaders As Boolean = False)
 
-        Dim path As String = appDataFolder & tableName
+        Dim path As String = appDataFolder
         'today = DateTime.Now.ToString("yyyy'.'MM'.'dd'-'HH'h'mm'min'")
         'path &= "\" & Today
 
@@ -318,12 +302,16 @@ Public Module Extensions
             Directory.CreateDirectory(path)
         End If
 
-        Dim newTable As DataTable
-        newTable = table.Copy
-        AddHeaders(newTable, includeHeaders)
+        Dim headerRow As New List(Of String)
+        For Each col In table.Columns
+            headerRow.Add(col.ToString)
+        Next
 
-        Using writer As StreamWriter = New StreamWriter(path & ".csv")
-            For Each row As DataRow In newTable.Rows
+        Using writer As StreamWriter = New StreamWriter(path & tableName & ".csv")
+            If includeHeaders Then
+                writer.WriteLine(String.Join(delimiter, headerRow))
+            End If
+            For Each row As DataRow In table.Rows
                 writer.WriteLine(String.Join(delimiter, row.ItemArray))
             Next
 
