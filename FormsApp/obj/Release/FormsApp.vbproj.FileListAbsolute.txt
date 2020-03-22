@@ -15,3 +15,4 @@ C:\Users\pires\source\repos\StockControl\FormsApp\obj\Release\StockControl.xml
 C:\Users\pires\source\repos\StockControl\FormsApp\obj\Release\StockControl.pdb
 C:\Users\pires\source\repos\StockControl\FormsApp\obj\Release\FormsApp.InventoryForm.resources
 C:\Users\pires\source\repos\StockControl\FormsApp\obj\Release\FormsApp.OrderForm.resources
+C:\Users\pires\source\repos\StockControl\FormsApp\obj\Release\FormsApp.ProductForm.resources

@@ -1,5 +1,4 @@
 ﻿Imports StockLib
-Imports StockLib.Main
 Imports StockLib.Extensions
 
 
@@ -14,18 +13,22 @@ Public Class MainForm
         cbbCompany.SelectedIndex = 0
         Main.Start()
         LoadTables()
-        Main.LoadClients()
+        'Main.LoadClients()
+        'Main.LoadProducts()
 
     End Sub
 
     Public Sub LoadTables()
 
-        lvOrders.DataSource = tableOrders
-        lvPurchases.DataSource = tablePurchases
-        lvClients.DataSource = tableClients
         lvStock.DataSource = tableStock
+        lvPurchases.DataSource = tablePurchases
+        lvOrders.DataSource = tableOrders
+        lvClients.DataSource = tableClients
 
-        lvStock.DefaultCellStyle.Font = New Font("Century", 14, FontStyle.Bold)
+        lvStock.DefaultCellStyle.Font = New Font("Century Gothic", 14, FontStyle.Bold)
+        lvPurchases.DefaultCellStyle.Font = New Font("Century Gothic", 12)
+        lvOrders.DefaultCellStyle.Font = New Font("Century Gothic", 12)
+        lvClients.DefaultCellStyle.Font = New Font("Century Gothic", 12)
 
     End Sub
 
@@ -113,6 +116,21 @@ Public Class MainForm
 
     End Sub
 
+    Private Sub lvStock_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvStock.Click
+        Dim cells = lvStock.SelectedCells
+
+        For Each cell As DataGridViewCell In cells
+            Dim pID = lvStock(0, cell.RowIndex).Value.ToString
+            For Each p In products.Values
+                If p.Code = pID Then
+                    Dim productForm As New ProductForm(p)
+                    productForm.Show()
+                    Exit Sub
+                End If
+            Next
+        Next
+    End Sub
+
     Private Sub lvClients_Change(sender As Object, e As DataGridViewCellEventArgs) Handles lvClients.CellLeave
         Try
             WriteCSV(tableClients, NameOf(tableClients), "|", True)
@@ -140,12 +158,9 @@ Public Class MainForm
     End Sub
 
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
-        Dim orderForm As New OrderForm
-        With orderForm
-            .tbNF.Visible = True
-            .cbbClient.Visible = False
-            .lblID.Text = "N° da NF:"
-            .Width = 480
+        Dim purchaseForm As New OrderForm
+        With purchaseForm
+            .FormType = OrderForm.FormTypes.Purchase
             .Show()
         End With
     End Sub
@@ -153,10 +168,7 @@ Public Class MainForm
     Private Sub OrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderToolStripMenuItem.Click
         Dim orderForm As New OrderForm
         With orderForm
-            .tbNF.Visible = False
-            .cbbClient.Visible = True
-            .lblID.Text = "Cliente:"
-            .Width = 960
+            .FormType = OrderForm.FormTypes.Order
             .Show()
         End With
     End Sub
@@ -168,5 +180,6 @@ Public Class MainForm
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
 
     End Sub
+
 
 End Class

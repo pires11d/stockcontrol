@@ -164,5 +164,10 @@ StockControl
  Form used in the addition/edition of Orders and Purchases
  </summary>
 </member>
+<member name="T:FormsApp.ProductForm">
+ <summary>
+ Form responsible for loading history information for a specific Product 
+ </summary>
+</member>
 </members>
 </doc>

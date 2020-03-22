@@ -10,6 +10,10 @@
 ''' </summary>
 Public Class Client
 
+    Public Sub New(name As String)
+        Me.Name = name
+    End Sub
+
     Private p_Name As String
     Public Property Name() As String
         Get

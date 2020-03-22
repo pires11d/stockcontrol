@@ -110,6 +110,12 @@
     <Compile Include="OrderForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ProductForm.Designer.vb">
+      <DependentUpon>ProductForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProductForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="InventoryForm.resx">
@@ -126,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OrderForm.resx">
       <DependentUpon>OrderForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductForm.resx">
+      <DependentUpon>ProductForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,11 @@ Public Module Extensions
         Return If(IsNothing(arg), "", arg)
     End Function
 
+    <Extension()>
+    Public Function ToZero(ByVal arg As String) As String
+        Return If(IsNothing(arg) OrElse arg = "", 0, arg)
+    End Function
+
     ''' <summary>
     ''' Selects from the input strings the one that is in the program's current language
     ''' </summary>
@@ -324,7 +329,7 @@ Public Module Extensions
 
         Dim path As String = appDataFolder
         'today = DateTime.Now.ToString("yyyy'.'MM'.'dd'-'HH'h'mm'min'")
-        'path &= "\" & Today
+        'path += "\" + Today
 
         If Not Directory.Exists(path) Then
             Directory.CreateDirectory(path)
@@ -335,7 +340,7 @@ Public Module Extensions
             headerRow.Add(col.ToString)
         Next
 
-        Using writer As StreamWriter = New StreamWriter(path & tableName & ".csv")
+        Using writer As StreamWriter = New StreamWriter(path + tableName + ".csv")
             If includeHeaders Then
                 writer.WriteLine(String.Join(delimiter, headerRow))
             End If

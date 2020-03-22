@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -67,6 +68,13 @@
     <Compile Include="Barrel.vb" />
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
+    <Compile Include="Product.Purchase.vb" />
+    <Compile Include="Product.Order.vb" />
+    <Compile Include="ProductHistory.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductHistory.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Purchase.vb" />
     <Compile Include="Extensions.vb" />
     <Compile Include="Gas.vb" />
@@ -89,6 +97,7 @@
     </Compile>
     <Compile Include="Product.vb" />
     <Compile Include="Valve.vb" />
+    <Compile Include="Vendor.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -107,6 +116,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="ProductHistory.xsc">
+      <DependentUpon>ProductHistory.xsd</DependentUpon>
+    </None>
+    <None Include="ProductHistory.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductHistory.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="ProductHistory.xss">
+      <DependentUpon>ProductHistory.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
