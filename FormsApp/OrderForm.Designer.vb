@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class OrderForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,8 +20,9 @@ Partial Class OrderForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OrderForm))
         Me.tvItems = New System.Windows.Forms.TreeView()
         Me.cbbClient = New System.Windows.Forms.ComboBox()
@@ -39,13 +40,16 @@ Partial Class OrderForm
         Me.tbQtty = New System.Windows.Forms.TextBox()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.tbPrice = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblPriceUnit = New System.Windows.Forms.Label()
         Me.lblQttyUnit = New System.Windows.Forms.Label()
         Me.lblStockUnit = New System.Windows.Forms.Label()
-        Me.lvItems = New System.Windows.Forms.ListView()
         Me.lblProducts = New System.Windows.Forms.Label()
         Me.lblClient = New System.Windows.Forms.Label()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.lvItems = New System.Windows.Forms.DataGridView()
+        Me.ItemColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PriceColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        CType(Me.lvItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tvItems
@@ -122,9 +126,9 @@ Partial Class OrderForm
         Me.lblName.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblName.Location = New System.Drawing.Point(322, 189)
         Me.lblName.Name = "lblName"
-        Me.lblName.Size = New System.Drawing.Size(67, 23)
+        Me.lblName.Size = New System.Drawing.Size(98, 23)
         Me.lblName.TabIndex = 5
-        Me.lblName.Text = "NOME"
+        Me.lblName.Text = "PRODUTO"
         '
         'lblBrand
         '
@@ -170,7 +174,7 @@ Partial Class OrderForm
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(889, 474)
+        Me.Label10.Location = New System.Drawing.Point(822, 354)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(69, 23)
         Me.Label10.TabIndex = 5
@@ -200,7 +204,7 @@ Partial Class OrderForm
         Me.lblTotal.AutoSize = True
         Me.lblTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.Red
-        Me.lblTotal.Location = New System.Drawing.Point(889, 510)
+        Me.lblTotal.Location = New System.Drawing.Point(822, 390)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(37, 23)
         Me.lblTotal.TabIndex = 5
@@ -215,15 +219,6 @@ Partial Class OrderForm
         Me.tbPrice.TabIndex = 6
         Me.tbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(881, 444)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(127, 23)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "__________________"
-        '
         'lblPriceUnit
         '
         Me.lblPriceUnit.AutoSize = True
@@ -232,7 +227,7 @@ Partial Class OrderForm
         Me.lblPriceUnit.Name = "lblPriceUnit"
         Me.lblPriceUnit.Size = New System.Drawing.Size(49, 23)
         Me.lblPriceUnit.TabIndex = 5
-        Me.lblPriceUnit.Text = "R$/L"
+        Me.lblPriceUnit.Text = "R$/-"
         '
         'lblQttyUnit
         '
@@ -242,7 +237,7 @@ Partial Class OrderForm
         Me.lblQttyUnit.Name = "lblQttyUnit"
         Me.lblQttyUnit.Size = New System.Drawing.Size(18, 23)
         Me.lblQttyUnit.TabIndex = 5
-        Me.lblQttyUnit.Text = "L"
+        Me.lblQttyUnit.Text = "-"
         '
         'lblStockUnit
         '
@@ -252,17 +247,7 @@ Partial Class OrderForm
         Me.lblStockUnit.Name = "lblStockUnit"
         Me.lblStockUnit.Size = New System.Drawing.Size(18, 23)
         Me.lblStockUnit.TabIndex = 5
-        Me.lblStockUnit.Text = "L"
-        '
-        'lvItems
-        '
-        Me.lvItems.BackColor = System.Drawing.SystemColors.Control
-        Me.lvItems.HideSelection = False
-        Me.lvItems.Location = New System.Drawing.Point(541, 147)
-        Me.lvItems.Name = "lvItems"
-        Me.lvItems.Size = New System.Drawing.Size(455, 310)
-        Me.lvItems.TabIndex = 7
-        Me.lvItems.UseCompatibleStateImageBehavior = False
+        Me.lblStockUnit.Text = "-"
         '
         'lblProducts
         '
@@ -286,16 +271,55 @@ Partial Class OrderForm
         Me.lblClient.TabIndex = 2
         Me.lblClient.Text = "Cliente:"
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(944, 24)
+        Me.MenuStrip1.TabIndex = 9
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'lvItems
+        '
+        Me.lvItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.lvItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.lvItems.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.lvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.lvItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ItemColumn, Me.PriceColumn})
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvItems.DefaultCellStyle = DataGridViewCellStyle1
+        Me.lvItems.Location = New System.Drawing.Point(541, 147)
+        Me.lvItems.Name = "lvItems"
+        Me.lvItems.RowHeadersVisible = False
+        Me.lvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.lvItems.Size = New System.Drawing.Size(391, 195)
+        Me.lvItems.TabIndex = 10
+        '
+        'ItemColumn
+        '
+        Me.ItemColumn.HeaderText = "Item"
+        Me.ItemColumn.Name = "ItemColumn"
+        '
+        'PriceColumn
+        '
+        Me.PriceColumn.HeaderText = "Preço"
+        Me.PriceColumn.Name = "PriceColumn"
+        '
         'OrderForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 601)
-        Me.Controls.Add(Me.lblProducts)
+        Me.ClientSize = New System.Drawing.Size(944, 601)
         Me.Controls.Add(Me.lvItems)
+        Me.Controls.Add(Me.lblProducts)
         Me.Controls.Add(Me.tbPrice)
         Me.Controls.Add(Me.tbQtty)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.lblStockLabel)
         Me.Controls.Add(Me.lblStockUnit)
@@ -314,12 +338,15 @@ Partial Class OrderForm
         Me.Controls.Add(Me.lblID)
         Me.Controls.Add(Me.cbbClient)
         Me.Controls.Add(Me.tvItems)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "OrderForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "OrderForm"
+        CType(Me.lvItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -341,11 +368,13 @@ Partial Class OrderForm
     Friend WithEvents tbQtty As TextBox
     Friend WithEvents lblTotal As Label
     Friend WithEvents tbPrice As TextBox
-    Friend WithEvents Label1 As Label
     Friend WithEvents lblPriceUnit As Label
     Friend WithEvents lblQttyUnit As Label
     Friend WithEvents lblStockUnit As Label
-    Friend WithEvents lvItems As ListView
     Friend WithEvents lblProducts As Label
     Friend WithEvents lblClient As Label
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents lvItems As DataGridView
+    Friend WithEvents ItemColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PriceColumn As DataGridViewTextBoxColumn
 End Class

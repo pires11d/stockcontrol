@@ -50,25 +50,21 @@ Public Module Main
     ''' Sub responsible for getting data from each CSV file and load it into its respective DataTable object
     ''' </summary>
     Public Sub GetTables()
+        'On Error Resume Next
 
-        On Error Resume Next
-
+        tableVendors = DataTableFromCSV(appDataFolder + "tableVendor.csv", True, "|")
         tableClients = DataTableFromCSV(appDataFolder + "tableClients.csv", True, "|")
         LoadClients()
 
-        tableVendors = DataTableFromCSV(appDataFolder + "tableVendor.csv", True, "|")
-        LoadVendors()
-
-        tableStock = DataTableFromCSV(appDataFolder + "tableStock.csv", True, "|")
-        tableProducts = DataTableFromCSV(appDataFolder + "tableProducts.csv", True, "|")
-        LoadProducts()
-
         tableOrders = DataTableFromCSV(appDataFolder + "tableOrders.csv", True, "|")
-        tableOrders.Columns.Remove("ENDERECO")
         LoadOrders()
 
         tablePurchases = DataTableFromCSV(appDataFolder + "tablePurchases.csv", True, "|")
         LoadPurchases()
+
+        tableStock = DataTableFromCSV(appDataFolder + "tableStock.csv", True, "|")
+        tableProducts = DataTableFromCSV(appDataFolder + "tableProducts.csv", True, "|")
+        LoadProducts()
 
     End Sub
 
@@ -85,8 +81,8 @@ Public Module Main
                 Dim p As New Product(.Rows(i).Item("PRODUTO"))
                 p.Brand = .Rows(i).Item("MARCA")
                 p.Stock = .Rows(i).Item("ESTOQUE")
-                p.Quantity = .Rows(i).Item("QTD")
-                p.Value = .Rows(i).Item("VALOR")
+                p.Quantity = 0  '.Rows(i).Item("QTD")
+                p.Value = 0     '.Rows(i).Item("VALOR")
                 p.Cost = .Rows(i).Item("CUSTO")
                 p.Price = .Rows(i).Item("PREÇO")
                 products.Add(p.Code, p)
@@ -149,38 +145,67 @@ Public Module Main
 
     End Sub
 
-    ''' <summary> 
-    ''' Loads all vendor information into a list of Vendor objects
-    ''' </summary>
-    Public Sub LoadVendors()
-
-        vendors.Clear()
-        With tableVendors
-            For i = 0 To .Rows.Count - 1
-                Dim v As New Vendor(.Rows(i).Item("FORNECEDOR"))
-
-                vendors.Add(v.Name, v)
-            Next
-        End With
-
-    End Sub
-
-
     Public Sub LoadOrders()
+
+        Try
+            tableOrders.Columns.Remove("ENDERECO")
+        Catch ex As Exception
+        End Try
 
         orders.Clear()
         With tableOrders
             For i = 0 To .Rows.Count - 1
-                Dim o As New Order
+                Dim o As New Order(.Rows(i).Item("ID"))
+                o.SellingDate = DateValue(.Rows(i).Item("DATA1"))
+                o.Items.Clear()
+                Dim items = Split(.Rows(i).Item("PEDIDO"), ";").ToList
+                Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
+                For Each item In items.Except({""})
+                    Dim code As String = Split(item, " x ").Last
+                    Dim qtty As Double = CDbl(Split(item, " x ").First)
+                    Dim pp = New Product(code)
+                    With pp
+                        pp.Value = CDbl(prices(items.IndexOf(item)).Replace("$ ", ""))
+                        pp.Quantity = qtty
+                    End With
+
+                    o.Items.Add(pp.Code, pp)
+                Next
+                o.Observation = .Rows(i).Item("OBS")
+                o.Client = clients(.Rows(i).Item("CLIENTE"))
 
                 orders.Add(o.ID, o)
-            Next
+                Next
         End With
 
     End Sub
 
 
     Public Sub LoadPurchases()
+
+        purchases.Clear()
+        With tablePurchases
+            For i = 0 To .Rows.Count - 1
+                Dim p As New Purchase(.Rows(i).Item("ID"))
+                p.BuyingDate = DateValue(.Rows(i).Item("DATA"))
+                p.Items.Clear()
+                Dim items = Split(.Rows(i).Item("COMPRA"), ";").ToList
+                Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
+                For Each item In items.Except({""})
+                    Dim code As String = Split(item, " x ").Last
+                    Dim qtty As Double = CDbl(Split(item, " x ").First)
+                    Dim pp = New Product(code)
+                    With pp
+                        pp.Value = CDbl(prices(items.IndexOf(item)).Replace("$ ", ""))
+                        pp.Quantity = qtty
+                    End With
+
+                    p.Items.Add(pp.Code, pp)
+                Next
+                p.Observation = .Rows(i).Item("OBS")
+                purchases.Add(p.ID, p)
+            Next
+        End With
 
     End Sub
 

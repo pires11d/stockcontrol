@@ -54,16 +54,6 @@ Partial Public Class Product
             End Get
         End Property
 
-        Private p_Vendor As Vendor
-        Public Property Vendor() As Vendor
-            Get
-                Return p_Vendor
-            End Get
-            Set(ByVal value As Vendor)
-                p_Vendor = value
-            End Set
-        End Property
-
     End Class
 
 End Class

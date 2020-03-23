@@ -212,15 +212,5 @@ Row event argument class
  Loads all client information into a list of Client objects
  </summary>
 </member>
-<member name="M:StockLib.Main.LoadVendors">
- <summary> 
- Loads all vendor information into a list of Vendor objects
- </summary>
-</member>
-<member name="T:StockLib.Vendor">
- <summary>
- Class representing all vendor companies (product sources)
- </summary>
-</member>
 </members>
 </doc>

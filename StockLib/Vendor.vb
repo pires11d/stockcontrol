@@ -1,10 +1,8 @@
 ﻿
-''' <summary>
-''' Class representing all vendor companies (product sources)
-''' </summary>
+
 Public Class Vendor
 
-    Public Sub New(name As String)
+    Public Sub New(name)
         Me.Name = name
     End Sub
 

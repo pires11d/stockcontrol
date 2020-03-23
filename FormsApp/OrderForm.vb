@@ -14,6 +14,8 @@ Public Class OrderForm
     Public FormType As FormTypes
     Public selectedProduct As Product
     Public currentOrder As Order
+    Public currentPurchase As Purchase
+    Public itemTable As New DataTable
 
     Public Sub New()
 
@@ -83,31 +85,63 @@ Public Class OrderForm
     End Sub
 
     Private Sub tvItems_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvItems.AfterSelect
+
         If Not IsNothing(e.Node.Parent) Then
             Dim kind As String = e.Node.Parent.Text
             Dim name As String = e.Node.Text
             selectedProduct = Main.products(kind + "-" + name)
+
             With selectedProduct
+                Select Case FormType
+                    Case FormTypes.Order
+                        If Main.orders.ContainsKey(tbID.Text) Then
+                            currentOrder = Main.orders(tbID.Text)
+                            If currentOrder.Items.ContainsKey(selectedProduct.Code) Then
+                                .Quantity = currentOrder.Items(.Code).Quantity
+                                .Value = currentOrder.Items(.Code).Value
+                            Else
+                                .Quantity = 0
+                                .Value = .Price
+                            End If
+                        End If
+                    Case FormTypes.Purchase
+                        If Main.purchases.ContainsKey(tbID.Text) Then
+                            currentPurchase = Main.purchases(tbID.Text)
+                            If currentPurchase.Items.ContainsKey(selectedProduct.Code) Then
+                                .Quantity = currentPurchase.Items(.Code).Quantity
+                                .Value = currentPurchase.Items(.Code).Value
+                            Else
+                                .Quantity = 0
+                                .Value = .Cost
+                            End If
+                        End If
+
+                End Select
+
                 lblKind.Text = .Kind
                 lblName.Text = .Name
                 lblBrand.Text = .Brand
-                tbQtty.Text = .Quantity.ToString.ToZero
                 lblStock.Text = .Stock.ToString.ToZero
                 lblQttyUnit.Text = .Unit
                 lblStockUnit.Text = .Unit
                 lblPriceUnit.Text = "R$/" + .Size
+
+                tbQtty.Text = .Quantity.ToString.ToZero
+                tbPrice.Text = .Value.ToString("0.00")
+
                 Select Case FormType
                     Case FormTypes.Order
                         lblOrder.Text = "Itens do Pedido:"
                         lblPrice.Text = "Preço:"
-                        tbPrice.Text = .Price.ToString("0.00")
                     Case FormTypes.Purchase
                         lblOrder.Text = "Itens da Compra:"
                         lblPrice.Text = "Custo:"
-                        tbPrice.Text = .Cost.ToString("0.00")
                 End Select
+
             End With
+
         End If
+
     End Sub
 
     Private Sub tvItems_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles tvItems.NodeMouseClick
@@ -120,40 +154,138 @@ Public Class OrderForm
             Dim kind As String = e.Node.Parent.Text
             Dim name As String = e.Node.Text
             selectedProduct = Main.products(kind + "-" + name)
+        Else
+            lblKind.Text = "TIPO"
+            lblName.Text = "PRODUTO"
+            lblBrand.Text = "MARCA"
+            lblQttyUnit.Text = "-"
+            lblStock.Text = "-"
+            lblStockUnit.Text = "-"
+            lblPriceUnit.Text = "R$/-"
+            tbQtty.Text = 0
+            tbPrice.Text = "0.00"
         End If
     End Sub
 
     Private Sub tbQtty_TextChanged(sender As Object, e As EventArgs) Handles tbQtty.TextChanged
 
-        With selectedProduct
-            If .Quantity > 0 Then
-                tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
-            Else
-                tvItems.Nodes(.Kind).Nodes(.Name).Checked = False
-            End If
-        End With
+        Try
+            Dim test = Convert.ToDouble(tbQtty.Text)
+        Catch ex As Exception
+            Exit Sub
+        End Try
+
+        Try
+            With selectedProduct
+                If .Quantity > 0 Or CDbl(tbQtty.Text.ToString.ToZero) > 0 Then
+                    tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
+                    tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Red
+                Else
+                    tvItems.Nodes(.Kind).Nodes(.Name).Checked = False
+                    If .Stock > 0 Then
+                        tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Black
+                    Else
+                        tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.DimGray
+                    End If
+                End If
+            End With
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
     Private Sub tbNF_TextChanged(sender As Object, e As EventArgs) Handles tbID.TextChanged
 
-        Try
-            currentOrder = Main.orders(tbID.Text)
-            For Each p In currentOrder.Items
-                With p
-                    If .Quantity > 0 Then
-                        tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
-                    Else
-                        tvItems.Nodes(.Kind).Nodes(.Name).Checked = False
-                    End If
-                End With
+        For Each n As TreeNode In tvItems.Nodes
+            n.Checked = False
+            For Each nn As TreeNode In n.Nodes
+                nn.Checked = False
             Next
-        Catch ex As Exception
+        Next
+        lblTotal.Text = "R$"
 
-        End Try
+        itemTable = New DataTable
+        itemTable.Columns.Add("Item")
+        itemTable.Columns.Add("Preço")
 
+        Select Case FormType
+
+            Case FormTypes.Order
+                If Main.orders.ContainsKey(tbID.Text) Then
+                    currentOrder = Main.orders(tbID.Text)
+                    For Each p In currentOrder.Items.Values
+                        With p
+                            If .Quantity > 0 Then
+                                tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
+                                tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Red
+                                Dim row = {p.Quantity.ToString + " x " + p.Code, p.Value.ToString("R$ 0.00")}
+                                itemTable.Rows.Add(row)
+                            Else
+                                tvItems.Nodes(.Kind).Nodes(.Name).Checked = False
+                                If .Stock > 0 Then
+                                    tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Black
+                                Else
+                                    tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.DimGray
+                                End If
+                            End If
+                        End With
+                    Next
+                    cbbClient.Text = currentOrder.Client.Name
+                    lblTotal.Text = currentOrder.Total.ToString("R$ 0.00")
+                End If
+
+            Case FormTypes.Purchase
+                If Main.purchases.ContainsKey(tbID.Text) Then
+                    currentPurchase = Main.purchases(tbID.Text)
+                    For Each p In currentPurchase.Items.Values
+                        With p
+                            If .Quantity > 0 Then
+                                tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
+                                tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Red
+                                Dim row = {p.Quantity.ToString + " x " + p.Code, p.Value.ToString("R$ 0.00")}
+                                itemTable.Rows.Add(row)
+                            Else
+                                tvItems.Nodes(.Kind).Nodes(.Name).Checked = False
+                                If .Stock > 0 Then
+                                    tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Black
+                                Else
+                                    tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.DimGray
+                                End If
+                            End If
+                        End With
+                    Next
+                    lblTotal.Text = currentPurchase.Total.ToString("R$ 0.00")
+                End If
+
+        End Select
+
+        lvItems.Rows.Clear()
+        lvItems.Columns(1).Width = 100
+        With itemTable
+            For r = 0 To .Rows.Count - 1
+                lvItems.Rows.Add()
+                lvItems.Item(0, r).Value = .Rows(r).Item(0)
+                lvItems.Item(1, r).Value = .Rows(r).Item(1)
+            Next
+        End With
 
     End Sub
 
+    Private Sub tvItems_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles tvItems.AfterCheck
+        If Not IsNothing(e.Node.Parent) Then
+            e.Node.Parent.Checked = e.Node.Checked
+        End If
+        If e.Node.Checked Then
+            e.Node.ForeColor = Color.Red
+        Else
+            e.Node.ForeColor = Color.Black
+            If Not IsNothing(e.Node.Parent) Then
+                If products(e.Node.Parent.Text + "-" + e.Node.Text).Stock = 0 Then
+                    e.Node.ForeColor = Color.DimGray
+                End If
+            End If
+        End If
+    End Sub
 
 End Class

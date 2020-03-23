@@ -18,6 +18,47 @@ Public Class Order
         End Set
     End Property
 
+    Private p_SellingDate As Date
+    Public Property SellingDate() As Date
+        Get
+            Return p_SellingDate
+        End Get
+        Set(ByVal value As Date)
+            p_SellingDate = value
+        End Set
+    End Property
+
+    Private p_Observation As String
+    Public Property Observation() As String
+        Get
+            Return p_Observation
+        End Get
+        Set(ByVal value As String)
+            p_Observation = value
+        End Set
+    End Property
+
+    Private p_Items As New Dictionary(Of String, Product)
+    Public Property Items() As Dictionary(Of String, Product)
+        Get
+            Return p_Items
+        End Get
+        Set(ByVal value As Dictionary(Of String, Product))
+            p_Items = value
+        End Set
+    End Property
+
+    Public ReadOnly Property Total() As Double
+        Get
+            Dim value As Double
+            value = 0
+            For Each item In Items.Values
+                value += item.Quantity * item.Value
+            Next
+            Return value
+        End Get
+    End Property
+
     Private p_Client As Client
     Public Property Client() As Client
         Get
@@ -25,26 +66,6 @@ Public Class Order
         End Get
         Set(ByVal value As Client)
             p_Client = value
-        End Set
-    End Property
-
-    Private p_Items As New List(Of Product)
-    Public Property Items() As List(Of Product)
-        Get
-            Return p_Items
-        End Get
-        Set(ByVal value As List(Of Product))
-            p_Items = value
-        End Set
-    End Property
-
-    Private p_Prices As New List(Of Double)
-    Public Property Prices() As List(Of Double)
-        Get
-            Return p_Prices
-        End Get
-        Set(ByVal value As List(Of Double))
-            p_Prices = value
         End Set
     End Property
 
