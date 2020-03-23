@@ -1,9 +1,0 @@
-C:\Users\pires\source\repos\StockControl\StockLib\bin\Debug\StockLib.dll
-C:\Users\pires\source\repos\StockControl\StockLib\bin\Debug\StockLib.pdb
-C:\Users\pires\source\repos\StockControl\StockLib\bin\Debug\StockLib.xml
-C:\Users\pires\source\repos\StockControl\StockLib\obj\Debug\StockLib.vbprojAssemblyReference.cache
-C:\Users\pires\source\repos\StockControl\StockLib\obj\Debug\StockLib.Resources.resources
-C:\Users\pires\source\repos\StockControl\StockLib\obj\Debug\StockLib.vbproj.GenerateResource.cache
-C:\Users\pires\source\repos\StockControl\StockLib\obj\Debug\StockLib.dll
-C:\Users\pires\source\repos\StockControl\StockLib\obj\Debug\StockLib.xml
-C:\Users\pires\source\repos\StockControl\StockLib\obj\Debug\StockLib.pdb
