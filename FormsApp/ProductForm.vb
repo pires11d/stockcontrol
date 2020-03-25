@@ -6,7 +6,7 @@
 ''' </summary>
 Public Class ProductForm
 
-    Public productSchema As New ProductHistory
+    Public historySchema As New ProductHistory
 
     Public Sub New(product As Product)
 
@@ -43,7 +43,9 @@ Public Class ProductForm
             .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
         End With
 
+        'SETS FORM INFORMATION BASED ON THE PRODUCT AND ITS TABLE
         Me.Text = product.Code
+        Me.Size = lvHistory.Size
 
     End Sub
 

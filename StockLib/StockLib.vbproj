@@ -75,6 +75,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProductHistory.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ProductHistory.vb">
+      <DependentUpon>ProductHistory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ProductStock.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductStock.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Purchase.vb" />
     <Compile Include="Extensions.vb" />
     <Compile Include="Gas.vb" />
@@ -127,6 +135,17 @@
     </None>
     <None Include="ProductHistory.xss">
       <DependentUpon>ProductHistory.xsd</DependentUpon>
+    </None>
+    <None Include="ProductStock.xsc">
+      <DependentUpon>ProductStock.xsd</DependentUpon>
+    </None>
+    <None Include="ProductStock.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductStock.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="ProductStock.xss">
+      <DependentUpon>ProductStock.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

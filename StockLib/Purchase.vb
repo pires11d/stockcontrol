@@ -48,6 +48,18 @@ Public Class Purchase
         End Set
     End Property
 
+    Public ReadOnly Property PurchaseList() As List(Of String)
+        Get
+            Return Items.Values.Select(Function(x) x.Quantity.ToString + " x " + x.Code).ToList
+        End Get
+    End Property
+
+    Public ReadOnly Property CostList() As List(Of String)
+        Get
+            Return Items.Values.Select(Function(x) x.Value.ToString("$0.00")).ToList
+        End Get
+    End Property
+
     Public ReadOnly Property Total() As Double
         Get
             Dim value As Double

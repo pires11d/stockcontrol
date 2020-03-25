@@ -14,6 +14,7 @@ Public Module Main
     Public tablePurchases As New DataTable
     Public tableClients As New DataTable
     Public tableVendors As New DataTable
+    Public tableResp As New DataTable
     Public clients As New Dictionary(Of String, Client)
     Public vendors As New Dictionary(Of String, Vendor)
     Public products As New Dictionary(Of String, Product)
@@ -53,6 +54,7 @@ Public Module Main
         'On Error Resume Next
 
         tableVendors = DataTableFromCSV(appDataFolder + "tableVendor.csv", True, "|")
+        tableResp = DataTableFromCSV(appDataFolder + "tableResp.csv", True, "|")
         tableClients = DataTableFromCSV(appDataFolder + "tableClients.csv", True, "|")
         LoadClients()
 
@@ -62,7 +64,6 @@ Public Module Main
         tablePurchases = DataTableFromCSV(appDataFolder + "tablePurchases.csv", True, "|")
         LoadPurchases()
 
-        tableStock = DataTableFromCSV(appDataFolder + "tableStock.csv", True, "|")
         tableProducts = DataTableFromCSV(appDataFolder + "tableProducts.csv", True, "|")
         LoadProducts()
 
@@ -125,8 +126,9 @@ Public Module Main
         Next
 
     End Sub
+
     ''' <summary>
-    ''' Loads all client information into a list of Client objects
+    ''' Loads all client information into a dictionary of Client objects
     ''' </summary>
     Public Sub LoadClients()
 
@@ -145,6 +147,9 @@ Public Module Main
 
     End Sub
 
+    ''' <summary>
+    ''' Loads all order information into a dictionary of Order objects
+    ''' </summary>
     Public Sub LoadOrders()
 
         Try
@@ -156,7 +161,10 @@ Public Module Main
         With tableOrders
             For i = 0 To .Rows.Count - 1
                 Dim o As New Order(.Rows(i).Item("ID"))
-                o.SellingDate = DateValue(.Rows(i).Item("DATA1"))
+                o.SellingDate = DateValue(.Rows(i).Item("DATA1").ToString.ToDateNotNull)
+                o.RetrievingDate = DateValue(.Rows(i).Item("DATA2").ToString.ToDateNotNull)
+                o.SellingResponsible = .Rows(i).Item("RESP1")
+                o.RetrievingResponsible = .Rows(i).Item("RESP2")
                 o.Items.Clear()
                 Dim items = Split(.Rows(i).Item("PEDIDO"), ";").ToList
                 Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
@@ -180,14 +188,16 @@ Public Module Main
 
     End Sub
 
-
+    ''' <summary>
+    ''' Loads all order information into a dictionary of Purchase objects
+    ''' </summary>
     Public Sub LoadPurchases()
 
         purchases.Clear()
         With tablePurchases
             For i = 0 To .Rows.Count - 1
                 Dim p As New Purchase(.Rows(i).Item("ID"))
-                p.BuyingDate = DateValue(.Rows(i).Item("DATA"))
+                p.BuyingDate = DateValue(.Rows(i).Item("DATA").ToString.ToZero)
                 p.Items.Clear()
                 Dim items = Split(.Rows(i).Item("COMPRA"), ";").ToList
                 Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
@@ -209,5 +219,47 @@ Public Module Main
 
     End Sub
 
+    Public Sub UpdateTables()
+
+        With tableOrders
+            For i = 0 To .Rows.Count - 1
+                Dim order = orders(.Rows(i).Item("ID"))
+                .Rows(i).Item("CLIENTE") = order.Client.Name
+                '.Rows(i).Item("ITENS") = 
+                .Rows(i).Item("DATA1") = order.SellingDate.ToShortDateString
+                .Rows(i).Item("RESP1") = order.SellingResponsible
+                .Rows(i).Item("DATA2") = order.RetrievingDate.ToShortDateString
+                .Rows(i).Item("RESP2") = order.RetrievingResponsible
+                '.Rows(i).Item("RECOLHIDO")
+                '.Rows(i).Item("CHOPEIRA")
+                .Rows(i).Item("PEDIDO") = Join(order.OrderList.ToArray, "; ")
+                .Rows(i).Item("PREÇOS") = Join(order.PriceList.ToArray, "; ")
+                .Rows(i).Item("TOTAL") = order.Total
+                .Rows(i).Item("OBS") = order.Observation
+            Next
+        End With
+
+        Try
+            WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
+        Catch ex As Exception
+        End Try
+
+        With tablePurchases
+            For j = 0 To .Rows.Count - 1
+                Dim purchase = purchases(.Rows(j).Item("ID"))
+                .Rows(j).Item("DATA") = purchase.BuyingDate.ToShortDateString
+                .Rows(j).Item("COMPRA") = Join(purchase.PurchaseList.ToArray, "; ")
+                .Rows(j).Item("PREÇOS") = Join(purchase.CostList.ToArray, "; ")
+                .Rows(j).Item("TOTAL") = purchase.Total
+                .Rows(j).Item("OBS") = purchase.Observation
+            Next
+        End With
+
+        Try
+            WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
+        Catch ex As Exception
+        End Try
+
+    End Sub
 
 End Module

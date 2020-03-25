@@ -23,19 +23,17 @@ Partial Class ProductForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductForm))
         Me.lvHistory = New System.Windows.Forms.DataGridView()
-        Me.DateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DescriptionDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.InletsDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.OutletsDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.StockDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PurchasesDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.OrdersDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BalanceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DESCRIÇÃODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ENTRADADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SAÍDADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SALDODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ENTRADADataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SAÍDADataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SALDODataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductHistorySchema = New StockLib.ProductHistory()
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProductHistorySchema, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -47,104 +45,88 @@ Partial Class ProductForm
         Me.lvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.lvHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.lvHistory.BackgroundColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.lvHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.lvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.lvHistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DateDataGridViewTextBoxColumn, Me.IDDataGridViewTextBoxColumn, Me.DescriptionDataGridViewTextBoxColumn, Me.InletsDataGridViewTextBoxColumn, Me.OutletsDataGridViewTextBoxColumn, Me.StockDataGridViewTextBoxColumn, Me.PurchasesDataGridViewTextBoxColumn, Me.OrdersDataGridViewTextBoxColumn, Me.BalanceDataGridViewTextBoxColumn})
+        Me.lvHistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DATADataGridViewTextBoxColumn, Me.IDDataGridViewTextBoxColumn, Me.DESCRIÇÃODataGridViewTextBoxColumn, Me.ENTRADADataGridViewTextBoxColumn, Me.SAÍDADataGridViewTextBoxColumn, Me.SALDODataGridViewTextBoxColumn, Me.ENTRADADataGridViewTextBoxColumn1, Me.SAÍDADataGridViewTextBoxColumn1, Me.SALDODataGridViewTextBoxColumn1})
         Me.lvHistory.DataMember = "HistoryTable"
         Me.lvHistory.DataSource = Me.ProductHistorySchema
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Red
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvHistory.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Red
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvHistory.DefaultCellStyle = DataGridViewCellStyle1
         Me.lvHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvHistory.Location = New System.Drawing.Point(0, 0)
         Me.lvHistory.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.lvHistory.MultiSelect = False
         Me.lvHistory.Name = "lvHistory"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.lvHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.lvHistory.Size = New System.Drawing.Size(1008, 281)
+        Me.lvHistory.Size = New System.Drawing.Size(1165, 281)
         Me.lvHistory.TabIndex = 3
         '
-        'DateDataGridViewTextBoxColumn
+        'DATADataGridViewTextBoxColumn
         '
-        Me.DateDataGridViewTextBoxColumn.DataPropertyName = "Date"
-        Me.DateDataGridViewTextBoxColumn.HeaderText = "Date"
-        Me.DateDataGridViewTextBoxColumn.Name = "DateDataGridViewTextBoxColumn"
-        Me.DateDataGridViewTextBoxColumn.Width = 79
+        Me.DATADataGridViewTextBoxColumn.DataPropertyName = "DATA"
+        Me.DATADataGridViewTextBoxColumn.HeaderText = "DATA"
+        Me.DATADataGridViewTextBoxColumn.Name = "DATADataGridViewTextBoxColumn"
+        Me.DATADataGridViewTextBoxColumn.Width = 87
         '
         'IDDataGridViewTextBoxColumn
         '
         Me.IDDataGridViewTextBoxColumn.DataPropertyName = "ID"
         Me.IDDataGridViewTextBoxColumn.HeaderText = "ID"
         Me.IDDataGridViewTextBoxColumn.Name = "IDDataGridViewTextBoxColumn"
-        Me.IDDataGridViewTextBoxColumn.Width = 53
+        Me.IDDataGridViewTextBoxColumn.Width = 54
         '
-        'DescriptionDataGridViewTextBoxColumn
+        'DESCRIÇÃODataGridViewTextBoxColumn
         '
-        Me.DescriptionDataGridViewTextBoxColumn.DataPropertyName = "Description"
-        Me.DescriptionDataGridViewTextBoxColumn.HeaderText = "Description"
-        Me.DescriptionDataGridViewTextBoxColumn.Name = "DescriptionDataGridViewTextBoxColumn"
-        Me.DescriptionDataGridViewTextBoxColumn.Width = 138
+        Me.DESCRIÇÃODataGridViewTextBoxColumn.DataPropertyName = "DESCRIÇÃO"
+        Me.DESCRIÇÃODataGridViewTextBoxColumn.HeaderText = "DESCRIÇÃO"
+        Me.DESCRIÇÃODataGridViewTextBoxColumn.Name = "DESCRIÇÃODataGridViewTextBoxColumn"
+        Me.DESCRIÇÃODataGridViewTextBoxColumn.Width = 147
         '
-        'InletsDataGridViewTextBoxColumn
+        'ENTRADADataGridViewTextBoxColumn
         '
-        Me.InletsDataGridViewTextBoxColumn.DataPropertyName = "Inlets"
-        Me.InletsDataGridViewTextBoxColumn.HeaderText = "Inlets"
-        Me.InletsDataGridViewTextBoxColumn.Name = "InletsDataGridViewTextBoxColumn"
-        Me.InletsDataGridViewTextBoxColumn.Width = 82
+        Me.ENTRADADataGridViewTextBoxColumn.DataPropertyName = "ENTRADA"
+        Me.ENTRADADataGridViewTextBoxColumn.HeaderText = "ENTRADA"
+        Me.ENTRADADataGridViewTextBoxColumn.Name = "ENTRADADataGridViewTextBoxColumn"
+        Me.ENTRADADataGridViewTextBoxColumn.Width = 123
         '
-        'OutletsDataGridViewTextBoxColumn
+        'SAÍDADataGridViewTextBoxColumn
         '
-        Me.OutletsDataGridViewTextBoxColumn.DataPropertyName = "Outlets"
-        Me.OutletsDataGridViewTextBoxColumn.HeaderText = "Outlets"
-        Me.OutletsDataGridViewTextBoxColumn.Name = "OutletsDataGridViewTextBoxColumn"
-        Me.OutletsDataGridViewTextBoxColumn.Width = 99
+        Me.SAÍDADataGridViewTextBoxColumn.DataPropertyName = "SAÍDA"
+        Me.SAÍDADataGridViewTextBoxColumn.HeaderText = "SAÍDA"
+        Me.SAÍDADataGridViewTextBoxColumn.Name = "SAÍDADataGridViewTextBoxColumn"
+        Me.SAÍDADataGridViewTextBoxColumn.Width = 93
         '
-        'StockDataGridViewTextBoxColumn
+        'SALDODataGridViewTextBoxColumn
         '
-        Me.StockDataGridViewTextBoxColumn.DataPropertyName = "Stock"
-        Me.StockDataGridViewTextBoxColumn.HeaderText = "Stock"
-        Me.StockDataGridViewTextBoxColumn.Name = "StockDataGridViewTextBoxColumn"
-        Me.StockDataGridViewTextBoxColumn.Width = 86
+        Me.SALDODataGridViewTextBoxColumn.DataPropertyName = "SALDO"
+        Me.SALDODataGridViewTextBoxColumn.HeaderText = "SALDO"
+        Me.SALDODataGridViewTextBoxColumn.Name = "SALDODataGridViewTextBoxColumn"
+        Me.SALDODataGridViewTextBoxColumn.Width = 99
         '
-        'PurchasesDataGridViewTextBoxColumn
+        'ENTRADADataGridViewTextBoxColumn1
         '
-        Me.PurchasesDataGridViewTextBoxColumn.DataPropertyName = "Purchases"
-        Me.PurchasesDataGridViewTextBoxColumn.HeaderText = "Purchases"
-        Me.PurchasesDataGridViewTextBoxColumn.Name = "PurchasesDataGridViewTextBoxColumn"
-        Me.PurchasesDataGridViewTextBoxColumn.Width = 127
+        Me.ENTRADADataGridViewTextBoxColumn1.DataPropertyName = "ENTRADA($)"
+        Me.ENTRADADataGridViewTextBoxColumn1.HeaderText = "ENTRADA($)"
+        Me.ENTRADADataGridViewTextBoxColumn1.Name = "ENTRADADataGridViewTextBoxColumn1"
+        Me.ENTRADADataGridViewTextBoxColumn1.Width = 148
         '
-        'OrdersDataGridViewTextBoxColumn
+        'SAÍDADataGridViewTextBoxColumn1
         '
-        Me.OrdersDataGridViewTextBoxColumn.DataPropertyName = "Orders"
-        Me.OrdersDataGridViewTextBoxColumn.HeaderText = "Orders"
-        Me.OrdersDataGridViewTextBoxColumn.Name = "OrdersDataGridViewTextBoxColumn"
-        Me.OrdersDataGridViewTextBoxColumn.Width = 96
+        Me.SAÍDADataGridViewTextBoxColumn1.DataPropertyName = "SAÍDA($)"
+        Me.SAÍDADataGridViewTextBoxColumn1.HeaderText = "SAÍDA($)"
+        Me.SAÍDADataGridViewTextBoxColumn1.Name = "SAÍDADataGridViewTextBoxColumn1"
+        Me.SAÍDADataGridViewTextBoxColumn1.Width = 118
         '
-        'BalanceDataGridViewTextBoxColumn
+        'SALDODataGridViewTextBoxColumn1
         '
-        Me.BalanceDataGridViewTextBoxColumn.DataPropertyName = "Balance"
-        Me.BalanceDataGridViewTextBoxColumn.HeaderText = "Balance"
-        Me.BalanceDataGridViewTextBoxColumn.Name = "BalanceDataGridViewTextBoxColumn"
-        Me.BalanceDataGridViewTextBoxColumn.Width = 112
+        Me.SALDODataGridViewTextBoxColumn1.DataPropertyName = "SALDO($)"
+        Me.SALDODataGridViewTextBoxColumn1.HeaderText = "SALDO($)"
+        Me.SALDODataGridViewTextBoxColumn1.Name = "SALDODataGridViewTextBoxColumn1"
+        Me.SALDODataGridViewTextBoxColumn1.Width = 124
         '
         'ProductHistorySchema
         '
@@ -155,8 +137,8 @@ Partial Class ProductForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 22.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1008, 281)
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ClientSize = New System.Drawing.Size(1165, 281)
         Me.Controls.Add(Me.lvHistory)
         Me.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -172,9 +154,7 @@ Partial Class ProductForm
     End Sub
 
     Friend WithEvents lvHistory As DataGridView
-    Friend WithEvents ProductHistorySchema As StockLib.ProductHistory
     Friend WithEvents DateDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents IDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents DescriptionDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents InletsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents OutletsDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
@@ -182,4 +162,14 @@ Partial Class ProductForm
     Friend WithEvents PurchasesDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents OrdersDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents BalanceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DATADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents IDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DESCRIÇÃODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ENTRADADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents SAÍDADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents SALDODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ENTRADADataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents SAÍDADataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents SALDODataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents ProductHistorySchema As StockLib.ProductHistory
 End Class

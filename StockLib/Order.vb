@@ -28,6 +28,58 @@ Public Class Order
         End Set
     End Property
 
+    Private p_RetrievingDate As Date
+    Public Property RetrievingDate() As Date
+        Get
+            Return p_RetrievingDate
+        End Get
+        Set(ByVal value As Date)
+            p_RetrievingDate = value
+        End Set
+    End Property
+
+    Private p_SellingResponsible As String
+    Public Property SellingResponsible() As String
+        Get
+            Return p_SellingResponsible
+        End Get
+        Set(ByVal value As String)
+            p_SellingResponsible = value
+        End Set
+    End Property
+
+    Private p_RetrievingResponsible As String
+    Public Property RetrievingResponsible() As String
+        Get
+            Return p_RetrievingResponsible
+        End Get
+        Set(ByVal value As String)
+            p_RetrievingResponsible = value
+        End Set
+    End Property
+
+    Private p_ItemList As List(Of String)
+    Public Property ItemList() As List(Of String)
+        Get
+            Return p_ItemList
+        End Get
+        Set(ByVal value As List(Of String))
+            p_ItemList = value
+        End Set
+    End Property
+
+    Public ReadOnly Property OrderList() As List(Of String)
+        Get
+            Return Items.Values.Select(Function(x) x.Quantity.ToString + " x " + x.Code).ToList
+        End Get
+    End Property
+
+    Public ReadOnly Property PriceList() As List(Of String)
+        Get
+            Return Items.Values.Select(Function(x) x.Value.ToString("$0.00")).ToList
+        End Get
+    End Property
+
     Private p_Observation As String
     Public Property Observation() As String
         Get
@@ -67,6 +119,22 @@ Public Class Order
         Set(ByVal value As Client)
             p_Client = value
         End Set
+    End Property
+
+    Private p_Retrieved As Boolean
+    Public Property Retrieved() As Boolean
+        Get
+            Return p_Retrieved
+        End Get
+        Set(ByVal value As Boolean)
+            p_Retrieved = value
+        End Set
+    End Property
+
+    Public ReadOnly Property IncludesCooler() As Boolean
+        Get
+            Return CoolerList.Count > 0
+        End Get
     End Property
 
     Private p_BarrelList As New List(Of Barrel)

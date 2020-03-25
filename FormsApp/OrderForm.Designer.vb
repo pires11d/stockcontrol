@@ -45,45 +45,63 @@ Partial Class OrderForm
         Me.lblStockUnit = New System.Windows.Forms.Label()
         Me.lblProducts = New System.Windows.Forms.Label()
         Me.lblClient = New System.Windows.Forms.Label()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.lvItems = New System.Windows.Forms.DataGridView()
         Me.ItemColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PriceColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnOK = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cbbResp1 = New System.Windows.Forms.ComboBox()
+        Me.cbbResp2 = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.tbObs = New System.Windows.Forms.TextBox()
+        Me.menu = New System.Windows.Forms.MenuStrip()
+        Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PurchaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OrderStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.datePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.datePicker2 = New System.Windows.Forms.DateTimePicker()
         CType(Me.lvItems, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'tvItems
         '
         Me.tvItems.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.tvItems.BackColor = System.Drawing.SystemColors.Control
         Me.tvItems.CheckBoxes = True
         Me.tvItems.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tvItems.ForeColor = System.Drawing.Color.Black
         Me.tvItems.Indent = 40
         Me.tvItems.ItemHeight = 30
-        Me.tvItems.Location = New System.Drawing.Point(14, 147)
+        Me.tvItems.Location = New System.Drawing.Point(14, 166)
         Me.tvItems.Margin = New System.Windows.Forms.Padding(5)
         Me.tvItems.Name = "tvItems"
         Me.tvItems.ShowNodeToolTips = True
-        Me.tvItems.ShowPlusMinus = False
-        Me.tvItems.Size = New System.Drawing.Size(300, 440)
+        Me.tvItems.Size = New System.Drawing.Size(300, 442)
         Me.tvItems.TabIndex = 0
         '
         'cbbClient
         '
+        Me.cbbClient.BackColor = System.Drawing.SystemColors.Control
         Me.cbbClient.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbClient.FormattingEnabled = True
-        Me.cbbClient.Location = New System.Drawing.Point(158, 60)
+        Me.cbbClient.Location = New System.Drawing.Point(155, 82)
         Me.cbbClient.Margin = New System.Windows.Forms.Padding(5)
         Me.cbbClient.Name = "cbbClient"
-        Me.cbbClient.Size = New System.Drawing.Size(292, 31)
-        Me.cbbClient.TabIndex = 1
+        Me.cbbClient.Size = New System.Drawing.Size(237, 31)
+        Me.cbbClient.TabIndex = 2
         '
         'lblID
         '
         Me.lblID.AutoSize = True
         Me.lblID.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblID.Location = New System.Drawing.Point(14, 17)
+        Me.lblID.Location = New System.Drawing.Point(14, 36)
         Me.lblID.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblID.Name = "lblID"
         Me.lblID.Size = New System.Drawing.Size(96, 23)
@@ -92,18 +110,19 @@ Partial Class OrderForm
         '
         'tbID
         '
+        Me.tbID.BackColor = System.Drawing.SystemColors.Info
         Me.tbID.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbID.Location = New System.Drawing.Point(158, 14)
+        Me.tbID.Location = New System.Drawing.Point(155, 33)
         Me.tbID.Margin = New System.Windows.Forms.Padding(5)
         Me.tbID.Name = "tbID"
-        Me.tbID.Size = New System.Drawing.Size(156, 30)
-        Me.tbID.TabIndex = 3
+        Me.tbID.Size = New System.Drawing.Size(121, 30)
+        Me.tbID.TabIndex = 1
         '
         'lblOrder
         '
         Me.lblOrder.AutoSize = True
         Me.lblOrder.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOrder.Location = New System.Drawing.Point(537, 115)
+        Me.lblOrder.Location = New System.Drawing.Point(537, 134)
         Me.lblOrder.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblOrder.Name = "lblOrder"
         Me.lblOrder.Size = New System.Drawing.Size(158, 23)
@@ -114,7 +133,7 @@ Partial Class OrderForm
         '
         Me.lblKind.AutoSize = True
         Me.lblKind.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblKind.Location = New System.Drawing.Point(322, 147)
+        Me.lblKind.Location = New System.Drawing.Point(322, 166)
         Me.lblKind.Name = "lblKind"
         Me.lblKind.Size = New System.Drawing.Size(51, 22)
         Me.lblKind.TabIndex = 5
@@ -124,7 +143,7 @@ Partial Class OrderForm
         '
         Me.lblName.AutoSize = True
         Me.lblName.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblName.Location = New System.Drawing.Point(322, 189)
+        Me.lblName.Location = New System.Drawing.Point(322, 208)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(98, 23)
         Me.lblName.TabIndex = 5
@@ -134,7 +153,7 @@ Partial Class OrderForm
         '
         Me.lblBrand.AutoSize = True
         Me.lblBrand.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBrand.Location = New System.Drawing.Point(322, 235)
+        Me.lblBrand.Location = New System.Drawing.Point(322, 254)
         Me.lblBrand.Name = "lblBrand"
         Me.lblBrand.Size = New System.Drawing.Size(84, 22)
         Me.lblBrand.TabIndex = 5
@@ -144,7 +163,7 @@ Partial Class OrderForm
         '
         Me.lblQtty.AutoSize = True
         Me.lblQtty.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQtty.Location = New System.Drawing.Point(322, 295)
+        Me.lblQtty.Location = New System.Drawing.Point(322, 310)
         Me.lblQtty.Name = "lblQtty"
         Me.lblQtty.Size = New System.Drawing.Size(128, 23)
         Me.lblQtty.TabIndex = 5
@@ -154,7 +173,7 @@ Partial Class OrderForm
         '
         Me.lblPrice.AutoSize = True
         Me.lblPrice.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPrice.Location = New System.Drawing.Point(322, 470)
+        Me.lblPrice.Location = New System.Drawing.Point(322, 489)
         Me.lblPrice.Name = "lblPrice"
         Me.lblPrice.Size = New System.Drawing.Size(68, 23)
         Me.lblPrice.TabIndex = 5
@@ -164,7 +183,7 @@ Partial Class OrderForm
         '
         Me.lblStockLabel.AutoSize = True
         Me.lblStockLabel.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStockLabel.Location = New System.Drawing.Point(322, 385)
+        Me.lblStockLabel.Location = New System.Drawing.Point(322, 404)
         Me.lblStockLabel.Name = "lblStockLabel"
         Me.lblStockLabel.Size = New System.Drawing.Size(120, 23)
         Me.lblStockLabel.TabIndex = 5
@@ -174,7 +193,7 @@ Partial Class OrderForm
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(822, 354)
+        Me.Label10.Location = New System.Drawing.Point(816, 489)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(69, 23)
         Me.Label10.TabIndex = 5
@@ -183,7 +202,7 @@ Partial Class OrderForm
         'lblStock
         '
         Me.lblStock.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStock.Location = New System.Drawing.Point(322, 419)
+        Me.lblStock.Location = New System.Drawing.Point(322, 438)
         Me.lblStock.Name = "lblStock"
         Me.lblStock.Size = New System.Drawing.Size(69, 23)
         Me.lblStock.TabIndex = 5
@@ -192,11 +211,12 @@ Partial Class OrderForm
         '
         'tbQtty
         '
+        Me.tbQtty.BackColor = System.Drawing.SystemColors.Control
         Me.tbQtty.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbQtty.Location = New System.Drawing.Point(326, 335)
+        Me.tbQtty.Location = New System.Drawing.Point(327, 342)
         Me.tbQtty.Name = "tbQtty"
         Me.tbQtty.Size = New System.Drawing.Size(63, 31)
-        Me.tbQtty.TabIndex = 6
+        Me.tbQtty.TabIndex = 3
         Me.tbQtty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lblTotal
@@ -204,7 +224,7 @@ Partial Class OrderForm
         Me.lblTotal.AutoSize = True
         Me.lblTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.Red
-        Me.lblTotal.Location = New System.Drawing.Point(822, 390)
+        Me.lblTotal.Location = New System.Drawing.Point(816, 523)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(37, 23)
         Me.lblTotal.TabIndex = 5
@@ -212,18 +232,19 @@ Partial Class OrderForm
         '
         'tbPrice
         '
+        Me.tbPrice.BackColor = System.Drawing.SystemColors.Control
         Me.tbPrice.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPrice.Location = New System.Drawing.Point(326, 508)
+        Me.tbPrice.Location = New System.Drawing.Point(327, 521)
         Me.tbPrice.Name = "tbPrice"
         Me.tbPrice.Size = New System.Drawing.Size(65, 31)
-        Me.tbPrice.TabIndex = 6
+        Me.tbPrice.TabIndex = 4
         Me.tbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lblPriceUnit
         '
         Me.lblPriceUnit.AutoSize = True
         Me.lblPriceUnit.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPriceUnit.Location = New System.Drawing.Point(393, 510)
+        Me.lblPriceUnit.Location = New System.Drawing.Point(394, 523)
         Me.lblPriceUnit.Name = "lblPriceUnit"
         Me.lblPriceUnit.Size = New System.Drawing.Size(49, 23)
         Me.lblPriceUnit.TabIndex = 5
@@ -233,7 +254,7 @@ Partial Class OrderForm
         '
         Me.lblQttyUnit.AutoSize = True
         Me.lblQttyUnit.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQttyUnit.Location = New System.Drawing.Point(393, 419)
+        Me.lblQttyUnit.Location = New System.Drawing.Point(393, 438)
         Me.lblQttyUnit.Name = "lblQttyUnit"
         Me.lblQttyUnit.Size = New System.Drawing.Size(18, 23)
         Me.lblQttyUnit.TabIndex = 5
@@ -243,7 +264,7 @@ Partial Class OrderForm
         '
         Me.lblStockUnit.AutoSize = True
         Me.lblStockUnit.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStockUnit.Location = New System.Drawing.Point(393, 337)
+        Me.lblStockUnit.Location = New System.Drawing.Point(393, 342)
         Me.lblStockUnit.Name = "lblStockUnit"
         Me.lblStockUnit.Size = New System.Drawing.Size(18, 23)
         Me.lblStockUnit.TabIndex = 5
@@ -253,7 +274,7 @@ Partial Class OrderForm
         '
         Me.lblProducts.AutoSize = True
         Me.lblProducts.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblProducts.Location = New System.Drawing.Point(14, 115)
+        Me.lblProducts.Location = New System.Drawing.Point(14, 134)
         Me.lblProducts.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblProducts.Name = "lblProducts"
         Me.lblProducts.Size = New System.Drawing.Size(206, 23)
@@ -264,20 +285,12 @@ Partial Class OrderForm
         '
         Me.lblClient.AutoSize = True
         Me.lblClient.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblClient.Location = New System.Drawing.Point(14, 63)
+        Me.lblClient.Location = New System.Drawing.Point(14, 82)
         Me.lblClient.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblClient.Name = "lblClient"
         Me.lblClient.Size = New System.Drawing.Size(81, 23)
         Me.lblClient.TabIndex = 2
         Me.lblClient.Text = "Cliente:"
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(944, 24)
-        Me.MenuStrip1.TabIndex = 9
-        Me.MenuStrip1.Text = "MenuStrip1"
         '
         'lvItems
         '
@@ -294,12 +307,13 @@ Partial Class OrderForm
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.lvItems.DefaultCellStyle = DataGridViewCellStyle1
-        Me.lvItems.Location = New System.Drawing.Point(541, 147)
+        Me.lvItems.Location = New System.Drawing.Point(541, 166)
         Me.lvItems.Name = "lvItems"
         Me.lvItems.RowHeadersVisible = False
         Me.lvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.lvItems.Size = New System.Drawing.Size(391, 195)
+        Me.lvItems.Size = New System.Drawing.Size(391, 300)
         Me.lvItems.TabIndex = 10
+        Me.lvItems.TabStop = False
         '
         'ItemColumn
         '
@@ -311,13 +325,175 @@ Partial Class OrderForm
         Me.PriceColumn.HeaderText = "Preço"
         Me.PriceColumn.Name = "PriceColumn"
         '
+        'btnOK
+        '
+        Me.btnOK.Location = New System.Drawing.Point(820, 566)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(112, 42)
+        Me.btnOK.TabIndex = 11
+        Me.btnOK.Text = "OK"
+        Me.btnOK.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(434, 35)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(86, 23)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Entrega:"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(434, 82)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(94, 23)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Retirada:"
+        '
+        'cbbResp1
+        '
+        Me.cbbResp1.BackColor = System.Drawing.SystemColors.Control
+        Me.cbbResp1.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbbResp1.FormattingEnabled = True
+        Me.cbbResp1.Location = New System.Drawing.Point(798, 31)
+        Me.cbbResp1.Margin = New System.Windows.Forms.Padding(5)
+        Me.cbbResp1.Name = "cbbResp1"
+        Me.cbbResp1.Size = New System.Drawing.Size(132, 31)
+        Me.cbbResp1.TabIndex = 6
+        '
+        'cbbResp2
+        '
+        Me.cbbResp2.BackColor = System.Drawing.SystemColors.Control
+        Me.cbbResp2.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbbResp2.FormattingEnabled = True
+        Me.cbbResp2.Location = New System.Drawing.Point(798, 79)
+        Me.cbbResp2.Margin = New System.Windows.Forms.Padding(5)
+        Me.cbbResp2.Name = "cbbResp2"
+        Me.cbbResp2.Size = New System.Drawing.Size(132, 31)
+        Me.cbbResp2.TabIndex = 8
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(726, 35)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(64, 23)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "Resp.:"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(726, 82)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(64, 23)
+        Me.Label4.TabIndex = 2
+        Me.Label4.Text = "Resp.:"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(537, 489)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(131, 23)
+        Me.Label5.TabIndex = 5
+        Me.Label5.Text = "Observação:"
+        '
+        'tbObs
+        '
+        Me.tbObs.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbObs.Location = New System.Drawing.Point(541, 521)
+        Me.tbObs.Multiline = True
+        Me.tbObs.Name = "tbObs"
+        Me.tbObs.Size = New System.Drawing.Size(249, 87)
+        Me.tbObs.TabIndex = 10
+        Me.tbObs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'menu
+        '
+        Me.menu.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem, Me.AddToolStripMenuItem, Me.RemoveToolStripMenuItem})
+        Me.menu.Location = New System.Drawing.Point(0, 0)
+        Me.menu.Name = "menu"
+        Me.menu.Size = New System.Drawing.Size(944, 25)
+        Me.menu.TabIndex = 12
+        Me.menu.Text = "MenuStrip1"
+        '
+        'NewToolStripMenuItem
+        '
+        Me.NewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PurchaseToolStripMenuItem, Me.OrderStripMenuItem})
+        Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
+        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(67, 21)
+        Me.NewToolStripMenuItem.Text = "Novo(a)"
+        '
+        'PurchaseToolStripMenuItem
+        '
+        Me.PurchaseToolStripMenuItem.Name = "PurchaseToolStripMenuItem"
+        Me.PurchaseToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
+        Me.PurchaseToolStripMenuItem.Text = "Compra"
+        '
+        'OrderStripMenuItem
+        '
+        Me.OrderStripMenuItem.Name = "OrderStripMenuItem"
+        Me.OrderStripMenuItem.Size = New System.Drawing.Size(123, 22)
+        Me.OrderStripMenuItem.Text = "Pedido"
+        '
+        'AddToolStripMenuItem
+        '
+        Me.AddToolStripMenuItem.Enabled = False
+        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(75, 21)
+        Me.AddToolStripMenuItem.Text = "Adicionar"
+        '
+        'RemoveToolStripMenuItem
+        '
+        Me.RemoveToolStripMenuItem.Enabled = False
+        Me.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem"
+        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(72, 21)
+        Me.RemoveToolStripMenuItem.Text = "Remover"
+        '
+        'datePicker1
+        '
+        Me.datePicker1.CalendarMonthBackground = System.Drawing.SystemColors.Control
+        Me.datePicker1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.datePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datePicker1.Location = New System.Drawing.Point(541, 31)
+        Me.datePicker1.Name = "datePicker1"
+        Me.datePicker1.Size = New System.Drawing.Size(141, 31)
+        Me.datePicker1.TabIndex = 5
+        '
+        'datePicker2
+        '
+        Me.datePicker2.CalendarMonthBackground = System.Drawing.SystemColors.Control
+        Me.datePicker2.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.datePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datePicker2.Location = New System.Drawing.Point(541, 79)
+        Me.datePicker2.Name = "datePicker2"
+        Me.datePicker2.Size = New System.Drawing.Size(141, 31)
+        Me.datePicker2.TabIndex = 7
+        '
         'OrderForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(944, 601)
+        Me.ClientSize = New System.Drawing.Size(944, 627)
+        Me.Controls.Add(Me.datePicker2)
+        Me.Controls.Add(Me.datePicker1)
+        Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.lvItems)
         Me.Controls.Add(Me.lblProducts)
+        Me.Controls.Add(Me.tbObs)
         Me.Controls.Add(Me.tbPrice)
         Me.Controls.Add(Me.tbQtty)
         Me.Controls.Add(Me.Label10)
@@ -325,6 +501,7 @@ Partial Class OrderForm
         Me.Controls.Add(Me.lblStockUnit)
         Me.Controls.Add(Me.lblQttyUnit)
         Me.Controls.Add(Me.lblPriceUnit)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lblPrice)
         Me.Controls.Add(Me.lblTotal)
         Me.Controls.Add(Me.lblStock)
@@ -335,18 +512,26 @@ Partial Class OrderForm
         Me.Controls.Add(Me.tbID)
         Me.Controls.Add(Me.lblOrder)
         Me.Controls.Add(Me.lblClient)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblID)
+        Me.Controls.Add(Me.cbbResp2)
+        Me.Controls.Add(Me.cbbResp1)
         Me.Controls.Add(Me.cbbClient)
         Me.Controls.Add(Me.tvItems)
-        Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.menu)
         Me.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MainMenuStrip = Me.MenuStrip1
+        Me.MainMenuStrip = Me.menu
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "OrderForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "OrderForm"
         CType(Me.lvItems, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.menu.ResumeLayout(False)
+        Me.menu.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -373,8 +558,24 @@ Partial Class OrderForm
     Friend WithEvents lblStockUnit As Label
     Friend WithEvents lblProducts As Label
     Friend WithEvents lblClient As Label
-    Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents lvItems As DataGridView
     Friend WithEvents ItemColumn As DataGridViewTextBoxColumn
     Friend WithEvents PriceColumn As DataGridViewTextBoxColumn
+    Friend WithEvents btnOK As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents cbbResp1 As ComboBox
+    Friend WithEvents cbbResp2 As ComboBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents tbObs As TextBox
+    Friend WithEvents menu As MenuStrip
+    Friend WithEvents NewToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PurchaseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OrderStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemoveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents datePicker1 As DateTimePicker
+    Friend WithEvents datePicker2 As DateTimePicker
 End Class

@@ -8,19 +8,38 @@ Imports StockLib.Extensions
 ''' Has all important tables displayed as DataGridView objects.
 ''' </summary>
 Public Class MainForm
+
+    Public stockSchema As New ProductStock
+
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         cbbCompany.SelectedIndex = 0
         Main.Start()
         LoadTables()
-        'Main.LoadClients()
-        'Main.LoadProducts()
 
     End Sub
 
     Public Sub LoadTables()
 
-        lvStock.DataSource = tableStock
+        ProductStockSchema.StockTable.Clear()
+
+        With tableProducts
+            For i = 0 To .Rows.Count - 1
+                ProductStockSchema.StockTable.AddStockTableRow(.Rows(i).Item(0),
+                                                        .Rows(i).Item(1),
+                                                        CDbl(.Rows(i).Item(2).ToString.ToZero),
+                                                        .Rows(i).Item(3),
+                                                        CDbl(.Rows(i).Item(6).ToString.ToZero),
+                                                        CDbl(.Rows(i).Item(7).ToString.ToZero))
+            Next i
+        End With
+        With lvStock
+            .Columns(4).DefaultCellStyle.Format = "R$ 0.00"
+            .Columns(5).DefaultCellStyle.Format = "R$ 0.00"
+            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+        End With
+
+
         lvPurchases.DataSource = tablePurchases
         lvOrders.DataSource = tableOrders
         lvClients.DataSource = tableClients
@@ -86,7 +105,7 @@ Public Class MainForm
         End Select
 
         split.BackColor = Color.Black
-        lvOrders.DefaultCellStyle.BackColor = Color.LightSalmon
+        lvOrders.DefaultCellStyle.BackColor = Color.PeachPuff
         lvPurchases.DefaultCellStyle.BackColor = Color.LightBlue
         lvClients.DefaultCellStyle.BackColor = SystemColors.Control
 
@@ -120,6 +139,7 @@ Public Class MainForm
         Dim cells = lvStock.SelectedCells
 
         For Each cell As DataGridViewCell In cells
+            If Not cell.ColumnIndex = 0 Then Exit Sub
             Dim pID = lvStock(0, cell.RowIndex).Value.ToString
             For Each p In products.Values
                 If p.Code = pID Then

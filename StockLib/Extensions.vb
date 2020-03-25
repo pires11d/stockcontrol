@@ -31,6 +31,13 @@ Public Module Extensions
         Return If(IsNothing(arg) OrElse arg = "", 0, arg)
     End Function
 
+    <Extension()>
+    Public Function ToDateNotNull(ByVal arg As String) As String
+        If IsNothing(arg) OrElse arg = "" Then arg = Date.Today.ToString
+        If arg = Date.MinValue Then arg = Date.Today.ToString
+        Return arg
+    End Function
+
     ''' <summary>
     ''' Selects from the input strings the one that is in the program's current language
     ''' </summary>
