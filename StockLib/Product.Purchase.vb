@@ -38,21 +38,80 @@ Partial Public Class Product
             End Set
         End Property
 
-        Private p_Value As Double
-        Public Property Value() As Double
+        Private p_Cost As Double
+        Public Property Cost() As Double
             Get
-                Return p_Value
+                Return p_Cost
             End Get
             Set(ByVal value As Double)
-                p_Value = value
+                p_Cost = value
             End Set
         End Property
 
-        Public ReadOnly Property Cost() As Double
+        Public Property Value() As Double
             Get
-                Return Me.Value / Me.Quantity
+                Return Me.Cost * Me.Quantity
             End Get
+            Set(value As Double)
+                Me.Cost = value / Me.Quantity
+            End Set
         End Property
+
+        Private p_Stock As Double
+        Public Property Stock() As Double
+            Get
+                Return p_Stock
+            End Get
+            Set(ByVal value As Double)
+                p_Stock = value
+            End Set
+        End Property
+
+        Private p_Balance As Double
+        Public Property Balance() As Double
+            Get
+                Return p_Balance
+            End Get
+            Set(ByVal value As Double)
+                p_Balance = value
+            End Set
+        End Property
+
+        Private p_Observation As String
+        Public Property Observation() As String
+            Get
+                Return p_Observation
+            End Get
+            Set(ByVal value As String)
+                p_Observation = value
+            End Set
+        End Property
+
+        Public Property Description() As String
+            Get
+                Return Vendor.Name + " " + Observation
+            End Get
+            Set(value As String)
+                If Main.vendors.ContainsKey(value) Then
+                    Me.Vendor = Main.vendors(value)
+                    Me.Observation = ""
+                Else
+                    Me.Vendor = Main.vendors(value.Split(" ").First)
+                    Me.Observation = value.Replace(CStr(Vendor.Name + " "), "")
+                End If
+            End Set
+        End Property
+
+        Private p_Vendor As Vendor
+        Public Property Vendor() As Vendor
+            Get
+                Return p_Vendor
+            End Get
+            Set(ByVal value As Vendor)
+                p_Vendor = value
+            End Set
+        End Property
+
 
     End Class
 

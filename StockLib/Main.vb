@@ -54,9 +54,12 @@ Public Module Main
         'On Error Resume Next
 
         tableVendors = DataTableFromCSV(appDataFolder + "tableVendor.csv", True, "|")
-        tableResp = DataTableFromCSV(appDataFolder + "tableResp.csv", True, "|")
+        LoadVendors()
+
         tableClients = DataTableFromCSV(appDataFolder + "tableClients.csv", True, "|")
         LoadClients()
+
+        tableResp = DataTableFromCSV(appDataFolder + "tableResp.csv", True, "|")
 
         tableOrders = DataTableFromCSV(appDataFolder + "tableOrders.csv", True, "|")
         LoadOrders()
@@ -91,6 +94,8 @@ Public Module Main
         End With
 
         'ADDS ALL PRODUCT TABLES TO A LIST
+        productTables.Clear()
+
         For Each p In products.Values
             Try
                 Dim table As New DataTable
@@ -108,16 +113,22 @@ Public Module Main
                     If CDbl(.Rows(i).Item("ENTRADA").ToString.ToZero) > 0 Then
                         Dim purchase As New Product.Purchase(.Rows(i).Item("ID"))
                         purchase.BuyingDate = DateValue(.Rows(i).Item("DATA"))
+                        purchase.Description = .Rows(i).Item("HISTÓRICO")
                         purchase.Quantity = .Rows(i).Item("ENTRADA")
+                        purchase.Stock = .Rows(i).Item("SALDO")
                         purchase.Value = .Rows(i).Item("ENTRADA ($)")
+                        purchase.Balance = .Rows(i).Item("BALANÇO")
 
                         p.Purchases.Add(purchase.ID, purchase)
                     End If
                     If CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
                         Dim order As New Product.Order(.Rows(i).Item("ID"))
                         order.SellingDate = DateValue(.Rows(i).Item("DATA"))
+                        order.Description = .Rows(i).Item("HISTÓRICO")
                         order.Quantity = .Rows(i).Item("SAÍDA")
+                        order.Stock = .Rows(i).Item("SALDO")
                         order.Value = .Rows(i).Item("SAÍDA ($)")
+                        order.Balance = .Rows(i).Item("BALANÇO")
 
                         p.Orders.Add(order.ID, order)
                     End If
@@ -133,6 +144,7 @@ Public Module Main
     Public Sub LoadClients()
 
         clients.Clear()
+
         With tableClients
             For i = 0 To .Rows.Count - 1
                 Dim c As New Client(.Rows(i).Item("CLIENTE"))
@@ -142,6 +154,23 @@ Public Module Main
                 c.Location = .Rows(i).Item("LOCALIDADE")
 
                 clients.Add(c.Name, c)
+            Next
+        End With
+
+    End Sub
+
+    ''' <summary>
+    ''' Loads all vendor information into a dictionary of Vendor objects
+    ''' </summary>
+    Public Sub LoadVendors()
+
+        vendors.Clear()
+
+        With tableVendors
+            For i = 0 To .Rows.Count - 1
+                Dim v As New Vendor(.Rows(i).Item("FORNECEDOR"))
+
+                vendors.Add(v.Name, v)
             Next
         End With
 
@@ -158,6 +187,7 @@ Public Module Main
         End Try
 
         orders.Clear()
+
         With tableOrders
             For i = 0 To .Rows.Count - 1
                 Dim o As New Order(.Rows(i).Item("ID"))
@@ -194,6 +224,7 @@ Public Module Main
     Public Sub LoadPurchases()
 
         purchases.Clear()
+
         With tablePurchases
             For i = 0 To .Rows.Count - 1
                 Dim p As New Purchase(.Rows(i).Item("ID"))
@@ -221,6 +252,18 @@ Public Module Main
 
     Public Sub UpdateTables()
 
+        'UPDATES THE PRODUCTS TABLE (STOCK)
+        With tableProducts
+            For p = 0 To .Rows.Count - 1
+                .Rows(p).Item("ESTOQUE") = products(.Rows(p).Item("PRODUTO")).Stock
+            Next
+        End With
+        Try
+            WriteCSV(tableProducts, NameOf(tableProducts), "|", True)
+        Catch ex As Exception
+        End Try
+
+        'UPDATES THE ORDERS DATATABLE
         With tableOrders
             For i = 0 To .Rows.Count - 1
                 Dim order = orders(.Rows(i).Item("ID"))
@@ -230,20 +273,20 @@ Public Module Main
                 .Rows(i).Item("RESP1") = order.SellingResponsible
                 .Rows(i).Item("DATA2") = order.RetrievingDate.ToShortDateString
                 .Rows(i).Item("RESP2") = order.RetrievingResponsible
-                '.Rows(i).Item("RECOLHIDO")
-                '.Rows(i).Item("CHOPEIRA")
+                .Rows(i).Item("RECOLHIDO") = order.Retrieved
+                .Rows(i).Item("CHOPEIRA") = order.IncludesCooler
                 .Rows(i).Item("PEDIDO") = Join(order.OrderList.ToArray, "; ")
                 .Rows(i).Item("PREÇOS") = Join(order.PriceList.ToArray, "; ")
                 .Rows(i).Item("TOTAL") = order.Total
                 .Rows(i).Item("OBS") = order.Observation
             Next
         End With
-
         Try
             WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
         Catch ex As Exception
         End Try
 
+        'UPDATES THE PURCHASES DATATABLE
         With tablePurchases
             For j = 0 To .Rows.Count - 1
                 Dim purchase = purchases(.Rows(j).Item("ID"))
@@ -254,11 +297,47 @@ Public Module Main
                 .Rows(j).Item("OBS") = purchase.Observation
             Next
         End With
-
         Try
             WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
         Catch ex As Exception
         End Try
+
+        'UPDATES EACH PRODUCT DATATABLE
+        For Each pTable In productTables
+            pTable.Value.Rows.Clear()
+            For Each purchase In pTable.Key.Purchases.Values
+                pTable.Value.Rows.Add(purchase.BuyingDate.ToShortDateString,
+                          purchase.ID,
+                          purchase.Description,
+                          purchase.Quantity,
+                          0,
+                          purchase.Stock,
+                          purchase.Quantity,
+                          0,
+                          purchase.Balance)
+            Next
+            For Each order In pTable.Key.Orders.Values
+                pTable.Value.Rows.Add(order.SellingDate.ToShortDateString,
+                          order.ID,
+                          order.Description,
+                          0,
+                          order.Quantity,
+                          order.Stock,
+                          0,
+                          order.Value,
+                          order.Balance)
+            Next
+
+            Dim dv As New DataView(pTable.Value)
+            dv.Sort = "DATA ASC"
+            Dim dt = dv.ToTable
+
+            Try
+                WriteCSV(dt, pTable.Key.TableName, "|", True)
+            Catch ex As Exception
+            End Try
+
+        Next
 
     End Sub
 

@@ -256,6 +256,7 @@ Public Class OrderForm
         Try
             With selectedProduct
                 .Quantity = CDbl(tbQtty.Text.ToZero)
+
                 If .Quantity > 0 Or CDbl(tbQtty.Text.ToZero) > 0 Then
                     tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
                     tvItems.Nodes(.Kind).Nodes(.Name).ForeColor = Color.Red
@@ -373,10 +374,10 @@ Public Class OrderForm
             Select Case FormType
 
                 Case FormTypes.Order
-                    currentOrder.SellingDate = DateValue(datePicker1.Text)
+                    currentOrder.SellingDate = datePicker1.Value
 
                 Case FormTypes.Purchase
-                    currentPurchase.BuyingDate = DateValue(datePicker1.Text)
+                    currentPurchase.BuyingDate = datePicker1.Value
 
             End Select
         Catch ex As Exception
@@ -385,14 +386,14 @@ Public Class OrderForm
 
     End Sub
 
-
-
     Private Sub Date2_TextChanged(sender As Object, e As EventArgs) Handles datePicker2.TextChanged
 
         Try
             Select Case FormType
+
                 Case FormTypes.Order
-                    currentOrder.RetrievingDate = DateValue(datePicker2.Text)
+                    currentOrder.RetrievingDate = datePicker2.Value
+
             End Select
         Catch ex As Exception
 
@@ -454,6 +455,8 @@ Public Class OrderForm
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Main.UpdateTables()
+        Main.GetTables()
+        MainForm.LoadTables()
         Me.Close()
     End Sub
 
@@ -462,7 +465,9 @@ Public Class OrderForm
         NewEntry = True
         currentOrder = New Order(tbID.Text)
         LoadControls()
+        ChangeInputColors(SystemColors.Window)
         tbID.Text = CStr(CDbl(Main.orders.Keys.Last) + 1)
+        cbbResp1.SelectedIndex = 0
 
         btnOK.Enabled = False
         AddToolStripMenuItem.Enabled = True
@@ -474,6 +479,7 @@ Public Class OrderForm
         NewEntry = True
         currentPurchase = New Purchase("")
         LoadControls()
+        ChangeInputColors(SystemColors.Window)
         tbID.Text = ""
 
         btnOK.Enabled = False
@@ -482,76 +488,172 @@ Public Class OrderForm
     End Sub
 
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
-        Select Case FormType
-            Case FormTypes.Order
 
-                If Main.orders.ContainsKey(currentOrder.ID) Then
-                    MsgBox("O pedido de n° " + currentOrder.ID + " já existe!" + vbNewLine + "Por favor altere o n° deste pedido.", MsgBoxStyle.Exclamation, "Erro!")
-                    Exit Sub
-                End If
-                Main.orders.Add(currentOrder.ID, currentOrder)
+        Select Case FormType
+
+            Case FormTypes.Order
                 With currentOrder
-                    tableOrders.Rows.Add(
-                        .ID,
-                        .Client.Name,
-                        "",
-                        .SellingDate.ToShortDateString(),
-                        .SellingResponsible,
-                        .RetrievingDate.ToShortDateString(),
-                        .RetrievingResponsible,
-                        .Retrieved,
-                        .IncludesCooler,
-                        Join(.OrderList.ToArray, "; "),
-                        Join(.PriceList.ToArray, "; "),
-                        .Total,
-                        .Observation
-                    )
+                    .SellingDate = datePicker1.Value
+                    .SellingResponsible = cbbResp1.Text
+                    .RetrievingDate = datePicker2.Value
+                    .RetrievingResponsible = cbbResp2.Text
+                    .Observation = tbObs.Text
+                    .Client = Main.clients(cbbClient.Text)
+                    '.BarrelList =
+                    '.CoolerList =
+                    '.GasList =
+                    '.ValveList =
                 End With
+                AddToOrdersTable()
+
             Case FormTypes.Purchase
-                If Main.purchases.ContainsKey(currentPurchase.ID) Then
-                    MsgBox("A compra com NF de n° " + currentPurchase.ID + " já existe!" + vbNewLine + "Por favor altere o n° da NF desta compra.", MsgBoxStyle.Exclamation, "Erro!")
-                    Exit Sub
-                End If
-                Main.purchases.Add(currentPurchase.ID, currentPurchase)
                 With currentPurchase
-                    tablePurchases.Rows.Add(
-                        .ID,
-                        .BuyingDate.ToShortDateString,
-                        Join(.PurchaseList.ToArray, "; "),
-                        Join(.CostList.ToArray, "; "),
-                        .Total,
-                        .Observation
-                    )
+                    .BuyingDate = datePicker1.Value
+                    .Observation = tbObs.Text
                 End With
+                AddToPurchasesTable()
+
         End Select
 
+        AddToProductTables()
         Main.UpdateTables()
+        LoadControls()
+
         btnOK.Enabled = True
         AddToolStripMenuItem.Enabled = False
         RemoveToolStripMenuItem.Enabled = True
         NewEntry = False
+        tbID.Text = ""
+
     End Sub
 
-    Private Sub RemoveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveToolStripMenuItem.Click
+    Public Sub AddToOrdersTable()
+
+        If Main.orders.ContainsKey(currentOrder.ID) Then
+            MsgBox("O pedido de n° " + currentOrder.ID + " já existe!" + vbNewLine + "Por favor altere o n° deste pedido.", MsgBoxStyle.Exclamation, "Erro!")
+            Exit Sub
+        End If
+        Main.orders.Add(currentOrder.ID, currentOrder)
+        With currentOrder
+            tableOrders.Rows.Add(
+                .ID,
+                .Client.Name,
+                "",
+                .SellingDate.ToShortDateString(),
+                .SellingResponsible,
+                .RetrievingDate.ToShortDateString(),
+                .RetrievingResponsible,
+                .Retrieved,
+                .IncludesCooler,
+                Join(.OrderList.ToArray, "; "),
+                Join(.PriceList.ToArray, "; "),
+                .Total,
+                .Observation)
+        End With
+
+    End Sub
+
+    Public Sub AddToPurchasesTable()
+
+        If Main.purchases.ContainsKey(currentPurchase.ID) Then
+            MsgBox("A compra com NF de n° " + currentPurchase.ID + " já existe!" + vbNewLine + "Por favor altere o n° da NF desta compra.", MsgBoxStyle.Exclamation, "Erro!")
+            Exit Sub
+        End If
+        Main.purchases.Add(currentPurchase.ID, currentPurchase)
+        With currentPurchase
+            tablePurchases.Rows.Add(
+                .ID,
+                .BuyingDate.ToShortDateString,
+                Join(.PurchaseList.ToArray, "; "),
+                Join(.CostList.ToArray, "; "),
+                .Total,
+                .Observation)
+        End With
+
+    End Sub
+
+    Public Sub AddToProductTables()
+
         Select Case FormType
 
             Case FormTypes.Order
-                With tableOrders
-                    orders.Remove(tbID.Text)
-                    For i = 0 To .Rows.Count - 1
-                        If .Rows(i).Item("ID") = tbID.Text Then .Rows(i).Delete()
-                    Next
-                End With
+                For Each item In currentOrder.Items.Values
+                    Dim newOrder As New Product.Order(tbID.Text)
+                    newOrder.SellingDate = currentOrder.SellingDate
+                    newOrder.Client = Main.clients(currentOrder.Client.Name)
+                    newOrder.Observation = currentOrder.Observation
+                    newOrder.Quantity = currentOrder.Items(item.Code).Quantity
+                    newOrder.Price = currentOrder.Items(item.Code).Value
+                    newOrder.Stock = item.Stock - newOrder.Quantity
+                    item.Stock = newOrder.Stock
+                    newOrder.Balance = item.LastBalance + newOrder.Value
+
+                    Main.products(item.Code).Orders.Add(newOrder.ID, newOrder)
+                    Main.products(item.Code).Stock = item.Stock
+
+                    With Main.productTables(item)
+                        .Rows.Add(newOrder.SellingDate.ToShortDateString,
+                                  newOrder.ID,
+                                  newOrder.Description,
+                                  0,
+                                  newOrder.Quantity,
+                                  newOrder.Stock,
+                                  0,
+                                  newOrder.Value,
+                                  newOrder.Balance)
+                    End With
+                Next
 
             Case FormTypes.Purchase
-                With tablePurchases
-                    purchases.Remove(tbID.Text)
-                    For j = 0 To .Rows.Count - 1
-                        If .Rows(j).Item("ID") = tbID.Text Then .Rows(j).Delete()
-                    Next
-                End With
+                For Each item In currentPurchase.Items.Values
+                    Dim newPurchase As New Product.Purchase(tbID.Text)
+                    newPurchase.BuyingDate = currentPurchase.BuyingDate
+                    newPurchase.Vendor = currentPurchase.Vendor
+                    newPurchase.Observation = currentPurchase.Observation
+                    newPurchase.Quantity = currentPurchase.Items(item.Code).Quantity
+                    newPurchase.Cost = currentPurchase.Items(item.Code).Value
+                    newPurchase.Stock = item.Stock + newPurchase.Quantity
+                    item.Stock = newPurchase.Stock
+                    newPurchase.Balance = item.LastBalance - newPurchase.Value
+
+                    Main.products(item.Code).Purchases.Add(newPurchase.ID, newPurchase)
+                    Main.products(item.Code).Stock = item.Stock
+
+                    With Main.productTables(item)
+                        .Rows.Add(newPurchase.BuyingDate.ToShortDateString,
+                                  newPurchase.ID,
+                                  newPurchase.Description,
+                                  newPurchase.Quantity,
+                                  0,
+                                  newPurchase.Stock,
+                                  newPurchase.Value,
+                                  0,
+                                  newPurchase.Balance)
+                    End With
+                Next
+
         End Select
 
+    End Sub
+
+    Private Sub RemoveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveToolStripMenuItem.Click
+
+        Select Case FormType
+
+            Case FormTypes.Order
+                Main.orders.Remove(tbID.Text)
+                For i = 0 To tableOrders.Rows.Count - 1
+                    If tableOrders.Rows(i).Item("ID") = tbID.Text Then tableOrders.Rows(i).Delete()
+                Next
+
+            Case FormTypes.Purchase
+                Main.purchases.Remove(tbID.Text)
+                For j = 0 To tablePurchases.Rows.Count - 1
+                    If tablePurchases.Rows(j).Item("ID") = tbID.Text Then tablePurchases.Rows(j).Delete()
+                Next
+        End Select
+
+        RemoveFromProductTables()
         Main.UpdateTables()
         tbID.Text = ""
         LoadControls()
@@ -559,6 +661,41 @@ Public Class OrderForm
         btnOK.Enabled = True
         AddToolStripMenuItem.Enabled = False
         RemoveToolStripMenuItem.Enabled = False
+
+    End Sub
+
+    Public Sub RemoveFromProductTables()
+
+        Select Case FormType
+
+            Case FormTypes.Order
+                For Each item In currentOrder.Items.Values
+                    Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
+                    For i = 0 To pTable.Rows.Count - 1
+                        If pTable.Rows(i).Item("ID") = currentOrder.ID Then
+                            pTable.Rows(i).Delete()
+                            item.Orders.Remove(currentOrder.ID)
+                            Main.products(item.Code).Stock += item.Quantity
+                        End If
+                    Next
+                    productTables(item) = pTable
+                Next
+
+            Case FormTypes.Purchase
+                For Each item In currentPurchase.Items.Values
+                    Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
+                    For i = 0 To pTable.Rows.Count - 1
+                        If pTable.Rows(i).Item("ID") = currentPurchase.ID Then
+                            pTable.Rows(i).Delete()
+                            item.Purchases.Remove(currentPurchase.ID)
+                            Main.products(item.Code).Stock -= item.Quantity
+                        End If
+                    Next
+                    productTables(item) = pTable
+                Next
+
+        End Select
+
     End Sub
 
     Private Sub tvItems_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvItems.AfterSelect

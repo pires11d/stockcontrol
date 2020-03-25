@@ -28,16 +28,6 @@ Partial Public Class Product
             End Set
         End Property
 
-        Private p_Description As String
-        Public Property Description() As String
-            Get
-                Return p_Description
-            End Get
-            Set(ByVal value As String)
-                p_Description = value
-            End Set
-        End Property
-
         Private p_Quantity As Double
         Public Property Quantity() As Double
             Get
@@ -48,20 +38,68 @@ Partial Public Class Product
             End Set
         End Property
 
-        Private p_Value As Double
-        Public Property Value() As Double
+        Private p_Price As Double
+        Public Property Price() As Double
             Get
-                Return p_Value
+                Return p_Price
             End Get
             Set(ByVal value As Double)
-                p_Value = value
+                p_Price = value
             End Set
         End Property
 
-        Public ReadOnly Property Price() As Double
+        Public Property Value() As Double
             Get
-                Return Me.Value / Me.Quantity
+                Return Me.Price * Me.Quantity
             End Get
+            Set(ByVal value As Double)
+                Me.Price = value / Me.Quantity
+            End Set
+        End Property
+
+        Private p_Stock As Double
+        Public Property Stock() As Double
+            Get
+                Return p_Stock
+            End Get
+            Set(ByVal value As Double)
+                p_Stock = value
+            End Set
+        End Property
+
+        Private p_Balance As Double
+        Public Property Balance() As Double
+            Get
+                Return p_Balance
+            End Get
+            Set(ByVal value As Double)
+                p_Balance = value
+            End Set
+        End Property
+
+        Private p_Observation As String
+        Public Property Observation() As String
+            Get
+                Return p_Observation
+            End Get
+            Set(ByVal value As String)
+                p_Observation = value
+            End Set
+        End Property
+
+        Public Property Description() As String
+            Get
+                Return Me.Client.Name + " " + Me.Observation
+            End Get
+            Set(value As String)
+                If Main.clients.ContainsKey(value) Then
+                    Me.Client = Main.clients(value)
+                    Me.Observation = ""
+                Else
+                    Me.Client = Main.clients(value.Split(" ").First)
+                    Me.Observation = value.Replace(CStr(Client.Name + " "), "")
+                End If
+            End Set
         End Property
 
         Private p_Client As Client
