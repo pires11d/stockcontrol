@@ -92,13 +92,8 @@ Partial Public Class Product
                 Return Vendor.Name + " " + Observation
             End Get
             Set(value As String)
-                If Main.vendors.ContainsKey(value) Then
-                    Me.Vendor = Main.vendors(value)
-                    Me.Observation = ""
-                Else
-                    Me.Vendor = Main.vendors(value.Split(" ").First)
-                    Me.Observation = value.Replace(CStr(Vendor.Name + " "), "")
-                End If
+                Me.Vendor = Main.vendors(Main.GetVendorName(value))
+                Me.Observation = value.Replace(CStr(Vendor.Name + " "), "")
             End Set
         End Property
 

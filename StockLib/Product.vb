@@ -163,9 +163,9 @@ Public Class Product
                 Else
                     Return Purchases.Values.Last.Balance
                 End If
-            ElseIf orders.Count > 0 And purchases.count = 0 Then
+            ElseIf Orders.Count > 0 And Purchases.count = 0 Then
                 Return Orders.Values.Last.Balance
-            ElseIf orders.count = 0 And Purchases.count > 0 Then
+            ElseIf Orders.count = 0 And Purchases.count > 0 Then
                 Return Purchases.Values.Last.Balance
             Else
                 Return 0

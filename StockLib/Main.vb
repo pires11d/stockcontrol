@@ -51,7 +51,7 @@ Public Module Main
     ''' Sub responsible for getting data from each CSV file and load it into its respective DataTable object
     ''' </summary>
     Public Sub GetTables()
-        'On Error Resume Next
+        On Error Resume Next
 
         tableVendors = DataTableFromCSV(appDataFolder + "tableVendor.csv", True, "|")
         LoadVendors()
@@ -102,7 +102,7 @@ Public Module Main
                 table = DataTableFromCSV(appDataFolder + p.TableName + ".csv", True, "|")
                 productTables.Add(p, table)
             Catch ex As Exception
-                MsgBox("Failed to load table " + p.TableName)
+                'MsgBox("Failed to load table " + p.TableName)
             End Try
         Next
 
@@ -250,6 +250,42 @@ Public Module Main
 
     End Sub
 
+    Public Function GetClientName(words As String)
+
+        If Main.clients.ContainsKey(words) Then
+            Return words
+        Else
+            Dim result As String = ""
+            For Each word In words.Split(" ")
+                result += word
+                If Main.clients.ContainsKey(result) Then
+                    Return result
+                    Exit Function
+                End If
+                result += " "
+            Next
+        End If
+
+    End Function
+
+    Public Function GetVendorName(words As String)
+
+        If Main.vendors.ContainsKey(words) Then
+            Return words
+        Else
+            Dim result As String = ""
+            For Each word In words.Split(" ")
+                result += word
+                If Main.vendors.ContainsKey(result) Then
+                    Return result
+                    Exit Function
+                End If
+                result += " "
+            Next
+        End If
+
+    End Function
+
     Public Sub UpdateTables()
 
         'UPDATES THE PRODUCTS TABLE (STOCK)
@@ -269,10 +305,14 @@ Public Module Main
                 Dim order = orders(.Rows(i).Item("ID"))
                 .Rows(i).Item("CLIENTE") = order.Client.Name
                 '.Rows(i).Item("ITENS") = 
-                .Rows(i).Item("DATA1") = order.SellingDate.ToShortDateString
                 .Rows(i).Item("RESP1") = order.SellingResponsible
-                .Rows(i).Item("DATA2") = order.RetrievingDate.ToShortDateString
+                .Rows(i).Item("DATA1") = order.SellingDate.ToShortDateString
                 .Rows(i).Item("RESP2") = order.RetrievingResponsible
+                If order.RetrievingResponsible = "" Then
+                    .Rows(i).Item("DATA2") = ""
+                Else
+                    .Rows(i).Item("DATA2") = order.RetrievingDate.ToShortDateString
+                End If
                 .Rows(i).Item("RECOLHIDO") = order.Retrieved
                 .Rows(i).Item("CHOPEIRA") = order.IncludesCooler
                 .Rows(i).Item("PEDIDO") = Join(order.OrderList.ToArray, "; ")
@@ -305,6 +345,7 @@ Public Module Main
         'UPDATES EACH PRODUCT DATATABLE
         For Each pTable In productTables
             pTable.Value.Rows.Clear()
+
             For Each purchase In pTable.Key.Purchases.Values
                 pTable.Value.Rows.Add(purchase.BuyingDate.ToShortDateString,
                           purchase.ID,

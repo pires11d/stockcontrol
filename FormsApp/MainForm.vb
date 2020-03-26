@@ -33,21 +33,27 @@ Public Class MainForm
                                                         CDbl(.Rows(i).Item(7).ToString.ToZero))
             Next i
         End With
-        With lvStock
-            .Columns(4).DefaultCellStyle.Format = "R$ 0.00"
-            .Columns(5).DefaultCellStyle.Format = "R$ 0.00"
-            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
-        End With
-
 
         lvPurchases.DataSource = tablePurchases
         lvOrders.DataSource = tableOrders
         lvClients.DataSource = tableClients
 
-        lvStock.DefaultCellStyle.Font = New Font("Century Gothic", 14, FontStyle.Bold)
-        lvPurchases.DefaultCellStyle.Font = New Font("Century Gothic", 12)
-        lvOrders.DefaultCellStyle.Font = New Font("Century Gothic", 12)
-        lvClients.DefaultCellStyle.Font = New Font("Century Gothic", 12)
+        ApplyStylesToTables("Century Gothic")
+
+    End Sub
+
+    Public Sub ApplyStylesToTables(fontName As String)
+
+        lvStock.Columns(4).DefaultCellStyle.Format = "R$ 0.00"
+        lvStock.Columns(5).DefaultCellStyle.Format = "R$ 0.00"
+        lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(lvStock.DefaultCellStyle.Font, FontStyle.Bold)
+        lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
+        lvPurchases.DefaultCellStyle.Font = New Font(fontName, 12)
+        lvPurchases.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
+        lvOrders.DefaultCellStyle.Font = New Font(fontName, 12)
+        lvOrders.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
+        lvClients.DefaultCellStyle.Font = New Font(fontName, 12)
+        lvClients.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
 
     End Sub
 
@@ -173,8 +179,11 @@ Public Class MainForm
         End Try
     End Sub
 
-    Private Sub ProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductToolStripMenuItem.Click
-
+    Private Sub NewProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewProductToolStripMenuItem.Click
+        Dim newProductForm As New NewProductForm
+        With newProductForm
+            .Show()
+        End With
     End Sub
 
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
@@ -200,6 +209,5 @@ Public Class MainForm
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
 
     End Sub
-
 
 End Class

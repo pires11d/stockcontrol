@@ -92,13 +92,8 @@ Partial Public Class Product
                 Return Me.Client.Name + " " + Me.Observation
             End Get
             Set(value As String)
-                If Main.clients.ContainsKey(value) Then
-                    Me.Client = Main.clients(value)
-                    Me.Observation = ""
-                Else
-                    Me.Client = Main.clients(value.Split(" ").First)
-                    Me.Observation = value.Replace(CStr(Client.Name + " "), "")
-                End If
+                Me.Client = Main.clients(Main.GetClientName(value))
+                Me.Observation = value.Replace(CStr(Client.Name + " "), "")
             End Set
         End Property
 
