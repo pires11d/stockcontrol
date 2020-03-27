@@ -89,11 +89,11 @@ Partial Public Class Product
 
         Public Property Description() As String
             Get
-                Return Vendor.Name + " " + Observation
+                Return Me.Vendor.Name + " " + Observation
             End Get
             Set(value As String)
                 Me.Vendor = Main.vendors(Main.GetVendorName(value))
-                Me.Observation = value.Replace(CStr(Vendor.Name + " "), "")
+                Me.Observation = value.Replace(Vendor.Name, "")
             End Set
         End Property
 

@@ -8,6 +8,13 @@ Public Module Main
 
     Public companyName As String = "ChoppExpress"
     Public appDataFolder As String
+    Public downloadDataFolder As String
+    Public uploadDataFolder As String
+    Private user As String = "pires11d"
+    Private pass As String = "calculera"
+    Public localList As New List(Of String)
+    Public remoteList As New List(Of String)
+
     Public tableStock As New DataTable
     Public tableProducts As New DataTable
     Public tableOrders As New DataTable
@@ -30,20 +37,13 @@ Public Module Main
 
         appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                         "\StockControl\" + companyName + "\"
+        downloadDataFolder = "http://pires11d.com/apps/StockControl/" +
+                             companyName + "/"
+        uploadDataFolder = "ftp://files.000webhost.com:21/public_html/apps/StockControl/" +
+                            companyName + "/"
+        '/storage/ssd2/571/6126571
 
         GetTables()
-
-        'FIXES STOCK TABLE
-        With tableStock
-            For i = 0 To .Rows.Count - 1
-                Select Case Len(.Rows(i).Item(2))
-                    Case 1
-                        .Rows(i).Item(2) = "00" + .Rows(i).Item(2)
-                    Case 2
-                        .Rows(i).Item(2) = "0" + .Rows(i).Item(2)
-                End Select
-            Next
-        End With
 
     End Sub
 
@@ -53,21 +53,21 @@ Public Module Main
     Public Sub GetTables()
         On Error Resume Next
 
-        tableVendors = DataTableFromCSV(appDataFolder + "tableVendor.csv", True, "|")
+        tableVendors = ReadCSV(appDataFolder + "tableVendor.csv", "|", True)
         LoadVendors()
 
-        tableClients = DataTableFromCSV(appDataFolder + "tableClients.csv", True, "|")
+        tableClients = ReadCSV(appDataFolder + "tableClients.csv", "|", True)
         LoadClients()
 
-        tableResp = DataTableFromCSV(appDataFolder + "tableResp.csv", True, "|")
+        tableResp = ReadCSV(appDataFolder + "tableResp.csv", "|", True)
 
-        tableOrders = DataTableFromCSV(appDataFolder + "tableOrders.csv", True, "|")
+        tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|", True)
         LoadOrders()
 
-        tablePurchases = DataTableFromCSV(appDataFolder + "tablePurchases.csv", True, "|")
+        tablePurchases = ReadCSV(appDataFolder + "tablePurchases.csv", "|", True)
         LoadPurchases()
 
-        tableProducts = DataTableFromCSV(appDataFolder + "tableProducts.csv", True, "|")
+        tableProducts = ReadCSV(appDataFolder + "tableProducts.csv", "|", True)
         LoadProducts()
 
     End Sub
@@ -99,7 +99,7 @@ Public Module Main
         For Each p In products.Values
             Try
                 Dim table As New DataTable
-                table = DataTableFromCSV(appDataFolder + p.TableName + ".csv", True, "|")
+                table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True)
                 productTables.Add(p, table)
             Catch ex As Exception
                 'MsgBox("Failed to load table " + p.TableName)
@@ -264,6 +264,7 @@ Public Module Main
                 End If
                 result += " "
             Next
+            Return result
         End If
 
     End Function
@@ -282,6 +283,7 @@ Public Module Main
                 End If
                 result += " "
             Next
+            Return result
         End If
 
     End Function
@@ -294,8 +296,11 @@ Public Module Main
                 .Rows(p).Item("ESTOQUE") = products(.Rows(p).Item("PRODUTO")).Stock
             Next
         End With
+        Dim dv As New DataView(tableProducts)
+        dv.Sort = "PRODUTO ASC, MARCA ASC"
+        Dim dt = dv.ToTable
         Try
-            WriteCSV(tableProducts, NameOf(tableProducts), "|", True)
+            WriteCSV(dt, NameOf(tableProducts), "|", True)
         Catch ex As Exception
         End Try
 
@@ -369,17 +374,57 @@ Public Module Main
                           order.Balance)
             Next
 
-            Dim dv As New DataView(pTable.Value)
-            dv.Sort = "DATA ASC"
-            Dim dt = dv.ToTable
+            Dim dvi As New DataView(pTable.Value)
+            dvi.Sort = "DATA ASC"
+            Dim dti = dvi.ToTable
 
             Try
-                WriteCSV(dt, pTable.Key.TableName, "|", True)
+                WriteCSV(dti, pTable.Key.TableName, "|", True)
             Catch ex As Exception
             End Try
 
         Next
 
     End Sub
+
+    Public Sub SyncTables()
+
+        Dim synclist = UpdatedSyncList()
+
+        'DOWNLOADS EACH FILE FROM THE LIST OF FILES    
+        For Each file In synclist
+            Dim filename As String = file.Split("\").Last
+            'Try
+            Extensions.SyncFile(file, uploadDataFolder + filename, downloadDataFolder + filename, user, pass)
+            'Catch ex As Exception
+
+            'End Try
+        Next
+
+        MsgBox("Banco de dados atualizado com sucesso!")
+
+    End Sub
+
+    Public Function UpdatedSyncList() As List(Of String)
+
+        localList = System.IO.Directory.EnumerateFiles(appDataFolder).ToList
+        remoteList = ListRemoteFiles(uploadDataFolder, user, pass)
+
+        'JOINS TWO LISTS INTO A HASHSET
+        Dim tableSet As New HashSet(Of String)
+        For i = 0 To Math.Max(localList.Count, remoteList.Count) - 1
+            Try
+                tableSet.Add(localList(i))
+            Catch ex As Exception
+            End Try
+            Try
+                tableSet.Add(appDataFolder + remoteList(i))
+            Catch ex As Exception
+            End Try
+        Next
+
+        Return tableSet.ToList
+
+    End Function
 
 End Module

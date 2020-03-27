@@ -93,7 +93,7 @@ Partial Public Class Product
             End Get
             Set(value As String)
                 Me.Client = Main.clients(Main.GetClientName(value))
-                Me.Observation = value.Replace(CStr(Client.Name + " "), "")
+                Me.Observation = value.Replace(Client.Name, "")
             End Set
         End Property
 

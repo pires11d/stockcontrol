@@ -1,9 +1,15 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Globalization
+Imports System.Net
 Imports System.IO
 
 
 Public Module Extensions
+
+    Public msgQuestion = ChooseLang("Você deseja fazer o download da versão atualizada?",
+                         "Do you wish to download the latest version?")
+    Public msgError = ChooseLang("Arquivo não encontrado. Por favor verifique sua conexão com a internet.",
+                          "File not found. Please check your internet connection.")
 
     <Extension()>
     Public Function IsValidNonZero(ByVal Arg As Double) As Boolean
@@ -248,12 +254,13 @@ Public Module Extensions
     ''' Reads a CSV file and loads its content into a <see cref="DataTable"/> object
     ''' </summary>
     ''' <param name="fileName"></param>
+    ''' <param name="delimiter"></param>   
     ''' <param name="hasTitles"></param>
-    ''' <param name="delimiter"></param>
     ''' <returns></returns>
-    Public Function DataTableFromCSV(fileName As String,
-                                     hasTitles As Boolean,
-                                     Optional delimiter As String = ",") As DataTable
+    Public Function ReadCSV(fileName As String,
+                                     Optional delimiter As String = ",",
+                                     Optional hasTitles As Boolean = True) As DataTable
+
         Dim result As New DataTable
         Dim currentRow As IEnumerable(Of String)
         Dim fixedRow As New List(Of String)
@@ -402,6 +409,146 @@ Public Module Extensions
     Function GetMyMacAddress() As String
         Dim nics = Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces
         Return nics(0).GetPhysicalAddress.ToString
+    End Function
+
+    ''' <summary>
+    ''' Downloads file from the chosen URL to the chosen local path
+    ''' </summary>
+    ''' <param name="remotePath"></param>
+    ''' <param name="localPath"></param>
+    ''' <param name="user"></param>
+    ''' <param name="pass"></param>
+    Public Sub DownloadFile(remotePath As String, localPath As String,
+                            Optional user As String = "", Optional pass As String = "")
+
+        user = ""
+        pass = ""
+
+        'GETS FILE CREATION DATE
+        Dim localDate As DateTime = File.GetCreationTime(localPath)
+
+        'CREATES URI
+        Dim uri = New Uri(remotePath)
+
+        'CREATES REQUEST TO THE URL USING VALID CREDENTIALS
+        Dim myRequest As HttpWebRequest = WebRequest.Create(uri)
+        myRequest.Credentials = New NetworkCredential(user, pass)
+
+        'GETS RESPONSE FROM THE REQUEST AND CHECKS ITS STATUS
+        Dim myResponse As HttpWebResponse = myRequest.GetResponse()
+        If myResponse.StatusCode = System.Net.HttpStatusCode.OK Then
+
+            'CHECKS IF WEBSITE'S VERSION IS NEWER
+            If localDate < myResponse.LastModified Then
+                File.Delete(localPath)
+                My.Computer.Network.DownloadFile(uri, localPath, user, pass)
+                'My.Computer.Network.DownloadFile(uri, localPath, myRequest.Credentials, True, 60, True)
+            End If
+
+        End If
+
+        'CLOSES WEB RESPONSE
+        myResponse.Close()
+
+    End Sub
+
+    Public Sub UploadFile(localPath As String, remotePath As String,
+                           Optional user As String = "", Optional pass As String = "")
+
+        'CHECKS IF FILE EXISTS IN LOCAL FOLDER
+        If Not File.Exists(localPath) Then
+            Exit Sub
+        End If
+
+        'CREATES UPLOAD REQUEST   
+        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(remotePath), FtpWebRequest)
+        ftpRequest.Method = WebRequestMethods.Ftp.UploadFile
+        ftpRequest.Credentials = New NetworkCredential(user, pass)
+
+        'GETS FILE CONTENT AS BYTES
+        Dim bytes() As Byte = System.IO.File.ReadAllBytes(localPath)
+        ftpRequest.ContentLength = bytes.Length
+
+        'CHECKS IF WEBSITE'S VERSION IS NEWER
+        Using UploadStream As Stream = ftpRequest.GetRequestStream()
+            UploadStream.Write(bytes, 0, bytes.Length)
+            UploadStream.Close()
+        End Using
+
+    End Sub
+
+    Public Sub SyncFile(localPath As String, uploadPath As String, downloadPath As String,
+                        Optional user As String = "", Optional pass As String = "")
+
+        'CHECKS IF FILE EXISTS IN LOCAL FOLDER
+        If Not File.Exists(localPath) Then
+            DownloadFile(downloadPath, localPath, user, pass)
+            Exit Sub
+        End If
+
+        'CREATES URI
+        Dim uri = New Uri(downloadPath)
+
+        'CREATES UPLOAD REQUEST   
+        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(uploadPath), FtpWebRequest)
+        ftpRequest.Method = WebRequestMethods.Ftp.UploadFile
+        ftpRequest.Credentials = New NetworkCredential(user, pass)
+
+        'CREATES DOWNLOAD REQUEST   
+        Dim myRequest As HttpWebRequest = WebRequest.Create(uri)
+        myRequest.Credentials = New NetworkCredential(user, pass)
+        Dim myResponse As HttpWebResponse = myRequest.GetResponse()
+
+        'GETS FILE CREATION DATES
+        Dim localDate As DateTime = File.GetLastWriteTime(localPath)
+        Dim remoteDate As DateTime = myResponse.LastModified
+
+        ftpRequest.Abort()
+        myResponse.Close()
+
+        If localDate > remoteDate Then
+            UploadFile(localPath, uploadPath, user, pass)
+        Else
+            DownloadFile(downloadPath, localPath, user, pass)
+        End If
+
+    End Sub
+
+    Public Function ListRemoteFiles(remoteDir As String,
+                                    Optional user As String = "", Optional pass As String = "") As List(Of String)
+
+        Dim result As New List(Of String)
+        Dim strReader As StreamReader = Nothing
+        Dim sline As String = ""
+        Dim ftpRequest As FtpWebRequest = Nothing
+        Dim ftpResponse As FtpWebResponse = Nothing
+
+        ftpRequest = CType(WebRequest.Create(remoteDir), FtpWebRequest)
+        ftpRequest.Credentials = New NetworkCredential(user, pass)
+        ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory
+        ftpResponse = CType(ftpRequest.GetResponse, FtpWebResponse)
+
+        strReader = New StreamReader(ftpResponse.GetResponseStream)
+
+        If strReader IsNot Nothing Then sline = strReader.ReadLine
+
+        While sline IsNot Nothing
+            result.Add(sline)
+            sline = strReader.ReadLine
+        End While
+
+        If ftpResponse IsNot Nothing Then
+            ftpResponse.Close()
+            ftpResponse = Nothing
+        End If
+
+        If strReader IsNot Nothing Then
+            strReader.Close()
+            strReader = Nothing
+        End If
+
+        Return result.Except({".", ".."}).ToList
+
     End Function
 
 End Module

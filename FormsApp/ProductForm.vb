@@ -14,6 +14,8 @@ Public Class ProductForm
 
         LoadHistory(product)
 
+        lvHistory.DefaultCellStyle.SelectionBackColor = MainForm.secondaryColor
+
     End Sub
 
     Public Sub LoadHistory(product As Product)

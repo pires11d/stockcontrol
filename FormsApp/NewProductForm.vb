@@ -25,8 +25,8 @@ Public Class NewProductForm
         Next
         cbbVendor.SelectedIndex = 0
 
-        tbCost.Text = "0"
-        tbPrice.Text = "0"
+        tbCost.Text = "0.00"
+        tbPrice.Text = "0.00"
 
     End Sub
 
@@ -51,24 +51,70 @@ Public Class NewProductForm
     Private Sub tbCost_TextChanged(sender As Object, e As EventArgs) Handles tbCost.TextChanged
         Try
             pCost = CDbl(tbCost.Text)
+            tbCost.Text = pCost.ToString("0.00")
+            If pCost > 0 Then
+                Dim i = Len(CStr(CInt(pCost)))
+                tbCost.Select(i, 0)
+            End If
         Catch ex As Exception
             pCost = 0
+            tbCost.Text = "0.00"
         End Try
     End Sub
 
     Private Sub tbPrice_TextChanged(sender As Object, e As EventArgs) Handles tbPrice.TextChanged
         Try
             pPrice = CDbl(tbPrice.Text)
+            tbPrice.Text = pPrice.ToString("0.00")
+            If pPrice > 0 Then
+                Dim i = Len(CStr(CInt(pPrice)))
+                tbPrice.Select(i, 0)
+            End If
         Catch ex As Exception
             pPrice = 0
+            tbPrice.Text = "0.00"
         End Try
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
 
+        If products.ContainsKey(pCode) Then
+            MsgBox("O produto de código " + pCode() + " já existe!" + vbNewLine + "Por favor, altere o nome do produto.", MsgBoxStyle.Critical, "Erro")
+            Exit Sub
+        End If
 
+        Dim pNew As New Product(pCode)
+        pNew.Brand = pVendor
+        pNew.Stock = 0
+        pNew.Quantity = 0
+        pNew.Cost = pCost.ErrorsToZero
+        pNew.Price = pPrice.ErrorsToZero
+        pNew.Value = 0
 
+        Dim pNewTable = New DataTable
+        For Each column In productTables.FirstOrDefault.Value.Columns
+            pNewTable.Columns.Add(column.ToString)
+        Next
 
+        Main.products.Add(pNew.Code, pNew)
+        Main.productTables.Add(pNew, pNewTable)
+        Main.tableProducts.Rows.Add()
+        With Main.tableProducts
+            Dim lastRow = .Rows.Count - 1
+            .Rows(lastRow).Item("PRODUTO") = pNew.Code
+            .Rows(lastRow).Item("MARCA") = pNew.Brand
+            .Rows(lastRow).Item("ESTOQUE") = pNew.Stock
+            .Rows(lastRow).Item("QTD") = pNew.Quantity
+            .Rows(lastRow).Item("CUSTO") = pNew.Cost
+            .Rows(lastRow).Item("PREÇO") = pNew.Price
+            .Rows(lastRow).Item("VALOR") = pNew.Value
+        End With
+
+        Main.UpdateTables()
+        Main.GetTables()
+        MainForm.LoadTables()
+
+        Me.Close()
 
     End Sub
 

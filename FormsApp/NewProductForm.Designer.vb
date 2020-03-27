@@ -39,50 +39,55 @@ Partial Class NewProductForm
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(77, 332)
+        Me.btnAdd.Location = New System.Drawing.Point(77, 321)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(138, 49)
-        Me.btnAdd.TabIndex = 0
+        Me.btnAdd.TabIndex = 6
         Me.btnAdd.Text = "Adicionar"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'cbbKind
         '
+        Me.cbbKind.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbKind.FormattingEnabled = True
-        Me.cbbKind.Location = New System.Drawing.Point(130, 17)
+        Me.cbbKind.Location = New System.Drawing.Point(124, 17)
         Me.cbbKind.Name = "cbbKind"
-        Me.cbbKind.Size = New System.Drawing.Size(146, 30)
+        Me.cbbKind.Size = New System.Drawing.Size(157, 30)
         Me.cbbKind.TabIndex = 1
         '
         'cbbVendor
         '
+        Me.cbbVendor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbVendor.FormattingEnabled = True
-        Me.cbbVendor.Location = New System.Drawing.Point(130, 65)
+        Me.cbbVendor.Location = New System.Drawing.Point(124, 65)
         Me.cbbVendor.Name = "cbbVendor"
-        Me.cbbVendor.Size = New System.Drawing.Size(146, 30)
-        Me.cbbVendor.TabIndex = 1
+        Me.cbbVendor.Size = New System.Drawing.Size(157, 30)
+        Me.cbbVendor.TabIndex = 2
         '
         'tbName
         '
-        Me.tbName.Location = New System.Drawing.Point(130, 113)
+        Me.tbName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbName.Location = New System.Drawing.Point(124, 113)
         Me.tbName.Name = "tbName"
-        Me.tbName.Size = New System.Drawing.Size(146, 31)
-        Me.tbName.TabIndex = 2
+        Me.tbName.Size = New System.Drawing.Size(157, 31)
+        Me.tbName.TabIndex = 3
         '
         'tbCost
         '
-        Me.tbCost.Location = New System.Drawing.Point(192, 174)
+        Me.tbCost.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbCost.Location = New System.Drawing.Point(189, 174)
         Me.tbCost.Name = "tbCost"
-        Me.tbCost.Size = New System.Drawing.Size(84, 31)
-        Me.tbCost.TabIndex = 2
+        Me.tbCost.Size = New System.Drawing.Size(92, 31)
+        Me.tbCost.TabIndex = 4
         '
         'tbPrice
         '
-        Me.tbPrice.Location = New System.Drawing.Point(192, 220)
+        Me.tbPrice.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbPrice.Location = New System.Drawing.Point(189, 220)
         Me.tbPrice.Name = "tbPrice"
-        Me.tbPrice.Size = New System.Drawing.Size(84, 31)
-        Me.tbPrice.TabIndex = 2
+        Me.tbPrice.Size = New System.Drawing.Size(92, 31)
+        Me.tbPrice.TabIndex = 5
         '
         'Label1
         '
@@ -131,10 +136,12 @@ Partial Class NewProductForm
         '
         'lblCode
         '
+        Me.lblCode.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCode.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCode.Location = New System.Drawing.Point(-1, 281)
+        Me.lblCode.Location = New System.Drawing.Point(-1, 276)
         Me.lblCode.Name = "lblCode"
-        Me.lblCode.Size = New System.Drawing.Size(293, 22)
+        Me.lblCode.Size = New System.Drawing.Size(298, 22)
         Me.lblCode.TabIndex = 3
         Me.lblCode.Text = "-"
         Me.lblCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -143,7 +150,7 @@ Partial Class NewProductForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 22.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(292, 395)
+        Me.ClientSize = New System.Drawing.Size(299, 395)
         Me.Controls.Add(Me.lblCode)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label5)
@@ -159,6 +166,8 @@ Partial Class NewProductForm
         Me.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "NewProductForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Adicionar Novo Produto"
