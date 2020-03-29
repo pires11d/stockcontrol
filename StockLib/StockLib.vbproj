@@ -69,6 +69,7 @@
     <Compile Include="Barrel.vb" />
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
+    <Compile Include="Product.Entry.vb" />
     <Compile Include="Product.Purchase.vb" />
     <Compile Include="Product.Order.vb" />
     <Compile Include="ProductHistory.Designer.vb">

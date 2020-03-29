@@ -460,16 +460,6 @@ Public Module Extensions
         'CLOSES WEB RESPONSE
         myResponse.Close()
 
-
-        'GETS FILE CONTENT AS BYTES
-        'Dim bytes() As Byte = myRequest.DownloadData(remotePath)
-
-        'Dim DownloadStream As FileStream = IO.File.Create(localPath)
-        'DownloadStream.Write(bytes, 0, bytes.Length)
-        'DownloadStream.Close()
-
-
-
     End Sub
 
     Public Sub UploadFile(localPath As String, remotePath As String,

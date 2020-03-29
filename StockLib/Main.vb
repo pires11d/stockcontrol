@@ -6,7 +6,7 @@
 ''' </summary>
 Public Module Main
 
-    Public companyName As String = "ChoppExpress"
+    Public companyName As String = "L'jaica"
     Public appDataFolder As String
     Public downloadDataFolder As String
     Public uploadDataFolder As String
@@ -117,28 +117,33 @@ Public Module Main
             With productTables(p)
                 For i = 0 To .Rows.Count - 1
                     If CDbl(.Rows(i).Item("ENTRADA").ToString.ToZero) > 0 Then
+
                         Dim purchase As New Product.Purchase(.Rows(i).Item("ID"))
                         purchase.BuyingDate = DateValue(.Rows(i).Item("DATA"))
                         purchase.Description = .Rows(i).Item("HISTÓRICO")
                         purchase.Quantity = .Rows(i).Item("ENTRADA")
-                        purchase.Stock = .Rows(i).Item("SALDO")
+                        'purchase.Stock = .Rows(i).Item("SALDO")
                         purchase.Value = .Rows(i).Item("ENTRADA ($)")
-                        purchase.Balance = .Rows(i).Item("BALANÇO")
-                        purchase.Row = i
+                        'purchase.Balance = .Rows(i).Item("BALANÇO")
+                        purchase.Parent = p
 
                         p.Purchases.Add(purchase.ID, purchase)
-                    End If
-                    If CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
+                        p.Entries.Add(purchase)
+
+                    ElseIf CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
+
                         Dim order As New Product.Order(.Rows(i).Item("ID"))
                         order.SellingDate = DateValue(.Rows(i).Item("DATA"))
                         order.Description = .Rows(i).Item("HISTÓRICO")
                         order.Quantity = .Rows(i).Item("SAÍDA")
-                        order.Stock = .Rows(i).Item("SALDO")
+                        'order.Stock = .Rows(i).Item("SALDO")
                         order.Value = .Rows(i).Item("SAÍDA ($)")
-                        order.Balance = .Rows(i).Item("BALANÇO")
-                        order.Row = i
+                        'order.Balance = .Rows(i).Item("BALANÇO")
+                        order.Parent = p
 
                         p.Orders.Add(order.ID, order)
+                        p.Entries.Add(order)
+
                     End If
                 Next
             End With
@@ -221,7 +226,7 @@ Public Module Main
                 o.Client = clients(.Rows(i).Item("CLIENTE"))
 
                 orders.Add(o.ID, o)
-                Next
+            Next
         End With
 
     End Sub
@@ -392,30 +397,58 @@ Public Module Main
         For Each pTable In productTables
             pTable.Value.Rows.Clear()
 
-            For Each purchase In pTable.Key.Purchases.Values
-                pTable.Value.Rows.Add(purchase.Row,
-                                      purchase.BuyingDate.ToString("yyyy/MM/dd"),
-                                      purchase.ID,
-                                      purchase.Description,
-                                      purchase.Quantity,
-                                      0,
-                                      purchase.Stock,
-                                      purchase.Quantity,
-                                      0,
-                                      purchase.Balance)
+            For Each e In pTable.Key.Entries
+                If pTable.Key.Purchases.ContainsKey(e.ID) Then
+                    Dim purchase = TryCast(e, Product.Purchase)
+                    pTable.Value.Rows.Add(purchase.Index,
+                                          purchase.BuyingDate.ToString("yyyy/MM/dd"),
+                                          purchase.ID,
+                                          purchase.Description,
+                                          purchase.Quantity,
+                                          0,
+                                          purchase.Stock,
+                                          purchase.Value,
+                                          0,
+                                          purchase.Balance)
+                ElseIf pTable.Key.Orders.ContainsKey(e.ID) Then
+                    Dim order = TryCast(e, Product.Order)
+                    pTable.Value.Rows.Add(order.Index,
+                                  order.SellingDate.ToString("yyyy/MM/dd"),
+                                  order.ID,
+                                  order.Description,
+                                  0,
+                                  order.Quantity,
+                                  order.Stock,
+                                  0,
+                                  order.Value,
+                                  order.Balance)
+                End If
             Next
-            For Each order In pTable.Key.Orders.Values
-                pTable.Value.Rows.Add(order.Row,
-                                    order.SellingDate.ToString("yyyy/MM/dd"),
-                                    order.ID,
-                                    order.Description,
-                                    0,
-                                    order.Quantity,
-                                    order.Stock,
-                                    0,
-                                    order.Value,
-                                    order.Balance)
-            Next
+
+            'For Each purchase In pTable.Key.Purchases.Values
+            '    pTable.Value.Rows.Add(purchase.Index,
+            '                          purchase.BuyingDate.ToString("yyyy/MM/dd"),
+            '                          purchase.ID,
+            '                          purchase.Description,
+            '                          purchase.Quantity,
+            '                          0,
+            '                          purchase.Stock,
+            '                          purchase.Value,
+            '                          0,
+            '                          purchase.Balance)
+            'Next
+            'For Each order In pTable.Key.Orders.Values
+            '    pTable.Value.Rows.Add(order.Index,
+            '                        order.SellingDate.ToString("yyyy/MM/dd"),
+            '                        order.ID,
+            '                        order.Description,
+            '                        0,
+            '                        order.Quantity,
+            '                        order.Stock,
+            '                        0,
+            '                        order.Value,
+            '                        order.Balance)
+            'Next
 
             Dim dvi As New DataView(pTable.Value)
             dvi.Sort = "N ASC"
@@ -451,22 +484,7 @@ Public Module Main
 
         localList = System.IO.Directory.EnumerateFiles(appDataFolder).ToList
 
-        Dim localDates As New List(Of String)
-        For Each f In localList
-            localDates.Add(System.IO.File.GetLastWriteTime(f))
-        Next
-
-        Dim tables As New DataTable
-        tables.Columns.Add("NOME")
-        tables.Columns.Add("DATA")
-        For i = 0 To localList.Count - 1
-            tables.Rows.Add(localList(i), localDates(i))
-        Next
-        WriteCSV(tables, NameOf(tables), "|", True)
-
-        UploadFile(appDataFolder + "tables.csv", uploadDataFolder + "tables.csv", user, pass)
-
-        DownloadFile(downloadDataFolder + "tables.csv", appDataFolder + "tables.csv", user, pass)
+        'SyncTablesFile
 
         remoteList = ListRemoteFiles(uploadDataFolder, user, pass)
 
@@ -486,5 +504,26 @@ Public Module Main
         Return tableSet.ToList
 
     End Function
+
+    Public Sub SyncTablesFile()
+
+        Dim localDates As New List(Of String)
+        For Each f In localList
+            localDates.Add(System.IO.File.GetLastWriteTime(f))
+        Next
+
+        Dim tables As New DataTable
+        tables.Columns.Add("NOME")
+        tables.Columns.Add("DATA")
+        For i = 0 To localList.Count - 1
+            tables.Rows.Add(localList(i), localDates(i))
+        Next
+        WriteCSV(tables, NameOf(tables), "|", True)
+
+        UploadFile(appDataFolder + "tables.csv", uploadDataFolder + "tables.csv", user, pass)
+
+        DownloadFile(downloadDataFolder + "tables.csv", appDataFolder + "tables.csv", user, pass)
+
+    End Sub
 
 End Module

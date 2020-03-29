@@ -155,18 +155,43 @@ Public Class Product
         End Set
     End Property
 
+    Private p_Entries As New List(Of Product.Entry)
+    Public Property Entries() As List(Of Product.Entry)
+        Get
+            Return p_Entries
+        End Get
+        Set(ByVal value As List(Of Product.Entry))
+            p_Entries = value
+        End Set
+    End Property
+
     Public ReadOnly Property LastBalance As Double
         Get
+            'Return Me.Entries.Last.Balance
             If Orders.Count > 0 And Purchases.Count > 0 Then
                 If Orders.Values.Last.SellingDate >= Purchases.Values.Last.BuyingDate Then
                     Return Orders.Values.Last.Balance
                 Else
                     Return Purchases.Values.Last.Balance
                 End If
-            ElseIf Orders.Count > 0 And Purchases.count = 0 Then
+            ElseIf Orders.Count > 0 And Purchases.Count = 0 Then
                 Return Orders.Values.Last.Balance
-            ElseIf Orders.count = 0 And Purchases.count > 0 Then
+            ElseIf Orders.Count = 0 And Purchases.Count > 0 Then
                 Return Purchases.Values.Last.Balance
+            Else
+                Return 0
+            End If
+        End Get
+    End Property
+
+    Public ReadOnly Property LastStock As Double
+        Get
+            'Return Me.Entries.Last.Stock
+            Dim lastID = Me.Entries.Last.ID
+            If Orders.ContainsKey(lastID) Then
+                Return Orders(lastID).Stock
+            ElseIf purchases.containskey(lastID) Then
+                Return Purchases(lastID).Stock
             Else
                 Return 0
             End If

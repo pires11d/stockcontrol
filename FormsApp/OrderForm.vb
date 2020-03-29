@@ -492,7 +492,6 @@ Public Class OrderForm
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
-        Me.AcceptButton = AddToolStripMenuItem
     End Sub
 
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
@@ -506,7 +505,6 @@ Public Class OrderForm
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
-        Me.AcceptButton = AddToolStripMenuItem
     End Sub
 
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
@@ -593,6 +591,8 @@ Public Class OrderForm
             Case FormTypes.Order
                 For Each item In currentOrder.Items.Values
                     Dim newOrder As New Product.Order(tbID.Text)
+                    newOrder.Index = item.Entries.Count
+                    newOrder.Parent = item
                     newOrder.SellingDate = currentOrder.SellingDate
                     newOrder.Client = Main.clients(currentOrder.Client.Name)
                     newOrder.Observation = currentOrder.Observation
@@ -621,6 +621,8 @@ Public Class OrderForm
             Case FormTypes.Purchase
                 For Each item In currentPurchase.Items.Values
                     Dim newPurchase As New Product.Purchase(tbID.Text)
+                    newPurchase.Index = item.Entries.Count
+                    newPurchase.Parent = item
                     newPurchase.BuyingDate = currentPurchase.BuyingDate
                     newPurchase.Vendor = currentPurchase.Vendor
                     newPurchase.Observation = currentPurchase.Observation
