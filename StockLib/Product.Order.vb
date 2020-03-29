@@ -18,6 +18,16 @@ Partial Public Class Product
             End Set
         End Property
 
+        Private p_Row As Integer
+        Public Property Row() As Integer
+            Get
+                Return p_Row
+            End Get
+            Set(ByVal value As Integer)
+                p_Row = value
+            End Set
+        End Property
+
         Private p_SellingDate As Date
         Public Property SellingDate() As Date
             Get
@@ -89,7 +99,7 @@ Partial Public Class Product
 
         Public Property Description() As String
             Get
-                Return Me.Client.Name + " " + Me.Observation
+                Return (Me.Client.Name + " " + Me.Observation).Replace("  ", " ")
             End Get
             Set(value As String)
                 Me.Client = Main.clients(Main.GetClientName(value))

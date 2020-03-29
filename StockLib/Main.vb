@@ -12,8 +12,10 @@ Public Module Main
     Public uploadDataFolder As String
     Private user As String = "pires11d"
     Private pass As String = "calculera"
+
     Public localList As New List(Of String)
     Public remoteList As New List(Of String)
+    Public toolTip As String = ""
 
     Public tableStock As New DataTable
     Public tableProducts As New DataTable
@@ -51,7 +53,7 @@ Public Module Main
     ''' Sub responsible for getting data from each CSV file and load it into its respective DataTable object
     ''' </summary>
     Public Sub GetTables()
-        On Error Resume Next
+        'On Error Resume Next
 
         tableVendors = ReadCSV(appDataFolder + "tableVendor.csv", "|", True)
         LoadVendors()
@@ -99,10 +101,14 @@ Public Module Main
         For Each p In products.Values
             Try
                 Dim table As New DataTable
-                table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True)
+                Try
+                    table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, True)
+                Catch exx As Exception
+                    table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, False)
+                End Try
                 productTables.Add(p, table)
             Catch ex As Exception
-                'MsgBox("Failed to load table " + p.TableName)
+
             End Try
         Next
 
@@ -118,6 +124,7 @@ Public Module Main
                         purchase.Stock = .Rows(i).Item("SALDO")
                         purchase.Value = .Rows(i).Item("ENTRADA ($)")
                         purchase.Balance = .Rows(i).Item("BALANÇO")
+                        purchase.Row = i
 
                         p.Purchases.Add(purchase.ID, purchase)
                     End If
@@ -129,6 +136,7 @@ Public Module Main
                         order.Stock = .Rows(i).Item("SALDO")
                         order.Value = .Rows(i).Item("SAÍDA ($)")
                         order.Balance = .Rows(i).Item("BALANÇO")
+                        order.Row = i
 
                         p.Orders.Add(order.ID, order)
                     End If
@@ -152,7 +160,7 @@ Public Module Main
                 c.Address = .Rows(i).Item("RUA")
                 c.Neighborhood = .Rows(i).Item("BAIRRO")
                 c.Location = .Rows(i).Item("LOCALIDADE")
-
+                c.ID = CInt(.Rows(i).Item("ID").ToString.ToZero)
                 clients.Add(c.Name, c)
             Next
         End With
@@ -290,17 +298,50 @@ Public Module Main
 
     Public Sub UpdateTables()
 
+        'UPDATES THE CLIENT TABLE
+        Dim c = 0
+        For Each cli In clients.Values
+            Try
+                tableClients.Rows(c).Item("ENDERECO") = clients(tableClients.Rows(c).Item("CLIENTE")).FullAddress.ToString.NotNull
+            Catch ex As Exception
+                If Not tableClients.Rows(c - 1).Item(0) = cli.Name Then
+                    tableClients.Rows.Add(cli.Name,
+                                      cli.Phone.ToString.NotNull,
+                                      cli.Address.ToString.NotNull,
+                                      cli.Neighborhood.ToString.NotNull,
+                                      cli.Location.ToString.NotNull,
+                                      cli.FullAddress.ToString.NotNull,
+                                      cli.ID.ToString.NotNull)
+                End If
+            End Try
+            c += 1
+        Next
+        Dim lastRow = tableClients.Rows.Count - 1
+        If tableClients.Rows(lastRow).Item(0).ToString.NotNull = "" Then tableClients.Rows.RemoveAt(lastRow)
+        Dim dvc As New DataView(tableClients)
+        dvc.Sort = "CLIENTE ASC"
+        Dim dtc = dvc.ToTable
+        For c = 0 To dtc.Rows.Count - 1
+            dtc.Rows(c).Item("ID") = c + 1
+        Next
+        Try
+            WriteCSV(dtc, NameOf(tableClients), "|", True)
+        Catch ex As Exception
+        End Try
+
         'UPDATES THE PRODUCTS TABLE (STOCK)
         With tableProducts
             For p = 0 To .Rows.Count - 1
                 .Rows(p).Item("ESTOQUE") = products(.Rows(p).Item("PRODUTO")).Stock
+                .Rows(p).Item("CUSTO") = products(.Rows(p).Item("PRODUTO")).Cost
+                .Rows(p).Item("PREÇO") = products(.Rows(p).Item("PRODUTO")).Price
             Next
         End With
-        Dim dv As New DataView(tableProducts)
-        dv.Sort = "PRODUTO ASC, MARCA ASC"
-        Dim dt = dv.ToTable
+        Dim dvp As New DataView(tableProducts)
+        dvp.Sort = "PRODUTO ASC, MARCA ASC"
+        Dim dtp = dvp.ToTable
         Try
-            WriteCSV(dt, NameOf(tableProducts), "|", True)
+            WriteCSV(dtp, NameOf(tableProducts), "|", True)
         Catch ex As Exception
         End Try
 
@@ -352,30 +393,32 @@ Public Module Main
             pTable.Value.Rows.Clear()
 
             For Each purchase In pTable.Key.Purchases.Values
-                pTable.Value.Rows.Add(purchase.BuyingDate.ToShortDateString,
-                          purchase.ID,
-                          purchase.Description,
-                          purchase.Quantity,
-                          0,
-                          purchase.Stock,
-                          purchase.Quantity,
-                          0,
-                          purchase.Balance)
+                pTable.Value.Rows.Add(purchase.Row,
+                                      purchase.BuyingDate.ToString("yyyy/MM/dd"),
+                                      purchase.ID,
+                                      purchase.Description,
+                                      purchase.Quantity,
+                                      0,
+                                      purchase.Stock,
+                                      purchase.Quantity,
+                                      0,
+                                      purchase.Balance)
             Next
             For Each order In pTable.Key.Orders.Values
-                pTable.Value.Rows.Add(order.SellingDate.ToShortDateString,
-                          order.ID,
-                          order.Description,
-                          0,
-                          order.Quantity,
-                          order.Stock,
-                          0,
-                          order.Value,
-                          order.Balance)
+                pTable.Value.Rows.Add(order.Row,
+                                    order.SellingDate.ToString("yyyy/MM/dd"),
+                                    order.ID,
+                                    order.Description,
+                                    0,
+                                    order.Quantity,
+                                    order.Stock,
+                                    0,
+                                    order.Value,
+                                    order.Balance)
             Next
 
             Dim dvi As New DataView(pTable.Value)
-            dvi.Sort = "DATA ASC"
+            dvi.Sort = "N ASC"
             Dim dti = dvi.ToTable
 
             Try
@@ -396,8 +439,7 @@ Public Module Main
             Dim filename As String = file.Split("\").Last
             'Try
             Extensions.SyncFile(file, uploadDataFolder + filename, downloadDataFolder + filename, user, pass)
-            'Catch ex As Exception
-
+            'Catch ex As Exception   
             'End Try
         Next
 
@@ -408,6 +450,24 @@ Public Module Main
     Public Function UpdatedSyncList() As List(Of String)
 
         localList = System.IO.Directory.EnumerateFiles(appDataFolder).ToList
+
+        Dim localDates As New List(Of String)
+        For Each f In localList
+            localDates.Add(System.IO.File.GetLastWriteTime(f))
+        Next
+
+        Dim tables As New DataTable
+        tables.Columns.Add("NOME")
+        tables.Columns.Add("DATA")
+        For i = 0 To localList.Count - 1
+            tables.Rows.Add(localList(i), localDates(i))
+        Next
+        WriteCSV(tables, NameOf(tables), "|", True)
+
+        UploadFile(appDataFolder + "tables.csv", uploadDataFolder + "tables.csv", user, pass)
+
+        DownloadFile(downloadDataFolder + "tables.csv", appDataFolder + "tables.csv", user, pass)
+
         remoteList = ListRemoteFiles(uploadDataFolder, user, pass)
 
         'JOINS TWO LISTS INTO A HASHSET

@@ -153,6 +153,8 @@ Public Module Extensions
                 word = "" Or
                 word = " " Or
                 word = "-" Then
+                text += word
+            Else
                 If i = words.Count Then
                     text += word
                 Else
@@ -259,7 +261,8 @@ Public Module Extensions
     ''' <returns></returns>
     Public Function ReadCSV(fileName As String,
                                      Optional delimiter As String = ",",
-                                     Optional hasTitles As Boolean = True) As DataTable
+                                     Optional hasTitles As Boolean = True,
+                                     Optional addIdColumn As Boolean = False) As DataTable
 
         Dim result As New DataTable
         Dim currentRow As IEnumerable(Of String)
@@ -271,22 +274,30 @@ Public Module Extensions
 
             If hasTitles Then
                 currentRow = reader.ReadFields
+                If addIdColumn Then
+                    result.Columns.Add("N")
+                End If
                 For Each c In currentRow
                     result.Columns.Add(c.ToIrregular.ToUpper)
                 Next
             End If
 
+            Dim counter = 1
             While Not reader.EndOfData
                 currentRow = reader.ReadFields
                 While currentRow.Count > result.Columns.Count
                     result.Columns.Add()
                 End While
                 fixedRow.Clear()
+                If addIdColumn Then
+                    fixedRow.Add(counter)
+                End If
                 For Each c In currentRow
                     c = c.ToIrregular
                     fixedRow.Add(c.NotNull)
                 Next
                 result.Rows.Add(fixedRow.ToArray)
+                counter += 1
             End While
 
         End Using
@@ -361,7 +372,6 @@ Public Module Extensions
             For Each row As DataRow In table.Rows
                 writer.WriteLine(String.Join(delimiter, row.ItemArray))
             Next
-
             writer.Flush()
         End Using
 
@@ -425,7 +435,7 @@ Public Module Extensions
         pass = ""
 
         'GETS FILE CREATION DATE
-        Dim localDate As DateTime = File.GetCreationTime(localPath)
+        Dim localDate As DateTime = File.GetLastWriteTime(localPath)
 
         'CREATES URI
         Dim uri = New Uri(remotePath)
@@ -440,15 +450,25 @@ Public Module Extensions
 
             'CHECKS IF WEBSITE'S VERSION IS NEWER
             If localDate < myResponse.LastModified Then
-                File.Delete(localPath)
-                My.Computer.Network.DownloadFile(uri, localPath, user, pass)
-                'My.Computer.Network.DownloadFile(uri, localPath, myRequest.Credentials, True, 60, True)
+                'File.Delete(localPath)
+                'My.Computer.Network.DownloadFile(uri, localPath, user, pass)
+                My.Computer.Network.DownloadFile(uri, localPath, myRequest.Credentials, True, 100, True)
             End If
 
         End If
 
         'CLOSES WEB RESPONSE
         myResponse.Close()
+
+
+        'GETS FILE CONTENT AS BYTES
+        'Dim bytes() As Byte = myRequest.DownloadData(remotePath)
+
+        'Dim DownloadStream As FileStream = IO.File.Create(localPath)
+        'DownloadStream.Write(bytes, 0, bytes.Length)
+        'DownloadStream.Close()
+
+
 
     End Sub
 
@@ -470,10 +490,9 @@ Public Module Extensions
         ftpRequest.ContentLength = bytes.Length
 
         'CHECKS IF WEBSITE'S VERSION IS NEWER
-        Using UploadStream As Stream = ftpRequest.GetRequestStream()
-            UploadStream.Write(bytes, 0, bytes.Length)
-            UploadStream.Close()
-        End Using
+        Dim UploadStream As Stream = ftpRequest.GetRequestStream
+        UploadStream.Write(bytes, 0, bytes.Length)
+        UploadStream.Close()
 
     End Sub
 
@@ -489,26 +508,22 @@ Public Module Extensions
         'CREATES URI
         Dim uri = New Uri(downloadPath)
 
-        'CREATES UPLOAD REQUEST   
-        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(uploadPath), FtpWebRequest)
-        ftpRequest.Method = WebRequestMethods.Ftp.UploadFile
-        ftpRequest.Credentials = New NetworkCredential(user, pass)
-
         'CREATES DOWNLOAD REQUEST   
         Dim myRequest As HttpWebRequest = WebRequest.Create(uri)
-        myRequest.Credentials = New NetworkCredential(user, pass)
+        myRequest.Credentials = New NetworkCredential("", "")
         Dim myResponse As HttpWebResponse = myRequest.GetResponse()
 
         'GETS FILE CREATION DATES
         Dim localDate As DateTime = File.GetLastWriteTime(localPath)
         Dim remoteDate As DateTime = myResponse.LastModified
 
-        ftpRequest.Abort()
         myResponse.Close()
 
         If localDate > remoteDate Then
+            toolTip = "Uploading " + localPath.Split("\").Last
             UploadFile(localPath, uploadPath, user, pass)
         Else
+            toolTip = "Downloading " + downloadPath.Split("/").Last
             DownloadFile(downloadPath, localPath, user, pass)
         End If
 

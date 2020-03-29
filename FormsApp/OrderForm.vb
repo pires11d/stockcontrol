@@ -46,6 +46,8 @@ Public Class OrderForm
 
     Public Sub LoadControls()
 
+        Me.AcceptButton = btnOK
+
         'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE
         Select Case FormType
             Case FormTypes.Order
@@ -464,6 +466,17 @@ Public Class OrderForm
         Main.UpdateTables()
         Main.GetTables()
         MainForm.LoadTables()
+
+        Select Case FormType
+
+            Case FormTypes.Order
+                MainForm.tabs.SelectedIndex = 2
+
+            Case FormTypes.Purchase
+                MainForm.tabs.SelectedIndex = 1
+
+        End Select
+
         Me.Close()
     End Sub
 
@@ -479,6 +492,7 @@ Public Class OrderForm
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
+        Me.AcceptButton = AddToolStripMenuItem
     End Sub
 
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
@@ -492,6 +506,7 @@ Public Class OrderForm
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
+        Me.AcceptButton = AddToolStripMenuItem
     End Sub
 
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click

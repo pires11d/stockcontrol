@@ -14,6 +14,16 @@ Public Class Client
         Me.Name = name
     End Sub
 
+    Private p_ID As Integer
+    Public Property ID() As Integer
+        Get
+            Return p_ID
+        End Get
+        Set(ByVal value As Integer)
+            p_ID = value
+        End Set
+    End Property
+
     Private p_Name As String
     Public Property Name() As String
         Get
@@ -77,7 +87,8 @@ Public Class Client
     Public ReadOnly Property FullAddress() As String
         Get
             Dim myInfo As String() = {Address, AddressComplement, Neighborhood, Location}
-            Return Extensions.JoinText(myInfo)
+            Dim result = Extensions.JoinText(myInfo)
+            Return result
         End Get
     End Property
 
