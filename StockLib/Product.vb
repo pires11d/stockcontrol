@@ -167,17 +167,11 @@ Public Class Product
 
     Public ReadOnly Property LastBalance As Double
         Get
-            'Return Me.Entries.Last.Balance
-            If Orders.Count > 0 And Purchases.Count > 0 Then
-                If Orders.Values.Last.SellingDate >= Purchases.Values.Last.BuyingDate Then
-                    Return Orders.Values.Last.Balance
-                Else
-                    Return Purchases.Values.Last.Balance
-                End If
-            ElseIf Orders.Count > 0 And Purchases.Count = 0 Then
-                Return Orders.Values.Last.Balance
-            ElseIf Orders.Count = 0 And Purchases.Count > 0 Then
-                Return Purchases.Values.Last.Balance
+            Dim lastID = Me.Entries.Last.ID
+            If Orders.ContainsKey(lastID) Then
+                Return Orders(lastID).Balance
+            ElseIf Purchases.ContainsKey(lastID) Then
+                Return Purchases(lastID).Balance
             Else
                 Return 0
             End If
@@ -186,11 +180,10 @@ Public Class Product
 
     Public ReadOnly Property LastStock As Double
         Get
-            'Return Me.Entries.Last.Stock
             Dim lastID = Me.Entries.Last.ID
             If Orders.ContainsKey(lastID) Then
                 Return Orders(lastID).Stock
-            ElseIf purchases.containskey(lastID) Then
+            ElseIf Purchases.ContainsKey(lastID) Then
                 Return Purchases(lastID).Stock
             Else
                 Return 0

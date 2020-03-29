@@ -50,7 +50,6 @@ Public Class HistoryProductForm
 
         'SETS FORM INFORMATION BASED ON THE PRODUCT AND ITS TABLE
         Me.Text = product.Code
-        Me.Size = lvHistory.Size
 
     End Sub
 

@@ -425,31 +425,6 @@ Public Module Main
                 End If
             Next
 
-            'For Each purchase In pTable.Key.Purchases.Values
-            '    pTable.Value.Rows.Add(purchase.Index,
-            '                          purchase.BuyingDate.ToString("yyyy/MM/dd"),
-            '                          purchase.ID,
-            '                          purchase.Description,
-            '                          purchase.Quantity,
-            '                          0,
-            '                          purchase.Stock,
-            '                          purchase.Value,
-            '                          0,
-            '                          purchase.Balance)
-            'Next
-            'For Each order In pTable.Key.Orders.Values
-            '    pTable.Value.Rows.Add(order.Index,
-            '                        order.SellingDate.ToString("yyyy/MM/dd"),
-            '                        order.ID,
-            '                        order.Description,
-            '                        0,
-            '                        order.Quantity,
-            '                        order.Stock,
-            '                        0,
-            '                        order.Value,
-            '                        order.Balance)
-            'Next
-
             Dim dvi As New DataView(pTable.Value)
             dvi.Sort = "N ASC"
             Dim dti = dvi.ToTable

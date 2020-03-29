@@ -591,8 +591,8 @@ Public Class OrderForm
             Case FormTypes.Order
                 For Each item In currentOrder.Items.Values
                     Dim newOrder As New Product.Order(tbID.Text)
-                    newOrder.Index = item.Entries.Count
                     newOrder.Parent = item
+                    newOrder.Index = item.Entries.Count
                     newOrder.SellingDate = currentOrder.SellingDate
                     newOrder.Client = Main.clients(currentOrder.Client.Name)
                     newOrder.Observation = currentOrder.Observation
@@ -603,6 +603,7 @@ Public Class OrderForm
                     newOrder.Balance = item.LastBalance + newOrder.Value
 
                     Main.products(item.Code).Orders.Add(newOrder.ID, newOrder)
+                    Main.products(item.Code).Entries.Add(newOrder)
                     Main.products(item.Code).Stock = item.Stock
 
                     With Main.productTables(item)
@@ -621,8 +622,8 @@ Public Class OrderForm
             Case FormTypes.Purchase
                 For Each item In currentPurchase.Items.Values
                     Dim newPurchase As New Product.Purchase(tbID.Text)
-                    newPurchase.Index = item.Entries.Count
                     newPurchase.Parent = item
+                    newPurchase.Index = item.Entries.Count
                     newPurchase.BuyingDate = currentPurchase.BuyingDate
                     newPurchase.Vendor = currentPurchase.Vendor
                     newPurchase.Observation = currentPurchase.Observation
@@ -633,6 +634,7 @@ Public Class OrderForm
                     newPurchase.Balance = item.LastBalance - newPurchase.Value
 
                     Main.products(item.Code).Purchases.Add(newPurchase.ID, newPurchase)
+                    Main.products(item.Code).Entries.Add(newPurchase)
                     Main.products(item.Code).Stock = item.Stock
 
                     With Main.productTables(item)
