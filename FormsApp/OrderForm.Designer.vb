@@ -528,7 +528,7 @@ Partial Class OrderForm
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "OrderForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "OrderForm"
+        Me.Text = "Formulário"
         CType(Me.lvItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.menu.ResumeLayout(False)
         Me.menu.PerformLayout()

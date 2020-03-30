@@ -135,6 +135,16 @@ Public Class Product
         End Set
     End Property
 
+    Private p_Price2 As Double
+    Public Property Price2() As Double
+        Get
+            Return p_Price2
+        End Get
+        Set(ByVal value As Double)
+            p_Price2 = value
+        End Set
+    End Property
+
     Private p_Purchases As New Dictionary(Of String, Product.Purchase)
     Public Property Purchases() As Dictionary(Of String, Product.Purchase)
         Get

@@ -32,7 +32,7 @@ Partial Class InventoryForm
         Me.ClientSize = New System.Drawing.Size(800, 504)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "InventoryForm"
-        Me.Text = "InventoryForm"
+        Me.Text = "Inventário"
         Me.ResumeLayout(False)
 
     End Sub

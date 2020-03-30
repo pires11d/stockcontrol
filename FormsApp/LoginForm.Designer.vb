@@ -73,7 +73,7 @@ Partial Class LoginForm
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "LoginForm"
+        Me.Text = "Login"
         Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()

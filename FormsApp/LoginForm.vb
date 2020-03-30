@@ -5,7 +5,8 @@
 ''' </summary>
 Public Class LoginForm
 
-    Private password As String = "pires223"
+    Private passwordLJ As String = "positividade"
+    Private passwordCE As String = "pires223"
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.AcceptButton = btnConfirm
@@ -13,7 +14,7 @@ Public Class LoginForm
 
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
-        If tbPass.Text = password Then
+        If tbPass.Text = passwordCE Then
 
             Main.Start()
             MainForm.LoadTables()

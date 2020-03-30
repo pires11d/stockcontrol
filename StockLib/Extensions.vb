@@ -510,10 +510,10 @@ Public Module Extensions
         myResponse.Close()
 
         If localDate > remoteDate Then
-            toolTip = "Uploading " + localPath.Split("\").Last
+            currentSync = "Uploading " + localPath.Split("\").Last
             UploadFile(localPath, uploadPath, user, pass)
         Else
-            toolTip = "Downloading " + downloadPath.Split("/").Last
+            currentSync = "Downloading " + downloadPath.Split("/").Last
             DownloadFile(downloadPath, localPath, user, pass)
         End If
 

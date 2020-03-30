@@ -621,6 +621,11 @@ Public Class OrderForm
 
             Case FormTypes.Purchase
                 For Each item In currentPurchase.Items.Values
+                    Try
+                        Dim test = CDbl(tbID.Text)
+                        tbID.Text = currentPurchase.Vendor.Code + tbID.Text
+                    Catch ex As Exception
+                    End Try
                     Dim newPurchase As New Product.Purchase(tbID.Text)
                     newPurchase.Parent = item
                     newPurchase.Index = item.Entries.Count
@@ -728,21 +733,29 @@ Public Class OrderForm
             'With selectedProduct
             Select Case FormType
                     Case FormTypes.Order
-                        If Main.orders.ContainsKey(tbID.Text) Then
-                            currentOrder = Main.orders(tbID.Text)
+                    If Main.orders.ContainsKey(tbID.Text) Then
+                        currentOrder = Main.orders(tbID.Text)
                         If currentOrder.Items.ContainsKey(selectedProduct.Code) Then
                             selectedProduct.Quantity = currentOrder.Items(selectedProduct.Code).Quantity
                             selectedProduct.Value = currentOrder.Items(selectedProduct.Code).Value
                         Else
+                            If Main.owners.Contains(cbbClient.Text) Then
+                                selectedProduct.Value = selectedProduct.Price2
+                            Else
+                                selectedProduct.Value = selectedProduct.Price
+                            End If
                             selectedProduct.Quantity = 0
+                        End If
+                    Else
+                        If Main.owners.Contains(cbbClient.Text) Then
+                            selectedProduct.Value = selectedProduct.Price2
+                        Else
                             selectedProduct.Value = selectedProduct.Price
                         End If
-                        Else
                         selectedProduct.Quantity = 0
-                        selectedProduct.Value = selectedProduct.Price
                     End If
 
-                    Case FormTypes.Purchase
+                Case FormTypes.Purchase
                         If Main.purchases.ContainsKey(tbID.Text) Then
                             currentPurchase = Main.purchases(tbID.Text)
                         If currentPurchase.Items.ContainsKey(selectedProduct.Code) Then

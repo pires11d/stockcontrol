@@ -25,7 +25,6 @@ Partial Class HistoryProductForm
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HistoryProductForm))
         Me.lvHistory = New System.Windows.Forms.DataGridView()
-        Me.ProductHistorySchema = New StockLib.ProductHistory()
         Me.NDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DATADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -36,6 +35,7 @@ Partial Class HistoryProductForm
         Me.ENTRADADataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SAÍDADataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SALDODataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductHistorySchema = New StockLib.ProductHistory()
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProductHistorySchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -68,11 +68,6 @@ Partial Class HistoryProductForm
         Me.lvHistory.Name = "lvHistory"
         Me.lvHistory.Size = New System.Drawing.Size(1284, 281)
         Me.lvHistory.TabIndex = 3
-        '
-        'ProductHistorySchema
-        '
-        Me.ProductHistorySchema.DataSetName = "ProductHistory"
-        Me.ProductHistorySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'NDataGridViewTextBoxColumn
         '
@@ -141,6 +136,11 @@ Partial Class HistoryProductForm
         Me.SALDODataGridViewTextBoxColumn1.HeaderText = "SALDO($)"
         Me.SALDODataGridViewTextBoxColumn1.Name = "SALDODataGridViewTextBoxColumn1"
         '
+        'ProductHistorySchema
+        '
+        Me.ProductHistorySchema.DataSetName = "ProductHistory"
+        Me.ProductHistorySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'HistoryProductForm
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
@@ -154,7 +154,7 @@ Partial Class HistoryProductForm
         Me.MaximumSize = New System.Drawing.Size(2491, 1273)
         Me.Name = "HistoryProductForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "ProductForm"
+        Me.Text = "Histórico"
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ProductHistorySchema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

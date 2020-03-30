@@ -12,11 +12,9 @@ Public Module Main
     Public uploadDataFolder As String
     Private user As String = "pires11d"
     Private pass As String = "calculera"
-
     Public localList As New List(Of String)
     Public remoteList As New List(Of String)
-    Public toolTip As String = ""
-
+    Public currentSync As String = ""
     Public tableStock As New DataTable
     Public tableProducts As New DataTable
     Public tableOrders As New DataTable
@@ -24,6 +22,7 @@ Public Module Main
     Public tableClients As New DataTable
     Public tableVendors As New DataTable
     Public tableResp As New DataTable
+    Public owners As New List(Of String)
     Public clients As New Dictionary(Of String, Client)
     Public vendors As New Dictionary(Of String, Vendor)
     Public products As New Dictionary(Of String, Product)
@@ -62,6 +61,7 @@ Public Module Main
         LoadClients()
 
         tableResp = ReadCSV(appDataFolder + "tableResp.csv", "|", True)
+        LoadOwners()
 
         tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|", True)
         LoadOrders()
@@ -91,6 +91,7 @@ Public Module Main
                 p.Value = 0     '.Rows(i).Item("VALOR")
                 p.Cost = .Rows(i).Item("CUSTO")
                 p.Price = .Rows(i).Item("PREÇO")
+                p.Price2 = .Rows(i).Item("PREÇO2")
                 products.Add(p.Code, p)
             Next i
         End With
@@ -173,7 +174,21 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all vendor information into a dictionary of Vendor objects
+    ''' Loads company owners (from tableResp) into a list of string: <see cref="owners"/>
+    ''' </summary>
+    Public Sub LoadOwners()
+
+        owners.Clear()
+        With tableResp
+            For i = 0 To .Rows.Count - 1
+                owners.Add(.Rows(i).Item("RESP"))
+            Next
+        End With
+
+    End Sub
+
+    ''' <summary>
+    ''' Loads all vendor information into a dictionary of Vendor objects: <see cref="vendors"/>
     ''' </summary>
     Public Sub LoadVendors()
 
@@ -190,7 +205,7 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all order information into a dictionary of Order objects
+    ''' Loads all order information into a dictionary of Order objects: <see cref="orders"/>
     ''' </summary>
     Public Sub LoadOrders()
 
@@ -232,7 +247,7 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all order information into a dictionary of Purchase objects
+    ''' Loads all order information into a dictionary of Purchase objects: <see cref="purchases"/>    
     ''' </summary>
     Public Sub LoadPurchases()
 
@@ -263,6 +278,11 @@ Public Module Main
 
     End Sub
 
+    ''' <summary>
+    ''' Gets the client name from the Description field
+    ''' </summary>
+    ''' <param name="words"></param>
+    ''' <returns></returns>
     Public Function GetClientName(words As String)
 
         If Main.clients.ContainsKey(words) Then
@@ -282,6 +302,11 @@ Public Module Main
 
     End Function
 
+    ''' <summary>
+    ''' Gets the vendor name from the Description field
+    ''' </summary>
+    ''' <param name="words"></param>
+    ''' <returns></returns>
     Public Function GetVendorName(words As String)
 
         If Main.vendors.ContainsKey(words) Then
@@ -301,6 +326,9 @@ Public Module Main
 
     End Function
 
+    ''' <summary>
+    ''' Updates all tables locally, replacing the old CSV files by new ones
+    ''' </summary>
     Public Sub UpdateTables()
 
         'UPDATES THE CLIENT TABLE
@@ -424,11 +452,9 @@ Public Module Main
                                   order.Balance)
                 End If
             Next
-
             Dim dvi As New DataView(pTable.Value)
             dvi.Sort = "N ASC"
             Dim dti = dvi.ToTable
-
             Try
                 WriteCSV(dti, pTable.Key.TableName, "|", True)
             Catch ex As Exception
@@ -438,6 +464,9 @@ Public Module Main
 
     End Sub
 
+    ''' <summary>
+    ''' Synchronizes all tables with the remote server, according to the updated list of files (see <see cref="UpdatedSyncList()"/>)
+    ''' </summary>
     Public Sub SyncTables()
 
         Dim synclist = UpdatedSyncList()
@@ -455,6 +484,10 @@ Public Module Main
 
     End Sub
 
+    ''' <summary>
+    ''' Compares the local list of files to the remote server's list of files, then returns a synchronized list
+    ''' </summary>
+    ''' <returns></returns>
     Public Function UpdatedSyncList() As List(Of String)
 
         localList = System.IO.Directory.EnumerateFiles(appDataFolder).ToList

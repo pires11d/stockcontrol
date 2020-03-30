@@ -40,7 +40,6 @@ Public Class HistoryProductForm
 
         'FORMATTING OF ACCOUNTING-RELATED COLUMNS
         With lvHistory
-            .Columns(0).DefaultCellStyle.Format = "0"
             .Columns(1).DefaultCellStyle.Format = "yyyy/MM/dd"
             .Columns(7).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(8).DefaultCellStyle.Format = "R$ 0.00"
@@ -51,6 +50,12 @@ Public Class HistoryProductForm
         'SETS FORM INFORMATION BASED ON THE PRODUCT AND ITS TABLE
         Me.Text = product.Code
 
+    End Sub
+
+    Private Sub lvHistory_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvHistory.CellFormatting
+        If {4, 5, 6}.Contains(e.ColumnIndex) And e.Value.ToString = "0" Then
+            e.Value = "-"
+        End If
     End Sub
 
 End Class

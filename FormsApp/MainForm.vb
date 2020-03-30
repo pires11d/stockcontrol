@@ -226,7 +226,8 @@ Public Class MainForm
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
-
+        Dim reportForm As New ReportForm
+        reportForm.Show()
     End Sub
 
     Private Sub lvStock_MouseDoubleClick(sender As Object, e As EventArgs)
@@ -368,7 +369,7 @@ Public Class MainForm
     End Sub
 
     Private Sub MainForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        lblSync.Text = toolTip
+        lblSync.Text = currentSync
     End Sub
 
 End Class
