@@ -165,7 +165,7 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub lvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellDoubleClick
+    Private Sub lvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellContentClick
         Dim cells = lvStock.SelectedCells
 
         For Each cell As DataGridViewCell In cells
@@ -228,16 +228,13 @@ Public Class MainForm
     End Sub
 
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
-
+        Dim inventoryForm As New InventoryForm
+        inventoryForm.Show()
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
         Dim reportForm As New ReportForm
         reportForm.Show()
-    End Sub
-
-    Private Sub lvStock_MouseDoubleClick(sender As Object, e As EventArgs)
-
     End Sub
 
     Private Sub lvStock_Sorted(sender As Object, e As EventArgs) Handles lvStock.Sorted

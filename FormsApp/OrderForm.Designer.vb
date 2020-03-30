@@ -77,6 +77,7 @@ Partial Class OrderForm
         Me.tvItems.CheckBoxes = True
         Me.tvItems.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tvItems.ForeColor = System.Drawing.Color.Black
+        Me.tvItems.HotTracking = True
         Me.tvItems.Indent = 40
         Me.tvItems.ItemHeight = 30
         Me.tvItems.Location = New System.Drawing.Point(14, 166)
