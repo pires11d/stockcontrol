@@ -25,25 +25,30 @@ Public Class MainForm
 
     Public Sub LoadTables()
 
+        'LOADS STOCK TABLE INTO DATAGRIDVIEW
         ProductStockSchema.StockTable.Clear()
-
         Dim dv As New DataView(tableProducts)
         dv.Sort = "PRODUTO ASC, MARCA ASC"
         Dim dt = dv.ToTable
-
         With dt
             For i = 0 To .Rows.Count - 1
                 ProductStockSchema.StockTable.AddStockTableRow(.Rows(i).Item(0),
-                                                        .Rows(i).Item(1),
-                                                        CDbl(.Rows(i).Item(2).ToString.ToZero),
-                                                        .Rows(i).Item(3),
-                                                        CDbl(.Rows(i).Item(6).ToString.ToZero),
-                                                        CDbl(.Rows(i).Item(7).ToString.ToZero))
+                                                                .Rows(i).Item(1),
+                                                                CDbl(.Rows(i).Item(2).ToString.ToZero),
+                                                                .Rows(i).Item(3),
+                                                                CDbl(.Rows(i).Item(6).ToString.ToZero),
+                                                                CDbl(.Rows(i).Item(7).ToString.ToZero),
+                                                                CDbl(.Rows(i).Item(2).ToString.ToZero) * CDbl(.Rows(i).Item(6).ToString.ToZero))
             Next i
         End With
 
+        'LOADS PURCHASES TABLE INTO DATAGRIDVIEW
         lvPurchases.DataSource = tablePurchases
+
+        'LOADS ORDERS TABLE INTO DATAGRIDVIEW
         lvOrders.DataSource = tableOrders
+
+        'LOADS CLIENTS TABLE INTO DATAGRIDVIEW
         lvClients.DataSource = tableClients
 
         ApplyStylesToTables("Century Gothic")
@@ -54,6 +59,7 @@ Public Class MainForm
 
         lvStock.Columns(4).DefaultCellStyle.Format = "R$ 0.00"
         lvStock.Columns(5).DefaultCellStyle.Format = "R$ 0.00"
+        lvStock.Columns(6).DefaultCellStyle.Format = "R$ 0.00"
         lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(lvStock.DefaultCellStyle.Font, FontStyle.Bold)
         lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvPurchases.DefaultCellStyle.Font = New Font(fontName, 12)
@@ -106,7 +112,7 @@ Public Class MainForm
 
             Case "ChoppExpress"
                 '#FFE453
-                primaryColor = Color.FromArgb(255, 255, 229, 92)
+                primaryColor = Color.FromArgb(255, 255, 255, 128)
                 secondaryColor = Color.Red
 
             Case "L'jaica"
@@ -370,6 +376,12 @@ Public Class MainForm
 
     Private Sub MainForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
         lblSync.Text = currentSync
+    End Sub
+
+    Private Sub lvStock_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvStock.CellFormatting
+        If {6}.Contains(e.ColumnIndex) And e.Value.ToString = "0" Then
+            e.Value = "-"
+        End If
     End Sub
 
 End Class

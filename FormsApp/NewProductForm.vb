@@ -1,5 +1,6 @@
 ﻿Imports StockLib
 
+
 ''' <summary>
 ''' Form responsible for the addition of a new <see cref="Product"/> into the <see cref="Main.productTables"/> 
 ''' </summary>

@@ -1,4 +1,5 @@
-﻿
+﻿Imports StockLib
+
 
 ''' <summary>
 ''' 

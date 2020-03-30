@@ -1,5 +1,6 @@
 ﻿Imports StockLib
 
+
 ''' <summary>
 ''' Form designed to work as a login barrier for users trying to access certain company data
 ''' </summary>

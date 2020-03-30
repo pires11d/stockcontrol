@@ -80,17 +80,12 @@
     <Compile Include="ProductHistory.vb">
       <DependentUpon>ProductHistory.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ProductReport.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductReport.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ProductReport.vb">
-      <DependentUpon>ProductReport.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ProductStock.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ProductStock.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ProductStock.vb">
       <DependentUpon>ProductStock.xsd</DependentUpon>
     </Compile>
     <Compile Include="Purchase.vb" />
@@ -145,17 +140,6 @@
     </None>
     <None Include="ProductHistory.xss">
       <DependentUpon>ProductHistory.xsd</DependentUpon>
-    </None>
-    <None Include="ProductReport.xsc">
-      <DependentUpon>ProductReport.xsd</DependentUpon>
-    </None>
-    <None Include="ProductReport.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ProductReport.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="ProductReport.xss">
-      <DependentUpon>ProductReport.xsd</DependentUpon>
     </None>
     <None Include="ProductStock.xsc">
       <DependentUpon>ProductStock.xsd</DependentUpon>

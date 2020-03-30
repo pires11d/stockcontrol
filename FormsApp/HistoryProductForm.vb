@@ -6,8 +6,6 @@
 ''' </summary>
 Public Class HistoryProductForm
 
-    Public historySchema As New ProductHistory
-
     Public Sub New(product As Product)
 
         InitializeComponent()
@@ -24,7 +22,6 @@ Public Class HistoryProductForm
         Main.selectedTable = Main.productTables(product)
         With selectedTable
             For i = 0 To Main.selectedTable.Rows.Count - 1
-
                 ProductHistorySchema.HistoryTable.AddHistoryTableRow(CInt(.Rows(i).Item(0)),
                                                                       .Rows(i).Item(1),
                                                                       .Rows(i).Item(2),

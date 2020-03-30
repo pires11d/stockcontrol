@@ -253,6 +253,27 @@ Public Module Extensions
     }
 
     ''' <summary>
+    ''' Returns the chosen integer value as a n-digit string, given an integer input for the number of digits
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <param name="number"></param>
+    ''' <param name="digits"></param>
+    Public Function Numberfy(number As Integer, Optional digits As Integer = 2) As String
+        Dim strNumber = CStr(number)
+
+        If digits <= 1 Then Return strNumber
+
+        For i = 1 To digits
+            If Len(strNumber) < i Then
+                strNumber = "0" + strNumber
+            End If
+        Next
+
+        Return strNumber
+
+    End Function
+
+    ''' <summary>
     ''' Reads a CSV file and loads its content into a <see cref="DataTable"/> object
     ''' </summary>
     ''' <param name="fileName"></param>

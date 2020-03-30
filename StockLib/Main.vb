@@ -54,22 +54,22 @@ Public Module Main
     Public Sub GetTables()
         'On Error Resume Next
 
-        tableVendors = ReadCSV(appDataFolder + "tableVendor.csv", "|", True)
+        tableVendors = ReadCSV(appDataFolder + "tableVendor.csv", "|")
         LoadVendors()
 
-        tableClients = ReadCSV(appDataFolder + "tableClients.csv", "|", True)
+        tableClients = ReadCSV(appDataFolder + "tableClients.csv", "|")
         LoadClients()
 
-        tableResp = ReadCSV(appDataFolder + "tableResp.csv", "|", True)
+        tableResp = ReadCSV(appDataFolder + "tableResp.csv", "|")
         LoadOwners()
 
-        tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|", True)
+        tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|")
         LoadOrders()
 
-        tablePurchases = ReadCSV(appDataFolder + "tablePurchases.csv", "|", True)
+        tablePurchases = ReadCSV(appDataFolder + "tablePurchases.csv", "|")
         LoadPurchases()
 
-        tableProducts = ReadCSV(appDataFolder + "tableProducts.csv", "|", True)
+        tableProducts = ReadCSV(appDataFolder + "tableProducts.csv", "|")
         LoadProducts()
 
     End Sub
