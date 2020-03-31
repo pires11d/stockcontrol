@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Globalization
+Imports System.Drawing
 Imports System.Net
 Imports System.IO
 
@@ -66,13 +67,45 @@ Public Module Extensions
     ''' </summary>
     Public Sub ChangeSeparator(Optional dec As String = ".")
         On Error Resume Next
+
         CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator = dec
         CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator = dec
         CultureInfo.CurrentCulture.Parent.NumberFormat.NumberDecimalSeparator = dec
         CultureInfo.CurrentUICulture.Parent.NumberFormat.NumberDecimalSeparator = dec
         CultureInfo.DefaultThreadCurrentCulture.NumberFormat.NumberDecimalSeparator = dec
         CultureInfo.DefaultThreadCurrentUICulture.NumberFormat.NumberDecimalSeparator = dec
+
     End Sub
+
+    ''' <summary>
+    ''' Returns a color representing a value of 
+    ''' </summary>
+    ''' <param name="bool"></param>
+    ''' <returns></returns>
+    Public Function ColorFromBoolean(bool As Boolean) As Color
+
+        If bool Then
+            Return Color.Green
+        Else
+            Return Color.Red
+        End If
+
+    End Function
+
+    ''' <summary>
+    ''' Returns a color representing a value of 
+    ''' </summary>
+    ''' <param name="bool"></param>
+    ''' <returns></returns>
+    Public Function StringFromBoolean(bool As Boolean) As String
+
+        If bool Then
+            Return "SIM"
+        Else
+            Return "NÃO"
+        End If
+
+    End Function
 
     ''' <summary>
     ''' Converts a string in a ASCII format to a simpler format, 

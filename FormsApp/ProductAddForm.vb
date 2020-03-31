@@ -4,7 +4,7 @@
 ''' <summary>
 ''' Form responsible for the addition of new <see cref="Product"/> objects into the <see cref="Main.productTables"/> 
 ''' </summary>
-Public Class NewProductForm
+Public Class ProductAddForm
 
     Public pKind As String = ""
     Public pName As String = ""

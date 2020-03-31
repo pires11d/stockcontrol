@@ -115,10 +115,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="NewProductForm.Designer.vb">
-      <DependentUpon>NewProductForm.vb</DependentUpon>
+    <Compile Include="ProductAddForm.Designer.vb">
+      <DependentUpon>ProductAddForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="NewProductForm.vb">
+    <Compile Include="ProductAddForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OrderForm.Designer.vb">
@@ -127,10 +127,22 @@
     <Compile Include="OrderForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HistoryProductForm.Designer.vb">
-      <DependentUpon>HistoryProductForm.vb</DependentUpon>
+    <Compile Include="OrderInventoryForm.Designer.vb">
+      <DependentUpon>OrderInventoryForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="HistoryProductForm.vb">
+    <Compile Include="OrderInventoryForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductForm.Designer.vb">
+      <DependentUpon>ProductForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProductForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistoryForm.Designer.vb">
+      <DependentUpon>HistoryForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportForm.Designer.vb">
@@ -156,14 +168,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewProductForm.resx">
-      <DependentUpon>NewProductForm.vb</DependentUpon>
+    <EmbeddedResource Include="ProductAddForm.resx">
+      <DependentUpon>ProductAddForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrderForm.resx">
       <DependentUpon>OrderForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HistoryProductForm.resx">
-      <DependentUpon>HistoryProductForm.vb</DependentUpon>
+    <EmbeddedResource Include="OrderInventoryForm.resx">
+      <DependentUpon>OrderInventoryForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductForm.resx">
+      <DependentUpon>ProductForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.vb</DependentUpon>

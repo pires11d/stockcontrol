@@ -4,7 +4,7 @@
 ''' <summary>
 ''' Form responsible for loading history information for a specific Product 
 ''' </summary>
-Public Class HistoryProductForm
+Public Class ProductForm
 
     Public Sub New(product As Product)
 

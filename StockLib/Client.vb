@@ -92,7 +92,4 @@ Public Class Client
         End Get
     End Property
 
-
-
-
 End Class

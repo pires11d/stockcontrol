@@ -15,6 +15,7 @@ Public Module Main
     Public localList As New List(Of String)
     Public remoteList As New List(Of String)
     Public currentSync As String = ""
+    Public isSyncing As Boolean = True
     Public tableStock As New DataTable
     Public tableProducts As New DataTable
     Public tableOrders As New DataTable
@@ -31,11 +32,10 @@ Public Module Main
     Public products As New Dictionary(Of String, Product)
     Public orders As New Dictionary(Of String, Order)
     Public purchases As New Dictionary(Of String, Purchase)
-    Public productTables As New Dictionary(Of Product, DataTable)
     Public barrels As New Dictionary(Of String, Barrel)
     Public coolers As New Dictionary(Of String, Cooler)
-    Public cylinders As New Dictionary(Of String, Cooler)
-
+    Public cylinders As New Dictionary(Of String, Cylinder)
+    Public productTables As New Dictionary(Of Product, DataTable)
     Public selectedTable As New DataTable
 
     ''' <summary>
@@ -95,6 +95,7 @@ Public Module Main
         With tableBarrels
             For i = 0 To .Rows.Count - 1
                 Dim b As New Barrel(.Rows(i).Item("BARRIL"))
+                b.Kind = Item.Kinds.Barril
                 b.Type = .Rows(i).Item("TIPO")
                 b.State = .Rows(i).Item("RECOLHIDO")
                 barrels.Add(b.ID, b)
@@ -105,6 +106,7 @@ Public Module Main
         With tableCoolers
             For i = 0 To .Rows.Count - 1
                 Dim c As New Cooler(.Rows(i).Item("CHOPEIRA"))
+                c.Kind = Item.Kinds.Chopeira
                 c.Type = .Rows(i).Item("TIPO")
                 c.State = .Rows(i).Item("RECOLHIDO")
                 coolers.Add(c.ID, c)
@@ -114,7 +116,8 @@ Public Module Main
         'cylinders.Clear()
         'With tableCylinders
         '    For i = 0 To .Rows.Count - 1
-        '        Dim g As New Cylinder(.Rows(i).Item("CILINDRO"))
+        '        Dim g As New Cylinder(.Rows(i).Item("CILINDRO"))   
+        '        g.Kind = Item.Kinds.Cilindro
         '        g.Type = .Rows(i).Item("TIPO")
         '        g.State = .Rows(i).Item("RECOLHIDO")
         '        cylinders.Add(g.ID, g)
@@ -273,19 +276,30 @@ Public Module Main
                 o.SellingResponsible = .Rows(i).Item("RESP1")
                 o.RetrievingResponsible = .Rows(i).Item("RESP2")
                 o.Products.Clear()
-                Dim items = Split(.Rows(i).Item("PEDIDO"), ";").ToList
+                Dim products = Split(.Rows(i).Item("PEDIDO"), ";").ToList
                 Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
-                For Each item In items.Except({""})
-                    Dim code As String = Split(item, " x ").Last
-                    Dim qtty As Double = CDbl(Split(item, " x ").First)
+                For Each product In products.Except({""})
+                    Dim code As String = Split(product, " x ").Last
+                    Dim qtty As Double = CDbl(Split(product, " x ").First)
                     Dim pp = New Product(code)
                     With pp
-                        pp.Value = CDbl(prices(items.IndexOf(item)).Replace("$ ", ""))
+                        pp.Value = CDbl(prices(products.IndexOf(product)).Replace("$ ", ""))
                         pp.Quantity = qtty
                     End With
-
                     o.Products.Add(pp.Code, pp)
                 Next
+                Dim items = Split(.Rows(i).Item("ITENS"), " ").ToList.Except({""})
+                If items.Count > 0 Then
+                    For Each item In items
+                        If barrels.ContainsKey(item) Then
+                            o.Barrels.Add(item, barrels(item))
+                        End If
+                        If coolers.ContainsKey(item) Then
+                            o.Coolers.Add(item, coolers(item))
+                        End If
+                    Next
+                End If
+
                 o.Observation = .Rows(i).Item("OBS")
                 o.Client = clients(.Rows(i).Item("CLIENTE"))
 
@@ -307,14 +321,14 @@ Public Module Main
                 Dim p As New Purchase(.Rows(i).Item("ID"))
                 p.BuyingDate = DateValue(.Rows(i).Item("DATA").ToString.ToZero)
                 p.Items.Clear()
-                Dim items = Split(.Rows(i).Item("COMPRA"), ";").ToList
+                Dim products = Split(.Rows(i).Item("COMPRA"), ";").ToList
                 Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
-                For Each item In items.Except({""})
-                    Dim code As String = Split(item, " x ").Last
-                    Dim qtty As Double = CDbl(Split(item, " x ").First)
+                For Each product In products.Except({""})
+                    Dim code As String = Split(product, " x ").Last
+                    Dim qtty As Double = CDbl(Split(product, " x ").First)
                     Dim pp = New Product(code)
                     With pp
-                        pp.Value = CDbl(prices(items.IndexOf(item)).Replace("$ ", ""))
+                        pp.Value = CDbl(prices(products.IndexOf(product)).Replace("$ ", ""))
                         pp.Quantity = qtty
                     End With
 
@@ -432,7 +446,7 @@ Public Module Main
             For i = 0 To .Rows.Count - 1
                 Dim order = orders(.Rows(i).Item("ID"))
                 .Rows(i).Item("CLIENTE") = order.Client.Name
-                .Rows(i).Item("ITENS") = order.ItemList
+                .Rows(i).Item("ITENS") = Join(order.ItemList.ToArray, " ")
                 .Rows(i).Item("RESP1") = order.SellingResponsible
                 .Rows(i).Item("DATA1") = order.SellingDate.ToShortDateString
                 .Rows(i).Item("RESP2") = order.RetrievingResponsible
@@ -522,12 +536,17 @@ Public Module Main
 
         'DOWNLOADS EACH FILE FROM THE LIST OF FILES    
         For Each file In synclist
-            Dim filename As String = file.Split("\").Last
-            Try
-                Extensions.SyncFile(file, uploadDataFolder + filename, downloadDataFolder + filename, user, pass)
-            Catch ex As Exception
-                currentSync = "Failed to sync " + filename
-            End Try
+            If isSyncing Then
+                Dim filename As String = file.Split("\").Last
+                Try
+                    Extensions.SyncFile(file, uploadDataFolder + filename, downloadDataFolder + filename, user, pass)
+                Catch ex As Exception
+                    currentSync = "Failed to sync " + filename
+                End Try
+            Else
+                currentSync = "Not syncing"
+                Exit Sub
+            End If
         Next
 
         MsgBox("Banco de dados atualizado com sucesso!")

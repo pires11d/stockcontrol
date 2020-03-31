@@ -58,19 +58,18 @@ Public Class Order
         End Set
     End Property
 
-    Private p_Items As New List(Of Item)
-    Public Property Items() As List(Of Item)
+    Public ReadOnly Property Items() As List(Of Item)
         Get
-            Return p_Items
+            Dim result As New List(Of Item)
+            result.AddRange(Barrels.Values.ToList)
+            result.AddRange(Coolers.Values.ToList)
+            Return result
         End Get
-        Set(ByVal value As List(Of Item))
-            p_Items = value
-        End Set
     End Property
 
     Public ReadOnly Property ItemList() As List(Of String)
         Get
-            Return Items.Select(Function(i) i.ID + "; ").ToList
+            Return Items.Select(Function(i) i.ID + " ").ToList
         End Get
     End Property
 

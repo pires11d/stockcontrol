@@ -27,11 +27,15 @@ Public Class OrderForm
     Private Sub OrderForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Main.LoadProducts()
+
         LoadControls()
+
+        Me.AcceptButton = btnOK
 
     End Sub
 
     Public Sub ChangeInputColors(color As Color)
+
         tbID.BackColor = color
         tbQtty.BackColor = color
         tbPrice.BackColor = color
@@ -42,30 +46,37 @@ Public Class OrderForm
         cbbResp2.BackColor = color
 
         tvItems.BackColor = color
+
     End Sub
 
     Public Sub LoadControls()
 
-        Me.AcceptButton = btnOK
-
         'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE
         Select Case FormType
             Case FormTypes.Order
-                cbbClient.Enabled = True
                 lblID.Text = "ID do Pedido:"
                 lblOrder.Text = "Itens do Pedido:"
-                datePicker2.Enabled = True
-                cbbResp1.Enabled = True
-                cbbResp2.Enabled = True
+                lblClient.Visible = True
+                cbbClient.Visible = True
+                lblResp1.Visible = True
+                cbbResp1.Visible = True
+                lblResp2.Visible = True
+                cbbResp2.Visible = True
+                lblDate2.Visible = True
+                datePicker2.Visible = True
                 Me.Text = "Pedido"
                 tbID.BackColor = SystemColors.Info
             Case FormTypes.Purchase
-                cbbClient.Enabled = False
                 lblID.Text = "N° da NF:"
                 lblOrder.Text = "Itens da Compra:"
-                datePicker2.Enabled = False
-                cbbResp1.Enabled = False
-                cbbResp2.Enabled = False
+                lblClient.Visible = False
+                cbbClient.Visible = False
+                lblResp1.Visible = False
+                cbbResp1.Visible = False
+                lblResp2.Visible = False
+                cbbResp2.Visible = False
+                lblDate2.Visible = False
+                datePicker2.Visible = False
                 Me.Text = "Compra"
                 tbID.BackColor = SystemColors.GradientInactiveCaption
         End Select
@@ -131,8 +142,10 @@ Public Class OrderForm
         If NewEntry Then
             If tbID.Text = "" Then
                 AddToolStripMenuItem.Enabled = False
+                InventoryToolStripMenuItem.Enabled = False
             Else
                 AddToolStripMenuItem.Enabled = True
+                InventoryToolStripMenuItem.Enabled = True
             End If
 
             Select Case FormType
@@ -143,6 +156,7 @@ Public Class OrderForm
             End Select
 
             ChangeInputColors(SystemColors.Window)
+            RemoveToolStripMenuItem.Enabled = False
 
             Exit Sub
         End If
@@ -156,7 +170,6 @@ Public Class OrderForm
         lblTotal.Text = "R$"
         lvItems.Rows.Clear()
         lvItems.Columns(1).Width = 100
-        RemoveToolStripMenuItem.Enabled = False
         For Each n As TreeNode In tvItems.Nodes
             n.Checked = False
             For Each nn As TreeNode In n.Nodes
@@ -175,9 +188,10 @@ Public Class OrderForm
             Case FormTypes.Order
                 If Main.orders.ContainsKey(tbID.Text) Then
                     ChangeInputColors(SystemColors.Info)
+                    RemoveToolStripMenuItem.Enabled = True
+                    InventoryToolStripMenuItem.Enabled = True
 
                     currentOrder = Main.orders(tbID.Text)
-                    RemoveToolStripMenuItem.Enabled = True
                     For Each p In currentOrder.Products.Values
                         With p
                             If .Quantity > 0 Then
@@ -206,11 +220,12 @@ Public Class OrderForm
                 End If
 
             Case FormTypes.Purchase
+                InventoryToolStripMenuItem.Enabled = False
                 If Main.purchases.ContainsKey(tbID.Text) Then
                     ChangeInputColors(SystemColors.GradientInactiveCaption)
+                    RemoveToolStripMenuItem.Enabled = True
 
                     currentPurchase = Main.purchases(tbID.Text)
-                    RemoveToolStripMenuItem.Enabled = True
                     For Each p In currentPurchase.Items.Values
                         With p
                             If .Quantity > 0 Then
@@ -505,6 +520,7 @@ Public Class OrderForm
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
+        InventoryToolStripMenuItem.Enabled = False
     End Sub
 
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
@@ -540,6 +556,7 @@ Public Class OrderForm
         btnOK.Enabled = True
         AddToolStripMenuItem.Enabled = False
         RemoveToolStripMenuItem.Enabled = True
+        InventoryToolStripMenuItem.Enabled = False
         NewEntry = False
         tbID.Text = ""
 
@@ -684,6 +701,7 @@ Public Class OrderForm
         btnOK.Enabled = True
         AddToolStripMenuItem.Enabled = False
         RemoveToolStripMenuItem.Enabled = False
+        InventoryToolStripMenuItem.Enabled = False
 
     End Sub
 
@@ -840,5 +858,9 @@ Public Class OrderForm
 
     End Sub
 
+    Private Sub ItensDoInventárioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+        Dim orderInventoryForm As New OrderInventoryForm(currentOrder)
+        orderInventoryForm.Show()
+    End Sub
 
 End Class

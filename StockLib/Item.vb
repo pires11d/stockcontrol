@@ -5,10 +5,10 @@
 Public MustInherit Class Item
 
     Public Enum Kinds
-        Barrel
-        Cooler
-        Cylinder
-        Valve
+        Barril
+        Chopeira
+        Cilindro
+        Válvula
     End Enum
 
     Public Sub New(id As String)

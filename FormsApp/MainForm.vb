@@ -1,5 +1,4 @@
 ﻿Imports StockLib
-Imports StockLib.Extensions
 
 
 ''' <summary>
@@ -77,7 +76,7 @@ Public Class MainForm
         With lvStock
             For i = 0 To .Rows.Count - 1
                 If .Item(2, i).Value > 30 Then
-                    .Item(2, i).Style.ForeColor = Color.ForestGreen
+                    .Item(2, i).Style.ForeColor = Color.Green
                 ElseIf .Item(2, i).Value > 0 And .Item(2, i).Value <= 30 Then
                     .Item(2, i).Style.ForeColor = Color.DarkGoldenrod
                 Else
@@ -112,11 +111,11 @@ Public Class MainForm
 
             Case "ChoppExpress"
                 primaryColor = Color.FromArgb(255, 255, 255, 128)
-                secondaryColor = Color.Red
+                secondaryColor = Color.DarkRed
 
             Case "L'jaica"
                 primaryColor = Color.PaleGreen
-                secondaryColor = Color.ForestGreen
+                secondaryColor = Color.DarkGreen
 
             Case Else
                 primaryColor = SystemColors.Control
@@ -173,7 +172,7 @@ Public Class MainForm
             Dim pID = lvStock(0, cell.RowIndex).Value.ToString
             For Each p In products.Values
                 If p.Code = pID Then
-                    Dim productForm As New HistoryProductForm(p)
+                    Dim productForm As New ProductForm(p)
                     productForm.Show()
                     Exit Sub
                 End If
@@ -205,8 +204,8 @@ Public Class MainForm
     End Sub
 
     Private Sub NewProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewProductToolStripMenuItem.Click
-        Dim newProductForm As New NewProductForm
-        With newProductForm
+        Dim addProductForm As New ProductAddForm
+        With addProductForm
             .Show()
         End With
     End Sub
@@ -267,14 +266,19 @@ Public Class MainForm
         End Select
 
         Main.UpdateTables()
-        'Main.GetTables()
-        'Me.LoadTables()  
     End Sub
 
     Private Sub btnSync_Click(sender As Object, e As EventArgs) Handles btnSync.Click
 
-        If bgw.IsBusy Then Exit Sub
+        If bgw.IsBusy Then
+            isSyncing = False
+            bgw.CancelAsync()
+            bgw.Dispose()
+            btnSync.Image = My.Resources.syncing_static
+            Exit Sub
+        End If
 
+        isSyncing = True
         btnSync.Image = My.Resources.syncing
         bgw.RunWorkerAsync()
 
@@ -307,11 +311,12 @@ Public Class MainForm
         LoadTables()
         ChangePics()
         ChangeColors()
-
     End Sub
 
     Private Sub lvClients_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles lvClients.CellBeginEdit
+
         oldValue = lvClients.Item(0, e.RowIndex).Value.ToString.NotNull
+
     End Sub
 
     Private Sub lvClients_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles lvClients.CellEndEdit
@@ -355,30 +360,38 @@ Public Class MainForm
     End Sub
 
     Private Sub lvClients_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles lvClients.UserAddedRow
+
         rowAdded = True
         lvClients.Item(4, e.Row.Index - 1).Value = "Lages-SC"
         lvClients.Item(6, e.Row.Index - 1).Value = lvClients.Rows.Count - 1
+
         Main.UpdateTables()
         Main.GetTables()
         LoadTables()
     End Sub
 
     Private Sub lvClients_UserDeletingRow(sender As Object, e As DataGridViewRowCancelEventArgs) Handles lvClients.UserDeletingRow
+
         Main.clients.Remove(lvClients.Item(0, e.Row.Index).Value)
         Main.tableClients.Rows.Remove(Main.tableClients.Rows(e.Row.Index))
+
         Main.UpdateTables()
         Main.GetTables()
         LoadTables()
     End Sub
 
     Private Sub MainForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+
         lblSync.Text = currentSync
+
     End Sub
 
     Private Sub lvStock_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvStock.CellFormatting
+
         If {6}.Contains(e.ColumnIndex) And e.Value.ToString = "0" Then
             e.Value = "-"
         End If
+
     End Sub
 
 End Class
