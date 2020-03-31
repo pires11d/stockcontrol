@@ -1,5 +1,8 @@
 ﻿
 
+''' <summary>
+''' Class representing the Vendors and all their associated information
+''' </summary>
 Public Class Vendor
 
     Public Sub New(name)

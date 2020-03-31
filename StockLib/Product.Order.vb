@@ -2,6 +2,9 @@
 
 Partial Public Class Product
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Class Order
 
         Inherits Product.Entry

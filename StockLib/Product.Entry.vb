@@ -2,6 +2,9 @@
 
 Partial Public Class Product
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public MustInherit Class Entry
 
         Public Sub New(id As String)

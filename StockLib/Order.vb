@@ -58,25 +58,41 @@ Public Class Order
         End Set
     End Property
 
-    Private p_ItemList As List(Of String)
-    Public Property ItemList() As List(Of String)
+    Private p_Items As New List(Of Item)
+    Public Property Items() As List(Of Item)
         Get
-            Return p_ItemList
+            Return p_Items
         End Get
-        Set(ByVal value As List(Of String))
-            p_ItemList = value
+        Set(ByVal value As List(Of Item))
+            p_Items = value
+        End Set
+    End Property
+
+    Public ReadOnly Property ItemList() As List(Of String)
+        Get
+            Return Items.Select(Function(i) i.ID + "; ").ToList
+        End Get
+    End Property
+
+    Private p_Products As New Dictionary(Of String, Product)
+    Public Property Products() As Dictionary(Of String, Product)
+        Get
+            Return p_Products
+        End Get
+        Set(ByVal value As Dictionary(Of String, Product))
+            p_Products = value
         End Set
     End Property
 
     Public ReadOnly Property OrderList() As List(Of String)
         Get
-            Return Items.Values.Select(Function(x) x.Quantity.ToString + " x " + x.Code).ToList
+            Return Products.Values.Select(Function(p) p.Quantity.ToString + " x " + p.Code).ToList
         End Get
     End Property
 
     Public ReadOnly Property PriceList() As List(Of String)
         Get
-            Return Items.Values.Select(Function(x) x.Value.ToString("$0.00")).ToList
+            Return Products.Values.Select(Function(p) p.Value.ToString("$0.00")).ToList
         End Get
     End Property
 
@@ -90,21 +106,11 @@ Public Class Order
         End Set
     End Property
 
-    Private p_Items As New Dictionary(Of String, Product)
-    Public Property Items() As Dictionary(Of String, Product)
-        Get
-            Return p_Items
-        End Get
-        Set(ByVal value As Dictionary(Of String, Product))
-            p_Items = value
-        End Set
-    End Property
-
     Public ReadOnly Property Total() As Double
         Get
             Dim value As Double
             value = 0
-            For Each item In Items.Values
+            For Each item In Products.Values
                 value += item.Quantity * item.Value
             Next
             Return value
@@ -133,49 +139,48 @@ Public Class Order
 
     Public ReadOnly Property IncludesCooler() As Boolean
         Get
-            Return CoolerList.Count > 0
+            Return Coolers.Count > 0
         End Get
     End Property
 
-    Private p_BarrelList As New List(Of Barrel)
-    Public Property BarrelList() As List(Of Barrel)
+    Private p_Barrels As New Dictionary(Of String, Barrel)
+    Public Property Barrels() As Dictionary(Of String, Barrel)
         Get
-            Return p_BarrelList
+            Return p_Barrels
         End Get
-        Set(ByVal value As List(Of Barrel))
-            p_BarrelList = value
+        Set(ByVal value As Dictionary(Of String, Barrel))
+            p_Barrels = value
         End Set
     End Property
 
-    Private p_CoolerList As New List(Of Cooler)
-    Public Property CoolerList() As List(Of Cooler)
+    Private p_Coolers As New Dictionary(Of String, Cooler)
+    Public Property Coolers() As Dictionary(Of String, Cooler)
         Get
-            Return p_CoolerList
+            Return p_Coolers
         End Get
-        Set(ByVal value As List(Of Cooler))
-            p_CoolerList = value
+        Set(ByVal value As Dictionary(Of String, Cooler))
+            p_Coolers = value
         End Set
     End Property
 
-    Private p_ValveList As New List(Of Valve)
-    Public Property ValveList() As List(Of Valve)
+    Private p_Valves As New Dictionary(Of String, Valve)
+    Public Property Valves() As Dictionary(Of String, Valve)
         Get
-            Return p_ValveList
+            Return p_Valves
         End Get
-        Set(ByVal value As List(Of Valve))
-            p_ValveList = value
+        Set(ByVal value As Dictionary(Of String, Valve))
+            p_Valves = value
         End Set
     End Property
 
-    Private p_GasList As New List(Of Gas)
-    Public Property GasList() As List(Of Gas)
+    Private p_Cylinders As New Dictionary(Of String, Cylinder)
+    Public Property Cylinders() As Dictionary(Of String, Cylinder)
         Get
-            Return p_GasList
+            Return p_Cylinders
         End Get
-        Set(ByVal value As List(Of Gas))
-            p_GasList = value
+        Set(ByVal value As Dictionary(Of String, Cylinder))
+            p_Cylinders = value
         End Set
     End Property
-
 
 End Class

@@ -1,8 +1,8 @@
 ﻿
 ''' <summary>
-''' Class representing the identified Barrel objects
+''' Class representing the CO2 Gas Cylinder objects
 ''' </summary>
-Public Class Barrel
+Public Class Cylinder
 
     Inherits Item
 
@@ -11,11 +11,9 @@ Public Class Barrel
     End Sub
 
     Public Shared Types As New List(Of String) From {
-        "E-30L",
-        "E-50L",
-        "S-10L",
-        "S-15L",
-        "S-30L"
+        "4kg",
+        "6kg",
+        "9kg"
     }
 
 End Class

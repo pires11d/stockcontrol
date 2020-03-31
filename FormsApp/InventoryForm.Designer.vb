@@ -23,29 +23,38 @@ Partial Class InventoryForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(InventoryForm))
-        Me.TreeView1 = New System.Windows.Forms.TreeView()
-        Me.TreeView2 = New System.Windows.Forms.TreeView()
+        Me.tvB = New System.Windows.Forms.TreeView()
+        Me.tvC = New System.Windows.Forms.TreeView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblInfo = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
-        'TreeView1
+        'tvB
         '
-        Me.TreeView1.HotTracking = True
-        Me.TreeView1.Location = New System.Drawing.Point(14, 75)
-        Me.TreeView1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(269, 442)
-        Me.TreeView1.TabIndex = 0
+        Me.tvB.BackColor = System.Drawing.SystemColors.Control
+        Me.tvB.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tvB.HotTracking = True
+        Me.tvB.Indent = 50
+        Me.tvB.ItemHeight = 30
+        Me.tvB.Location = New System.Drawing.Point(14, 75)
+        Me.tvB.Margin = New System.Windows.Forms.Padding(5)
+        Me.tvB.Name = "tvB"
+        Me.tvB.Size = New System.Drawing.Size(269, 442)
+        Me.tvB.TabIndex = 0
         '
-        'TreeView2
+        'tvC
         '
-        Me.TreeView2.HotTracking = True
-        Me.TreeView2.Location = New System.Drawing.Point(305, 75)
-        Me.TreeView2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.TreeView2.Name = "TreeView2"
-        Me.TreeView2.Size = New System.Drawing.Size(269, 442)
-        Me.TreeView2.TabIndex = 0
+        Me.tvC.BackColor = System.Drawing.SystemColors.Control
+        Me.tvC.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tvC.HotTracking = True
+        Me.tvC.Indent = 50
+        Me.tvC.ItemHeight = 30
+        Me.tvC.Location = New System.Drawing.Point(305, 75)
+        Me.tvC.Margin = New System.Windows.Forms.Padding(5)
+        Me.tvC.Name = "tvC"
+        Me.tvC.Size = New System.Drawing.Size(269, 442)
+        Me.tvC.TabIndex = 0
         '
         'Label1
         '
@@ -67,27 +76,40 @@ Partial Class InventoryForm
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Chopeiras:"
         '
+        'lblInfo
+        '
+        Me.lblInfo.AutoSize = True
+        Me.lblInfo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.Location = New System.Drawing.Point(12, 9)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(493, 21)
+        Me.lblInfo.TabIndex = 1
+        Me.lblInfo.Text = "Selecione um dos itens abaixo para accesar mais informações:"
+        '
         'InventoryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(805, 561)
         Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblInfo)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TreeView2)
-        Me.Controls.Add(Me.TreeView1)
+        Me.Controls.Add(Me.tvC)
+        Me.Controls.Add(Me.tvB)
         Me.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "InventoryForm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Inventário"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents TreeView1 As TreeView
-    Friend WithEvents TreeView2 As TreeView
+    Friend WithEvents tvB As TreeView
+    Friend WithEvents tvC As TreeView
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents lblInfo As Label
 End Class

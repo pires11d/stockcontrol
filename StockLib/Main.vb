@@ -21,7 +21,10 @@ Public Module Main
     Public tablePurchases As New DataTable
     Public tableClients As New DataTable
     Public tableVendors As New DataTable
-    Public tableResp As New DataTable
+    Public tableOwners As New DataTable
+    Public tableBarrels As New DataTable
+    Public tableCoolers As New DataTable
+    Public tableCylinders As New DataTable
     Public owners As New List(Of String)
     Public clients As New Dictionary(Of String, Client)
     Public vendors As New Dictionary(Of String, Vendor)
@@ -29,6 +32,10 @@ Public Module Main
     Public orders As New Dictionary(Of String, Order)
     Public purchases As New Dictionary(Of String, Purchase)
     Public productTables As New Dictionary(Of Product, DataTable)
+    Public barrels As New Dictionary(Of String, Barrel)
+    Public coolers As New Dictionary(Of String, Cooler)
+    Public cylinders As New Dictionary(Of String, Cooler)
+
     Public selectedTable As New DataTable
 
     ''' <summary>
@@ -60,8 +67,13 @@ Public Module Main
         tableClients = ReadCSV(appDataFolder + "tableClients.csv", "|")
         LoadClients()
 
-        tableResp = ReadCSV(appDataFolder + "tableResp.csv", "|")
+        tableOwners = ReadCSV(appDataFolder + "tableResp.csv", "|")
         LoadOwners()
+
+        tableBarrels = ReadCSV(appDataFolder + "tableB.csv", "|")
+        tableCoolers = ReadCSV(appDataFolder + "tableC.csv", "|")
+        'tableCylinders = ReadCSV(appDataFolder + "tableG.csv", "|")
+        LoadItems()
 
         tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|")
         LoadOrders()
@@ -75,7 +87,44 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all product information into a list of Product objects
+    ''' Loads all items (<see cref="Barrel"/>, <see cref="Cooler"/>, <see cref="Cylinder"/>) information into their respective object dictionaries
+    ''' </summary>
+    Public Sub LoadItems()
+
+        barrels.Clear()
+        With tableBarrels
+            For i = 0 To .Rows.Count - 1
+                Dim b As New Barrel(.Rows(i).Item("BARRIL"))
+                b.Type = .Rows(i).Item("TIPO")
+                b.State = .Rows(i).Item("RECOLHIDO")
+                barrels.Add(b.ID, b)
+            Next
+        End With
+
+        coolers.Clear()
+        With tableCoolers
+            For i = 0 To .Rows.Count - 1
+                Dim c As New Cooler(.Rows(i).Item("CHOPEIRA"))
+                c.Type = .Rows(i).Item("TIPO")
+                c.State = .Rows(i).Item("RECOLHIDO")
+                coolers.Add(c.ID, c)
+            Next
+        End With
+
+        'cylinders.Clear()
+        'With tableCylinders
+        '    For i = 0 To .Rows.Count - 1
+        '        Dim g As New Cylinder(.Rows(i).Item("CILINDRO"))
+        '        g.Type = .Rows(i).Item("TIPO")
+        '        g.State = .Rows(i).Item("RECOLHIDO")
+        '        cylinders.Add(g.ID, g)
+        '    Next
+        'End With
+
+    End Sub
+
+    ''' <summary>
+    ''' Loads all product information into a dictionary of <see cref="Product"/> objects
     ''' </summary>
     Public Sub LoadProducts()
 
@@ -87,8 +136,8 @@ Public Module Main
                 Dim p As New Product(.Rows(i).Item("PRODUTO"))
                 p.Brand = .Rows(i).Item("MARCA")
                 p.Stock = .Rows(i).Item("ESTOQUE")
-                p.Quantity = 0  '.Rows(i).Item("QTD")
-                p.Value = 0     '.Rows(i).Item("VALOR")
+                p.Quantity = 0
+                p.Value = 0
                 p.Cost = .Rows(i).Item("CUSTO")
                 p.Price = .Rows(i).Item("PREÇO")
                 p.Price2 = .Rows(i).Item("PREÇO2")
@@ -153,7 +202,7 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all client information into a dictionary of Client objects
+    ''' Loads all client information into a dictionary of <see cref="Client"/> objects
     ''' </summary>
     Public Sub LoadClients()
 
@@ -168,20 +217,6 @@ Public Module Main
                 c.Location = .Rows(i).Item("LOCALIDADE")
                 c.ID = CInt(.Rows(i).Item("ID").ToString.ToZero)
                 clients.Add(c.Name, c)
-            Next
-        End With
-
-    End Sub
-
-    ''' <summary>
-    ''' Loads company owners (from tableResp) into a list of string: <see cref="owners"/>
-    ''' </summary>
-    Public Sub LoadOwners()
-
-        owners.Clear()
-        With tableResp
-            For i = 0 To .Rows.Count - 1
-                owners.Add(.Rows(i).Item("RESP"))
             Next
         End With
 
@@ -205,7 +240,21 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all order information into a dictionary of Order objects: <see cref="orders"/>
+    ''' Loads company owners (from tableResp) into a list of <see cref="String"/>
+    ''' </summary>
+    Public Sub LoadOwners()
+
+        owners.Clear()
+        With tableOwners
+            For i = 0 To .Rows.Count - 1
+                owners.Add(.Rows(i).Item("RESP"))
+            Next
+        End With
+
+    End Sub
+
+    ''' <summary>
+    ''' Loads all order information into a dictionary of <see cref="Order"/> objects
     ''' </summary>
     Public Sub LoadOrders()
 
@@ -223,7 +272,7 @@ Public Module Main
                 o.RetrievingDate = DateValue(.Rows(i).Item("DATA2").ToString.ToDateNotNull)
                 o.SellingResponsible = .Rows(i).Item("RESP1")
                 o.RetrievingResponsible = .Rows(i).Item("RESP2")
-                o.Items.Clear()
+                o.Products.Clear()
                 Dim items = Split(.Rows(i).Item("PEDIDO"), ";").ToList
                 Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
                 For Each item In items.Except({""})
@@ -235,7 +284,7 @@ Public Module Main
                         pp.Quantity = qtty
                     End With
 
-                    o.Items.Add(pp.Code, pp)
+                    o.Products.Add(pp.Code, pp)
                 Next
                 o.Observation = .Rows(i).Item("OBS")
                 o.Client = clients(.Rows(i).Item("CLIENTE"))
@@ -247,7 +296,7 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all order information into a dictionary of Purchase objects: <see cref="purchases"/>    
+    ''' Loads all order information into a dictionary of <see cref="Purchase"/> objects
     ''' </summary>
     Public Sub LoadPurchases()
 
@@ -383,7 +432,7 @@ Public Module Main
             For i = 0 To .Rows.Count - 1
                 Dim order = orders(.Rows(i).Item("ID"))
                 .Rows(i).Item("CLIENTE") = order.Client.Name
-                '.Rows(i).Item("ITENS") = 
+                .Rows(i).Item("ITENS") = order.ItemList
                 .Rows(i).Item("RESP1") = order.SellingResponsible
                 .Rows(i).Item("DATA1") = order.SellingDate.ToShortDateString
                 .Rows(i).Item("RESP2") = order.RetrievingResponsible
@@ -474,10 +523,11 @@ Public Module Main
         'DOWNLOADS EACH FILE FROM THE LIST OF FILES    
         For Each file In synclist
             Dim filename As String = file.Split("\").Last
-            'Try
-            Extensions.SyncFile(file, uploadDataFolder + filename, downloadDataFolder + filename, user, pass)
-            'Catch ex As Exception   
-            'End Try
+            Try
+                Extensions.SyncFile(file, uploadDataFolder + filename, downloadDataFolder + filename, user, pass)
+            Catch ex As Exception
+                currentSync = "Failed to sync " + filename
+            End Try
         Next
 
         MsgBox("Banco de dados atualizado com sucesso!")

@@ -111,7 +111,6 @@ Public Class MainForm
         Select Case Main.companyName
 
             Case "ChoppExpress"
-                '#FFE453
                 primaryColor = Color.FromArgb(255, 255, 255, 128)
                 secondaryColor = Color.Red
 
@@ -166,6 +165,7 @@ Public Class MainForm
     End Sub
 
     Private Sub lvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellContentClick
+
         Dim cells = lvStock.SelectedCells
 
         For Each cell As DataGridViewCell In cells

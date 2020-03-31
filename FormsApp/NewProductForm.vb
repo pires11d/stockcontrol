@@ -2,7 +2,7 @@
 
 
 ''' <summary>
-''' Form responsible for the addition of a new <see cref="Product"/> into the <see cref="Main.productTables"/> 
+''' Form responsible for the addition of new <see cref="Product"/> objects into the <see cref="Main.productTables"/> 
 ''' </summary>
 Public Class NewProductForm
 

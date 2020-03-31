@@ -69,6 +69,7 @@
     <Compile Include="Barrel.vb" />
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
+    <Compile Include="Item.vb" />
     <Compile Include="Product.Entry.vb" />
     <Compile Include="Product.Purchase.vb" />
     <Compile Include="Product.Order.vb" />
@@ -90,7 +91,7 @@
     </Compile>
     <Compile Include="Purchase.vb" />
     <Compile Include="Extensions.vb" />
-    <Compile Include="Gas.vb" />
+    <Compile Include="Cylinder.vb" />
     <Compile Include="Order.vb" />
     <Compile Include="Main.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
