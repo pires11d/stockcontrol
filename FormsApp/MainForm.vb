@@ -111,7 +111,7 @@ Public Class MainForm
 
             Case "ChoppExpress"
                 primaryColor = Color.FromArgb(255, 255, 255, 128)
-                secondaryColor = Color.DarkRed
+                secondaryColor = Color.Red
 
             Case "L'jaica"
                 primaryColor = Color.PaleGreen

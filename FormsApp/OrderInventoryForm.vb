@@ -32,7 +32,7 @@ Public Class OrderInventoryForm
             tvB.Nodes.Add(bb, bb)
         Next
         For Each b In barrels.Values
-            If b.State Then
+            If b.State Or CurrentOrder.Barrels.Values.Contains(b) Then
                 tvB.Nodes.Item(b.Type).Nodes.Add(b.ID, b.ID)
             End If
         Next
@@ -61,7 +61,7 @@ Public Class OrderInventoryForm
             tvC.Nodes.Add(cc, cc)
         Next
         For Each c In coolers.Values
-            If c.State Then
+            If c.State Or CurrentOrder.Coolers.Values.Contains(c) Then
                 tvC.Nodes.Item(c.Type).Nodes.Add(c.ID, c.ID)
             End If
         Next
