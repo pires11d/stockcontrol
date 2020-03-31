@@ -34,6 +34,40 @@ Public Class OrderForm
 
     End Sub
 
+    Public Sub DisableGenericControls()
+
+        cbbClient.Enabled = False
+        cbbResp1.Enabled = False
+        cbbResp2.Enabled = False
+        datePicker1.Enabled = False
+        datePicker2.Enabled = False
+        tvItems.Enabled = False
+        tbQtty.Enabled = False
+        tbPrice.Enabled = False
+        tbObs.Enabled = False
+
+    End Sub
+
+    Public Sub EnableOrderControls()
+
+        cbbClient.Enabled = True
+        cbbResp1.Enabled = True
+        datePicker1.Enabled = True
+        tvItems.Enabled = True
+        tbObs.Enabled = True
+
+    End Sub
+
+    Public Sub EnablePurchaseControls()
+
+        cbbClient.Enabled = True
+        cbbResp1.Enabled = True
+        datePicker1.Enabled = True
+        tvItems.Enabled = True
+        tbObs.Enabled = True
+
+    End Sub
+
     Public Sub ChangeInputColors(color As Color)
 
         tbID.BackColor = color
@@ -51,34 +85,40 @@ Public Class OrderForm
 
     Public Sub LoadControls()
 
-        'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE
+        DisableGenericControls()
+
+        'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE   
         Select Case FormType
             Case FormTypes.Order
+                Me.Text = "Pedido"
                 lblID.Text = "ID do Pedido:"
                 lblOrder.Text = "Itens do Pedido:"
-                lblClient.Visible = True
-                cbbClient.Visible = True
-                lblResp1.Visible = True
-                cbbResp1.Visible = True
-                lblResp2.Visible = True
-                cbbResp2.Visible = True
-                lblDate2.Visible = True
-                datePicker2.Visible = True
-                Me.Text = "Pedido"
                 tbID.BackColor = SystemColors.Info
+
+                lblClient.Visible = True
+                lblResp1.Visible = True
+                lblResp2.Visible = True
+                lblDate2.Visible = True
+                cbbClient.Visible = True
+                cbbResp1.Visible = True
+                cbbResp2.Visible = True
+                datePicker2.Visible = True
+
             Case FormTypes.Purchase
+                Me.Text = "Compra"
                 lblID.Text = "N° da NF:"
                 lblOrder.Text = "Itens da Compra:"
-                lblClient.Visible = False
-                cbbClient.Visible = False
-                lblResp1.Visible = False
-                cbbResp1.Visible = False
-                lblResp2.Visible = False
-                cbbResp2.Visible = False
-                lblDate2.Visible = False
-                datePicker2.Visible = False
-                Me.Text = "Compra"
                 tbID.BackColor = SystemColors.GradientInactiveCaption
+
+                lblClient.Visible = False
+                lblResp1.Visible = False
+                lblResp2.Visible = False
+                lblDate2.Visible = False
+                cbbClient.Visible = False
+                cbbResp1.Visible = False
+                cbbResp2.Visible = False
+                datePicker2.Visible = False
+
         End Select
 
         'RESETS OTHER CONTROLS    
@@ -139,6 +179,8 @@ Public Class OrderForm
 
     Private Sub tbID_TextChanged(sender As Object, e As EventArgs) Handles tbID.TextChanged
 
+        DisableGenericControls()
+
         If NewEntry Then
             If tbID.Text = "" Then
                 AddToolStripMenuItem.Enabled = False
@@ -187,11 +229,15 @@ Public Class OrderForm
 
             Case FormTypes.Order
                 If Main.orders.ContainsKey(tbID.Text) Then
+                    currentOrder = Main.orders(tbID.Text)
+
                     ChangeInputColors(SystemColors.Info)
+                    EnableOrderControls()
                     RemoveToolStripMenuItem.Enabled = True
                     InventoryToolStripMenuItem.Enabled = True
 
-                    currentOrder = Main.orders(tbID.Text)
+                    cbbResp2.Enabled = currentOrder.Retrieved
+                    datePicker2.Enabled = currentOrder.Retrieved
                     For Each p In currentOrder.Products.Values
                         With p
                             If .Quantity > 0 Then
@@ -222,10 +268,12 @@ Public Class OrderForm
             Case FormTypes.Purchase
                 InventoryToolStripMenuItem.Enabled = False
                 If Main.purchases.ContainsKey(tbID.Text) Then
+                    currentPurchase = Main.purchases(tbID.Text)
+
                     ChangeInputColors(SystemColors.GradientInactiveCaption)
+                    EnablePurchaseControls()
                     RemoveToolStripMenuItem.Enabled = True
 
-                    currentPurchase = Main.purchases(tbID.Text)
                     For Each p In currentPurchase.Items.Values
                         With p
                             If .Quantity > 0 Then
@@ -499,10 +547,12 @@ Public Class OrderForm
         FormType = FormTypes.Order
         NewEntry = True
         currentOrder = New Order(tbID.Text)
-        LoadControls()
-        ChangeInputColors(SystemColors.Window)
         tbID.Text = CStr(CDbl(Main.orders.Keys.Last) + 1)
         cbbResp1.SelectedIndex = 0
+
+        LoadControls()
+        ChangeInputColors(SystemColors.Window)
+        EnableOrderControls()
 
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
@@ -513,9 +563,11 @@ Public Class OrderForm
         FormType = FormTypes.Purchase
         NewEntry = True
         currentPurchase = New Purchase("")
+        tbID.Text = ""
+
         LoadControls()
         ChangeInputColors(SystemColors.Window)
-        tbID.Text = ""
+        EnablePurchaseControls()
 
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
@@ -534,10 +586,6 @@ Public Class OrderForm
                 currentOrder.RetrievingResponsible = cbbResp2.Text
                 currentOrder.Observation = tbObs.Text
                 currentOrder.Client = Main.clients(cbbClient.Text)
-                'currentOrder.BarrelList =
-                'currentOrder.CoolerList =
-                'currentOrder.GasList =
-                'currentOrder.ValveList =
 
                 AddToOrdersTable()
 
@@ -858,7 +906,7 @@ Public Class OrderForm
 
     End Sub
 
-    Private Sub ItensDoInventárioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         Dim orderInventoryForm As New OrderInventoryForm(currentOrder)
         orderInventoryForm.Show()
     End Sub

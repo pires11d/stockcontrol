@@ -6,6 +6,7 @@
 ''' </summary>
 Public Class OrderInventoryForm
 
+    Public CurrentOrder As Order
     Public Sub New(currentOrder As Order)
 
         InitializeComponent()
@@ -14,11 +15,11 @@ Public Class OrderInventoryForm
 
     End Sub
 
-    Public CurrentOrder As Order
-
     Private Sub OrderInventoryForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         LoadTreeViews()
+
+        cbbState.Checked = CurrentOrder.Retrieved
 
         Me.AcceptButton = btnOK
 
@@ -84,12 +85,20 @@ Public Class OrderInventoryForm
             Next
         Next
 
-        'tvB.Nodes.Item(0).Expand()
-        'tvC.Nodes.Item(0).Expand()
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+
+        For Each item In CurrentOrder.Items
+            If Main.barrels.ContainsKey(item.ID) Then Main.barrels(item.ID).State = cbbState.Checked
+            If Main.coolers.ContainsKey(item.ID) Then Main.coolers(item.ID).State = cbbState.Checked
+        Next
+
         Main.UpdateTables()
+        Main.GetTables()
+        MainForm.LoadTables()
+        OrderForm.cbbResp2.Enabled = CurrentOrder.Retrieved
+        OrderForm.datePicker2.Enabled = CurrentOrder.Retrieved
         Me.Close()
     End Sub
 
@@ -127,20 +136,18 @@ Public Class OrderInventoryForm
 
     End Sub
 
-    'Private Sub tvB_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles tvB.NodeMouseClick
-    '    If e.Node.IsExpanded Then
-    '        e.Node.Collapse()
-    '    Else
-    '        e.Node.Expand()
-    '    End If
-    'End Sub
+    Private Sub cbbState_CheckedChanged(sender As Object, e As EventArgs) Handles cbbState.CheckedChanged
 
-    'Private Sub tvC_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles tvC.NodeMouseClick
-    '    If e.Node.IsExpanded Then
-    '        e.Node.Collapse()
-    '    Else
-    '        e.Node.Expand()
-    '    End If
-    'End Sub
+        CurrentOrder.Retrieved = cbbState.Checked
+
+        For Each item In CurrentOrder.Items
+            item.State = cbbState.Checked
+            If Main.barrels.ContainsKey(item.ID) Then Main.barrels(item.ID).State = cbbState.Checked
+            If Main.coolers.ContainsKey(item.ID) Then Main.coolers(item.ID).State = cbbState.Checked
+            'If Main.cylinders.Values.Contains(item) Then Main.cylinders(item.ID).State = cbbState.Checked
+            'If Main.valves.Values.Contains(item) Then Main.valves(item.ID).State = cbbState.Checked
+        Next
+
+    End Sub
 
 End Class

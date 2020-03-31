@@ -27,13 +27,14 @@ Partial Class OrderInventoryForm
         Me.tvC = New System.Windows.Forms.TreeView()
         Me.tvB = New System.Windows.Forms.TreeView()
         Me.btnOK = New System.Windows.Forms.Button()
+        Me.cbbState = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(301, 9)
+        Me.Label2.Location = New System.Drawing.Point(301, 47)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(92, 19)
         Me.Label2.TabIndex = 4
@@ -43,7 +44,7 @@ Partial Class OrderInventoryForm
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Location = New System.Drawing.Point(12, 47)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 19)
         Me.Label1.TabIndex = 5
@@ -57,7 +58,7 @@ Partial Class OrderInventoryForm
         Me.tvC.HotTracking = True
         Me.tvC.Indent = 50
         Me.tvC.ItemHeight = 30
-        Me.tvC.Location = New System.Drawing.Point(305, 35)
+        Me.tvC.Location = New System.Drawing.Point(305, 73)
         Me.tvC.Margin = New System.Windows.Forms.Padding(5)
         Me.tvC.Name = "tvC"
         Me.tvC.ShowNodeToolTips = True
@@ -72,7 +73,7 @@ Partial Class OrderInventoryForm
         Me.tvB.HotTracking = True
         Me.tvB.Indent = 50
         Me.tvB.ItemHeight = 30
-        Me.tvB.Location = New System.Drawing.Point(14, 35)
+        Me.tvB.Location = New System.Drawing.Point(14, 73)
         Me.tvB.Margin = New System.Windows.Forms.Padding(5)
         Me.tvB.Name = "tvB"
         Me.tvB.ShowNodeToolTips = True
@@ -82,25 +83,37 @@ Partial Class OrderInventoryForm
         'btnOK
         '
         Me.btnOK.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(219, 474)
+        Me.btnOK.Location = New System.Drawing.Point(219, 512)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(148, 42)
         Me.btnOK.TabIndex = 12
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
+        'cbbState
+        '
+        Me.cbbState.AutoSize = True
+        Me.cbbState.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbbState.Location = New System.Drawing.Point(14, 12)
+        Me.cbbState.Name = "cbbState"
+        Me.cbbState.Size = New System.Drawing.Size(150, 23)
+        Me.cbbState.TabIndex = 13
+        Me.cbbState.Text = "Itens Recolhidos"
+        Me.cbbState.UseVisualStyleBackColor = True
+        '
         'OrderInventoryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(586, 529)
+        Me.ClientSize = New System.Drawing.Size(586, 567)
+        Me.Controls.Add(Me.cbbState)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tvC)
         Me.Controls.Add(Me.tvB)
         Me.Name = "OrderInventoryForm"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Itens no Inventório"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -112,4 +125,5 @@ Partial Class OrderInventoryForm
     Friend WithEvents tvC As TreeView
     Friend WithEvents tvB As TreeView
     Friend WithEvents btnOK As Button
+    Friend WithEvents cbbState As CheckBox
 End Class

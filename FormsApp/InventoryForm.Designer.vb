@@ -38,6 +38,10 @@ Partial Class InventoryForm
         Me.tvC = New System.Windows.Forms.TreeView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblLastOrder = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblLastAddress = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -54,18 +58,18 @@ Partial Class InventoryForm
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(10, 514)
+        Me.Label3.Location = New System.Drawing.Point(122, 508)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(68, 48)
         Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Último cliente:"
+        Me.Label3.Text = "Último Cliente:"
         '
         'lblLastClient
         '
         Me.lblLastClient.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblLastClient.AutoSize = True
         Me.lblLastClient.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastClient.Location = New System.Drawing.Point(81, 531)
+        Me.lblLastClient.Location = New System.Drawing.Point(196, 509)
         Me.lblLastClient.Name = "lblLastClient"
         Me.lblLastClient.Size = New System.Drawing.Size(16, 19)
         Me.lblLastClient.TabIndex = 1
@@ -205,12 +209,57 @@ Partial Class InventoryForm
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Chopeiras:"
         '
+        'lblLastOrder
+        '
+        Me.lblLastOrder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblLastOrder.AutoSize = True
+        Me.lblLastOrder.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLastOrder.Location = New System.Drawing.Point(84, 509)
+        Me.lblLastOrder.Name = "lblLastOrder"
+        Me.lblLastOrder.Size = New System.Drawing.Size(16, 19)
+        Me.lblLastOrder.TabIndex = 1
+        Me.lblLastOrder.Text = "-"
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label9.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(10, 508)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(68, 48)
+        Me.Label9.TabIndex = 1
+        Me.Label9.Text = "Último Pedido:"
+        '
+        'lblLastAddress
+        '
+        Me.lblLastAddress.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblLastAddress.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLastAddress.Location = New System.Drawing.Point(511, 509)
+        Me.lblLastAddress.Name = "lblLastAddress"
+        Me.lblLastAddress.Size = New System.Drawing.Size(332, 47)
+        Me.lblLastAddress.TabIndex = 1
+        Me.lblLastAddress.Text = "-"
+        '
+        'Label10
+        '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label10.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(415, 508)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(90, 48)
+        Me.Label10.TabIndex = 1
+        Me.Label10.Text = "Último Endereço:"
+        '
         'InventoryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(855, 561)
         Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.lblLastOrder)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.lblLastAddress)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.lblLastClient)
         Me.Controls.Add(Me.Label7)
@@ -250,4 +299,8 @@ Partial Class InventoryForm
     Friend WithEvents tvC As TreeView
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents lblLastOrder As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents lblLastAddress As Label
+    Friend WithEvents Label10 As Label
 End Class

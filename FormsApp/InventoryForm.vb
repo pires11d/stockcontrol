@@ -69,11 +69,7 @@ Public Class InventoryForm
 
         Dim b = barrels(e.Node.Text)
 
-        lblKind.Text = b.Kind.ToString.ToUpper
-        lblType.Text = b.Type
-        lblID.Text = b.ID
-        lblState.Text = StringFromBoolean(b.State)
-        lblState.ForeColor = ColorFromBoolean(b.State)
+        UpdateLabels(b)
 
     End Sub
 
@@ -90,28 +86,24 @@ Public Class InventoryForm
 
         Dim c = coolers(e.Node.Text)
 
-        lblKind.Text = c.Kind.ToString.ToUpper
-        lblType.Text = c.Type
-        lblID.Text = c.ID
-        lblState.Text = StringFromBoolean(c.State)
-        lblState.ForeColor = ColorFromBoolean(c.State)
+        UpdateLabels(c)
 
     End Sub
 
-    'Private Sub tvB_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles tvB.NodeMouseClick
-    '    If e.Node.IsExpanded Then
-    '        e.Node.Collapse()
-    '    Else
-    '        e.Node.Expand()
-    '    End If
-    'End Sub
+    Public Sub UpdateLabels(i As Item)
 
-    'Private Sub tvC_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles tvC.NodeMouseClick
-    '    If e.Node.IsExpanded Then
-    '        e.Node.Collapse()
-    '    Else
-    '        e.Node.Expand()
-    '    End If
-    'End Sub
+        lblKind.Text = i.Kind.ToString.ToUpper
+        lblType.Text = i.Type
+        lblID.Text = i.ID
+        lblState.Text = StringFromBoolean(i.State)
+        lblState.ForeColor = ColorFromBoolean(i.State)
+
+        If i.Orders.Count > 0 Then
+            lblLastOrder.Text = i.Orders.Last.ID
+            lblLastClient.Text = i.Orders.Last.Client.Name
+            lblLastAddress.Text = i.Orders.Last.Client.FullAddress
+        End If
+
+    End Sub
 
 End Class

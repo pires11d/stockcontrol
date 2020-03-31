@@ -3,7 +3,7 @@
 Partial Public Class Product
 
     ''' <summary>
-    ''' 
+    ''' Class representing a single <see cref="Purchase"/> of the chosen <see cref="Product"/>
     ''' </summary>
     Public Class Purchase
 

@@ -26,6 +26,7 @@ Public Module Main
     Public tableBarrels As New DataTable
     Public tableCoolers As New DataTable
     Public tableCylinders As New DataTable
+    Public tableValves As New DataTable
     Public owners As New List(Of String)
     Public clients As New Dictionary(Of String, Client)
     Public vendors As New Dictionary(Of String, Vendor)
@@ -35,6 +36,7 @@ Public Module Main
     Public barrels As New Dictionary(Of String, Barrel)
     Public coolers As New Dictionary(Of String, Cooler)
     Public cylinders As New Dictionary(Of String, Cylinder)
+    Public valves As New Dictionary(Of String, Valve)
     Public productTables As New Dictionary(Of Product, DataTable)
     Public selectedTable As New DataTable
 
@@ -73,6 +75,7 @@ Public Module Main
         tableBarrels = ReadCSV(appDataFolder + "tableB.csv", "|")
         tableCoolers = ReadCSV(appDataFolder + "tableC.csv", "|")
         'tableCylinders = ReadCSV(appDataFolder + "tableG.csv", "|")
+        'tableValves = ReadCSV(appDataFolder + "tableV.csv", "|")
         LoadItems()
 
         tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|")
@@ -121,6 +124,17 @@ Public Module Main
         '        g.Type = .Rows(i).Item("TIPO")
         '        g.State = .Rows(i).Item("RECOLHIDO")
         '        cylinders.Add(g.ID, g)
+        '    Next
+        'End With   
+
+        'valves.Clear()
+        'With tableValves
+        '    For i = 0 To .Rows.Count - 1
+        '        Dim v As New Valve(.Rows(i).Item("VÁLVULA"))
+        '        v.Kind = Item.Kinds.Cilindro
+        '        v.Type = .Rows(i).Item("TIPO")
+        '        v.State = .Rows(i).Item("RECOLHIDO")
+        '        valves.Add(v.ID, v)
         '    Next
         'End With
 
@@ -275,6 +289,7 @@ Public Module Main
                 o.RetrievingDate = DateValue(.Rows(i).Item("DATA2").ToString.ToDateNotNull)
                 o.SellingResponsible = .Rows(i).Item("RESP1")
                 o.RetrievingResponsible = .Rows(i).Item("RESP2")
+                o.Retrieved = .Rows(i).Item("RECOLHIDO")
                 o.Products.Clear()
                 Dim products = Split(.Rows(i).Item("PEDIDO"), ";").ToList
                 Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
@@ -293,9 +308,11 @@ Public Module Main
                     For Each item In items
                         If barrels.ContainsKey(item) Then
                             o.Barrels.Add(item, barrels(item))
+                            barrels(item).Orders.Add(o)
                         End If
                         If coolers.ContainsKey(item) Then
                             o.Coolers.Add(item, coolers(item))
+                            coolers(item).Orders.Add(o)
                         End If
                     Next
                 End If
@@ -524,6 +541,30 @@ Public Module Main
             End Try
 
         Next
+
+        'UPDATES BARRELS TABLE
+        With tableBarrels
+            For i = 0 To .Rows.Count - 1
+                Dim bb = barrels(.Rows(i).Item("BARRIL"))
+                .Rows(i).Item("RECOLHIDO") = bb.State.ToString
+            Next
+        End With
+        Try
+            WriteCSV(tableBarrels, "tableB", "|", True)
+        Catch ex As Exception
+        End Try
+
+        'UPDATES COOLERS TABLE  
+        With tableCoolers
+            For i = 0 To .Rows.Count - 1
+                Dim cc = coolers(.Rows(i).Item("CHOPEIRA"))
+                .Rows(i).Item("RECOLHIDO") = cc.State.ToString
+            Next
+        End With
+        Try
+            WriteCSV(tableCoolers, "tableC", "|", True)
+        Catch ex As Exception
+        End Try
 
     End Sub
 

@@ -16,7 +16,7 @@ Public Class Product
        "GLong",
        "Lata",
        "Outros"
-       }
+    }
 
     Public Shared Units As New List(Of String) From {
         "L",

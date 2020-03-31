@@ -3,7 +3,7 @@
 Partial Public Class Product
 
     ''' <summary>
-    ''' 
+    ''' Class representing a single Entry of the chosen <see cref="Product"/>
     ''' </summary>
     Public MustInherit Class Entry
 
@@ -44,52 +44,6 @@ Partial Public Class Product
                 p_Quantity = value
             End Set
         End Property
-
-        'Private p_Stock As Double
-        'Public Property Stock() As Double
-        '    Get
-        '        If Me.Parent.Orders.ContainsKey(Me.ID) Then
-        '            If Me.Index < 1 Then
-        '                Return -Me.Quantity
-        '            Else
-        '                Return Me.Parent.Entries.Item(Me.Index - 1).Stock - Me.Quantity
-        '            End If
-        '        ElseIf Me.Parent.Purchases.ContainsKey(Me.ID) Then
-        '            If Me.Index < 1 Then
-        '                Return +Me.Quantity
-        '            Else
-        '                Return Me.Parent.Entries.Item(Me.Index - 1).Stock + Me.Quantity
-        '            End If
-        '        Else
-        '            Return p_Stock
-        '        End If
-        '    End Get
-        '    Set(ByVal value As Double)
-        '        p_Stock = value
-        '    End Set
-        'End Property
-
-        'Private p_Balance As Double
-        'Public Property Balance() As Double
-        '    Get
-        '        If Me.Parent.Orders.ContainsKey(Me.ID) Then
-        '            If Me.Index <= 1 Then
-        '                Return +Me.Value
-        '            Else
-        '                Return Me.Parent.Entries.Item(Me.Index - 1).Balance + Me.Value
-        '            End If
-        '        ElseIf Me.Parent.Purchases.ContainsKey(Me.ID) Then
-        '            If Me.Index <= 1 Then
-        '                Return -Me.Value
-        '            Else
-        '                Return Me.Parent.Entries.Item(Me.Index - 1).Balance - Me.Value
-        '            End If
-        '        End If
-        '    End Get
-        '    Set(ByVal value As Double)
-        '        p_Balance = value
-        '    End Set
-        'End Property
 
         Private p_Observation As String
         Public Property Observation() As String
