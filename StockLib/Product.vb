@@ -155,32 +155,32 @@ Public Class Product
         End Set
     End Property
 
-    Private p_Orders As New Dictionary(Of String, Product.Order)
-    Public Property Orders() As Dictionary(Of String, Product.Order)
+    Private p_Sales As New Dictionary(Of String, Product.Sale)
+    Public Property Sales() As Dictionary(Of String, Product.Sale)
         Get
-            Return p_Orders
+            Return p_Sales
         End Get
-        Set(ByVal value As Dictionary(Of String, Product.Order))
-            p_Orders = value
+        Set(ByVal value As Dictionary(Of String, Product.Sale))
+            p_Sales = value
         End Set
     End Property
 
-    Private p_Entries As New List(Of Product.Entry)
-    Public Property Entries() As List(Of Product.Entry)
+    Private p_Orders As New List(Of Product.Order)
+    Public Property Orders() As List(Of Product.Order)
         Get
-            Return p_Entries
+            Return p_Orders
         End Get
-        Set(ByVal value As List(Of Product.Entry))
-            p_Entries = value
+        Set(ByVal value As List(Of Product.Order))
+            p_Orders = value
         End Set
     End Property
 
     Public ReadOnly Property LastBalance As Double
         Get
-            If Me.Entries.Count > 0 Then
-                Dim lastID = Me.Entries.Last.ID
-                If Me.Orders.ContainsKey(lastID) Then
-                    Return Me.Orders(lastID).Balance
+            If Me.Orders.Count > 0 Then
+                Dim lastID = Me.Orders.Last.ID
+                If Me.Sales.ContainsKey(lastID) Then
+                    Return Me.Sales(lastID).Balance
                 ElseIf Purchases.ContainsKey(lastID) Then
                     Return Me.Purchases(lastID).Balance
                 Else
@@ -194,10 +194,10 @@ Public Class Product
 
     Public ReadOnly Property LastStock As Double
         Get
-            If Me.Entries.Count > 0 Then
-                Dim lastID = Me.Entries.Last.ID
-                If Me.Orders.ContainsKey(lastID) Then
-                    Return Me.Orders(lastID).Stock
+            If Me.Orders.Count > 0 Then
+                Dim lastID = Me.Orders.Last.ID
+                If Me.Sales.ContainsKey(lastID) Then
+                    Return Me.Sales(lastID).Stock
                 ElseIf Purchases.ContainsKey(lastID) Then
                     Return Me.Purchases(lastID).Stock
                 Else

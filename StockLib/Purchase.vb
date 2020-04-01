@@ -38,25 +38,25 @@ Public Class Purchase
         End Set
     End Property
 
-    Private p_Items As New Dictionary(Of String, Product)
-    Public Property Items() As Dictionary(Of String, Product)
+    Private p_Products As New Dictionary(Of String, Product)
+    Public Property Products() As Dictionary(Of String, Product)
         Get
-            Return p_Items
+            Return p_Products
         End Get
         Set(ByVal value As Dictionary(Of String, Product))
-            p_Items = value
+            p_Products = value
         End Set
     End Property
 
     Public ReadOnly Property PurchaseList() As List(Of String)
         Get
-            Return Items.Values.Select(Function(x) x.Quantity.ToString + " x " + x.Code).ToList
+            Return Products.Values.Select(Function(x) x.Quantity.ToString + " x " + x.Code).ToList
         End Get
     End Property
 
     Public ReadOnly Property CostList() As List(Of String)
         Get
-            Return Items.Values.Select(Function(x) x.Value.ToString("$0.00")).ToList
+            Return Products.Values.Select(Function(x) x.Value.ToString("$0.00")).ToList
         End Get
     End Property
 
@@ -64,7 +64,7 @@ Public Class Purchase
         Get
             Dim value As Double
             value = 0
-            For Each item In Items.Values
+            For Each item In Products.Values
                 value += item.Quantity * item.Value
             Next
             Return value
@@ -75,7 +75,7 @@ Public Class Purchase
         Get
             Dim mostFrequent As String
             Dim vList As New List(Of String)
-            For Each item In Items.Values
+            For Each item In Products.Values
                 vList.Add(item.Brand)
             Next
             mostFrequent = vList.OrderByDescending(Function(x) x.Count()).First

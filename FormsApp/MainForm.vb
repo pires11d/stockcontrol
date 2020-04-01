@@ -221,7 +221,7 @@ Public Class MainForm
     Private Sub OrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderToolStripMenuItem.Click
         Dim orderForm As New OrderForm
         With orderForm
-            .FormType = OrderForm.FormTypes.Order
+            .FormType = OrderForm.FormTypes.Sale
             .Show()
         End With
     End Sub

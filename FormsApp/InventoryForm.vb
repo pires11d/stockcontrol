@@ -64,6 +64,9 @@ Public Class InventoryForm
             lblID.Text = "-"
             lblState.Text = "-"
             lblState.ForeColor = Color.Black
+            lblLastOrder.Text = "-"
+            lblLastClient.Text = "-"
+            lblLastAddress.Text = "-"
             Exit Sub
         End If
 
@@ -81,6 +84,9 @@ Public Class InventoryForm
             lblID.Text = "-"
             lblState.Text = "-"
             lblState.ForeColor = Color.Black
+            lblLastOrder.Text = "-"
+            lblLastClient.Text = "-"
+            lblLastAddress.Text = "-"
             Exit Sub
         End If
 
@@ -102,6 +108,10 @@ Public Class InventoryForm
             lblLastOrder.Text = i.Orders.Last.ID
             lblLastClient.Text = i.Orders.Last.Client.Name
             lblLastAddress.Text = i.Orders.Last.Client.FullAddress
+        Else
+            lblLastOrder.Text = "-"
+            lblLastClient.Text = "-"
+            lblLastAddress.Text = "-"
         End If
 
     End Sub

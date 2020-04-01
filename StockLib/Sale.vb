@@ -2,7 +2,7 @@
 ''' <summary>
 ''' Class representing the Order of any bought products (Saída)
 ''' </summary>
-Public Class Order
+Public Class Sale
 
     Public Sub New(id As String)
         Me.ID = id
@@ -63,6 +63,8 @@ Public Class Order
             Dim result As New List(Of Item)
             result.AddRange(Barrels.Values.ToList)
             result.AddRange(Coolers.Values.ToList)
+            result.AddRange(Cylinders.Values.ToList)
+            result.AddRange(Valves.Values.ToList)
             Return result
         End Get
     End Property
@@ -162,16 +164,6 @@ Public Class Order
         End Set
     End Property
 
-    Private p_Valves As New Dictionary(Of String, Valve)
-    Public Property Valves() As Dictionary(Of String, Valve)
-        Get
-            Return p_Valves
-        End Get
-        Set(ByVal value As Dictionary(Of String, Valve))
-            p_Valves = value
-        End Set
-    End Property
-
     Private p_Cylinders As New Dictionary(Of String, Cylinder)
     Public Property Cylinders() As Dictionary(Of String, Cylinder)
         Get
@@ -179,6 +171,16 @@ Public Class Order
         End Get
         Set(ByVal value As Dictionary(Of String, Cylinder))
             p_Cylinders = value
+        End Set
+    End Property
+
+    Private p_Valves As New Dictionary(Of String, Valve)
+    Public Property Valves() As Dictionary(Of String, Valve)
+        Get
+            Return p_Valves
+        End Get
+        Set(ByVal value As Dictionary(Of String, Valve))
+            p_Valves = value
         End Set
     End Property
 

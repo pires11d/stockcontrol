@@ -2,19 +2,19 @@
 
 
 ''' <summary>
-''' Form used in the addition/edition/removal of <see cref="Order"/> and <see cref="Purchase"/> objects
+''' Form used in the addition/edition/removal of <see cref="Sale"/> and <see cref="Purchase"/> objects
 ''' </summary>
 Public Class OrderForm
 
     Public Enum FormTypes
-        Order
+        Sale
         Purchase
     End Enum
 
     Public FormType As FormTypes
     Public NewEntry As Boolean = False
     Public selectedProduct As Product
-    Public currentOrder As Order
+    Public currentSale As Sale
     Public currentPurchase As Purchase
     Public itemTable As New DataTable
 
@@ -89,7 +89,7 @@ Public Class OrderForm
 
         'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE   
         Select Case FormType
-            Case FormTypes.Order
+            Case FormTypes.Sale
                 Me.Text = "Pedido"
                 lblID.Text = "ID do Pedido:"
                 lblOrder.Text = "Itens do Pedido:"
@@ -191,8 +191,8 @@ Public Class OrderForm
             End If
 
             Select Case FormType
-                Case FormTypes.Order
-                    currentOrder.ID = tbID.Text
+                Case FormTypes.Sale
+                    currentSale.ID = tbID.Text
                 Case FormTypes.Purchase
                     currentPurchase.ID = tbID.Text
             End Select
@@ -227,18 +227,18 @@ Public Class OrderForm
 
         Select Case FormType
 
-            Case FormTypes.Order
-                If Main.orders.ContainsKey(tbID.Text) Then
-                    currentOrder = Main.orders(tbID.Text)
+            Case FormTypes.Sale
+                If Main.sales.ContainsKey(tbID.Text) Then
+                    currentSale = Main.sales(tbID.Text)
 
                     ChangeInputColors(SystemColors.Info)
                     EnableOrderControls()
                     RemoveToolStripMenuItem.Enabled = True
                     InventoryToolStripMenuItem.Enabled = True
 
-                    cbbResp2.Enabled = currentOrder.Retrieved
-                    datePicker2.Enabled = currentOrder.Retrieved
-                    For Each p In currentOrder.Products.Values
+                    cbbResp2.Enabled = currentSale.Retrieved
+                    datePicker2.Enabled = currentSale.Retrieved
+                    For Each p In currentSale.Products.Values
                         With p
                             If .Quantity > 0 Then
                                 tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
@@ -256,13 +256,13 @@ Public Class OrderForm
                         End With
                     Next
 
-                    cbbClient.Text = currentOrder.Client.Name
-                    datePicker1.Value = currentOrder.SellingDate.ToString.ToDateNotNull
-                    datePicker2.Value = currentOrder.RetrievingDate.ToString.ToDateNotNull
-                    cbbResp1.Text = currentOrder.SellingResponsible
-                    cbbResp2.Text = currentOrder.RetrievingResponsible
-                    lblTotal.Text = currentOrder.Total.ToString("R$ 0.00")
-                    tbObs.Text = currentOrder.Observation
+                    cbbClient.Text = currentSale.Client.Name
+                    datePicker1.Value = currentSale.SellingDate.ToString.ToDateNotNull
+                    datePicker2.Value = currentSale.RetrievingDate.ToString.ToDateNotNull
+                    cbbResp1.Text = currentSale.SellingResponsible
+                    cbbResp2.Text = currentSale.RetrievingResponsible
+                    lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
+                    tbObs.Text = currentSale.Observation
                 End If
 
             Case FormTypes.Purchase
@@ -274,7 +274,7 @@ Public Class OrderForm
                     EnablePurchaseControls()
                     RemoveToolStripMenuItem.Enabled = True
 
-                    For Each p In currentPurchase.Items.Values
+                    For Each p In currentPurchase.Products.Values
                         With p
                             If .Quantity > 0 Then
                                 tvItems.Nodes(.Kind).Nodes(.Name).Checked = True
@@ -335,45 +335,45 @@ Public Class OrderForm
             End If
 
             Select Case FormType
-                Case FormTypes.Order
+                Case FormTypes.Sale
 
                     If selectedProduct.Quantity > 0 Then
-                        If Not currentOrder.Products.ContainsKey(selectedProduct.Code) Then
-                            currentOrder.Products.Add(selectedProduct.Code, selectedProduct)
+                        If Not currentSale.Products.ContainsKey(selectedProduct.Code) Then
+                            currentSale.Products.Add(selectedProduct.Code, selectedProduct)
                         End If
-                        currentOrder.Products(selectedProduct.Code).Quantity = selectedProduct.Quantity
+                        currentSale.Products(selectedProduct.Code).Quantity = selectedProduct.Quantity
                         lvItems.Rows.Clear()
-                        For i = 0 To currentOrder.Products.Count - 1
+                        For i = 0 To currentSale.Products.Count - 1
                             lvItems.Rows.Add()
-                            lvItems.Item(0, i).Value = currentOrder.OrderList(i)
-                            lvItems.Item(1, i).Value = currentOrder.PriceList(i)
+                            lvItems.Item(0, i).Value = currentSale.OrderList(i)
+                            lvItems.Item(1, i).Value = currentSale.PriceList(i)
                         Next
                     Else
-                        If currentOrder.Products.ContainsKey(selectedProduct.Code) Then
-                            currentOrder.Products.Remove(selectedProduct.Code)
+                        If currentSale.Products.ContainsKey(selectedProduct.Code) Then
+                            currentSale.Products.Remove(selectedProduct.Code)
                             For ii = 0 To lvItems.Rows.Count - 1
                                 If lvItems.Item(0, ii).Value.ToString.Split(" x ").Last = selectedProduct.Code Then lvItems.Rows.RemoveAt(ii)
                             Next
                         End If
                     End If
-                    lblTotal.Text = currentOrder.Total.ToString("R$ 0.00")
+                    lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
 
                 Case FormTypes.Purchase
 
                     If selectedProduct.Quantity > 0 Then
-                        If Not currentPurchase.Items.ContainsKey(selectedProduct.Code) Then
-                            currentPurchase.Items.Add(selectedProduct.Code, selectedProduct)
+                        If Not currentPurchase.Products.ContainsKey(selectedProduct.Code) Then
+                            currentPurchase.Products.Add(selectedProduct.Code, selectedProduct)
                         End If
-                        currentPurchase.Items(selectedProduct.Code).Quantity = selectedProduct.Quantity
+                        currentPurchase.Products(selectedProduct.Code).Quantity = selectedProduct.Quantity
                         lvItems.Rows.Clear()
-                        For i = 0 To currentPurchase.Items.Count - 1
+                        For i = 0 To currentPurchase.Products.Count - 1
                             lvItems.Rows.Add()
                             lvItems.Item(0, i).Value = currentPurchase.PurchaseList(i)
                             lvItems.Item(1, i).Value = currentPurchase.CostList(i)
                         Next
                     Else
-                        If currentPurchase.Items.ContainsKey(selectedProduct.Code) Then
-                            currentPurchase.Items.Remove(selectedProduct.Code)
+                        If currentPurchase.Products.ContainsKey(selectedProduct.Code) Then
+                            currentPurchase.Products.Remove(selectedProduct.Code)
                             For ii = 0 To lvItems.Rows.Count - 1
                                 If lvItems.Item(0, ii).Value.ToString.Split(" x ").Last = selectedProduct.Code Then lvItems.Rows.RemoveAt(ii)
                             Next
@@ -412,20 +412,20 @@ Public Class OrderForm
 
             Select Case FormType
 
-                Case FormTypes.Order
-                    currentOrder.Products(selectedProduct.Code).Value = selectedProduct.Value
+                Case FormTypes.Sale
+                    currentSale.Products(selectedProduct.Code).Value = selectedProduct.Value
                     lvItems.Rows.Clear()
-                    For i = 0 To currentOrder.Products.Count - 1
+                    For i = 0 To currentSale.Products.Count - 1
                         lvItems.Rows.Add()
-                        lvItems.Item(0, i).Value = currentOrder.OrderList(i)
-                        lvItems.Item(1, i).Value = currentOrder.PriceList(i)
+                        lvItems.Item(0, i).Value = currentSale.OrderList(i)
+                        lvItems.Item(1, i).Value = currentSale.PriceList(i)
                     Next
-                    lblTotal.Text = currentOrder.Total.ToString("R$ 0.00")
+                    lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
 
                 Case FormTypes.Purchase
-                    currentPurchase.Items(selectedProduct.Code).Value = selectedProduct.Value
+                    currentPurchase.Products(selectedProduct.Code).Value = selectedProduct.Value
                     lvItems.Rows.Clear()
-                    For i = 0 To currentPurchase.Items.Count - 1
+                    For i = 0 To currentPurchase.Products.Count - 1
                         lvItems.Rows.Add()
                         lvItems.Item(0, i).Value = currentPurchase.PurchaseList(i)
                         lvItems.Item(1, i).Value = currentPurchase.CostList(i)
@@ -445,8 +445,8 @@ Public Class OrderForm
         Try
             Select Case FormType
 
-                Case FormTypes.Order
-                    currentOrder.SellingDate = datePicker1.Value
+                Case FormTypes.Sale
+                    currentSale.SellingDate = datePicker1.Value
 
                 Case FormTypes.Purchase
                     currentPurchase.BuyingDate = datePicker1.Value
@@ -463,8 +463,8 @@ Public Class OrderForm
         Try
             Select Case FormType
 
-                Case FormTypes.Order
-                    currentOrder.RetrievingDate = datePicker2.Value
+                Case FormTypes.Sale
+                    currentSale.RetrievingDate = datePicker2.Value
 
             End Select
         Catch ex As Exception
@@ -483,8 +483,8 @@ Public Class OrderForm
 
         Try
             Select Case FormType
-                Case FormTypes.Order
-                    currentOrder.SellingResponsible = DateValue(cbbResp1.Text)
+                Case FormTypes.Sale
+                    currentSale.SellingResponsible = DateValue(cbbResp1.Text)
             End Select
         Catch ex As Exception
 
@@ -502,8 +502,8 @@ Public Class OrderForm
 
         Try
             Select Case FormType
-                Case FormTypes.Order
-                    currentOrder.RetrievingResponsible = DateValue(cbbResp2.Text)
+                Case FormTypes.Sale
+                    currentSale.RetrievingResponsible = DateValue(cbbResp2.Text)
             End Select
         Catch ex As Exception
 
@@ -516,8 +516,8 @@ Public Class OrderForm
 
         Try
             Select Case FormType
-                Case FormTypes.Order
-                    currentOrder.Client = Main.clients(cbbClient.Text)
+                Case FormTypes.Sale
+                    currentSale.Client = Main.clients(cbbClient.Text)
             End Select
         Catch ex As Exception
 
@@ -532,7 +532,7 @@ Public Class OrderForm
 
         Select Case FormType
 
-            Case FormTypes.Order
+            Case FormTypes.Sale
                 MainForm.tabs.SelectedIndex = 2
 
             Case FormTypes.Purchase
@@ -544,10 +544,10 @@ Public Class OrderForm
     End Sub
 
     Private Sub OrderStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderStripMenuItem.Click
-        FormType = FormTypes.Order
+        FormType = FormTypes.Sale
         NewEntry = True
-        currentOrder = New Order(tbID.Text)
-        tbID.Text = CStr(CDbl(Main.orders.Keys.Last) + 1)
+        currentSale = New Sale(tbID.Text)
+        tbID.Text = CStr(CDbl(Main.sales.Keys.Last) + 1)
         cbbResp1.SelectedIndex = 0
 
         LoadControls()
@@ -579,13 +579,13 @@ Public Class OrderForm
 
         Select Case FormType
 
-            Case FormTypes.Order
-                currentOrder.SellingDate = datePicker1.Value
-                currentOrder.SellingResponsible = cbbResp1.Text
-                currentOrder.RetrievingDate = datePicker2.Value
-                currentOrder.RetrievingResponsible = cbbResp2.Text
-                currentOrder.Observation = tbObs.Text
-                currentOrder.Client = Main.clients(cbbClient.Text)
+            Case FormTypes.Sale
+                currentSale.SellingDate = datePicker1.Value
+                currentSale.SellingResponsible = cbbResp1.Text
+                currentSale.RetrievingDate = datePicker2.Value
+                currentSale.RetrievingResponsible = cbbResp2.Text
+                currentSale.Observation = tbObs.Text
+                currentSale.Client = Main.clients(cbbClient.Text)
 
                 AddToOrdersTable()
 
@@ -612,24 +612,24 @@ Public Class OrderForm
 
     Public Sub AddToOrdersTable()
 
-        If Main.orders.ContainsKey(currentOrder.ID) Then
-            MsgBox("O pedido de n° " + currentOrder.ID + " já existe!" + vbNewLine + "Por favor altere o n° deste pedido.", MsgBoxStyle.Exclamation, "Erro!")
+        If Main.sales.ContainsKey(currentSale.ID) Then
+            MsgBox("O pedido de n° " + currentSale.ID + " já existe!" + vbNewLine + "Por favor altere o n° deste pedido.", MsgBoxStyle.Exclamation, "Erro!")
             Exit Sub
         End If
-        Main.orders.Add(currentOrder.ID, currentOrder)
-        tableOrders.Rows.Add(currentOrder.ID,
-                            currentOrder.Client.Name,
+        Main.sales.Add(currentSale.ID, currentSale)
+        tableOrders.Rows.Add(currentSale.ID,
+                            currentSale.Client.Name,
                             "",
-                            currentOrder.SellingDate.ToShortDateString(),
-                            currentOrder.SellingResponsible,
-                            currentOrder.RetrievingDate.ToShortDateString(),
-                            currentOrder.RetrievingResponsible,
-                            currentOrder.Retrieved,
-                            currentOrder.IncludesCooler,
-                            Join(currentOrder.OrderList.ToArray, "; "),
-                            Join(currentOrder.PriceList.ToArray, "; "),
-                            currentOrder.Total,
-                            currentOrder.Observation)
+                            currentSale.SellingDate.ToShortDateString(),
+                            currentSale.SellingResponsible,
+                            currentSale.RetrievingDate.ToShortDateString(),
+                            currentSale.RetrievingResponsible,
+                            currentSale.Retrieved,
+                            currentSale.IncludesCooler,
+                            Join(currentSale.OrderList.ToArray, "; "),
+                            Join(currentSale.PriceList.ToArray, "; "),
+                            currentSale.Total,
+                            currentSale.Observation)
 
     End Sub
 
@@ -653,22 +653,22 @@ Public Class OrderForm
 
         Select Case FormType
 
-            Case FormTypes.Order
-                For Each item In currentOrder.Products.Values
-                    Dim newOrder As New Product.Order(tbID.Text)
+            Case FormTypes.Sale
+                For Each item In currentSale.Products.Values
+                    Dim newOrder As New Product.Sale(tbID.Text)
                     newOrder.Parent = item
-                    newOrder.Index = item.Entries.Count
-                    newOrder.SellingDate = currentOrder.SellingDate
-                    newOrder.Client = Main.clients(currentOrder.Client.Name)
-                    newOrder.Observation = currentOrder.Observation
-                    newOrder.Quantity = currentOrder.Products(item.Code).Quantity
-                    newOrder.Price = currentOrder.Products(item.Code).Value
+                    newOrder.Index = item.Orders.Count
+                    newOrder.SellingDate = currentSale.SellingDate
+                    newOrder.Client = Main.clients(currentSale.Client.Name)
+                    newOrder.Observation = currentSale.Observation
+                    newOrder.Quantity = currentSale.Products(item.Code).Quantity
+                    newOrder.Price = currentSale.Products(item.Code).Value
                     newOrder.Stock = item.Stock - newOrder.Quantity
                     item.Stock = newOrder.Stock
                     newOrder.Balance = item.LastBalance + newOrder.Value
 
-                    Main.products(item.Code).Orders.Add(newOrder.ID, newOrder)
-                    Main.products(item.Code).Entries.Add(newOrder)
+                    Main.products(item.Code).Sales.Add(newOrder.ID, newOrder)
+                    Main.products(item.Code).Orders.Add(newOrder)
                     Main.products(item.Code).Stock = item.Stock
 
                     With Main.productTables(item)
@@ -685,7 +685,7 @@ Public Class OrderForm
                 Next
 
             Case FormTypes.Purchase
-                For Each item In currentPurchase.Items.Values
+                For Each item In currentPurchase.Products.Values
                     Try
                         Dim test = CDbl(tbID.Text)
                         tbID.Text = currentPurchase.Vendor.Code + tbID.Text
@@ -693,18 +693,18 @@ Public Class OrderForm
                     End Try
                     Dim newPurchase As New Product.Purchase(tbID.Text)
                     newPurchase.Parent = item
-                    newPurchase.Index = item.Entries.Count
+                    newPurchase.Index = item.Orders.Count
                     newPurchase.BuyingDate = currentPurchase.BuyingDate
                     newPurchase.Vendor = currentPurchase.Vendor
                     newPurchase.Observation = currentPurchase.Observation
-                    newPurchase.Quantity = currentPurchase.Items(item.Code).Quantity
-                    newPurchase.Cost = currentPurchase.Items(item.Code).Value
+                    newPurchase.Quantity = currentPurchase.Products(item.Code).Quantity
+                    newPurchase.Cost = currentPurchase.Products(item.Code).Value
                     newPurchase.Stock = item.Stock + newPurchase.Quantity
                     item.Stock = newPurchase.Stock
                     newPurchase.Balance = item.LastBalance - newPurchase.Value
 
                     Main.products(item.Code).Purchases.Add(newPurchase.ID, newPurchase)
-                    Main.products(item.Code).Entries.Add(newPurchase)
+                    Main.products(item.Code).Orders.Add(newPurchase)
                     Main.products(item.Code).Stock = item.Stock
 
                     With Main.productTables(item)
@@ -728,8 +728,8 @@ Public Class OrderForm
 
         Select Case FormType
 
-            Case FormTypes.Order
-                Main.orders.Remove(tbID.Text)
+            Case FormTypes.Sale
+                Main.sales.Remove(tbID.Text)
                 For i = 0 To tableOrders.Rows.Count - 1
                     If tableOrders.Rows(i).Item("ID") = tbID.Text Then tableOrders.Rows(i).Delete()
                 Next
@@ -757,13 +757,13 @@ Public Class OrderForm
 
         Select Case FormType
 
-            Case FormTypes.Order
-                For Each item In currentOrder.Products.Values
+            Case FormTypes.Sale
+                For Each item In currentSale.Products.Values
 
                     Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
                     For i = 0 To pTable.Rows.Count - 1
-                        If pTable.Rows(i).Item("ID") = currentOrder.ID Then
-                            Main.products(item.Code).Orders.Remove(currentOrder.ID)
+                        If pTable.Rows(i).Item("ID") = currentSale.ID Then
+                            Main.products(item.Code).Sales.Remove(currentSale.ID)
                             Main.products(item.Code).Stock += item.Quantity
                             Exit For
                         End If
@@ -772,7 +772,7 @@ Public Class OrderForm
                 Next
 
             Case FormTypes.Purchase
-                For Each item In currentPurchase.Items.Values
+                For Each item In currentPurchase.Products.Values
 
                     Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
                     For i = 0 To pTable.Rows.Count - 1
@@ -798,12 +798,12 @@ Public Class OrderForm
 
             'With selectedProduct
             Select Case FormType
-                Case FormTypes.Order
-                    If Main.orders.ContainsKey(tbID.Text) Then
-                        currentOrder = Main.orders(tbID.Text)
-                        If currentOrder.Products.ContainsKey(selectedProduct.Code) Then
-                            selectedProduct.Quantity = currentOrder.Products(selectedProduct.Code).Quantity
-                            selectedProduct.Value = currentOrder.Products(selectedProduct.Code).Value
+                Case FormTypes.Sale
+                    If Main.sales.ContainsKey(tbID.Text) Then
+                        currentSale = Main.sales(tbID.Text)
+                        If currentSale.Products.ContainsKey(selectedProduct.Code) Then
+                            selectedProduct.Quantity = currentSale.Products(selectedProduct.Code).Quantity
+                            selectedProduct.Value = currentSale.Products(selectedProduct.Code).Value
                         Else
                             If Main.owners.Contains(cbbClient.Text) Then
                                 selectedProduct.Value = selectedProduct.Price2
@@ -824,9 +824,9 @@ Public Class OrderForm
                 Case FormTypes.Purchase
                     If Main.purchases.ContainsKey(tbID.Text) Then
                         currentPurchase = Main.purchases(tbID.Text)
-                        If currentPurchase.Items.ContainsKey(selectedProduct.Code) Then
-                            selectedProduct.Quantity = currentPurchase.Items(selectedProduct.Code).Quantity
-                            selectedProduct.Value = currentPurchase.Items(selectedProduct.Code).Value
+                        If currentPurchase.Products.ContainsKey(selectedProduct.Code) Then
+                            selectedProduct.Quantity = currentPurchase.Products(selectedProduct.Code).Quantity
+                            selectedProduct.Value = currentPurchase.Products(selectedProduct.Code).Value
                         Else
                             selectedProduct.Quantity = 0
                             selectedProduct.Value = selectedProduct.Cost
@@ -850,7 +850,7 @@ Public Class OrderForm
 
             Select Case FormType
 
-                Case FormTypes.Order
+                Case FormTypes.Sale
                     lblOrder.Text = "Itens do Pedido:"
                     lblPrice.Text = "Preço:"
 
@@ -907,7 +907,7 @@ Public Class OrderForm
     End Sub
 
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
-        Dim orderInventoryForm As New OrderInventoryForm(currentOrder)
+        Dim orderInventoryForm As New OrderInventoryForm(currentSale)
         orderInventoryForm.Show()
     End Sub
 

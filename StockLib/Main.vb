@@ -31,7 +31,7 @@ Public Module Main
     Public clients As New Dictionary(Of String, Client)
     Public vendors As New Dictionary(Of String, Vendor)
     Public products As New Dictionary(Of String, Product)
-    Public orders As New Dictionary(Of String, Order)
+    Public sales As New Dictionary(Of String, Sale)
     Public purchases As New Dictionary(Of String, Purchase)
     Public barrels As New Dictionary(Of String, Barrel)
     Public coolers As New Dictionary(Of String, Cooler)
@@ -78,14 +78,16 @@ Public Module Main
         'tableValves = ReadCSV(appDataFolder + "tableV.csv", "|")
         LoadItems()
 
+        tableProducts = ReadCSV(appDataFolder + "tableProducts.csv", "|")
+        LoadProducts()
+
         tableOrders = ReadCSV(appDataFolder + "tableOrders.csv", "|")
-        LoadOrders()
+        LoadSales()
 
         tablePurchases = ReadCSV(appDataFolder + "tablePurchases.csv", "|")
         LoadPurchases()
 
-        tableProducts = ReadCSV(appDataFolder + "tableProducts.csv", "|")
-        LoadProducts()
+        LoadProductTables()
 
     End Sub
 
@@ -162,6 +164,13 @@ Public Module Main
             Next i
         End With
 
+    End Sub
+
+    ''' <summary>   
+    ''' Loads every product's history information into a dictionary of <see cref="Product"/> and <see cref="DataTable"/> objects
+    ''' </summary>
+    Public Sub LoadProductTables()
+
         'ADDS ALL PRODUCT TABLES TO A LIST
         productTables.Clear()
 
@@ -195,21 +204,21 @@ Public Module Main
                         purchase.Parent = p
 
                         p.Purchases.Add(purchase.ID, purchase)
-                        p.Entries.Add(purchase)
+                        p.Orders.Add(purchase)
 
                     ElseIf CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
 
-                        Dim order As New Product.Order(.Rows(i).Item("ID"))
-                        order.SellingDate = DateValue(.Rows(i).Item("DATA"))
-                        order.Description = .Rows(i).Item("HISTÓRICO")
-                        order.Quantity = .Rows(i).Item("SAÍDA")
-                        'order.Stock = .Rows(i).Item("SALDO")
-                        order.Value = .Rows(i).Item("SAÍDA ($)")
-                        'order.Balance = .Rows(i).Item("BALANÇO")
-                        order.Parent = p
+                        Dim sale As New Product.Sale(.Rows(i).Item("ID"))
+                        sale.SellingDate = DateValue(.Rows(i).Item("DATA"))
+                        sale.Description = .Rows(i).Item("HISTÓRICO")
+                        sale.Quantity = .Rows(i).Item("SAÍDA")
+                        'sale.Stock = .Rows(i).Item("SALDO")
+                        sale.Value = .Rows(i).Item("SAÍDA ($)")
+                        'sale.Balance = .Rows(i).Item("BALANÇO")
+                        sale.Parent = p
 
-                        p.Orders.Add(order.ID, order)
-                        p.Entries.Add(order)
+                        p.Sales.Add(sale.ID, sale)
+                        p.Orders.Add(sale)
 
                     End If
                 Next
@@ -271,56 +280,57 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' Loads all order information into a dictionary of <see cref="Order"/> objects
+    ''' Loads all order information into a dictionary of <see cref="Sale"/> objects
     ''' </summary>
-    Public Sub LoadOrders()
+    Public Sub LoadSales()
 
         Try
             tableOrders.Columns.Remove("ENDERECO")
         Catch ex As Exception
         End Try
 
-        orders.Clear()
+        sales.Clear()
 
         With tableOrders
             For i = 0 To .Rows.Count - 1
-                Dim o As New Order(.Rows(i).Item("ID"))
-                o.SellingDate = DateValue(.Rows(i).Item("DATA1").ToString.ToDateNotNull)
-                o.RetrievingDate = DateValue(.Rows(i).Item("DATA2").ToString.ToDateNotNull)
-                o.SellingResponsible = .Rows(i).Item("RESP1")
-                o.RetrievingResponsible = .Rows(i).Item("RESP2")
-                o.Retrieved = .Rows(i).Item("RECOLHIDO")
-                o.Products.Clear()
-                Dim products = Split(.Rows(i).Item("PEDIDO"), ";").ToList
-                Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
-                For Each product In products.Except({""})
+                Dim s As New Sale(.Rows(i).Item("ID"))
+                s.SellingDate = DateValue(.Rows(i).Item("DATA1").ToString.ToDateNotNull)
+                s.RetrievingDate = DateValue(.Rows(i).Item("DATA2").ToString.ToDateNotNull)
+                s.SellingResponsible = .Rows(i).Item("RESP1")
+                s.RetrievingResponsible = .Rows(i).Item("RESP2")
+                s.Retrieved = .Rows(i).Item("RECOLHIDO")
+                s.Products.Clear()
+                Dim productList = Split(.Rows(i).Item("PEDIDO"), ";").ToList
+                Dim priceList = Split(.Rows(i).Item("PREÇOS"), ";").ToList
+                For Each product In productList.Except({""})
                     Dim code As String = Split(product, " x ").Last
                     Dim qtty As Double = CDbl(Split(product, " x ").First)
                     Dim pp = New Product(code)
                     With pp
-                        pp.Value = CDbl(prices(products.IndexOf(product)).Replace("$ ", ""))
+                        pp.Brand = products(code).Brand
+                        pp.Value = CDbl(priceList(productList.IndexOf(product)).Replace("$ ", ""))
                         pp.Quantity = qtty
                     End With
-                    o.Products.Add(pp.Code, pp)
+                    s.Products.Add(pp.Code, pp)
                 Next
                 Dim items = Split(.Rows(i).Item("ITENS"), " ").ToList.Except({""})
                 If items.Count > 0 Then
                     For Each item In items
                         If barrels.ContainsKey(item) Then
-                            o.Barrels.Add(item, barrels(item))
-                            barrels(item).Orders.Add(o)
+                            s.Barrels.Add(item, barrels(item))
+                            barrels(item).Orders.Add(s)
                         End If
                         If coolers.ContainsKey(item) Then
-                            o.Coolers.Add(item, coolers(item))
-                            coolers(item).Orders.Add(o)
+                            s.Coolers.Add(item, coolers(item))
+                            coolers(item).Orders.Add(s)
                         End If
                     Next
                 End If
+                s.Observation = .Rows(i).Item("OBS")
+                s.Client = clients(.Rows(i).Item("CLIENTE"))
+                sales.Add(s.ID, s)
 
-                o.Observation = .Rows(i).Item("OBS")
-                o.Client = clients(.Rows(i).Item("CLIENTE"))
-
-                orders.Add(o.ID, o)
+                clients(s.Client.Name).Sales.Add(s)
             Next
         End With
 
@@ -337,22 +347,25 @@ Public Module Main
             For i = 0 To .Rows.Count - 1
                 Dim p As New Purchase(.Rows(i).Item("ID"))
                 p.BuyingDate = DateValue(.Rows(i).Item("DATA").ToString.ToZero)
-                p.Items.Clear()
-                Dim products = Split(.Rows(i).Item("COMPRA"), ";").ToList
-                Dim prices = Split(.Rows(i).Item("PREÇOS"), ";").ToList
-                For Each product In products.Except({""})
+                p.Products.Clear()
+                Dim productList = Split(.Rows(i).Item("COMPRA"), ";").ToList
+                Dim proceList = Split(.Rows(i).Item("PREÇOS"), ";").ToList
+                For Each product In productList.Except({""})
                     Dim code As String = Split(product, " x ").Last
                     Dim qtty As Double = CDbl(Split(product, " x ").First)
                     Dim pp = New Product(code)
                     With pp
-                        pp.Value = CDbl(prices(products.IndexOf(product)).Replace("$ ", ""))
+                        pp.Brand = products(code).Brand
+                        pp.Value = CDbl(proceList(productList.IndexOf(product)).Replace("$ ", ""))
                         pp.Quantity = qtty
                     End With
 
-                    p.Items.Add(pp.Code, pp)
+                    p.Products.Add(pp.Code, pp)
                 Next
                 p.Observation = .Rows(i).Item("OBS")
                 purchases.Add(p.ID, p)
+
+                vendors(p.Vendor.Name).Purchases.Add(p)
             Next
         End With
 
@@ -461,23 +474,23 @@ Public Module Main
         'UPDATES THE ORDERS DATATABLE
         With tableOrders
             For i = 0 To .Rows.Count - 1
-                Dim order = orders(.Rows(i).Item("ID"))
-                .Rows(i).Item("CLIENTE") = order.Client.Name
-                .Rows(i).Item("ITENS") = Join(order.ItemList.ToArray, " ")
-                .Rows(i).Item("RESP1") = order.SellingResponsible
-                .Rows(i).Item("DATA1") = order.SellingDate.ToShortDateString
-                .Rows(i).Item("RESP2") = order.RetrievingResponsible
-                If order.RetrievingResponsible = "" Then
+                Dim sale = sales(.Rows(i).Item("ID"))
+                .Rows(i).Item("CLIENTE") = sale.Client.Name
+                .Rows(i).Item("ITENS") = Join(sale.ItemList.ToArray, " ")
+                .Rows(i).Item("RESP1") = sale.SellingResponsible
+                .Rows(i).Item("DATA1") = sale.SellingDate.ToShortDateString
+                .Rows(i).Item("RESP2") = sale.RetrievingResponsible
+                If sale.RetrievingResponsible = "" Then
                     .Rows(i).Item("DATA2") = ""
                 Else
-                    .Rows(i).Item("DATA2") = order.RetrievingDate.ToShortDateString
+                    .Rows(i).Item("DATA2") = sale.RetrievingDate.ToShortDateString
                 End If
-                .Rows(i).Item("RECOLHIDO") = order.Retrieved
-                .Rows(i).Item("CHOPEIRA") = order.IncludesCooler
-                .Rows(i).Item("PEDIDO") = Join(order.OrderList.ToArray, "; ")
-                .Rows(i).Item("PREÇOS") = Join(order.PriceList.ToArray, "; ")
-                .Rows(i).Item("TOTAL") = order.Total
-                .Rows(i).Item("OBS") = order.Observation
+                .Rows(i).Item("RECOLHIDO") = sale.Retrieved
+                .Rows(i).Item("CHOPEIRA") = sale.IncludesCooler
+                .Rows(i).Item("PEDIDO") = Join(sale.OrderList.ToArray, "; ")
+                .Rows(i).Item("PREÇOS") = Join(sale.PriceList.ToArray, "; ")
+                .Rows(i).Item("TOTAL") = sale.Total
+                .Rows(i).Item("OBS") = sale.Observation
             Next
         End With
         Try
@@ -505,7 +518,7 @@ Public Module Main
         For Each pTable In productTables
             pTable.Value.Rows.Clear()
 
-            For Each e In pTable.Key.Entries
+            For Each e In pTable.Key.Orders
                 If pTable.Key.Purchases.ContainsKey(e.ID) Then
                     Dim purchase = TryCast(e, Product.Purchase)
                     pTable.Value.Rows.Add(purchase.Index,
@@ -518,18 +531,18 @@ Public Module Main
                                           purchase.Value,
                                           0,
                                           purchase.Balance)
-                ElseIf pTable.Key.Orders.ContainsKey(e.ID) Then
-                    Dim order = TryCast(e, Product.Order)
-                    pTable.Value.Rows.Add(order.Index,
-                                  order.SellingDate.ToString("yyyy/MM/dd"),
-                                  order.ID,
-                                  order.Description,
+                ElseIf pTable.Key.Sales.ContainsKey(e.ID) Then
+                    Dim sale = TryCast(e, Product.Sale)
+                    pTable.Value.Rows.Add(sale.Index,
+                                  sale.SellingDate.ToString("yyyy/MM/dd"),
+                                  sale.ID,
+                                  sale.Description,
                                   0,
-                                  order.Quantity,
-                                  order.Stock,
+                                  sale.Quantity,
+                                  sale.Stock,
                                   0,
-                                  order.Value,
-                                  order.Balance)
+                                  sale.Value,
+                                  sale.Balance)
                 End If
             Next
             Dim dvi As New DataView(pTable.Value)

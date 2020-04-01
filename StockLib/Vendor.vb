@@ -25,4 +25,14 @@ Public Class Vendor
         End Get
     End Property
 
+    Private p_Purchases As New List(Of Purchase)
+    Public Property Purchases() As List(Of Purchase)
+        Get
+            Return p_Purchases
+        End Get
+        Set(ByVal value As List(Of Purchase))
+            p_Purchases = value
+        End Set
+    End Property
+
 End Class

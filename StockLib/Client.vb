@@ -92,4 +92,14 @@ Public Class Client
         End Get
     End Property
 
+    Private p_Sales As New List(Of Sale)
+    Public Property Sales() As List(Of Sale)
+        Get
+            Return p_Sales
+        End Get
+        Set(ByVal value As List(Of Sale))
+            p_Sales = value
+        End Set
+    End Property
+
 End Class

@@ -3,9 +3,9 @@
 Partial Public Class Product
 
     ''' <summary>
-    ''' Class representing a single <see cref="Purchase"/> of the chosen <see cref="Product"/>
+    ''' Class representing a single <see cref="Sale"/> of the chosen <see cref="Product"/>
     ''' </summary>
-    Public Class Purchase
+    Public Class Sale
 
         Inherits Product.Order
 
@@ -13,13 +13,13 @@ Partial Public Class Product
             MyBase.New(id)
         End Sub
 
-        Private p_BuyingDate As Date
-        Public Property BuyingDate() As Date
+        Private p_SellingDate As Date
+        Public Property SellingDate() As Date
             Get
-                Return p_BuyingDate
+                Return p_SellingDate
             End Get
             Set(ByVal value As Date)
-                p_BuyingDate = value
+                p_SellingDate = value
             End Set
         End Property
 
@@ -27,15 +27,15 @@ Partial Public Class Product
         Public Property Stock() As Double
             Get
                 If Me.Index < 1 Then
-                    Return +Me.Quantity
+                    Return -Me.Quantity
                 Else
                     Dim lastID = Me.Parent.Orders.Item(Me.Index - 1).ID
                     If Me.Parent.Sales.ContainsKey(lastID) Then
-                        Return Me.Parent.Sales(lastID).Stock + Me.Quantity
+                        Return Me.Parent.Sales(lastID).Stock - Me.Quantity
                     ElseIf Me.Parent.Purchases.ContainsKey(lastID) Then
-                        Return Me.Parent.Purchases(lastID).Stock + Me.Quantity
+                        Return Me.Parent.Purchases(lastID).Stock - Me.Quantity
                     Else
-                        Return +Me.Quantity
+                        Return -Me.Quantity
                     End If
                 End If
             End Get
@@ -48,15 +48,15 @@ Partial Public Class Product
         Public Property Balance() As Double
             Get
                 If Me.Index < 1 Then
-                    Return -Me.Value
+                    Return +Me.Value
                 Else
                     Dim lastID = Me.Parent.Orders.Item(Me.Index - 1).ID
                     If Me.Parent.Sales.ContainsKey(lastID) Then
-                        Return Me.Parent.Sales(lastID).Balance - Me.Value
+                        Return Me.Parent.Sales(lastID).Balance + Me.Value
                     ElseIf Me.Parent.Purchases.ContainsKey(lastID) Then
-                        Return Me.Parent.Purchases(lastID).Balance - Me.Value
+                        Return Me.Parent.Purchases(lastID).Balance + Me.Value
                     Else
-                        Return -Me.Value
+                        Return +Me.Value
                     End If
                 End If
             End Get
@@ -65,42 +65,42 @@ Partial Public Class Product
             End Set
         End Property
 
-        Private p_Cost As Double
-        Public Property Cost() As Double
+        Private p_Price As Double
+        Public Property Price() As Double
             Get
-                Return p_Cost
+                Return p_Price
             End Get
             Set(ByVal value As Double)
-                p_Cost = value
+                p_Price = value
             End Set
         End Property
 
         Public Property Value() As Double
             Get
-                Return Me.Cost * Me.Quantity
+                Return Me.Price * Me.Quantity
             End Get
-            Set(value As Double)
-                Me.Cost = value / Me.Quantity
+            Set(ByVal value As Double)
+                Me.Price = value / Me.Quantity
             End Set
         End Property
 
         Public Property Description() As String
             Get
-                Return CStr(Me.Vendor.Name + " " + Observation).Replace("  ", " ")
+                Return (Me.Client.Name + " " + Me.Observation).Replace("  ", " ")
             End Get
             Set(value As String)
-                Me.Vendor = Main.vendors(Main.GetVendorName(value))
-                Me.Observation = value.Replace(Vendor.Name, "")
+                Me.Client = Main.clients(Main.GetClientName(value))
+                Me.Observation = value.Replace(Client.Name, "")
             End Set
         End Property
 
-        Private p_Vendor As Vendor
-        Public Property Vendor() As Vendor
+        Private p_Client As Client
+        Public Property Client() As Client
             Get
-                Return p_Vendor
+                Return p_Client
             End Get
-            Set(ByVal value As Vendor)
-                p_Vendor = value
+            Set(ByVal value As Client)
+                p_Client = value
             End Set
         End Property
 
