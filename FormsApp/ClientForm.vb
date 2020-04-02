@@ -86,6 +86,7 @@ Public Class ClientForm
         rowAdded = False
 
         Main.UpdateTables()
+        LoadClients()
     End Sub
 
     Private Sub lvClients_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles lvClients.UserAddedRow
