@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OrderHistory" targetNamespace="http://tempuri.org/OrderHistory.xsd" xmlns:mstns="http://tempuri.org/OrderHistory.xsd" xmlns="http://tempuri.org/OrderHistory.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OrderHistory" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="OrderHistory" msprop:Generator_UserDSName="OrderHistory">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="OrderTable" msprop:Generator_TableClassName="OrderTableDataTable" msprop:Generator_TableVarName="tableOrderTable" msprop:Generator_RowChangedName="OrderTableRowChanged" msprop:Generator_TablePropName="OrderTable" msprop:Generator_RowDeletingName="OrderTableRowDeleting" msprop:Generator_RowChangingName="OrderTableRowChanging" msprop:Generator_RowEvHandlerName="OrderTableRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderTableRowDeleted" msprop:Generator_RowClassName="OrderTableRow" msprop:Generator_UserTableName="OrderTable" msprop:Generator_RowEvArgName="OrderTableRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="CLIENTE" msprop:Generator_ColumnVarNameInTable="columnCLIENTE" msprop:Generator_ColumnPropNameInRow="CLIENTE" msprop:Generator_ColumnPropNameInTable="CLIENTEColumn" msprop:Generator_UserColumnName="CLIENTE" type="xs:string" minOccurs="0" />
+              <xs:element name="ITENS" msprop:Generator_ColumnVarNameInTable="columnITENS" msprop:Generator_ColumnPropNameInRow="ITENS" msprop:Generator_ColumnPropNameInTable="ITENSColumn" msprop:Generator_UserColumnName="ITENS" type="xs:string" minOccurs="0" />
+              <xs:element name="DATA_x0020_DA_x0020_ENTREGA" msprop:Generator_ColumnVarNameInTable="columnDATA_DA_ENTREGA" msprop:Generator_ColumnPropNameInRow="DATA_DA_ENTREGA" msprop:Generator_ColumnPropNameInTable="DATA_DA_ENTREGAColumn" msprop:Generator_UserColumnName="DATA DA ENTREGA" type="xs:string" minOccurs="0" />
+              <xs:element name="RESPONSÁVEL_x0020_ENTREGA" msprop:Generator_ColumnVarNameInTable="columnRESPONSÁVEL_ENTREGA" msprop:Generator_ColumnPropNameInRow="RESPONSÁVEL_ENTREGA" msprop:Generator_ColumnPropNameInTable="RESPONSÁVEL_ENTREGAColumn" msprop:Generator_UserColumnName="RESPONSÁVEL ENTREGA" type="xs:string" minOccurs="0" />
+              <xs:element name="DATA_x0020_DA_x0020_RETIRADA" msprop:Generator_ColumnVarNameInTable="columnDATA_DA_RETIRADA" msprop:Generator_ColumnPropNameInRow="DATA_DA_RETIRADA" msprop:Generator_ColumnPropNameInTable="DATA_DA_RETIRADAColumn" msprop:Generator_UserColumnName="DATA DA RETIRADA" type="xs:string" minOccurs="0" />
+              <xs:element name="RESPONSÁVEL_x0020_RETIRADA" msprop:Generator_ColumnVarNameInTable="columnRESPONSÁVEL_RETIRADA" msprop:Generator_ColumnPropNameInRow="RESPONSÁVEL_RETIRADA" msprop:Generator_ColumnPropNameInTable="RESPONSÁVEL_RETIRADAColumn" msprop:Generator_UserColumnName="RESPONSÁVEL RETIRADA" type="xs:string" minOccurs="0" />
+              <xs:element name="RECOLHIDO" msprop:Generator_ColumnVarNameInTable="columnRECOLHIDO" msprop:Generator_ColumnPropNameInRow="RECOLHIDO" msprop:Generator_ColumnPropNameInTable="RECOLHIDOColumn" msprop:Generator_UserColumnName="RECOLHIDO" type="xs:string" minOccurs="0" />
+              <xs:element name="PEDIDO" msprop:Generator_ColumnVarNameInTable="columnPEDIDO" msprop:Generator_ColumnPropNameInRow="PEDIDO" msprop:Generator_ColumnPropNameInTable="PEDIDOColumn" msprop:Generator_UserColumnName="PEDIDO" type="xs:string" minOccurs="0" />
+              <xs:element name="PREÇOS" msprop:Generator_ColumnVarNameInTable="columnPREÇOS" msprop:Generator_ColumnPropNameInRow="PREÇOS" msprop:Generator_ColumnPropNameInTable="PREÇOSColumn" msprop:Generator_UserColumnName="PREÇOS" type="xs:string" minOccurs="0" />
+              <xs:element name="TOTAL" msprop:Generator_ColumnVarNameInTable="columnTOTAL" msprop:Generator_ColumnPropNameInRow="TOTAL" msprop:Generator_ColumnPropNameInTable="TOTALColumn" msprop:Generator_UserColumnName="TOTAL" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="OBS" msprop:Generator_ColumnVarNameInTable="columnOBS" msprop:Generator_ColumnPropNameInRow="OBS" msprop:Generator_ColumnPropNameInTable="OBSColumn" msprop:Generator_UserColumnName="OBS" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

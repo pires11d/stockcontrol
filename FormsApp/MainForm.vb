@@ -110,12 +110,13 @@ Public Class MainForm
         Select Case Main.companyName
 
             Case "ChoppExpress"
-                primaryColor = Color.FromArgb(255, 255, 255, 128)
+                Dim PaleYellow = Color.FromArgb(255, 255, 255, 128)
+                primaryColor = PaleYellow
                 secondaryColor = Color.Red
 
             Case "L'jaica"
                 primaryColor = Color.PaleGreen
-                secondaryColor = Color.DarkGreen
+                secondaryColor = Color.Green
 
             Case Else
                 primaryColor = SystemColors.Control

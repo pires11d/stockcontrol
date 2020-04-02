@@ -47,7 +47,7 @@ Public Class ReportForm
         firstDay = New Date(currentYear, currentMonth, 1)
         lastDay = New Date(currentYear, currentMonth, Date.DaysInMonth(currentYear, currentMonth))
 
-        LoadReportTables(lvReport, lvTotal)
+        LoadReportTables(lvReport, lvReport2, lvTotal)
 
         Me.Text = "Relatório Mensal para " + Extensions.Numberfy(cbbMonth.SelectedIndex + 1, 2) + "/" + currentYear.ToString
 
@@ -60,7 +60,7 @@ Public Class ReportForm
         firstDay = New Date(currentYear, 1, 1)
         lastDay = New Date(currentYear, 12, 31)
 
-        LoadReportTables(lvReportY, lvTotalY)
+        LoadReportTables(lvReportY, lvReport2Y, lvTotalY)
 
         Me.Text = "Relatório Anual para " + cbbYear.Text
 
@@ -92,7 +92,9 @@ Public Class ReportForm
 
     End Sub
 
-    Public Sub LoadReportTables(table1 As DataGridView, table2 As DataGridView)
+    Public Sub LoadReportTables(table1 As DataGridView,
+                                table2 As DataGridView,
+                                table3 As DataGridView)
 
         'LOADS BALANCE TABLE INTO DATAGRIDVIEW
         ProductStockSchema.BalanceTable.Rows.Clear()
@@ -156,6 +158,22 @@ Public Class ReportForm
             .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
         End With
 
+        With table3
+            .Rows.Clear()
+            .Rows.Add()
+            Dim totals As New List(Of String)
+            .Item(0, 0).Value = "TOTAL:"
+            For j = 1 To table2.Columns.Count - 1
+                Dim value = 0
+                For i = 0 To table2.Rows.Count - 1
+                    value += table2.Item(j, i).Value
+                Next
+                totals.Add(value.ToString("R$ 0.00"))
+                .Item(j, 0).Value = totals(j - 1)
+            Next
+            .RowsDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+        End With
+
     End Sub
 
     Private Sub tabs_Selected(sender As Object, e As TabControlEventArgs) Handles tabs.Selected
@@ -173,6 +191,24 @@ Public Class ReportForm
     Private Sub lvStock_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvStock.CellFormatting
         If {6}.Contains(e.ColumnIndex) And e.Value.ToString = "0" Then
             e.Value = "-"
+        End If
+    End Sub
+    Private Sub lvReport_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvReport.CellFormatting,
+                                                                                                            lvReportY.CellFormatting
+        If {6, 7, 8}.Contains(e.ColumnIndex) And Not IsNothing(e.Value) Then
+            If e.Value.ToString = "0" Then
+                e.Value = "-"
+            End If
+        End If
+    End Sub
+    Private Sub lvReport2_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvReport2.CellFormatting,
+                                                                                                             lvTotal.CellFormatting,
+                                                                                                             lvReport2Y.CellFormatting,
+                                                                                                             lvTotalY.CellFormatting
+        If {1, 2, 3, 4, 5}.Contains(e.ColumnIndex) And Not IsNothing(e.Value) Then
+            If e.Value.ToString = "0" Then
+                e.Value = "-"
+            End If
         End If
     End Sub
 

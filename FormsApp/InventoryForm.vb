@@ -116,4 +116,14 @@ Public Class InventoryForm
 
     End Sub
 
+    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
+
+        If lblID.Text = "-" Then Exit Sub
+
+        Dim currentItem = Main.ItemsCollection(lblID.Text)
+        Dim historyForm As New HistoryForm(currentItem)
+        historyForm.Show()
+
+    End Sub
+
 End Class

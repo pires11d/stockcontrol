@@ -581,6 +581,23 @@ Public Module Main
 
     End Sub
 
+    Public Function ItemsCollection() As Dictionary(Of String, Item)
+        Dim result As New Dictionary(Of String, Item)
+        For Each b In barrels
+            result.Add(b.Key, b.Value)
+        Next
+        For Each c In coolers
+            result.Add(c.Key, c.Value)
+        Next
+        For Each g In cylinders
+            result.Add(g.Key, g.Value)
+        Next
+        For Each v In valves
+            result.Add(v.Key, v.Value)
+        Next
+        Return result
+    End Function
+
     ''' <summary>
     ''' Synchronizes all tables with the remote server, according to the updated list of files (see <see cref="UpdatedSyncList()"/>)
     ''' </summary>

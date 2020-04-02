@@ -42,6 +42,7 @@ Partial Class InventoryForm
         Me.Label9 = New System.Windows.Forms.Label()
         Me.lblLastAddress = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.btnHistory = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -58,9 +59,9 @@ Partial Class InventoryForm
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(122, 508)
+        Me.Label3.Location = New System.Drawing.Point(592, 269)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(68, 48)
+        Me.Label3.Size = New System.Drawing.Size(73, 48)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "Último Cliente:"
         '
@@ -69,7 +70,7 @@ Partial Class InventoryForm
         Me.lblLastClient.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblLastClient.AutoSize = True
         Me.lblLastClient.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastClient.Location = New System.Drawing.Point(196, 509)
+        Me.lblLastClient.Location = New System.Drawing.Point(701, 270)
         Me.lblLastClient.Name = "lblLastClient"
         Me.lblLastClient.Size = New System.Drawing.Size(16, 19)
         Me.lblLastClient.TabIndex = 1
@@ -77,10 +78,9 @@ Partial Class InventoryForm
         '
         'Label4
         '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(591, 75)
+        Me.Label4.Location = New System.Drawing.Point(592, 75)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(51, 21)
         Me.Label4.TabIndex = 1
@@ -88,10 +88,9 @@ Partial Class InventoryForm
         '
         'Label5
         '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(591, 117)
+        Me.Label5.Location = New System.Drawing.Point(592, 117)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(73, 21)
         Me.Label5.TabIndex = 1
@@ -99,10 +98,9 @@ Partial Class InventoryForm
         '
         'Label6
         '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(591, 161)
+        Me.Label6.Location = New System.Drawing.Point(592, 161)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(72, 21)
         Me.Label6.TabIndex = 1
@@ -110,10 +108,9 @@ Partial Class InventoryForm
         '
         'Label7
         '
-        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(591, 205)
+        Me.Label7.Location = New System.Drawing.Point(592, 205)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(91, 21)
         Me.Label7.TabIndex = 1
@@ -121,9 +118,8 @@ Partial Class InventoryForm
         '
         'lblKind
         '
-        Me.lblKind.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblKind.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblKind.Location = New System.Drawing.Point(700, 75)
+        Me.lblKind.Location = New System.Drawing.Point(701, 75)
         Me.lblKind.Name = "lblKind"
         Me.lblKind.Size = New System.Drawing.Size(143, 21)
         Me.lblKind.TabIndex = 1
@@ -131,9 +127,8 @@ Partial Class InventoryForm
         '
         'lblType
         '
-        Me.lblType.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblType.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblType.Location = New System.Drawing.Point(700, 117)
+        Me.lblType.Location = New System.Drawing.Point(701, 117)
         Me.lblType.Name = "lblType"
         Me.lblType.Size = New System.Drawing.Size(143, 44)
         Me.lblType.TabIndex = 1
@@ -141,9 +136,8 @@ Partial Class InventoryForm
         '
         'lblID
         '
-        Me.lblID.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblID.Location = New System.Drawing.Point(700, 161)
+        Me.lblID.Location = New System.Drawing.Point(701, 161)
         Me.lblID.Name = "lblID"
         Me.lblID.Size = New System.Drawing.Size(143, 21)
         Me.lblID.TabIndex = 1
@@ -151,9 +145,8 @@ Partial Class InventoryForm
         '
         'lblState
         '
-        Me.lblState.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblState.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblState.Location = New System.Drawing.Point(700, 205)
+        Me.lblState.Location = New System.Drawing.Point(701, 205)
         Me.lblState.Name = "lblState"
         Me.lblState.Size = New System.Drawing.Size(143, 21)
         Me.lblState.TabIndex = 1
@@ -187,7 +180,7 @@ Partial Class InventoryForm
         Me.tvC.Name = "tvC"
         Me.tvC.ShowNodeToolTips = True
         Me.tvC.Size = New System.Drawing.Size(269, 424)
-        Me.tvC.TabIndex = 0
+        Me.tvC.TabIndex = 1
         '
         'Label1
         '
@@ -214,7 +207,7 @@ Partial Class InventoryForm
         Me.lblLastOrder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblLastOrder.AutoSize = True
         Me.lblLastOrder.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastOrder.Location = New System.Drawing.Point(84, 509)
+        Me.lblLastOrder.Location = New System.Drawing.Point(701, 208)
         Me.lblLastOrder.Name = "lblLastOrder"
         Me.lblLastOrder.Size = New System.Drawing.Size(16, 19)
         Me.lblLastOrder.TabIndex = 1
@@ -224,7 +217,7 @@ Partial Class InventoryForm
         '
         Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label9.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(10, 508)
+        Me.Label9.Location = New System.Drawing.Point(592, 207)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(68, 48)
         Me.Label9.TabIndex = 1
@@ -234,9 +227,9 @@ Partial Class InventoryForm
         '
         Me.lblLastAddress.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblLastAddress.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastAddress.Location = New System.Drawing.Point(511, 509)
+        Me.lblLastAddress.Location = New System.Drawing.Point(705, 331)
         Me.lblLastAddress.Name = "lblLastAddress"
-        Me.lblLastAddress.Size = New System.Drawing.Size(332, 47)
+        Me.lblLastAddress.Size = New System.Drawing.Size(152, 80)
         Me.lblLastAddress.TabIndex = 1
         Me.lblLastAddress.Text = "-"
         '
@@ -244,17 +237,27 @@ Partial Class InventoryForm
         '
         Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label10.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(415, 508)
+        Me.Label10.Location = New System.Drawing.Point(593, 330)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(90, 48)
         Me.Label10.TabIndex = 1
         Me.Label10.Text = "Último Endereço:"
         '
+        'btnHistory
+        '
+        Me.btnHistory.Location = New System.Drawing.Point(596, 12)
+        Me.btnHistory.Name = "btnHistory"
+        Me.btnHistory.Size = New System.Drawing.Size(248, 44)
+        Me.btnHistory.TabIndex = 2
+        Me.btnHistory.Text = "Acessar Histórico"
+        Me.btnHistory.UseVisualStyleBackColor = True
+        '
         'InventoryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(855, 561)
+        Me.ClientSize = New System.Drawing.Size(856, 517)
+        Me.Controls.Add(Me.btnHistory)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.lblLastOrder)
@@ -303,4 +306,5 @@ Partial Class InventoryForm
     Friend WithEvents Label9 As Label
     Friend WithEvents lblLastAddress As Label
     Friend WithEvents Label10 As Label
+    Friend WithEvents btnHistory As Button
 End Class

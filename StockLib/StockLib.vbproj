@@ -71,23 +71,31 @@
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
     <Compile Include="Item.vb" />
+    <Compile Include="Schemas\OrderHistory.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderHistory.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Product.Order.vb" />
     <Compile Include="Product.Purchase.vb" />
     <Compile Include="Product.Sale.vb" />
-    <Compile Include="ProductHistory.Designer.vb">
+    <Compile Include="Schemas\OrderHistory.vb">
+      <DependentUpon>OrderHistory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\ProductHistory.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProductHistory.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ProductHistory.vb">
+    <Compile Include="Schemas\ProductHistory.vb">
       <DependentUpon>ProductHistory.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ProductStock.Designer.vb">
+    <Compile Include="Schemas\ProductStock.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProductStock.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ProductStock.vb">
+    <Compile Include="Schemas\ProductStock.vb">
       <DependentUpon>ProductStock.xsd</DependentUpon>
     </Compile>
     <Compile Include="Purchase.vb" />
@@ -132,26 +140,37 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="ProductHistory.xsc">
+    <None Include="Schemas\OrderHistory.xsc">
+      <DependentUpon>OrderHistory.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\OrderHistory.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderHistory.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Schemas\OrderHistory.xss">
+      <DependentUpon>OrderHistory.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\ProductHistory.xsc">
       <DependentUpon>ProductHistory.xsd</DependentUpon>
     </None>
-    <None Include="ProductHistory.xsd">
+    <None Include="Schemas\ProductHistory.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ProductHistory.Designer.vb</LastGenOutput>
     </None>
-    <None Include="ProductHistory.xss">
+    <None Include="Schemas\ProductHistory.xss">
       <DependentUpon>ProductHistory.xsd</DependentUpon>
     </None>
-    <None Include="ProductStock.xsc">
+    <None Include="Schemas\ProductStock.xsc">
       <DependentUpon>ProductStock.xsd</DependentUpon>
     </None>
-    <None Include="ProductStock.xsd">
+    <None Include="Schemas\ProductStock.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ProductStock.Designer.vb</LastGenOutput>
     </None>
-    <None Include="ProductStock.xss">
+    <None Include="Schemas\ProductStock.xss">
       <DependentUpon>ProductStock.xsd</DependentUpon>
     </None>
   </ItemGroup>
