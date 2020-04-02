@@ -6,6 +6,7 @@
 ''' </summary>
 Public Module Main
 
+    Public fontName As String = "Consolas"
     Public companyName As String = "L'jaica"
     Public appDataFolder As String
     Public downloadDataFolder As String
@@ -318,11 +319,11 @@ Public Module Main
                     For Each item In items
                         If barrels.ContainsKey(item) Then
                             s.Barrels.Add(item, barrels(item))
-                            barrels(item).Orders.Add(s)
+                            barrels(item).Sales.Add(s)
                         End If
                         If coolers.ContainsKey(item) Then
                             s.Coolers.Add(item, coolers(item))
-                            coolers(item).Orders.Add(s)
+                            coolers(item).Sales.Add(s)
                         End If
                     Next
                 End If

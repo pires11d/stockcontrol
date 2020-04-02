@@ -41,7 +41,7 @@ Public Class ProductForm
             .Columns(7).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(8).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(9).DefaultCellStyle.Format = "R$ 0.00"
-            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 14, FontStyle.Bold)
         End With
 
         'SETS FORM INFORMATION BASED ON THE PRODUCT AND ITS TABLE

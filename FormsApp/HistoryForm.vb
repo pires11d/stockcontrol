@@ -21,28 +21,44 @@ Public Class HistoryForm
         OrderHistorySchema.OrderTable.Rows.Clear()
         If TypeOf CurrentElement Is Item Then
             Dim i = TryCast(CurrentElement, Item)
-            For Each o In i.Orders
+            For Each o In i.Sales
                 OrderHistorySchema.OrderTable.AddOrderTableRow(o.ID,
-                                                               o.Client.Name,
-                                                               Join(o.ItemList.ToArray, " "),
-                                                               o.SellingDate.ToShortDateString,
-                                                               o.SellingResponsible.NotNull,
-                                                               o.RetrievingDate.ToShortDateString,
-                                                               o.RetrievingResponsible.NotNull,
-                                                               StringFromBoolean(o.Retrieved),
-                                                               Join(o.OrderList.ToArray, "; "),
-                                                               Join(o.PriceList.ToArray, "; "),
-                                                               o.Total,
-                                                               o.Observation)
+                                                                   o.Client.Name,
+                                                                   Join(o.ItemList.ToArray, " "),
+                                                                   o.SellingDate.ToShortDateString,
+                                                                   o.SellingResponsible.NotNull,
+                                                                   o.RetrievingDate.ToShortDateString,
+                                                                   o.RetrievingResponsible.NotNull,
+                                                                   StringFromBoolean(o.Retrieved),
+                                                                   Join(o.OrderList.ToArray, "; "),
+                                                                   Join(o.PriceList.ToArray, "; "),
+                                                                   o.Total,
+                                                                   o.Observation)
 
             Next
         ElseIf TypeOf CurrentElement Is Client Then
+            Dim c = TryCast(CurrentElement, Client)
+            For Each o In c.Sales
+                OrderHistorySchema.OrderTable.AddOrderTableRow(o.ID,
+                                                                   o.Client.Name,
+                                                                   Join(o.ItemList.ToArray, " "),
+                                                                   o.SellingDate.ToShortDateString,
+                                                                   o.SellingResponsible.NotNull,
+                                                                   o.RetrievingDate.ToShortDateString,
+                                                                   o.RetrievingResponsible.NotNull,
+                                                                   StringFromBoolean(o.Retrieved),
+                                                                   Join(o.OrderList.ToArray, "; "),
+                                                                   Join(o.PriceList.ToArray, "; "),
+                                                                   o.Total,
+                                                                   o.Observation)
 
+            Next
         End If
+
 
         With lvHistory
             .Columns(10).DefaultCellStyle.Format = "R$ 0.00"
-            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 10, FontStyle.Bold)
         End With
 
     End Sub

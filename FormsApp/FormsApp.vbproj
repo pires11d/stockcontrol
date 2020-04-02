@@ -81,6 +81,12 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientForm.Designer.vb">
+      <DependentUpon>ClientForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ClientForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InventoryForm.Designer.vb">
       <DependentUpon>InventoryForm.vb</DependentUpon>
     </Compile>
@@ -153,6 +159,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ClientForm.resx">
+      <DependentUpon>ClientForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HistoryForm.resx">
       <DependentUpon>HistoryForm.vb</DependentUpon>
     </EmbeddedResource>

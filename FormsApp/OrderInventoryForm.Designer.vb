@@ -22,6 +22,7 @@ Partial Class OrderInventoryForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OrderInventoryForm))
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tvC = New System.Windows.Forms.TreeView()
@@ -112,9 +113,10 @@ Partial Class OrderInventoryForm
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tvC)
         Me.Controls.Add(Me.tvB)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "OrderInventoryForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Itens no Inventório"
+        Me.Text = "Itens no Inventário"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

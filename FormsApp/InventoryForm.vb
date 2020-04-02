@@ -104,10 +104,10 @@ Public Class InventoryForm
         lblState.Text = StringFromBoolean(i.State)
         lblState.ForeColor = ColorFromBoolean(i.State)
 
-        If i.Orders.Count > 0 Then
-            lblLastOrder.Text = i.Orders.Last.ID
-            lblLastClient.Text = i.Orders.Last.Client.Name
-            lblLastAddress.Text = i.Orders.Last.Client.FullAddress
+        If i.Sales.Count > 0 Then
+            lblLastOrder.Text = i.Sales.Last.ID
+            lblLastClient.Text = i.Sales.Last.Client.Name
+            lblLastAddress.Text = i.Sales.Last.Client.FullAddress
         Else
             lblLastOrder.Text = "-"
             lblLastClient.Text = "-"

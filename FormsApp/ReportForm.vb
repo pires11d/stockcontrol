@@ -85,7 +85,7 @@ Public Class ReportForm
             .Columns(4).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(5).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(6).DefaultCellStyle.Format = "R$ 0.00"
-            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 10, FontStyle.Bold)
         End With
 
         Me.Text = "Relatório dos Produtos em Estoque"
@@ -122,7 +122,7 @@ Public Class ReportForm
             .Columns(6).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(7).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(8).DefaultCellStyle.Format = "R$ 0.00"
-            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 10, FontStyle.Bold)
         End With
 
         'LOADS TOTAL TABLE INTO DATAGRIDVIEW
@@ -155,7 +155,7 @@ Public Class ReportForm
             .Columns(3).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(4).DefaultCellStyle.Format = "R$ 0.00"
             .Columns(5).DefaultCellStyle.Format = "R$ 0.00"
-            .ColumnHeadersDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 10, FontStyle.Bold)
         End With
 
         With table3
@@ -171,7 +171,7 @@ Public Class ReportForm
                 totals.Add(value.ToString("R$ 0.00"))
                 .Item(j, 0).Value = totals(j - 1)
             Next
-            .RowsDefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Bold)
+            .RowsDefaultCellStyle.Font = New Font(Main.fontName, 10, FontStyle.Bold)
         End With
 
     End Sub

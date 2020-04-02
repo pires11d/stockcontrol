@@ -55,13 +55,13 @@ Public MustInherit Class Item
         End Set
     End Property
 
-    Private p_Orders As New List(Of Sale)
-    Public Property Orders() As List(Of Sale)
+    Private p_Sales As New List(Of Sale)
+    Public Property Sales() As List(Of Sale)
         Get
-            Return p_Orders
+            Return p_Sales
         End Get
         Set(ByVal value As List(Of Sale))
-            p_Orders = value
+            p_Sales = value
         End Set
     End Property
 

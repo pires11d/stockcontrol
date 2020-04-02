@@ -71,6 +71,14 @@
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
     <Compile Include="Item.vb" />
+    <Compile Include="Schemas\ClientRegistry.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientRegistry.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\ClientRegistry.vb">
+      <DependentUpon>ClientRegistry.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Schemas\OrderHistory.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,6 +147,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Schemas\ClientRegistry.xsc">
+      <DependentUpon>ClientRegistry.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\ClientRegistry.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ClientRegistry.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Schemas\ClientRegistry.xss">
+      <DependentUpon>ClientRegistry.xsd</DependentUpon>
     </None>
     <None Include="Schemas\OrderHistory.xsc">
       <DependentUpon>OrderHistory.xsd</DependentUpon>

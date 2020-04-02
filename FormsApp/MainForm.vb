@@ -14,6 +14,11 @@ Public Class MainForm
     Public oldValue As String
     Public rowAdded As Boolean = False
 
+    Private Sub MainForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Me.WindowState = FormWindowState.Minimized
+        Me.WindowState = FormWindowState.Maximized
+    End Sub
+
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         EmpresaToolStripComboBox.SelectedIndex = 0
@@ -47,26 +52,21 @@ Public Class MainForm
         'LOADS ORDERS TABLE INTO DATAGRIDVIEW
         lvOrders.DataSource = tableOrders
 
-        'LOADS CLIENTS TABLE INTO DATAGRIDVIEW
-        lvClients.DataSource = tableClients
-
-        ApplyStylesToTables("Century Gothic")
+        ApplyStylesToTables()
 
     End Sub
 
-    Public Sub ApplyStylesToTables(fontName As String)
+    Public Sub ApplyStylesToTables()
 
         lvStock.Columns(4).DefaultCellStyle.Format = "R$ 0.00"
         lvStock.Columns(5).DefaultCellStyle.Format = "R$ 0.00"
         lvStock.Columns(6).DefaultCellStyle.Format = "R$ 0.00"
-        lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(lvStock.DefaultCellStyle.Font, FontStyle.Bold)
+        lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvPurchases.DefaultCellStyle.Font = New Font(fontName, 12)
         lvPurchases.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
         lvOrders.DefaultCellStyle.Font = New Font(fontName, 12)
         lvOrders.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
-        lvClients.DefaultCellStyle.Font = New Font(fontName, 12)
-        lvClients.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
 
         FormatStock()
 
@@ -84,11 +84,6 @@ Public Class MainForm
                 End If
             Next
         End With
-    End Sub
-
-    Private Sub MainForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        Me.WindowState = FormWindowState.Minimized
-        Me.WindowState = FormWindowState.Maximized
     End Sub
 
     Public Sub ChangePics()
@@ -136,7 +131,6 @@ Public Class MainForm
         split.BackColor = Color.Black
         lvOrders.DefaultCellStyle.BackColor = Color.PeachPuff
         lvPurchases.DefaultCellStyle.BackColor = Color.LightBlue
-        lvClients.DefaultCellStyle.BackColor = SystemColors.Control
 
     End Sub
 
@@ -164,7 +158,7 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub lvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellContentClick
+    Private Sub lvStock_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellContentClick
 
         Dim cells = lvStock.SelectedCells
 
@@ -235,6 +229,11 @@ Public Class MainForm
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
         Dim reportForm As New ReportForm
         reportForm.Show()
+    End Sub
+
+    Private Sub ClientToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientToolStripMenuItem.Click
+        Dim clientForm As New ClientForm
+        clientForm.Show()
     End Sub
 
     Private Sub lvStock_Sorted(sender As Object, e As EventArgs) Handles lvStock.Sorted
@@ -312,73 +311,6 @@ Public Class MainForm
         LoadTables()
         ChangePics()
         ChangeColors()
-    End Sub
-
-    Private Sub lvClients_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles lvClients.CellBeginEdit
-
-        oldValue = lvClients.Item(0, e.RowIndex).Value.ToString.NotNull
-
-    End Sub
-
-    Private Sub lvClients_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles lvClients.CellEndEdit
-
-        If rowAdded Then
-            Try
-                Dim cli As New Client(lvClients.Item(0, e.RowIndex).Value)
-                Main.clients.Add(cli.Name, cli)
-                rowAdded = False
-                oldValue = cli.Name
-            Catch ex As Exception
-                Exit Sub
-            End Try
-        Else
-            If oldValue <> lvClients.Item(0, e.RowIndex).Value.ToString.NotNull Then
-                Main.clients.Remove(oldValue)
-                Dim cli As New Client(lvClients.Item(0, e.RowIndex).Value)
-                Try
-                    Main.clients.Add(cli.Name, cli)
-                Catch ex As Exception
-                    Exit Sub
-                End Try
-            End If
-        End If
-
-        Try
-            With Main.clients(lvClients.Item(0, e.RowIndex).Value)
-                .Name = lvClients.Item(0, e.RowIndex).Value.ToString.NotNull
-                .Phone = lvClients.Item(1, e.RowIndex).Value.ToString.NotNull
-                .Address = lvClients.Item(2, e.RowIndex).Value.ToString.NotNull
-                .Neighborhood = lvClients.Item(3, e.RowIndex).Value.ToString.NotNull
-                .Location = lvClients.Item(4, e.RowIndex).Value.ToString.NotNull
-            End With
-        Catch ex As Exception
-
-        End Try
-
-        rowAdded = False
-
-        Main.UpdateTables()
-    End Sub
-
-    Private Sub lvClients_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles lvClients.UserAddedRow
-
-        rowAdded = True
-        lvClients.Item(4, e.Row.Index - 1).Value = "Lages-SC"
-        lvClients.Item(6, e.Row.Index - 1).Value = lvClients.Rows.Count - 1
-
-        Main.UpdateTables()
-        Main.GetTables()
-        LoadTables()
-    End Sub
-
-    Private Sub lvClients_UserDeletingRow(sender As Object, e As DataGridViewRowCancelEventArgs) Handles lvClients.UserDeletingRow
-
-        Main.clients.Remove(lvClients.Item(0, e.Row.Index).Value)
-        Main.tableClients.Rows.Remove(Main.tableClients.Rows(e.Row.Index))
-
-        Main.UpdateTables()
-        Main.GetTables()
-        LoadTables()
     End Sub
 
     Private Sub MainForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
