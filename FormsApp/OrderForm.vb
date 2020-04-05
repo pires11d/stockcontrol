@@ -729,16 +729,25 @@ Public Class OrderForm
         Select Case FormType
 
             Case FormTypes.Sale
+                Dim client = Main.clients(Main.sales(tbID.Text).Client.Name)
+                Dim sale = client.Sales.Where(Function(x) x.ID = tbID.Text).FirstOrDefault
+                client.Sales.Remove(sale)
+
                 Main.sales.Remove(tbID.Text)
                 For i = 0 To tableOrders.Rows.Count - 1
                     If tableOrders.Rows(i).Item("ID") = tbID.Text Then tableOrders.Rows(i).Delete()
                 Next
 
             Case FormTypes.Purchase
+                Dim vendor = Main.vendors(Main.purchases(tbID.Text).Vendor.Name)
+                Dim purchase = vendor.Purchases.Where(Function(y) y.ID = tbID.Text).FirstOrDefault
+                vendor.Purchases.Remove(purchase)
+
                 Main.purchases.Remove(tbID.Text)
                 For j = 0 To tablePurchases.Rows.Count - 1
                     If tablePurchases.Rows(j).Item("ID") = tbID.Text Then tablePurchases.Rows(j).Delete()
                 Next
+
         End Select
 
         RemoveFromProductTables()

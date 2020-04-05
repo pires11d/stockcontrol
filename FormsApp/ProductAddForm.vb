@@ -40,7 +40,7 @@ Public Class ProductAddForm
         lblCode.Text = pCode()
     End Sub
 
-    Private Sub cbbVendor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbVendor.SelectedIndexChanged
+    Private Sub cbbVendor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbVendor.SelectedIndexChanged, cbbVendor.TextChanged
         pVendor = cbbVendor.Text
     End Sub
 
@@ -110,6 +110,10 @@ Public Class ProductAddForm
             .Rows(lastRow).Item("PREÇO") = pNew.Price
             .Rows(lastRow).Item("VALOR") = pNew.Value
         End With
+
+        If Not Main.vendors.ContainsKey(pVendor) Then
+            Main.vendors.Add(pVendor, New Vendor(pVendor))
+        End If
 
         Main.UpdateTables()
         Main.GetTables()

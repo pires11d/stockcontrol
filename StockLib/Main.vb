@@ -158,9 +158,9 @@ Public Module Main
                 p.Stock = .Rows(i).Item("ESTOQUE")
                 p.Quantity = 0
                 p.Value = 0
-                p.Cost = .Rows(i).Item("CUSTO")
-                p.Price = .Rows(i).Item("PREÇO")
-                p.Price2 = .Rows(i).Item("PREÇO2")
+                p.Cost = CDbl(.Rows(i).Item("CUSTO").ToString.ToZero)
+                p.Price = CDbl(.Rows(i).Item("PREÇO").ToString.ToZero)
+                p.Price2 = CDbl(.Rows(i).Item("PREÇO2").ToString.ToZero)
                 products.Add(p.Code, p)
             Next i
         End With
@@ -453,6 +453,21 @@ Public Module Main
         Next
         Try
             WriteCSV(dtc, NameOf(tableClients), "|", True)
+        Catch ex As Exception
+        End Try
+
+        'UPDATES THE VENDOR TABLE
+        With tableVendors
+            .Rows.Clear()
+            Dim i = 0
+            For Each v In vendors.Keys
+                .Rows.Add()
+                .Rows(i).Item(0) = v
+                i += 1
+            Next
+        End With
+        Try
+            WriteCSV(tableVendors, "tableVendor", "|", True)
         Catch ex As Exception
         End Try
 

@@ -199,4 +199,13 @@
   <data name="syncing_static" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\syncing_static.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="banner_CE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChoppExpress\banner_CE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="banner_CE_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChoppExpress\banner_CE_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="banner_CE_small1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChoppExpress\banner_CE_small.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -240,6 +240,9 @@
     <None Include="Resources\ChoppExpress\logo_CE1.png" />
     <None Include="Resources\ChoppExpress\logo_CE2.png" />
     <None Include="Resources\ChoppExpress\icon_CE1.png" />
+    <None Include="Resources\ChoppExpress\banner_CE.png" />
+    <None Include="Resources\ChoppExpress\banner_CE_small.png" />
+    <None Include="Resources\ChoppExpress\banner_CE_small.bmp" />
     <Content Include="Resources\colour.png" />
     <Content Include="Resources\g.jpg" />
   </ItemGroup>

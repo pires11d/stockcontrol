@@ -57,18 +57,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_15C81073581A53B0A22B63AFB2292DF3"
-        "OwnerKey" = "8:_EA640892327D4974AA87229CB20999B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_15C81073581A53B0A22B63AFB2292DF3"
-        "OwnerKey" = "8:_F32D865BA8904FA5BABF38D69333A401"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1A0E119818E2445797E86DEFFA3EA6B9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -333,6 +321,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_81E2094054824B3C836B85A531FE2014"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_85C372F2CCFC4244B37DA3A6B9E0521C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -531,6 +525,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C453F944F400528D57063282801D1D7B"
+        "OwnerKey" = "8:_EA640892327D4974AA87229CB20999B9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C453F944F400528D57063282801D1D7B"
+        "OwnerKey" = "8:_F32D865BA8904FA5BABF38D69333A401"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C47F240B172A40F0843277E50DBDAACC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -670,7 +676,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_15C81073581A53B0A22B63AFB2292DF3"
+        "OwnerKey" = "8:_C453F944F400528D57063282801D1D7B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -698,6 +704,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -898,37 +912,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_15C81073581A53B0A22B63AFB2292DF3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_15C81073581A53B0A22B63AFB2292DF3"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5380FD8424B341A4BC28E1653B36746F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1A0E119818E2445797E86DEFFA3EA6B9"
@@ -1822,6 +1805,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_81E2094054824B3C836B85A531FE2014"
+            {
+            "SourcePath" = "8:..\\FormsApp\\Resources\\ChoppExpress\\banner_CE_small.bmp"
+            "TargetName" = "8:banner_CE_small.bmp"
+            "Tag" = "8:"
+            "Folder" = "8:_5380FD8424B341A4BC28E1653B36746F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_85C372F2CCFC4244B37DA3A6B9E0521C"
             {
             "SourcePath" = "8:..\\..\\..\\..\\AppData\\Roaming\\StockControl\\L'jaica\\tableC_DoubleIPA.csv"
@@ -2482,6 +2485,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C453F944F400528D57063282801D1D7B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_C453F944F400528D57063282801D1D7B"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5380FD8424B341A4BC28E1653B36746F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C47F240B172A40F0843277E50DBDAACC"
             {
             "SourcePath" = "8:..\\..\\..\\..\\AppData\\Roaming\\StockControl\\L'jaica\\tableG_Stout.csv"
@@ -2943,11 +2977,11 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:StockControl"
         "ProductCode" = "8:{F5C35D4A-D174-4704-8ABB-BAC67032E32F}"
-        "PackageCode" = "8:{2B599414-C1F4-4685-8FFA-551A0C5D16C8}"
+        "PackageCode" = "8:{8D44874F-F7C0-477B-AD72-E282D00A3842}"
         "UpgradeCode" = "8:{8C6D2FE6-AC89-4FAB-88BF-108569D2F1C1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:2.0.0"
@@ -3118,7 +3152,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -3166,7 +3201,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -3201,7 +3237,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -3232,7 +3269,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -3276,7 +3314,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -3320,7 +3359,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -3363,7 +3403,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -3385,7 +3426,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -3407,7 +3449,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -3464,7 +3507,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_81E2094054824B3C836B85A531FE2014"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
