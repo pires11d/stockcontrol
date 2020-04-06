@@ -81,7 +81,7 @@ Public Class Product
 
     Public ReadOnly Property TableName() As String
         Get
-            Return "table" + Me.Kind.First + "_" + Me.Name
+            Return Me.Kind + "_" + Me.Name
         End Get
     End Property
 

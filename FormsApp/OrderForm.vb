@@ -48,22 +48,24 @@ Public Class OrderForm
 
     End Sub
 
-    Public Sub EnableOrderControls()
+    Public Sub EnableSaleControls()
 
         cbbClient.Enabled = True
         cbbResp1.Enabled = True
         datePicker1.Enabled = True
         tvItems.Enabled = True
+        tbQtty.Enabled = True
+        tbPrice.Enabled = True
         tbObs.Enabled = True
 
     End Sub
 
     Public Sub EnablePurchaseControls()
 
-        cbbClient.Enabled = True
-        cbbResp1.Enabled = True
         datePicker1.Enabled = True
         tvItems.Enabled = True
+        tbQtty.Enabled = True
+        tbPrice.Enabled = True
         tbObs.Enabled = True
 
     End Sub
@@ -93,6 +95,7 @@ Public Class OrderForm
                 Me.Text = "Pedido"
                 lblID.Text = "ID do Pedido:"
                 lblOrder.Text = "Itens do Pedido:"
+                lblPrice.Text = "Preço:"
                 tbID.BackColor = SystemColors.Info
 
                 lblClient.Visible = True
@@ -108,6 +111,7 @@ Public Class OrderForm
                 Me.Text = "Compra"
                 lblID.Text = "N° da NF:"
                 lblOrder.Text = "Itens da Compra:"
+                lblPrice.Text = "Custo:"
                 tbID.BackColor = SystemColors.GradientInactiveCaption
 
                 lblClient.Visible = False
@@ -188,6 +192,12 @@ Public Class OrderForm
             Else
                 AddToolStripMenuItem.Enabled = True
                 InventoryToolStripMenuItem.Enabled = True
+                Select Case FormType
+                    Case FormTypes.Sale
+                        EnableSaleControls()
+                    Case FormTypes.Purchase
+                        EnablePurchaseControls()
+                End Select
             End If
 
             Select Case FormType
@@ -232,7 +242,7 @@ Public Class OrderForm
                     currentSale = Main.sales(tbID.Text)
 
                     ChangeInputColors(SystemColors.Info)
-                    EnableOrderControls()
+                    EnableSaleControls()
                     RemoveToolStripMenuItem.Enabled = True
                     InventoryToolStripMenuItem.Enabled = True
 
@@ -552,7 +562,7 @@ Public Class OrderForm
 
         LoadControls()
         ChangeInputColors(SystemColors.Window)
-        EnableOrderControls()
+        EnableSaleControls()
 
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
@@ -805,7 +815,6 @@ Public Class OrderForm
             Dim name As String = e.Node.Text
             selectedProduct = Main.products(kind + "-" + name)
 
-            'With selectedProduct
             Select Case FormType
                 Case FormTypes.Sale
                     If Main.sales.ContainsKey(tbID.Text) Then
@@ -827,7 +836,9 @@ Public Class OrderForm
                         Else
                             selectedProduct.Value = selectedProduct.Price
                         End If
-                        selectedProduct.Quantity = 0
+                        If Not NewEntry Then
+                            selectedProduct.Quantity = 0
+                        End If
                     End If
 
                 Case FormTypes.Purchase
@@ -841,36 +852,31 @@ Public Class OrderForm
                             selectedProduct.Value = selectedProduct.Cost
                         End If
                     Else
-                        selectedProduct.Quantity = 0
                         selectedProduct.Value = selectedProduct.Cost
+                        If Not NewEntry Then
+                            selectedProduct.Quantity = 0
+                        End If
                     End If
 
             End Select
 
-            lblKind.Text = selectedProduct.Kind
-            lblName.Text = selectedProduct.Name
-            lblBrand.Text = selectedProduct.Brand
-            lblStock.Text = selectedProduct.Stock.ToString.ToZero
-            lblQttyUnit.Text = selectedProduct.Unit
-            lblStockUnit.Text = selectedProduct.Unit
-            lblPriceUnit.Text = "R$/" + selectedProduct.Size
+            UpdateProductLabels()
             tbQtty.Text = selectedProduct.Quantity.ToString.ToZero
             tbPrice.Text = selectedProduct.Value.ToString("0.00")
 
-            Select Case FormType
-
-                Case FormTypes.Sale
-                    lblOrder.Text = "Itens do Pedido:"
-                    lblPrice.Text = "Preço:"
-
-                Case FormTypes.Purchase
-                    lblOrder.Text = "Itens da Compra:"
-                    lblPrice.Text = "Custo:"
-
-            End Select
-            'End With
-
         End If
+
+    End Sub
+
+    Public Sub UpdateProductLabels()
+
+        lblKind.Text = selectedProduct.Kind
+        lblName.Text = selectedProduct.Name
+        lblBrand.Text = selectedProduct.Brand
+        lblStock.Text = selectedProduct.Stock.ToString.ToZero
+        lblQttyUnit.Text = selectedProduct.Unit
+        lblStockUnit.Text = selectedProduct.Unit
+        lblPriceUnit.Text = "R$/" + selectedProduct.Size
 
     End Sub
 
@@ -918,6 +924,20 @@ Public Class OrderForm
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         Dim orderInventoryForm As New OrderInventoryForm(currentSale)
         orderInventoryForm.Show()
+    End Sub
+
+    Private Sub lvItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvItems.CellContentClick
+        Dim entry = lvItems.Item(0, e.RowIndex).Value.ToString.NotNull
+        If entry = "" Then Exit Sub
+
+        Dim pCode = entry.Split(" x ").Last
+        Dim pKind = pCode.Split("-").First
+        Dim pName = pCode.Split("-").Last
+
+        selectedProduct = Main.products(pKind + "-" + pName)
+
+        UpdateProductLabels()
+
     End Sub
 
 End Class

@@ -312,6 +312,7 @@ Partial Class OrderForm
         Me.lvItems.DefaultCellStyle = DataGridViewCellStyle1
         Me.lvItems.Location = New System.Drawing.Point(541, 166)
         Me.lvItems.Name = "lvItems"
+        Me.lvItems.ReadOnly = True
         Me.lvItems.RowHeadersVisible = False
         Me.lvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.lvItems.Size = New System.Drawing.Size(391, 300)
@@ -322,11 +323,13 @@ Partial Class OrderForm
         '
         Me.ItemColumn.HeaderText = "Item"
         Me.ItemColumn.Name = "ItemColumn"
+        Me.ItemColumn.ReadOnly = True
         '
         'PriceColumn
         '
         Me.PriceColumn.HeaderText = "Preço"
         Me.PriceColumn.Name = "PriceColumn"
+        Me.PriceColumn.ReadOnly = True
         '
         'btnOK
         '

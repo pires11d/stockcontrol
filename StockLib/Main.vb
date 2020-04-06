@@ -64,19 +64,17 @@ Public Module Main
     Public Sub GetTables()
         'On Error Resume Next
 
-        tableVendors = ReadCSV(appDataFolder + "tableVendor.csv", "|")
-        LoadVendors()
-
         tableClients = ReadCSV(appDataFolder + "tableClients.csv", "|")
         LoadClients()
 
         tableOwners = ReadCSV(appDataFolder + "tableResp.csv", "|")
         LoadOwners()
 
+        tableVendors = ReadCSV(appDataFolder + "tableVendors.csv", "|")
+        LoadVendors()
+
         tableBarrels = ReadCSV(appDataFolder + "tableB.csv", "|")
         tableCoolers = ReadCSV(appDataFolder + "tableC.csv", "|")
-        'tableCylinders = ReadCSV(appDataFolder + "tableG.csv", "|")
-        'tableValves = ReadCSV(appDataFolder + "tableV.csv", "|")
         LoadItems()
 
         tableProducts = ReadCSV(appDataFolder + "tableProducts.csv", "|")
@@ -467,7 +465,7 @@ Public Module Main
             Next
         End With
         Try
-            WriteCSV(tableVendors, "tableVendor", "|", True)
+            WriteCSV(tableVendors, NameOf(tableVendors), "|", True)
         Catch ex As Exception
         End Try
 
