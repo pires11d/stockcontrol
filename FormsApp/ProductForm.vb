@@ -19,7 +19,7 @@ Public Class ProductForm
     Public Sub LoadHistory(product As Product)
 
         'LOADING PRODUCT HISTORY TABLE
-        Main.selectedTable = Main.productTables(product)
+        Main.selectedTable = Main.products(product.Code).Table
         With selectedTable
             For i = 0 To Main.selectedTable.Rows.Count - 1
                 ProductHistorySchema.HistoryTable.AddHistoryTableRow(CInt(.Rows(i).Item(0)),

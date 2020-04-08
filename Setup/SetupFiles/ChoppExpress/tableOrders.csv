@@ -1,0 +1,15 @@
+id|cliente|endereco|itens|data1|resp1|data2|resp2|recolhido|chopeira|pedido|preços|total|obs
+1|L'jaica|Rua Jo\~ao Jos\'e Godinho, 400, Guadalupe, Lages-SC||06/03/2020|\'Aureo|06/03/2020|\'Aureo|False|False|45 x Chope-IPA; 45 x Chope-Pilsen; |$8.90; $5.00; |625.5|
+2|L'jaica|Rua Jo\~ao Jos\'e Godinho, 400, Guadalupe, Lages-SC||05/03/2020|\'Aureo|06/03/2020|\'Aureo|False|False|15 x Chope-IPA; |$8.90; |133.5|
+3|Le Bateau|Av. Mal. Castelo Branco, 444, Universit\'ario, Lages-SC||05/03/2020|\'Aureo|||False|False|15 x Chope-GermanPilsner; |$12.00; |180|
+4|Parque Conta Dinheiro|Conta Dinheiro, Lages-SC|T1 T2 G3 G5|06/03/2020|Kaninha|07/03/2020|Lucas|True|True|240 x Chope-Pilsen; |$9.00; |2160|
+5|Carlos - ATF|Lages-SC||06/03/2020|\'Aureo|||False|False|2 x GLong-Pilsen; 3 x PET-Pilsen; |$3.90; $15.00; |52.8|
+6|Barbosa|Lages-SC|RR1 T2 G1|07/03/2020|Kaninha|09/03/2020|Kaninha|True|True|30 x Chope-Pilsen; |$10.00; |300|
+7|Carlito|Guaruj\'a, Lages-SC|T1 G1|07/03/2020|Lucas|10/03/2020|Kaninha|True|True|30 x Chope-Pilsen; |$9.00; |270|
+8|Tib\'erio|Lages-SC||07/03/2020|Kaninha|18/03/2020||False|False|1 x PET-IPA; 6 x PET-Pilsen; |$20.00; $15.00; |110|
+9|Wilsinho|Lages-SC||07/03/2020|\'Aureo|18/03/2020||False|False|6 x PET-IPA; |$20.00; |120|
+10|Sandro - Telecor|Lages-SC||09/03/2020|Kaninha|||False|False|1 x PET-Pilsen; |$15.00; |300|
+11|Parrilha|Lages-SC||07/03/2020|Kaninha|||False|False|30 x Chope-Pilsen; |$10.00; |300|
+12|PJ Ret\'ifica|Lages-SC||09/03/2020|\'Aureo|||False|False|60 x Chope-Pilsen; |$10.00; |600|
+13|Lucas|Lages-SC||09/03/2020|\'Aureo|||False|False|4 x G500-SessionIPA; |$10.00; |40|
+14|\'Aureo|Lages-SC||09/03/2020|\'Aureo|||False|False|1 x GLong-EasyIPA; 31 x GLong-Pilsen; 2 x PET-Pilsen; |$5.00; $5.00; $15.00; |190|

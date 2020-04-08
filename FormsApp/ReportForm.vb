@@ -70,7 +70,8 @@ Public Class ReportForm
 
         'LOADS STOCK TABLE INTO DATAGRIDVIEW
         ProductStockSchema.StockTable.Rows.Clear()
-        For Each p In Main.productTables.Keys
+        'For Each p In Main.productTables.Keys
+        For Each p In Main.products.Values
 
             ProductStockSchema.StockTable.AddStockTableRow(p.Code,
                                                            p.Brand,
@@ -98,8 +99,8 @@ Public Class ReportForm
 
         'LOADS BALANCE TABLE INTO DATAGRIDVIEW
         ProductStockSchema.BalanceTable.Rows.Clear()
-        For Each p In Main.productTables.Keys
-            Dim pTable = Main.productTables(p)
+        For Each p In Main.products.Values
+            Dim pTable = Main.products(p.Code).Table
             Dim monthPurchases = p.Purchases.Values.Where(Function(y) y.BuyingDate >= firstDay And y.BuyingDate <= lastDay)
             Dim monthOrders = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
             Dim monthQttyIn = monthPurchases.Sum(Function(y) y.Quantity)
@@ -132,8 +133,9 @@ Public Class ReportForm
             Dim monthTotalIn = 0
             Dim stockTotal = 0
 
-            For Each p In Main.productTables.Keys.Where(Function(b) b.Brand = v.Name)
-                Dim pTable = Main.productTables(p)
+            'For Each p In Main.productTables.Keys.Where(Function(b) b.Brand = v.Name)
+            For Each p In Main.products.Values.Where(Function(b) b.Brand = v.Name)
+                Dim pTable = Main.products(p.Code).Table
                 Dim monthPurchases = p.Purchases.Values.Where(Function(y) y.BuyingDate >= firstDay And y.BuyingDate <= lastDay)
                 Dim monthOrders = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
                 monthTotalIn += monthPurchases.Sum(Function(y) y.Value)

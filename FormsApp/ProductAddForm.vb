@@ -93,12 +93,13 @@ Public Class ProductAddForm
         pNew.Value = 0
 
         Dim pNewTable = New DataTable
-        For Each column In productTables.FirstOrDefault.Value.Columns
+        For Each column In Main.products.FirstOrDefault.Value.Table.Columns
             pNewTable.Columns.Add(column.ToString)
         Next
+        pNew.Table = pNewTable
 
         Main.products.Add(pNew.Code, pNew)
-        Main.productTables.Add(pNew, pNewTable)
+        'Main.productTables.Add(pNew.Code, pNewTable)
         Main.tableProducts.Rows.Add()
         With Main.tableProducts
             Dim lastRow = .Rows.Count - 1

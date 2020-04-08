@@ -209,4 +209,14 @@ Public Class Product
         End Get
     End Property
 
+    Private p_Table As New DataTable
+    Public Property Table() As DataTable
+        Get
+            Return p_Table
+        End Get
+        Set(ByVal value As DataTable)
+            p_Table = value
+        End Set
+    End Property
+
 End Class

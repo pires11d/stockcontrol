@@ -26,8 +26,6 @@ Public Class OrderForm
 
     Private Sub OrderForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Main.LoadProducts()
-
         LoadControls()
 
         Me.AcceptButton = btnOK
@@ -609,6 +607,10 @@ Public Class OrderForm
 
         AddToProductTables()
         Main.UpdateTables()
+
+        currentSale = Nothing
+        currentPurchase = Nothing
+
         LoadControls()
 
         btnOK.Enabled = True
@@ -681,8 +683,9 @@ Public Class OrderForm
                     Main.products(item.Code).Orders.Add(newOrder)
                     Main.products(item.Code).Stock = item.Stock
 
-                    With Main.productTables(item)
-                        .Rows.Add(newOrder.SellingDate.ToShortDateString,
+                    With Main.products(item.Code).Table
+                        .Rows.Add(newOrder.Index,
+                                  newOrder.SellingDate.ToShortDateString,
                                   newOrder.ID,
                                   newOrder.Description,
                                   0,
@@ -717,8 +720,9 @@ Public Class OrderForm
                     Main.products(item.Code).Orders.Add(newPurchase)
                     Main.products(item.Code).Stock = item.Stock
 
-                    With Main.productTables(item)
-                        .Rows.Add(newPurchase.BuyingDate.ToShortDateString,
+                    With Main.products(item.Code).Table
+                        .Rows.Add(newPurchase.Index,
+                                  newPurchase.BuyingDate.ToShortDateString,
                                   newPurchase.ID,
                                   newPurchase.Description,
                                   newPurchase.Quantity,
@@ -779,7 +783,8 @@ Public Class OrderForm
             Case FormTypes.Sale
                 For Each item In currentSale.Products.Values
 
-                    Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
+                    'Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
+                    Dim pTable = Main.products(item.Code).Table
                     For i = 0 To pTable.Rows.Count - 1
                         If pTable.Rows(i).Item("ID") = currentSale.ID Then
                             Main.products(item.Code).Sales.Remove(currentSale.ID)
@@ -793,7 +798,8 @@ Public Class OrderForm
             Case FormTypes.Purchase
                 For Each item In currentPurchase.Products.Values
 
-                    Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
+                    'Dim pTable = Main.productTables.Where(Function(x) x.Key.Code = item.Code).First.Value
+                    Dim pTable = Main.products(item.Code).Table
                     For i = 0 To pTable.Rows.Count - 1
                         If pTable.Rows(i).Item("ID") = currentPurchase.ID Then
                             Main.products(item.Code).Purchases.Remove(currentPurchase.ID)

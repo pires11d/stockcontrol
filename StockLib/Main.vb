@@ -38,7 +38,6 @@ Public Module Main
     Public coolers As New Dictionary(Of String, Cooler)
     Public cylinders As New Dictionary(Of String, Cylinder)
     Public valves As New Dictionary(Of String, Valve)
-    Public productTables As New Dictionary(Of Product, DataTable)
     Public selectedTable As New DataTable
 
     ''' <summary>
@@ -171,25 +170,18 @@ Public Module Main
     Public Sub LoadProductTables()
 
         'ADDS ALL PRODUCT TABLES TO A LIST
-        productTables.Clear()
-
         For Each p In products.Values
             Try
-                Dim table As New DataTable
-                Try
-                    table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, True)
-                Catch exx As Exception
-                    table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, False)
-                End Try
-                productTables.Add(p, table)
-            Catch ex As Exception
-
+                p.Table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, True)
+            Catch exx As Exception
+                p.Table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, False)
             End Try
+            'productTables.Add(p.Code, table)
         Next
 
         'ADDS ORDER AND PURCHASE INFORMATION FOR EACH PRODUCT
         For Each p In products.Values
-            With productTables(p)
+            With p.Table
                 For i = 0 To .Rows.Count - 1
                     If CDbl(.Rows(i).Item("ENTRADA").ToString.ToZero) > 0 Then
 
@@ -202,8 +194,11 @@ Public Module Main
                         'purchase.Balance = .Rows(i).Item("BALANÇO")
                         purchase.Parent = p
 
-                        p.Purchases.Add(purchase.ID, purchase)
-                        p.Orders.Add(purchase)
+                        Try
+                            p.Purchases.Add(purchase.ID, purchase)
+                            p.Orders.Add(purchase)
+                        Catch ex As Exception
+                        End Try
 
                     ElseIf CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
 
@@ -216,8 +211,11 @@ Public Module Main
                         'sale.Balance = .Rows(i).Item("BALANÇO")
                         sale.Parent = p
 
-                        p.Sales.Add(sale.ID, sale)
-                        p.Orders.Add(sale)
+                        Try
+                            p.Sales.Add(sale.ID, sale)
+                            p.Orders.Add(sale)
+                        Catch ex As Exception
+                        End Try
 
                     End If
                 Next
@@ -529,13 +527,14 @@ Public Module Main
         End Try
 
         'UPDATES EACH PRODUCT DATATABLE
-        For Each pTable In productTables
-            pTable.Value.Rows.Clear()
+        For Each p In products.Values
+            Dim pTable = p.Table
+            'pTable.Rows.Clear()
 
-            For Each e In pTable.Key.Orders
-                If pTable.Key.Purchases.ContainsKey(e.ID) Then
+            For Each e In p.Orders
+                If p.Purchases.ContainsKey(e.ID) Then
                     Dim purchase = TryCast(e, Product.Purchase)
-                    pTable.Value.Rows.Add(purchase.Index,
+                    pTable.Rows.Add(purchase.Index,
                                           purchase.BuyingDate.ToString("yyyy/MM/dd"),
                                           purchase.ID,
                                           purchase.Description,
@@ -545,9 +544,9 @@ Public Module Main
                                           purchase.Value,
                                           0,
                                           purchase.Balance)
-                ElseIf pTable.Key.Sales.ContainsKey(e.ID) Then
+                ElseIf p.Sales.ContainsKey(e.ID) Then
                     Dim sale = TryCast(e, Product.Sale)
-                    pTable.Value.Rows.Add(sale.Index,
+                    pTable.Rows.Add(sale.Index,
                                   sale.SellingDate.ToString("yyyy/MM/dd"),
                                   sale.ID,
                                   sale.Description,
@@ -559,11 +558,11 @@ Public Module Main
                                   sale.Balance)
                 End If
             Next
-            Dim dvi As New DataView(pTable.Value)
+            Dim dvi As New DataView(pTable)
             dvi.Sort = "N ASC"
             Dim dti = dvi.ToTable
             Try
-                WriteCSV(dti, pTable.Key.TableName, "|", True)
+                WriteCSV(dti, p.TableName, "|", True)
             Catch ex As Exception
             End Try
 
