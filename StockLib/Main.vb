@@ -529,33 +529,33 @@ Public Module Main
         'UPDATES EACH PRODUCT DATATABLE
         For Each p In products.Values
             Dim pTable = p.Table
-            'pTable.Rows.Clear()
+            pTable.Rows.Clear()
 
             For Each e In p.Orders
                 If p.Purchases.ContainsKey(e.ID) Then
                     Dim purchase = TryCast(e, Product.Purchase)
                     pTable.Rows.Add(purchase.Index,
-                                          purchase.BuyingDate.ToString("yyyy/MM/dd"),
-                                          purchase.ID,
-                                          purchase.Description,
-                                          purchase.Quantity,
-                                          0,
-                                          purchase.Stock,
-                                          purchase.Value,
-                                          0,
-                                          purchase.Balance)
+                                    purchase.BuyingDate.ToString("yyyy/MM/dd"),
+                                    purchase.ID,
+                                    purchase.Description,
+                                    purchase.Quantity,
+                                    0,
+                                    purchase.Stock,
+                                    purchase.Value,
+                                    0,
+                                    purchase.Balance)
                 ElseIf p.Sales.ContainsKey(e.ID) Then
                     Dim sale = TryCast(e, Product.Sale)
                     pTable.Rows.Add(sale.Index,
-                                  sale.SellingDate.ToString("yyyy/MM/dd"),
-                                  sale.ID,
-                                  sale.Description,
-                                  0,
-                                  sale.Quantity,
-                                  sale.Stock,
-                                  0,
-                                  sale.Value,
-                                  sale.Balance)
+                                    sale.SellingDate.ToString("yyyy/MM/dd"),
+                                    sale.ID,
+                                    sale.Description,
+                                    0,
+                                    sale.Quantity,
+                                    sale.Stock,
+                                    0,
+                                    sale.Value,
+                                    sale.Balance)
                 End If
             Next
             Dim dvi As New DataView(pTable)

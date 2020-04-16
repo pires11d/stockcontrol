@@ -20,7 +20,8 @@ Public Class ProductForm
 
         'LOADING PRODUCT HISTORY TABLE
         Main.selectedTable = Main.products(product.Code).Table
-        With selectedTable
+
+        With Main.selectedTable
             For i = 0 To Main.selectedTable.Rows.Count - 1
                 ProductHistorySchema.HistoryTable.AddHistoryTableRow(CInt(.Rows(i).Item(0)),
                                                                       .Rows(i).Item(1),
@@ -34,6 +35,8 @@ Public Class ProductForm
                                                                       CDbl(.Rows(i).Item(9).ToString.ToZero))
             Next
         End With
+
+        'ProductHistorySchema.HistoryTable.OrderBy(Function(x) x.N)
 
         'FORMATTING OF ACCOUNTING-RELATED COLUMNS
         With lvHistory

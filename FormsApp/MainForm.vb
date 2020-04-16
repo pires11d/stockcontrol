@@ -327,4 +327,9 @@ Public Class MainForm
 
     End Sub
 
+    Private Sub GraphToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GraphToolStripMenuItem.Click
+        Dim graphForm As New GraphForm
+        graphForm.Show()
+    End Sub
+
 End Class

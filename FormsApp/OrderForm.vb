@@ -669,15 +669,14 @@ Public Class OrderForm
                 For Each item In currentSale.Products.Values
                     Dim newOrder As New Product.Sale(tbID.Text)
                     newOrder.Parent = item
-                    newOrder.Index = item.Orders.Count
+                    newOrder.Index = item.Table.Rows.Count + 1
                     newOrder.SellingDate = currentSale.SellingDate
                     newOrder.Client = Main.clients(currentSale.Client.Name)
                     newOrder.Observation = currentSale.Observation
                     newOrder.Quantity = currentSale.Products(item.Code).Quantity
                     newOrder.Price = currentSale.Products(item.Code).Value
-                    newOrder.Stock = item.Stock - newOrder.Quantity
-                    item.Stock = newOrder.Stock
-                    newOrder.Balance = item.LastBalance + newOrder.Value
+                    item.Stock -= newOrder.Quantity
+                    'newOrder.Balance = item.LastBalance + newOrder.Value
 
                     Main.products(item.Code).Sales.Add(newOrder.ID, newOrder)
                     Main.products(item.Code).Orders.Add(newOrder)
@@ -685,7 +684,7 @@ Public Class OrderForm
 
                     With Main.products(item.Code).Table
                         .Rows.Add(newOrder.Index,
-                                  newOrder.SellingDate.ToShortDateString,
+                                  newOrder.SellingDate.ToString("yyyy/MM/dd"),
                                   newOrder.ID,
                                   newOrder.Description,
                                   0,
@@ -706,15 +705,14 @@ Public Class OrderForm
                     End Try
                     Dim newPurchase As New Product.Purchase(tbID.Text)
                     newPurchase.Parent = item
-                    newPurchase.Index = item.Orders.Count
+                    newPurchase.Index = item.Table.Rows.Count + 1
                     newPurchase.BuyingDate = currentPurchase.BuyingDate
                     newPurchase.Vendor = currentPurchase.Vendor
                     newPurchase.Observation = currentPurchase.Observation
                     newPurchase.Quantity = currentPurchase.Products(item.Code).Quantity
                     newPurchase.Cost = currentPurchase.Products(item.Code).Value
-                    newPurchase.Stock = item.Stock + newPurchase.Quantity
-                    item.Stock = newPurchase.Stock
-                    newPurchase.Balance = item.LastBalance - newPurchase.Value
+                    item.Stock += newPurchase.Quantity
+                    'newPurchase.Balance = item.LastBalance - newPurchase.Value
 
                     Main.products(item.Code).Purchases.Add(newPurchase.ID, newPurchase)
                     Main.products(item.Code).Orders.Add(newPurchase)
@@ -722,7 +720,7 @@ Public Class OrderForm
 
                     With Main.products(item.Code).Table
                         .Rows.Add(newPurchase.Index,
-                                  newPurchase.BuyingDate.ToShortDateString,
+                                  newPurchase.BuyingDate.ToString("yyyy/MM/dd"),
                                   newPurchase.ID,
                                   newPurchase.Description,
                                   newPurchase.Quantity,
@@ -749,7 +747,10 @@ Public Class OrderForm
 
                 Main.sales.Remove(tbID.Text)
                 For i = 0 To tableOrders.Rows.Count - 1
-                    If tableOrders.Rows(i).Item("ID") = tbID.Text Then tableOrders.Rows(i).Delete()
+                    If tableOrders.Rows(i).Item("ID") = tbID.Text Then
+                        tableOrders.Rows(i).Delete()
+                        Exit Sub
+                    End If
                 Next
 
             Case FormTypes.Purchase
@@ -759,7 +760,10 @@ Public Class OrderForm
 
                 Main.purchases.Remove(tbID.Text)
                 For j = 0 To tablePurchases.Rows.Count - 1
-                    If tablePurchases.Rows(j).Item("ID") = tbID.Text Then tablePurchases.Rows(j).Delete()
+                    If tablePurchases.Rows(j).Item("ID") = tbID.Text Then
+                        tablePurchases.Rows(j).Delete()
+                        Exit Sub
+                    End If
                 Next
 
         End Select

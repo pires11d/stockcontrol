@@ -22,13 +22,22 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabs = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.lvStock = New System.Windows.Forms.DataGridView()
+        Me.PRODUTODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewLinkColumn()
+        Me.MARCADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ESTOQUEDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UNIDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CUSTODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PREÇODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ESTOQUEDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductStockSchema = New StockLib.ProductStock()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.lvPurchases = New System.Windows.Forms.DataGridView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
@@ -42,6 +51,7 @@ Partial Class MainForm
         Me.OrderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GraphToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.picLogoCE = New System.Windows.Forms.PictureBox()
         Me.lblTitle = New System.Windows.Forms.Label()
@@ -50,17 +60,10 @@ Partial Class MainForm
         Me.btnSync = New System.Windows.Forms.PictureBox()
         Me.bgw = New System.ComponentModel.BackgroundWorker()
         Me.lblSync = New System.Windows.Forms.Label()
-        Me.lvStock = New System.Windows.Forms.DataGridView()
-        Me.PRODUTODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewLinkColumn()
-        Me.MARCADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ESTOQUEDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UNIDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CUSTODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PREÇODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ESTOQUEDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductStockSchema = New StockLib.ProductStock()
         Me.tabs.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        CType(Me.lvStock, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ProductStockSchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         CType(Me.lvPurchases, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage3.SuspendLayout()
@@ -70,8 +73,6 @@ Partial Class MainForm
         CType(Me.picIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picLogoLJ, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnSync, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lvStock, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ProductStockSchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tabs
@@ -102,6 +103,101 @@ Partial Class MainForm
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Estoque Atual"
         '
+        'lvStock
+        '
+        Me.lvStock.AllowUserToAddRows = False
+        Me.lvStock.AllowUserToDeleteRows = False
+        Me.lvStock.AllowUserToResizeColumns = False
+        Me.lvStock.AllowUserToResizeRows = False
+        Me.lvStock.AutoGenerateColumns = False
+        Me.lvStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.lvStock.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.lvStock.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.lvStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.lvStock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.PRODUTODataGridViewTextBoxColumn, Me.MARCADataGridViewTextBoxColumn, Me.ESTOQUEDataGridViewTextBoxColumn, Me.UNIDDataGridViewTextBoxColumn, Me.CUSTODataGridViewTextBoxColumn, Me.PREÇODataGridViewTextBoxColumn, Me.ESTOQUEDataGridViewTextBoxColumn1})
+        Me.lvStock.DataMember = "StockTable"
+        Me.lvStock.DataSource = Me.ProductStockSchema
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Red
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvStock.DefaultCellStyle = DataGridViewCellStyle6
+        Me.lvStock.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvStock.Location = New System.Drawing.Point(0, 0)
+        Me.lvStock.MultiSelect = False
+        Me.lvStock.Name = "lvStock"
+        Me.lvStock.ReadOnly = True
+        Me.lvStock.RowHeadersVisible = False
+        Me.lvStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.lvStock.Size = New System.Drawing.Size(1121, 542)
+        Me.lvStock.TabIndex = 2
+        '
+        'PRODUTODataGridViewTextBoxColumn
+        '
+        Me.PRODUTODataGridViewTextBoxColumn.ActiveLinkColor = System.Drawing.Color.White
+        Me.PRODUTODataGridViewTextBoxColumn.DataPropertyName = "PRODUTO"
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
+        Me.PRODUTODataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle5
+        Me.PRODUTODataGridViewTextBoxColumn.FillWeight = 200.0!
+        Me.PRODUTODataGridViewTextBoxColumn.HeaderText = "PRODUTO"
+        Me.PRODUTODataGridViewTextBoxColumn.LinkColor = System.Drawing.Color.Navy
+        Me.PRODUTODataGridViewTextBoxColumn.Name = "PRODUTODataGridViewTextBoxColumn"
+        Me.PRODUTODataGridViewTextBoxColumn.ReadOnly = True
+        Me.PRODUTODataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.PRODUTODataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.PRODUTODataGridViewTextBoxColumn.VisitedLinkColor = System.Drawing.Color.Navy
+        '
+        'MARCADataGridViewTextBoxColumn
+        '
+        Me.MARCADataGridViewTextBoxColumn.DataPropertyName = "MARCA"
+        Me.MARCADataGridViewTextBoxColumn.FillWeight = 150.0!
+        Me.MARCADataGridViewTextBoxColumn.HeaderText = "MARCA"
+        Me.MARCADataGridViewTextBoxColumn.Name = "MARCADataGridViewTextBoxColumn"
+        Me.MARCADataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'ESTOQUEDataGridViewTextBoxColumn
+        '
+        Me.ESTOQUEDataGridViewTextBoxColumn.DataPropertyName = "ESTOQUE"
+        Me.ESTOQUEDataGridViewTextBoxColumn.HeaderText = "ESTOQUE"
+        Me.ESTOQUEDataGridViewTextBoxColumn.Name = "ESTOQUEDataGridViewTextBoxColumn"
+        Me.ESTOQUEDataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'UNIDDataGridViewTextBoxColumn
+        '
+        Me.UNIDDataGridViewTextBoxColumn.DataPropertyName = "UNID"
+        Me.UNIDDataGridViewTextBoxColumn.HeaderText = "UNID"
+        Me.UNIDDataGridViewTextBoxColumn.Name = "UNIDDataGridViewTextBoxColumn"
+        Me.UNIDDataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'CUSTODataGridViewTextBoxColumn
+        '
+        Me.CUSTODataGridViewTextBoxColumn.DataPropertyName = "CUSTO"
+        Me.CUSTODataGridViewTextBoxColumn.HeaderText = "CUSTO"
+        Me.CUSTODataGridViewTextBoxColumn.Name = "CUSTODataGridViewTextBoxColumn"
+        Me.CUSTODataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'PREÇODataGridViewTextBoxColumn
+        '
+        Me.PREÇODataGridViewTextBoxColumn.DataPropertyName = "PREÇO"
+        Me.PREÇODataGridViewTextBoxColumn.HeaderText = "PREÇO"
+        Me.PREÇODataGridViewTextBoxColumn.Name = "PREÇODataGridViewTextBoxColumn"
+        Me.PREÇODataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'ESTOQUEDataGridViewTextBoxColumn1
+        '
+        Me.ESTOQUEDataGridViewTextBoxColumn1.DataPropertyName = "ESTOQUE($)"
+        Me.ESTOQUEDataGridViewTextBoxColumn1.HeaderText = "ESTOQUE($)"
+        Me.ESTOQUEDataGridViewTextBoxColumn1.Name = "ESTOQUEDataGridViewTextBoxColumn1"
+        Me.ESTOQUEDataGridViewTextBoxColumn1.ReadOnly = True
+        '
+        'ProductStockSchema
+        '
+        Me.ProductStockSchema.DataSetName = "ProductStock"
+        Me.ProductStockSchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.Transparent
@@ -122,14 +218,14 @@ Partial Class MainForm
         Me.lvPurchases.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.lvPurchases.BackgroundColor = System.Drawing.SystemColors.Control
         Me.lvPurchases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Red
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvPurchases.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Red
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvPurchases.DefaultCellStyle = DataGridViewCellStyle7
         Me.lvPurchases.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvPurchases.Location = New System.Drawing.Point(0, 0)
         Me.lvPurchases.MultiSelect = False
@@ -159,14 +255,14 @@ Partial Class MainForm
         Me.lvOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.lvOrders.BackgroundColor = System.Drawing.SystemColors.Control
         Me.lvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Red
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvOrders.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Red
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvOrders.DefaultCellStyle = DataGridViewCellStyle8
         Me.lvOrders.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvOrders.Location = New System.Drawing.Point(0, 0)
         Me.lvOrders.MultiSelect = False
@@ -190,7 +286,7 @@ Partial Class MainForm
         Me.menu.BackColor = System.Drawing.SystemColors.Control
         Me.menu.Dock = System.Windows.Forms.DockStyle.Left
         Me.menu.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.EmpresaToolStripComboBox, Me.NewProductToolStripMenuItem, Me.PurchaseToolStripMenuItem, Me.OrderToolStripMenuItem, Me.InventoryToolStripMenuItem, Me.ReportToolStripMenuItem, Me.ClientToolStripMenuItem})
+        Me.menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.EmpresaToolStripComboBox, Me.NewProductToolStripMenuItem, Me.PurchaseToolStripMenuItem, Me.OrderToolStripMenuItem, Me.InventoryToolStripMenuItem, Me.ReportToolStripMenuItem, Me.GraphToolStripMenuItem, Me.ClientToolStripMenuItem})
         Me.menu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.menu.Location = New System.Drawing.Point(0, 0)
         Me.menu.Name = "menu"
@@ -238,7 +334,7 @@ Partial Class MainForm
         Me.PurchaseToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.PurchaseToolStripMenuItem.Name = "PurchaseToolStripMenuItem"
         Me.PurchaseToolStripMenuItem.Size = New System.Drawing.Size(190, 60)
-        Me.PurchaseToolStripMenuItem.Text = "   Entradas"
+        Me.PurchaseToolStripMenuItem.Text = "   Compras"
         Me.PurchaseToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'OrderToolStripMenuItem
@@ -249,7 +345,7 @@ Partial Class MainForm
         Me.OrderToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.OrderToolStripMenuItem.Name = "OrderToolStripMenuItem"
         Me.OrderToolStripMenuItem.Size = New System.Drawing.Size(190, 60)
-        Me.OrderToolStripMenuItem.Text = "   Saídas"
+        Me.OrderToolStripMenuItem.Text = "   Pedidos"
         Me.OrderToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'InventoryToolStripMenuItem
@@ -273,6 +369,17 @@ Partial Class MainForm
         Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(190, 60)
         Me.ReportToolStripMenuItem.Text = "   Relatório"
         Me.ReportToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'GraphToolStripMenuItem
+        '
+        Me.GraphToolStripMenuItem.AutoSize = False
+        Me.GraphToolStripMenuItem.Image = Global.FormsApp.My.Resources.Resources._8
+        Me.GraphToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.GraphToolStripMenuItem.Name = "GraphToolStripMenuItem"
+        Me.GraphToolStripMenuItem.Padding = New System.Windows.Forms.Padding(0)
+        Me.GraphToolStripMenuItem.Size = New System.Drawing.Size(189, 60)
+        Me.GraphToolStripMenuItem.Text = "  Gráficos"
+        Me.GraphToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ClientToolStripMenuItem
         '
@@ -354,101 +461,6 @@ Partial Class MainForm
         Me.lblSync.TabIndex = 8
         Me.lblSync.Text = "-"
         '
-        'lvStock
-        '
-        Me.lvStock.AllowUserToAddRows = False
-        Me.lvStock.AllowUserToDeleteRows = False
-        Me.lvStock.AllowUserToResizeColumns = False
-        Me.lvStock.AllowUserToResizeRows = False
-        Me.lvStock.AutoGenerateColumns = False
-        Me.lvStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.lvStock.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.lvStock.BackgroundColor = System.Drawing.SystemColors.Control
-        Me.lvStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.lvStock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.PRODUTODataGridViewTextBoxColumn, Me.MARCADataGridViewTextBoxColumn, Me.ESTOQUEDataGridViewTextBoxColumn, Me.UNIDDataGridViewTextBoxColumn, Me.CUSTODataGridViewTextBoxColumn, Me.PREÇODataGridViewTextBoxColumn, Me.ESTOQUEDataGridViewTextBoxColumn1})
-        Me.lvStock.DataMember = "StockTable"
-        Me.lvStock.DataSource = Me.ProductStockSchema
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Red
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvStock.DefaultCellStyle = DataGridViewCellStyle16
-        Me.lvStock.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvStock.Location = New System.Drawing.Point(0, 0)
-        Me.lvStock.MultiSelect = False
-        Me.lvStock.Name = "lvStock"
-        Me.lvStock.ReadOnly = True
-        Me.lvStock.RowHeadersVisible = False
-        Me.lvStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.lvStock.Size = New System.Drawing.Size(1121, 542)
-        Me.lvStock.TabIndex = 2
-        '
-        'PRODUTODataGridViewTextBoxColumn
-        '
-        Me.PRODUTODataGridViewTextBoxColumn.ActiveLinkColor = System.Drawing.Color.White
-        Me.PRODUTODataGridViewTextBoxColumn.DataPropertyName = "PRODUTO"
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White
-        Me.PRODUTODataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle15
-        Me.PRODUTODataGridViewTextBoxColumn.FillWeight = 200.0!
-        Me.PRODUTODataGridViewTextBoxColumn.HeaderText = "PRODUTO"
-        Me.PRODUTODataGridViewTextBoxColumn.LinkColor = System.Drawing.Color.Navy
-        Me.PRODUTODataGridViewTextBoxColumn.Name = "PRODUTODataGridViewTextBoxColumn"
-        Me.PRODUTODataGridViewTextBoxColumn.ReadOnly = True
-        Me.PRODUTODataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.PRODUTODataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.PRODUTODataGridViewTextBoxColumn.VisitedLinkColor = System.Drawing.Color.Navy
-        '
-        'MARCADataGridViewTextBoxColumn
-        '
-        Me.MARCADataGridViewTextBoxColumn.DataPropertyName = "MARCA"
-        Me.MARCADataGridViewTextBoxColumn.FillWeight = 150.0!
-        Me.MARCADataGridViewTextBoxColumn.HeaderText = "MARCA"
-        Me.MARCADataGridViewTextBoxColumn.Name = "MARCADataGridViewTextBoxColumn"
-        Me.MARCADataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'ESTOQUEDataGridViewTextBoxColumn
-        '
-        Me.ESTOQUEDataGridViewTextBoxColumn.DataPropertyName = "ESTOQUE"
-        Me.ESTOQUEDataGridViewTextBoxColumn.HeaderText = "ESTOQUE"
-        Me.ESTOQUEDataGridViewTextBoxColumn.Name = "ESTOQUEDataGridViewTextBoxColumn"
-        Me.ESTOQUEDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'UNIDDataGridViewTextBoxColumn
-        '
-        Me.UNIDDataGridViewTextBoxColumn.DataPropertyName = "UNID"
-        Me.UNIDDataGridViewTextBoxColumn.HeaderText = "UNID"
-        Me.UNIDDataGridViewTextBoxColumn.Name = "UNIDDataGridViewTextBoxColumn"
-        Me.UNIDDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'CUSTODataGridViewTextBoxColumn
-        '
-        Me.CUSTODataGridViewTextBoxColumn.DataPropertyName = "CUSTO"
-        Me.CUSTODataGridViewTextBoxColumn.HeaderText = "CUSTO"
-        Me.CUSTODataGridViewTextBoxColumn.Name = "CUSTODataGridViewTextBoxColumn"
-        Me.CUSTODataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'PREÇODataGridViewTextBoxColumn
-        '
-        Me.PREÇODataGridViewTextBoxColumn.DataPropertyName = "PREÇO"
-        Me.PREÇODataGridViewTextBoxColumn.HeaderText = "PREÇO"
-        Me.PREÇODataGridViewTextBoxColumn.Name = "PREÇODataGridViewTextBoxColumn"
-        Me.PREÇODataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'ESTOQUEDataGridViewTextBoxColumn1
-        '
-        Me.ESTOQUEDataGridViewTextBoxColumn1.DataPropertyName = "ESTOQUE($)"
-        Me.ESTOQUEDataGridViewTextBoxColumn1.HeaderText = "ESTOQUE($)"
-        Me.ESTOQUEDataGridViewTextBoxColumn1.Name = "ESTOQUEDataGridViewTextBoxColumn1"
-        Me.ESTOQUEDataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'ProductStockSchema
-        '
-        Me.ProductStockSchema.DataSetName = "ProductStock"
-        Me.ProductStockSchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -472,6 +484,8 @@ Partial Class MainForm
         Me.Text = "StockControl v2.0"
         Me.tabs.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        CType(Me.lvStock, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ProductStockSchema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         CType(Me.lvPurchases, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage3.ResumeLayout(False)
@@ -482,8 +496,6 @@ Partial Class MainForm
         CType(Me.picIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picLogoLJ, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnSync, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lvStock, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ProductStockSchema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -520,4 +532,5 @@ Partial Class MainForm
     Friend WithEvents PREÇODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ESTOQUEDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents ClientToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GraphToolStripMenuItem As ToolStripMenuItem
 End Class

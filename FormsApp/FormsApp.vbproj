@@ -61,6 +61,8 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -85,6 +87,12 @@
       <DependentUpon>ClientForm.vb</DependentUpon>
     </Compile>
     <Compile Include="ClientForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphForm.Designer.vb">
+      <DependentUpon>GraphForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GraphForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InventoryForm.Designer.vb">
@@ -162,6 +170,9 @@
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GraphForm.resx">
+      <DependentUpon>GraphForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HistoryForm.resx">
       <DependentUpon>HistoryForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -224,6 +235,8 @@
     <None Include="Resources\syncing_static.png" />
     <None Include="Resources\syncing.gif" />
     <None Include="Resources\btns\6.png" />
+    <None Include="Resources\btns\7.png" />
+    <None Include="Resources\btns\8.png" />
     <Content Include="Resources\c1.jpg" />
     <Content Include="Resources\c2.jpg" />
     <None Include="Resources\L%27jaica\logo_ljaica.png" />
