@@ -594,6 +594,10 @@ Public Module Main
 
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     Public Function ItemsCollection() As Dictionary(Of String, Item)
         Dim result As New Dictionary(Of String, Item)
         For Each b In barrels
@@ -609,6 +613,25 @@ Public Module Main
             result.Add(v.Key, v.Value)
         Next
         Return result
+    End Function
+
+
+    Public Function GetBalanceFrom(firstDay As Date, lastDay As Date) As Double
+
+        Dim result As Double = 0
+        For Each p In products.Values
+            Dim pTable = products(p.Code).Table
+            Dim monthPurchases = p.Purchases.Values.Where(Function(y) y.BuyingDate >= firstDay And y.BuyingDate <= lastDay)
+            Dim monthOrders = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
+            Dim monthQttyIn = monthPurchases.Sum(Function(y) y.Quantity)
+            Dim monthQttyOut = monthOrders.Sum(Function(x) x.Quantity)
+            Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value)
+            Dim monthMoneyIn = monthOrders.Sum(Function(x) x.Value)
+            result += monthMoneyIn - monthMoneyOut
+        Next
+
+        Return result
+
     End Function
 
     ''' <summary>
