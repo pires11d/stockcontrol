@@ -19,7 +19,7 @@ Public Class InventoryForm
         For Each bb In Barrel.Types
             tvB.Nodes.Add(bb, bb)
         Next
-        For Each b In barrels.Values
+        For Each b In Main.barrels.Values
             tvB.Nodes.Item(b.Type).Nodes.Add(b.ID, b.ID)
             tvB.Nodes.Item(b.Type).Nodes.Item(b.ID).ForeColor = ColorFromBoolean(b.State)
         Next
@@ -32,14 +32,14 @@ Public Class InventoryForm
                 n.ForeColor = Color.DimGray
             End If
         Next
-        tvB.Nodes.Item(0).Expand()
+        tvB.ExpandAll()
 
         'LOADS COOLER TREEVIEW
         tvC.Nodes.Clear()
         For Each cc In Cooler.Types
             tvC.Nodes.Add(cc, cc)
         Next
-        For Each c In coolers.Values
+        For Each c In Main.coolers.Values
             tvC.Nodes.Item(c.Type).Nodes.Add(c.ID, c.ID)
             tvC.Nodes.Item(c.Type).Nodes.Item(c.ID).ForeColor = ColorFromBoolean(c.State)
         Next
@@ -52,7 +52,7 @@ Public Class InventoryForm
                 n.ForeColor = Color.DimGray
             End If
         Next
-        tvC.Nodes.Item(0).Expand()
+        tvC.ExpandAll()
 
     End Sub
 
@@ -67,12 +67,15 @@ Public Class InventoryForm
             lblLastOrder.Text = "-"
             lblLastClient.Text = "-"
             lblLastAddress.Text = "-"
+            btnRemoveBarrel.Enabled = False
             Exit Sub
         End If
 
         Dim b = barrels(e.Node.Text)
 
         UpdateLabels(b)
+
+        btnRemoveBarrel.Enabled = True
 
     End Sub
 
@@ -87,12 +90,15 @@ Public Class InventoryForm
             lblLastOrder.Text = "-"
             lblLastClient.Text = "-"
             lblLastAddress.Text = "-"
+            btnRemoveCooler.Enabled = False
             Exit Sub
         End If
 
         Dim c = coolers(e.Node.Text)
 
         UpdateLabels(c)
+
+        btnRemoveCooler.Enabled = True
 
     End Sub
 
@@ -124,6 +130,52 @@ Public Class InventoryForm
         Dim historyForm As New HistoryForm(currentItem)
         historyForm.Show()
 
+    End Sub
+
+    Private Sub btnAddBarrel_Click(sender As Object, e As EventArgs) Handles btnAddBarrel.Click
+        Dim addBarrelForm As New InventoryAddForm(Item.Kinds.Barril)
+        addBarrelForm.Caller = Me
+        addBarrelForm.Show()
+    End Sub
+
+    Private Sub btnAddCooler_Click(sender As Object, e As EventArgs) Handles btnAddCooler.Click
+        Dim addCoolerForm As New InventoryAddForm(Item.Kinds.Chopeira)
+        addCoolerForm.Caller = Me
+        addCoolerForm.Show()
+    End Sub
+
+    Private Sub btnRemoveBarrel_Click(sender As Object, e As EventArgs) Handles btnRemoveBarrel.Click
+        Try
+            Main.barrels.Remove(lblID.Text)
+            For i = 0 To tableBarrels.Rows.Count - 1
+                If tableBarrels.Rows(i).Item("ID") = lblID.Text Then
+                    tableBarrels.Rows.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+        Catch ex As Exception
+        End Try
+
+        LoadTreeViews()
+    End Sub
+
+    Private Sub btnRemoveCooler_Click(sender As Object, e As EventArgs) Handles btnRemoveCooler.Click
+        Try
+            Main.coolers.Remove(lblID.Text)
+            For i = 0 To tableCoolers.Rows.Count - 1
+                If tableCoolers.Rows(i).Item("ID") = lblID.Text Then
+                    tableCoolers.Rows.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+        Catch ex As Exception
+        End Try
+
+        LoadTreeViews()
+    End Sub
+
+    Private Sub InventoryForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Main.UpdateTables()
     End Sub
 
 End Class

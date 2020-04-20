@@ -353,8 +353,8 @@ Public Class OrderForm
                         lvItems.Rows.Clear()
                         For i = 0 To currentSale.Products.Count - 1
                             lvItems.Rows.Add()
-                            lvItems.Item(0, i).Value = currentSale.OrderList(i)
-                            lvItems.Item(1, i).Value = currentSale.PriceList(i)
+                            lvItems.Item(0, i).Value = currentSale.ProductList(i)
+                            lvItems.Item(1, i).Value = currentSale.ValueList(i)
                         Next
                     Else
                         If currentSale.Products.ContainsKey(selectedProduct.Code) Then
@@ -376,8 +376,8 @@ Public Class OrderForm
                         lvItems.Rows.Clear()
                         For i = 0 To currentPurchase.Products.Count - 1
                             lvItems.Rows.Add()
-                            lvItems.Item(0, i).Value = currentPurchase.PurchaseList(i)
-                            lvItems.Item(1, i).Value = currentPurchase.CostList(i)
+                            lvItems.Item(0, i).Value = currentPurchase.ProductList(i)
+                            lvItems.Item(1, i).Value = currentPurchase.ValueList(i)
                         Next
                     Else
                         If currentPurchase.Products.ContainsKey(selectedProduct.Code) Then
@@ -425,8 +425,8 @@ Public Class OrderForm
                     lvItems.Rows.Clear()
                     For i = 0 To currentSale.Products.Count - 1
                         lvItems.Rows.Add()
-                        lvItems.Item(0, i).Value = currentSale.OrderList(i)
-                        lvItems.Item(1, i).Value = currentSale.PriceList(i)
+                        lvItems.Item(0, i).Value = currentSale.ProductList(i)
+                        lvItems.Item(1, i).Value = currentSale.ValueList(i)
                     Next
                     lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
 
@@ -435,8 +435,8 @@ Public Class OrderForm
                     lvItems.Rows.Clear()
                     For i = 0 To currentPurchase.Products.Count - 1
                         lvItems.Rows.Add()
-                        lvItems.Item(0, i).Value = currentPurchase.PurchaseList(i)
-                        lvItems.Item(1, i).Value = currentPurchase.CostList(i)
+                        lvItems.Item(0, i).Value = currentPurchase.ProductList(i)
+                        lvItems.Item(1, i).Value = currentPurchase.ValueList(i)
                     Next
                     lblTotal.Text = currentPurchase.Total.ToString("R$ 0.00")
 
@@ -598,9 +598,19 @@ Public Class OrderForm
                 AddToOrdersTable()
 
             Case FormTypes.Purchase
+                Dim id As String = tbID.Text
+                Try
+                    Dim aux = CDbl(id)
+                    id = currentPurchase.Vendor.Code + aux.ToString
+                Catch ex As Exception
+                End Try
+                currentPurchase.ID = id
                 currentPurchase.BuyingDate = datePicker1.Value
                 currentPurchase.Observation = tbObs.Text
 
+                If currentPurchase.Products.Count = 0 Then
+                    Exit Sub
+                End If
                 AddToPurchasesTable()
 
         End Select
@@ -638,8 +648,8 @@ Public Class OrderForm
                             currentSale.RetrievingResponsible,
                             currentSale.Retrieved,
                             currentSale.IncludesCooler,
-                            Join(currentSale.OrderList.ToArray, "; "),
-                            Join(currentSale.PriceList.ToArray, "; "),
+                            Join(currentSale.ProductList.ToArray, "; "),
+                            Join(currentSale.ValueList.ToArray, "; "),
                             currentSale.Total,
                             currentSale.Observation)
 
@@ -654,8 +664,8 @@ Public Class OrderForm
         Main.purchases.Add(currentPurchase.ID, currentPurchase)
         tablePurchases.Rows.Add(currentPurchase.ID,
                                 currentPurchase.BuyingDate.ToShortDateString,
-                                Join(currentPurchase.PurchaseList.ToArray, "; "),
-                                Join(currentPurchase.CostList.ToArray, "; "),
+                                Join(currentPurchase.ProductList.ToArray, "; "),
+                                Join(currentPurchase.ValueList.ToArray, "; "),
                                 currentPurchase.Total,
                                 currentPurchase.Observation)
 
@@ -667,7 +677,7 @@ Public Class OrderForm
 
             Case FormTypes.Sale
                 For Each item In currentSale.Products.Values
-                    Dim newOrder As New Product.Sale(tbID.Text)
+                    Dim newOrder As New Product.Sale(currentSale.ID)
                     newOrder.Parent = item
                     newOrder.Index = item.Table.Rows.Count + 1
                     newOrder.SellingDate = currentSale.SellingDate
@@ -698,12 +708,7 @@ Public Class OrderForm
 
             Case FormTypes.Purchase
                 For Each item In currentPurchase.Products.Values
-                    Try
-                        Dim test = CDbl(tbID.Text)
-                        tbID.Text = currentPurchase.Vendor.Code + tbID.Text
-                    Catch ex As Exception
-                    End Try
-                    Dim newPurchase As New Product.Purchase(tbID.Text)
+                    Dim newPurchase As New Product.Purchase(currentPurchase.ID)
                     newPurchase.Parent = item
                     newPurchase.Index = item.Table.Rows.Count + 1
                     newPurchase.BuyingDate = currentPurchase.BuyingDate
@@ -741,26 +746,28 @@ Public Class OrderForm
         Select Case FormType
 
             Case FormTypes.Sale
-                Dim client = Main.clients(Main.sales(tbID.Text).Client.Name)
-                Dim sale = client.Sales.Where(Function(x) x.ID = tbID.Text).FirstOrDefault
+                Dim id = currentSale.ID
+                Dim client = Main.clients(Main.sales(id).Client.Name)
+                Dim sale = client.Sales.Where(Function(x) x.ID = id).FirstOrDefault
                 client.Sales.Remove(sale)
 
-                Main.sales.Remove(tbID.Text)
+                Main.sales.Remove(id)
                 For i = 0 To tableOrders.Rows.Count - 1
-                    If tableOrders.Rows(i).Item("ID") = tbID.Text Then
+                    If tableOrders.Rows(i).Item("ID") = id Then
                         tableOrders.Rows(i).Delete()
                         Exit Sub
                     End If
                 Next
 
             Case FormTypes.Purchase
-                Dim vendor = Main.vendors(Main.purchases(tbID.Text).Vendor.Name)
-                Dim purchase = vendor.Purchases.Where(Function(y) y.ID = tbID.Text).FirstOrDefault
+                Dim id = currentPurchase.ID
+                Dim vendor = Main.vendors(Main.purchases(id).Vendor.Name)
+                Dim purchase = vendor.Purchases.Where(Function(y) y.ID = id).FirstOrDefault
                 vendor.Purchases.Remove(purchase)
 
-                Main.purchases.Remove(tbID.Text)
+                Main.purchases.Remove(id)
                 For j = 0 To tablePurchases.Rows.Count - 1
-                    If tablePurchases.Rows(j).Item("ID") = tbID.Text Then
+                    If tablePurchases.Rows(j).Item("ID") = id Then
                         tablePurchases.Rows(j).Delete()
                         Exit Sub
                     End If

@@ -30,8 +30,8 @@ Public Class HistoryForm
                                                                    o.RetrievingDate.ToShortDateString,
                                                                    o.RetrievingResponsible.NotNull,
                                                                    StringFromBoolean(o.Retrieved),
-                                                                   Join(o.OrderList.ToArray, "; "),
-                                                                   Join(o.PriceList.ToArray, "; "),
+                                                                   Join(o.ProductList.ToArray, "; "),
+                                                                   Join(o.ValueList.ToArray, "; "),
                                                                    o.Total,
                                                                    o.Observation)
 
@@ -47,8 +47,8 @@ Public Class HistoryForm
                                                                    o.RetrievingDate.ToShortDateString,
                                                                    o.RetrievingResponsible.NotNull,
                                                                    StringFromBoolean(o.Retrieved),
-                                                                   Join(o.OrderList.ToArray, "; "),
-                                                                   Join(o.PriceList.ToArray, "; "),
+                                                                   Join(o.ProductList.ToArray, "; "),
+                                                                   Join(o.ValueList.ToArray, "; "),
                                                                    o.Total,
                                                                    o.Observation)
 

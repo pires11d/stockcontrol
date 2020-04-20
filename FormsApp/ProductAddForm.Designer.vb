@@ -39,6 +39,7 @@ Partial Class ProductAddForm
         '
         'btnAdd
         '
+        Me.btnAdd.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Location = New System.Drawing.Point(77, 321)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.btnAdd.Name = "btnAdd"
@@ -50,87 +51,97 @@ Partial Class ProductAddForm
         'cbbKind
         '
         Me.cbbKind.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cbbKind.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbKind.FormattingEnabled = True
         Me.cbbKind.Location = New System.Drawing.Point(124, 17)
         Me.cbbKind.Name = "cbbKind"
-        Me.cbbKind.Size = New System.Drawing.Size(157, 30)
+        Me.cbbKind.Size = New System.Drawing.Size(157, 29)
         Me.cbbKind.TabIndex = 1
         '
         'cbbVendor
         '
         Me.cbbVendor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cbbVendor.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbVendor.FormattingEnabled = True
         Me.cbbVendor.Location = New System.Drawing.Point(124, 65)
         Me.cbbVendor.Name = "cbbVendor"
-        Me.cbbVendor.Size = New System.Drawing.Size(157, 30)
+        Me.cbbVendor.Size = New System.Drawing.Size(157, 29)
         Me.cbbVendor.TabIndex = 2
         '
         'tbName
         '
         Me.tbName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbName.Location = New System.Drawing.Point(124, 113)
         Me.tbName.Name = "tbName"
-        Me.tbName.Size = New System.Drawing.Size(157, 31)
+        Me.tbName.Size = New System.Drawing.Size(157, 27)
         Me.tbName.TabIndex = 3
         '
         'tbCost
         '
         Me.tbCost.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbCost.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCost.Location = New System.Drawing.Point(189, 174)
         Me.tbCost.Name = "tbCost"
-        Me.tbCost.Size = New System.Drawing.Size(92, 31)
+        Me.tbCost.Size = New System.Drawing.Size(92, 27)
         Me.tbCost.TabIndex = 4
         '
         'tbPrice
         '
         Me.tbPrice.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbPrice.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbPrice.Location = New System.Drawing.Point(189, 220)
         Me.tbPrice.Name = "tbPrice"
-        Me.tbPrice.Size = New System.Drawing.Size(92, 31)
+        Me.tbPrice.Size = New System.Drawing.Size(92, 27)
         Me.tbPrice.TabIndex = 5
         '
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(12, 177)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(141, 22)
+        Me.Label1.Size = New System.Drawing.Size(123, 21)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Custo unitário:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(12, 223)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(141, 22)
+        Me.Label2.Size = New System.Drawing.Size(121, 21)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Preço unitário:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(12, 20)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(51, 22)
+        Me.Label3.Size = New System.Drawing.Size(46, 21)
         Me.Label3.TabIndex = 3
         Me.Label3.Text = "Tipo:"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(12, 68)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(76, 22)
+        Me.Label4.Size = New System.Drawing.Size(66, 21)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Marca:"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(12, 116)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(88, 22)
+        Me.Label5.Size = New System.Drawing.Size(76, 21)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "Produto:"
         '
@@ -138,7 +149,7 @@ Partial Class ProductAddForm
         '
         Me.lblCode.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblCode.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCode.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCode.Location = New System.Drawing.Point(-1, 276)
         Me.lblCode.Name = "lblCode"
         Me.lblCode.Size = New System.Drawing.Size(298, 22)
@@ -146,7 +157,7 @@ Partial Class ProductAddForm
         Me.lblCode.Text = "-"
         Me.lblCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'NewProductForm
+        'ProductAddForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 22.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -168,7 +179,7 @@ Partial Class ProductAddForm
         Me.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "NewProductForm"
+        Me.Name = "ProductAddForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Adicionar Novo Produto"
         Me.ResumeLayout(False)

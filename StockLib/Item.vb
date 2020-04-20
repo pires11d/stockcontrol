@@ -45,7 +45,7 @@ Public MustInherit Class Item
         End Set
     End Property
 
-    Private p_State As Boolean
+    Private p_State As Boolean = True
     Public Property State() As Boolean
         Get
             Return p_State

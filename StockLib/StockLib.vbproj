@@ -71,6 +71,7 @@
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
     <Compile Include="Item.vb" />
+    <Compile Include="Order.vb" />
     <Compile Include="Schemas\ClientRegistry.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -194,4 +195,9 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties DocumentXCommentEditorState="&lt;HtmlEditState&gt;&#xA;  &lt;Attributes&gt;&#xA;    &lt;Attribute key=&quot;scrollPosition&quot; valuetype=&quot;integer&quot;&gt;75&lt;/Attribute&gt;&#xA;  &lt;/Attributes&gt;&#xA;&lt;/HtmlEditState&gt;" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

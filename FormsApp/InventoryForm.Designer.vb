@@ -43,6 +43,10 @@ Partial Class InventoryForm
         Me.lblLastAddress = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.btnHistory = New System.Windows.Forms.Button()
+        Me.btnAddBarrel = New System.Windows.Forms.Button()
+        Me.btnAddCooler = New System.Windows.Forms.Button()
+        Me.btnRemoveBarrel = New System.Windows.Forms.Button()
+        Me.btnRemoveCooler = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblInfo
@@ -257,18 +261,72 @@ Partial Class InventoryForm
         'btnHistory
         '
         Me.btnHistory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnHistory.Location = New System.Drawing.Point(596, 12)
+        Me.btnHistory.Location = New System.Drawing.Point(647, 12)
         Me.btnHistory.Name = "btnHistory"
-        Me.btnHistory.Size = New System.Drawing.Size(248, 44)
+        Me.btnHistory.Size = New System.Drawing.Size(197, 44)
         Me.btnHistory.TabIndex = 2
         Me.btnHistory.Text = "Acessar Histórico"
         Me.btnHistory.UseVisualStyleBackColor = True
+        '
+        'btnAddBarrel
+        '
+        Me.btnAddBarrel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddBarrel.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnAddBarrel.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddBarrel.Location = New System.Drawing.Point(220, 42)
+        Me.btnAddBarrel.Name = "btnAddBarrel"
+        Me.btnAddBarrel.Size = New System.Drawing.Size(32, 32)
+        Me.btnAddBarrel.TabIndex = 2
+        Me.btnAddBarrel.Text = "+"
+        Me.btnAddBarrel.UseVisualStyleBackColor = False
+        '
+        'btnAddCooler
+        '
+        Me.btnAddCooler.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddCooler.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnAddCooler.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddCooler.Location = New System.Drawing.Point(511, 42)
+        Me.btnAddCooler.Name = "btnAddCooler"
+        Me.btnAddCooler.Size = New System.Drawing.Size(32, 32)
+        Me.btnAddCooler.TabIndex = 2
+        Me.btnAddCooler.Text = "+"
+        Me.btnAddCooler.UseVisualStyleBackColor = False
+        '
+        'btnRemoveBarrel
+        '
+        Me.btnRemoveBarrel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRemoveBarrel.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnRemoveBarrel.Enabled = False
+        Me.btnRemoveBarrel.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRemoveBarrel.Location = New System.Drawing.Point(251, 42)
+        Me.btnRemoveBarrel.Name = "btnRemoveBarrel"
+        Me.btnRemoveBarrel.Size = New System.Drawing.Size(32, 32)
+        Me.btnRemoveBarrel.TabIndex = 2
+        Me.btnRemoveBarrel.Text = "-"
+        Me.btnRemoveBarrel.UseVisualStyleBackColor = False
+        '
+        'btnRemoveCooler
+        '
+        Me.btnRemoveCooler.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRemoveCooler.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnRemoveCooler.Enabled = False
+        Me.btnRemoveCooler.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRemoveCooler.Location = New System.Drawing.Point(542, 42)
+        Me.btnRemoveCooler.Name = "btnRemoveCooler"
+        Me.btnRemoveCooler.Size = New System.Drawing.Size(32, 32)
+        Me.btnRemoveCooler.TabIndex = 2
+        Me.btnRemoveCooler.Text = "-"
+        Me.btnRemoveCooler.UseVisualStyleBackColor = False
         '
         'InventoryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(856, 517)
+        Me.Controls.Add(Me.btnRemoveCooler)
+        Me.Controls.Add(Me.btnAddCooler)
+        Me.Controls.Add(Me.btnRemoveBarrel)
+        Me.Controls.Add(Me.btnAddBarrel)
         Me.Controls.Add(Me.btnHistory)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label9)
@@ -319,4 +377,8 @@ Partial Class InventoryForm
     Friend WithEvents lblLastAddress As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents btnHistory As Button
+    Friend WithEvents btnAddBarrel As Button
+    Friend WithEvents btnAddCooler As Button
+    Friend WithEvents btnRemoveBarrel As Button
+    Friend WithEvents btnRemoveCooler As Button
 End Class

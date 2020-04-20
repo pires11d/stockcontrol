@@ -8,6 +8,7 @@ Public Class Barrel
 
     Public Sub New(id)
         MyBase.New(id)
+        MyBase.Kind = Item.Kinds.Barril
     End Sub
 
     Public Shared Types As New List(Of String) From {

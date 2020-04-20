@@ -98,7 +98,6 @@ Public Module Main
         With tableBarrels
             For i = 0 To .Rows.Count - 1
                 Dim b As New Barrel(.Rows(i).Item("BARRIL"))
-                b.Kind = Item.Kinds.Barril
                 b.Type = .Rows(i).Item("TIPO")
                 b.State = .Rows(i).Item("RECOLHIDO")
                 barrels.Add(b.ID, b)
@@ -109,7 +108,6 @@ Public Module Main
         With tableCoolers
             For i = 0 To .Rows.Count - 1
                 Dim c As New Cooler(.Rows(i).Item("CHOPEIRA"))
-                c.Kind = Item.Kinds.Chopeira
                 c.Type = .Rows(i).Item("TIPO")
                 c.State = .Rows(i).Item("RECOLHIDO")
                 coolers.Add(c.ID, c)
@@ -499,8 +497,8 @@ Public Module Main
                 End If
                 .Rows(i).Item("RECOLHIDO") = sale.Retrieved
                 .Rows(i).Item("CHOPEIRA") = sale.IncludesCooler
-                .Rows(i).Item("PEDIDO") = Join(sale.OrderList.ToArray, "; ")
-                .Rows(i).Item("PREÇOS") = Join(sale.PriceList.ToArray, "; ")
+                .Rows(i).Item("PEDIDO") = Join(sale.ProductList.ToArray, "; ")
+                .Rows(i).Item("PREÇOS") = Join(sale.ValueList.ToArray, "; ")
                 .Rows(i).Item("TOTAL") = sale.Total
                 .Rows(i).Item("OBS") = sale.Observation
             Next
@@ -515,8 +513,8 @@ Public Module Main
             For j = 0 To .Rows.Count - 1
                 Dim purchase = purchases(.Rows(j).Item("ID"))
                 .Rows(j).Item("DATA") = purchase.BuyingDate.ToShortDateString
-                .Rows(j).Item("COMPRA") = Join(purchase.PurchaseList.ToArray, "; ")
-                .Rows(j).Item("PREÇOS") = Join(purchase.CostList.ToArray, "; ")
+                .Rows(j).Item("COMPRA") = Join(purchase.ProductList.ToArray, "; ")
+                .Rows(j).Item("PREÇOS") = Join(purchase.ValueList.ToArray, "; ")
                 .Rows(j).Item("TOTAL") = purchase.Total
                 .Rows(j).Item("OBS") = purchase.Observation
             Next
@@ -615,19 +613,34 @@ Public Module Main
         Return result
     End Function
 
-
-    Public Function GetBalanceFrom(firstDay As Date, lastDay As Date) As Double
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="firstDay"></param>
+    ''' <param name="lastDay"></param>
+    ''' <returns></returns>
+    Public Function GetBalanceFrom(firstDay As Date, lastDay As Date, Optional values As String = "b") As Double
 
         Dim result As Double = 0
+
         For Each p In products.Values
             Dim pTable = products(p.Code).Table
             Dim monthPurchases = p.Purchases.Values.Where(Function(y) y.BuyingDate >= firstDay And y.BuyingDate <= lastDay)
-            Dim monthOrders = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
+            Dim monthSales = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
             Dim monthQttyIn = monthPurchases.Sum(Function(y) y.Quantity)
-            Dim monthQttyOut = monthOrders.Sum(Function(x) x.Quantity)
+            Dim monthQttyOut = monthSales.Sum(Function(x) x.Quantity)
             Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value)
-            Dim monthMoneyIn = monthOrders.Sum(Function(x) x.Value)
-            result += monthMoneyIn - monthMoneyOut
+            Dim monthMoneyIn = monthSales.Sum(Function(x) x.Value)
+
+            Select Case values.ToLower
+                Case "c"
+                    result += monthMoneyOut
+                Case "p"
+                    result += monthMoneyIn
+                Case Else
+                    result += monthMoneyIn - monthMoneyOut
+            End Select
+
         Next
 
         Return result

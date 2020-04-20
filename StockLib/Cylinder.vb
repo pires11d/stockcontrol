@@ -8,6 +8,7 @@ Public Class Cylinder
 
     Public Sub New(id)
         MyBase.New(id)
+        MyBase.Kind = Item.Kinds.Cilindro
     End Sub
 
     Public Shared Types As New List(Of String) From {
