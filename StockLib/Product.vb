@@ -145,6 +145,32 @@ Public Class Product
         End Set
     End Property
 
+    Private p_HasDiscount As Boolean = False
+    Public Property HasDiscount() As Boolean
+        Get
+            Return p_HasDiscount
+        End Get
+        Set(ByVal value As Boolean)
+            p_HasDiscount = value
+        End Set
+    End Property
+
+    Private p_Discount As Double = 0
+    Public Property Discount() As Double
+        Get
+            Return p_Discount
+        End Get
+        Set(ByVal value As Double)
+            p_Discount = value
+        End Set
+    End Property
+
+    Public ReadOnly Property ValueWithDiscount() As Double
+        Get
+            Return Value - Discount
+        End Get
+    End Property
+
     Private p_Purchases As New Dictionary(Of String, Product.Purchase)
     Public Property Purchases() As Dictionary(Of String, Product.Purchase)
         Get

@@ -11,6 +11,9 @@ Public Class MainForm
     Public stockSchema As New ProductStock
     Public primaryColor As Color
     Public secondaryColor As Color
+    Public greenColor As Color = Color.FromArgb(255, 128, 255, 128)
+    Public redColor As Color = Color.FromArgb(255, 255, 128, 128)
+    Public yellowColor As Color = Color.FromArgb(255, 255, 255, 128)
     Public oldValue As String
     Public rowAdded As Boolean = False
 

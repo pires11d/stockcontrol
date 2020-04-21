@@ -21,6 +21,8 @@ Public Class OrderForm
     Public Sub New()
 
         InitializeComponent()
+        menu.RenderMode = ToolStripRenderMode.ManagerRenderMode
+        menu.Renderer = New MyRenderer
 
     End Sub
 
@@ -43,6 +45,11 @@ Public Class OrderForm
         tbQtty.Enabled = False
         tbPrice.Enabled = False
         tbObs.Enabled = False
+        tbDiscount.Enabled = False
+        cbDiscount.Enabled = False
+
+        InventoryToolStripMenuItem.Enabled = False
+        RemoveToolStripMenuItem.Enabled = False
 
     End Sub
 
@@ -55,6 +62,10 @@ Public Class OrderForm
         tbQtty.Enabled = True
         tbPrice.Enabled = True
         tbObs.Enabled = True
+        tbDiscount.Enabled = True
+        cbDiscount.Enabled = True
+
+        InventoryToolStripMenuItem.Enabled = True
 
     End Sub
 
@@ -65,6 +76,8 @@ Public Class OrderForm
         tbQtty.Enabled = True
         tbPrice.Enabled = True
         tbObs.Enabled = True
+        tbDiscount.Enabled = True
+        cbDiscount.Enabled = True
 
     End Sub
 
@@ -74,12 +87,18 @@ Public Class OrderForm
         tbQtty.BackColor = color
         tbPrice.BackColor = color
         tbObs.BackColor = color
+        tbDiscount.BackColor = color
 
         cbbClient.BackColor = color
         cbbResp1.BackColor = color
         cbbResp2.BackColor = color
 
+        datePicker1.BackColor = color
+        datePicker2.BackColor = color
+
         tvItems.BackColor = color
+        lvItems.BackgroundColor = color
+        lvItems.ColumnHeadersDefaultCellStyle.BackColor = color
 
     End Sub
 
@@ -186,10 +205,8 @@ Public Class OrderForm
         If NewEntry Then
             If tbID.Text = "" Then
                 AddToolStripMenuItem.Enabled = False
-                InventoryToolStripMenuItem.Enabled = False
             Else
                 AddToolStripMenuItem.Enabled = True
-                InventoryToolStripMenuItem.Enabled = True
                 Select Case FormType
                     Case FormTypes.Sale
                         EnableSaleControls()
@@ -205,8 +222,7 @@ Public Class OrderForm
                     currentPurchase.ID = tbID.Text
             End Select
 
-            ChangeInputColors(SystemColors.Window)
-            RemoveToolStripMenuItem.Enabled = False
+            'ChangeInputColors(SystemColors.Window)
 
             Exit Sub
         End If
@@ -217,7 +233,7 @@ Public Class OrderForm
         cbbClient.Text = ""
         datePicker1.Value = Date.Today
         datePicker2.Value = Date.Today
-        lblTotal.Text = "R$"
+        lblSubTotal.Text = "R$"
         lvItems.Rows.Clear()
         lvItems.Columns(1).Width = 100
         For Each n As TreeNode In tvItems.Nodes
@@ -269,8 +285,10 @@ Public Class OrderForm
                     datePicker2.Value = currentSale.RetrievingDate.ToString.ToDateNotNull
                     cbbResp1.Text = currentSale.SellingResponsible
                     cbbResp2.Text = currentSale.RetrievingResponsible
-                    lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
+                    lblSubTotal.Text = currentSale.SubTotal.ToString("R$ 0.00")
                     tbObs.Text = currentSale.Observation
+                Else
+                    InventoryToolStripMenuItem.Enabled = False
                 End If
 
             Case FormTypes.Purchase
@@ -303,7 +321,7 @@ Public Class OrderForm
                     datePicker1.Value = currentPurchase.BuyingDate.ToString.ToDateNotNull
                     cbbResp1.Text = ""
                     cbbResp2.Text = ""
-                    lblTotal.Text = currentPurchase.Total.ToString("R$ 0.00")
+                    lblSubTotal.Text = currentPurchase.SubTotal.ToString("R$ 0.00")
                     tbObs.Text = currentPurchase.Observation
                 End If
 
@@ -364,7 +382,7 @@ Public Class OrderForm
                             Next
                         End If
                     End If
-                    lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
+                    lblSubTotal.Text = currentSale.SubTotal.ToString("R$ 0.00")
 
                 Case FormTypes.Purchase
 
@@ -387,7 +405,7 @@ Public Class OrderForm
                             Next
                         End If
                     End If
-                    lblTotal.Text = currentPurchase.Total.ToString("R$ 0.00")
+                    lblSubTotal.Text = currentPurchase.SubTotal.ToString("R$ 0.00")
 
             End Select
 
@@ -410,6 +428,7 @@ Public Class OrderForm
 
         Try
             Dim test = Convert.ToDouble(tbPrice.Text)
+            'Extensions.Stringify(tbPrice)
         Catch ex As Exception
             Exit Sub
         End Try
@@ -428,7 +447,7 @@ Public Class OrderForm
                         lvItems.Item(0, i).Value = currentSale.ProductList(i)
                         lvItems.Item(1, i).Value = currentSale.ValueList(i)
                     Next
-                    lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
+                    lblSubTotal.Text = currentSale.SubTotal.ToString("R$ 0.00")
 
                 Case FormTypes.Purchase
                     currentPurchase.Products(selectedProduct.Code).Value = selectedProduct.Value
@@ -438,7 +457,7 @@ Public Class OrderForm
                         lvItems.Item(0, i).Value = currentPurchase.ProductList(i)
                         lvItems.Item(1, i).Value = currentPurchase.ValueList(i)
                     Next
-                    lblTotal.Text = currentPurchase.Total.ToString("R$ 0.00")
+                    lblSubTotal.Text = currentPurchase.SubTotal.ToString("R$ 0.00")
 
             End Select
 
@@ -559,7 +578,7 @@ Public Class OrderForm
         cbbResp1.SelectedIndex = 0
 
         LoadControls()
-        ChangeInputColors(SystemColors.Window)
+        ChangeInputColors(SystemColors.Info)
         EnableSaleControls()
 
         btnOK.Enabled = False
@@ -574,7 +593,7 @@ Public Class OrderForm
         tbID.Text = ""
 
         LoadControls()
-        ChangeInputColors(SystemColors.Window)
+        ChangeInputColors(SystemColors.GradientInactiveCaption)
         EnablePurchaseControls()
 
         btnOK.Enabled = False
@@ -684,7 +703,7 @@ Public Class OrderForm
                     newOrder.Client = Main.clients(currentSale.Client.Name)
                     newOrder.Observation = currentSale.Observation
                     newOrder.Quantity = currentSale.Products(item.Code).Quantity
-                    newOrder.Price = currentSale.Products(item.Code).Value
+                    newOrder.Price = currentSale.Products(item.Code).ValueWithDiscount
                     item.Stock -= newOrder.Quantity
                     'newOrder.Balance = item.LastBalance + newOrder.Value
 
@@ -715,7 +734,7 @@ Public Class OrderForm
                     newPurchase.Vendor = currentPurchase.Vendor
                     newPurchase.Observation = currentPurchase.Observation
                     newPurchase.Quantity = currentPurchase.Products(item.Code).Quantity
-                    newPurchase.Cost = currentPurchase.Products(item.Code).Value
+                    newPurchase.Cost = currentPurchase.Products(item.Code).ValueWithDiscount
                     item.Stock += newPurchase.Quantity
                     'newPurchase.Balance = item.LastBalance - newPurchase.Value
 
@@ -747,7 +766,7 @@ Public Class OrderForm
 
             Case FormTypes.Sale
                 Dim id = currentSale.ID
-                Dim client = Main.clients(Main.sales(id).Client.Name)
+                Dim client = Main.clients(currentSale.Client.Name)
                 Dim sale = client.Sales.Where(Function(x) x.ID = id).FirstOrDefault
                 client.Sales.Remove(sale)
 
@@ -761,7 +780,7 @@ Public Class OrderForm
 
             Case FormTypes.Purchase
                 Dim id = currentPurchase.ID
-                Dim vendor = Main.vendors(Main.purchases(id).Vendor.Name)
+                Dim vendor = Main.vendors(currentPurchase.Vendor.Name)
                 Dim purchase = vendor.Purchases.Where(Function(y) y.ID = id).FirstOrDefault
                 vendor.Purchases.Remove(purchase)
 
@@ -880,6 +899,7 @@ Public Class OrderForm
             UpdateProductLabels()
             tbQtty.Text = selectedProduct.Quantity.ToString.ToZero
             tbPrice.Text = selectedProduct.Value.ToString("0.00")
+            cbDiscount.Checked = selectedProduct.HasDiscount
 
         End If
 
@@ -891,6 +911,8 @@ Public Class OrderForm
         lblName.Text = selectedProduct.Name
         lblBrand.Text = selectedProduct.Brand
         lblStock.Text = selectedProduct.Stock.ToString.ToZero
+        tbQtty.Text = selectedProduct.Quantity.ToString.ToZero
+        tbPrice.Text = selectedProduct.Value.ToString("0.00")
         lblQttyUnit.Text = selectedProduct.Unit
         lblStockUnit.Text = selectedProduct.Unit
         lblPriceUnit.Text = "R$/" + selectedProduct.Size
@@ -919,6 +941,8 @@ Public Class OrderForm
 
     Private Sub tvItems_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles tvItems.AfterCheck
 
+        If e.Action = TreeViewAction.ByMouse Then Exit Sub
+
         If Not IsNothing(e.Node.Parent) Then
             If e.Node.Checked Then
                 e.Node.Parent.Checked = True
@@ -943,7 +967,7 @@ Public Class OrderForm
         orderInventoryForm.Show()
     End Sub
 
-    Private Sub lvItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvItems.CellContentClick
+    Private Sub lvItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) 'Handles lvItems.CellContentClick
         Dim entry = lvItems.Item(0, e.RowIndex).Value.ToString.NotNull
         If entry = "" Then Exit Sub
 
@@ -956,5 +980,162 @@ Public Class OrderForm
         UpdateProductLabels()
 
     End Sub
+
+    Private Sub AddToolStripMenuItem_EnabledChanged(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.EnabledChanged
+        With AddToolStripMenuItem
+            If .Enabled Then
+                .BackColor = MainForm.greenColor
+            Else
+                .BackColor = Me.BackColor
+            End If
+        End With
+    End Sub
+
+    Private Sub RemoveToolStripMenuItem_EnabledChanged(sender As Object, e As EventArgs) Handles RemoveToolStripMenuItem.EnabledChanged
+        With RemoveToolStripMenuItem
+            If .Enabled Then
+                .BackColor = MainForm.redColor
+            Else
+                .BackColor = Me.BackColor
+            End If
+        End With
+    End Sub
+
+    Private Sub InventoryToolStripMenuItem_EnabledChanged(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.EnabledChanged
+        With InventoryToolStripMenuItem
+            If .Enabled Then
+                .BackColor = MainForm.yellowColor
+            Else
+                .BackColor = Me.BackColor
+            End If
+        End With
+    End Sub
+
+    Private Class MyRenderer : Inherits ToolStripProfessionalRenderer
+        Protected Overrides Sub OnRenderMenuItemBackground(ByVal e As System.Windows.Forms.ToolStripItemRenderEventArgs)
+            Dim rc As New Rectangle(Point.Empty, e.Item.Size)
+            If e.Item.Enabled Then
+                If e.Item.Selected Then
+                    e.Graphics.FillRectangle(New SolidBrush(ChooseItemColor(e.Item)), rc)
+                    e.Graphics.DrawRectangle(New Pen(ChooseItemColor(e.Item, True)), 1, 0, rc.Width - 2, rc.Height - 1)
+
+                    e.Item.ForeColor = ChooseItemColor(e.Item, True)
+                Else
+                    e.Graphics.FillRectangle(New SolidBrush(ChooseItemColor(e.Item)), rc)
+                    'e.Graphics.DrawRectangle(Pens.Gray, 1, 0, rc.Width - 2, rc.Height - 1)
+
+                    e.Item.ForeColor = Color.Black
+                End If
+            End If
+        End Sub
+
+        Public Function ChooseItemColor(item As ToolStripMenuItem, Optional strong As Boolean = False) As Color
+
+            If strong Then
+                Select Case item.Text
+                    Case "Adicionar"
+                        Return Color.DarkGreen
+                    Case "Remover"
+                        Return Color.DarkRed
+                    Case "Itens do Inventário"
+                        Return Color.DarkOrange
+                    Case Else
+                        Return SystemColors.ControlText
+                End Select
+            Else
+                Select Case item.Text
+                    Case "Adicionar"
+                        Return MainForm.greenColor
+                    Case "Remover"
+                        Return MainForm.redColor
+                    Case "Itens do Inventário"
+                        Return MainForm.yellowColor
+                    Case Else
+                        Return SystemColors.Control
+                End Select
+            End If
+
+        End Function
+
+    End Class
+
+    Private Sub cbDiscount_CheckedChanged(sender As Object, e As EventArgs) Handles cbDiscount.CheckedChanged
+
+        Try
+            Select Case FormType
+                Case FormTypes.Sale
+                    currentSale.Products(selectedProduct.Code).HasDiscount = cbDiscount.Checked
+
+                    GetProportionalDiscounts(currentSale)
+
+                    Dim i = 0
+                    For Each p In currentSale.Products.Values
+                        lvItems.Item(1, i).Value = p.ValueWithDiscount.ToString("R$ 0.00")
+                        i += 1
+                    Next
+                Case FormTypes.Purchase
+                    currentPurchase.Products(selectedProduct.Code).HasDiscount = cbDiscount.Checked
+
+                    GetProportionalDiscounts(currentPurchase)
+
+                    Dim i = 0
+                    For Each p In currentPurchase.Products.Values
+                        lvItems.Item(1, i).Value = p.ValueWithDiscount.ToString("R$ 0.00")
+                        i += 1
+                    Next
+            End Select
+
+
+        Catch ex As Exception
+            Exit Sub
+        End Try
+
+        tbPrice.Enabled = Not cbDiscount.Checked
+        If tbPrice.Enabled Then
+            tbPrice.Text = selectedProduct.Value.ToString("0.00")
+        Else
+            tbPrice.Text = selectedProduct.Value.ToString("0.00")
+        End If
+
+    End Sub
+
+    Private Sub tbDiscount_TextChanged(sender As Object, e As EventArgs) Handles tbDiscount.TextChanged
+        Dim discount As Double = 0
+        Dim percentage As Double = 0
+        Dim subtotal As Double = 0
+
+        Try
+            discount = CDbl(tbDiscount.Text)
+        Catch ex As Exception
+        End Try
+
+        Try
+            subtotal = CDbl(lblSubTotal.Text.Replace("R$ ", ""))
+        Catch ex As Exception
+            Exit Sub
+        End Try
+
+        percentage = discount / subtotal
+        lblDiscount.Text = percentage.ErrorsToZero.ToString("(0%)")
+
+        Select Case FormType
+            Case FormTypes.Sale
+                currentSale.TotalDiscount = discount
+                cbDiscount_CheckedChanged(sender, e)
+                lblTotal.Text = currentSale.Total.ToString("R$ 0.00")
+            Case FormTypes.Purchase
+                currentPurchase.TotalDiscount = discount
+                cbDiscount_CheckedChanged(sender, e)
+                lblTotal.Text = currentPurchase.Total.ToString("R$ 0.00")
+        End Select
+
+        Extensions.Stringify(tbDiscount)
+
+    End Sub
+
+    Private Sub lblSubTotal_TextChanged(sender As Object, e As EventArgs) Handles lblSubTotal.TextChanged
+        tbDiscount_TextChanged(sender, e)
+    End Sub
+
 
 End Class

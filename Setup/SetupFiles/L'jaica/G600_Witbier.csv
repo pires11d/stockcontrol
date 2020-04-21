@@ -1,12 +1,12 @@
-DATA|ID|HIST\'ORICO|ENTRADA|SA\'IDA|SALDO|ENTRADA ($)|SA\'IDA ($)|BALAN�O
-||In\'icio|||0|0|0|0
-19/02/2020|----|Kair\'os (estoque anterior)|240||240|2592|0|-2592
-21/02/2020|18|Fabr\'icio - amigo Rafa||3|237|0|45|-2547
-21/02/2020|19|Fernando Pagliosa||3|234|0|36|-2511
-27/02/2020|26|Mestre Cervejeiro ||6|228|0|90|-2421
-29/02/2020|27|Casa Gourmet||3|225|0|45|-2376
-11/03/2020|32|Posto Serra Azul||1|224|0|15|-2361
-11/03/2020|34|Le Bateau||2|222|0|30|-2331
-11/03/2020|36|Carlos||1|221|0|15|-2316
-17/03/2020|39|Jota||1|220|0|12|-2304
-17/03/2020|41|Fernando Pagliosa ||24|196|0|283.2|-2020.8
+N|DATA|ID|HISTÓRICO|ENTRADA|SAÍDA|SALDO|ENTRADA ($)|SAÍDA ($)|BALANÇO
+0|2020/02/19|----|Kairós (estoque anterior)|240|0|240|2592|0|-2592
+1|2020/02/21|18|Fabrício - amigo Rafa |0|3|237|0|45|-2547
+2|2020/02/21|19|Fernando Pagliosa |0|3|234|0|36|-2511
+3|2020/02/27|26|Mestre Cervejeiro |0|6|228|0|90|-2421
+4|2020/02/29|27|Casa Gourmet |0|3|225|0|45|-2376
+5|2020/03/11|34|Le Bateau |0|2|223|0|30|-2346
+6|2020/03/11|36|Carlos |0|1|222|0|15|-2331
+7|2020/03/11|32|Posto Serra Azul |0|1|221|0|15|-2316
+8|2020/03/17|39|Jota |0|1|220|0|12|-2304
+9|2020/03/17|41|Fernando Pagliosa |0|24|196|0|283.2|-2020.8
+10|2020/04/20|45|Fernando Pagliosa |0|24|172|0|283.2|-1737.6

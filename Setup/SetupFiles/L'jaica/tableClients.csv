@@ -1,24 +1,24 @@
-cliente|telefone|rua|bairro|localidade|endereco|id
-?||||Lages-SC|1|
-\'Aureo||||Lages-SC|2|1
-Batalh\~ao||||Lages-SC|3|2
-Carlos||||Lages-SC|4|3
-Casa Gourmet||||Lages-SC|5|4
-Emp\'orio Garden||||Lages-SC|6|5
-Fabr\'icio - amigo Rafa||||Lages-SC|7|6
-Fernando M\'edico|||-|Lages-SC|8|7
-Fernando Pagliosa||||Lages-SC|9|8
-Galp\~ao M\~ao Pelada||||Lages-SC|10|9
-George||||Lages-SC|11|10
-Grupo L'jaica||||Lages-SC|12|11
-Jota||||Lages-SC|13|12
-Le Bateau|(49)3380-8747|Av Marechal Castelo Branco, 444|Universit\'ario|Lages-SC|14|13
-L'jaica (Bar)|(49)99903-6452|Rua Jo\~ao Jos\'e Godinho, 400|Guadalupe|Lages-SC|15|14
-M\'arcia||||Lages-SC|16|15
-Marcos||||Lages-SC|17|16
-Mestre Cervejeiro|(49)3018-1838|R. Emiliano Ramos, 255-291|Centro|Lages-SC|18|17
-\^Onibus Rota Cervejeira|||-|Lages-SC|19|18
-Posto Serra Azul||||Urubici-SC|20|19
-Rafael||||Lages-SC|21|20
-Ricardo - Motel Fantasia||||Lages-SC|22|21
-Z\'e da Costela||||Lages-SC|23|22
+CLIENTE|TELEFONE|RUA|BAIRRO|LOCALIDADE|ENDERECO|ID
+?||||Lages-SC|Lages-SC|1
+Áureo||||Lages-SC|Lages-SC|2
+Batalhão||||Lages-SC|Lages-SC|3
+Carlos||||Lages-SC|Lages-SC|4
+Casa Gourmet||||Lages-SC|Lages-SC|5
+Empório Garden||||Lages-SC|Lages-SC|6
+Fabrício - amigo Rafa||||Lages-SC|Lages-SC|7
+Fernando Médico|||-|Lages-SC|-Lages-SC|8
+Fernando Pagliosa||||Lages-SC|Lages-SC|9
+Galpão Mão Pelada||||Lages-SC|Lages-SC|10
+George||||Lages-SC|Lages-SC|11
+Grupo L'jaica||||Lages-SC|Lages-SC|12
+Jota||||Lages-SC|Lages-SC|13
+Le Bateau|(49)3380-8747|Av Marechal Castelo Branco, 444|Universitário|Lages-SC|Av Marechal Castelo Branco, 444, Universitário, Lages-SC|14
+L'jaica (Bar)|(49)99903-6452|Rua João José Godinho, 400|Guadalupe|Lages-SC|Rua João José Godinho, 400, Guadalupe, Lages-SC|15
+Márcia||||Lages-SC|Lages-SC|16
+Marcos||||Lages-SC|Lages-SC|17
+Mestre Cervejeiro|(49)3018-1838|R. Emiliano Ramos, 255-291|Centro|Lages-SC|R. Emiliano Ramos, 255-291, Centro, Lages-SC|18
+Ônibus Rota Cervejeira|||-|Lages-SC|-Lages-SC|19
+Posto Serra Azul||||Urubici-SC|Urubici-SC|20
+Rafael||||Lages-SC|Lages-SC|21
+Ricardo - Motel Fantasia||||Lages-SC|Lages-SC|22
+Zé da Costela||||Lages-SC|Lages-SC|23

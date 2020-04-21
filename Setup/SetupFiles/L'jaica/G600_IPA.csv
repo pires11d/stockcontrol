@@ -1,9 +1,8 @@
-DATA|ID|HIST\'ORICO|ENTRADA|SA\'IDA|SALDO|ENTRADA ($)|SA\'IDA ($)|BALAN�O
-||In\'icio|||0|0|0|0
-19/02/2020|----|Kair\'os (estoque anterior)|20||20|216|0|-216
-21/02/2020|18|Fabr\'icio - amigo Rafa||3|17|0|45|-171
-27/02/2020|26|Mestre Cervejeiro ||6|11|0|90|-81
-29/02/2020|27|Casa Gourmet||3|8|0|45|-36
-29/02/2020|28|L'jaica (Bar)||4|4|0|60|24
-11/03/2020|32|Posto Serra Azul||1|3|0|15|39
-11/03/2020|34|Le Bateau||2|1|0|30|69
+N|DATA|ID|HISTÓRICO|ENTRADA|SAÍDA|SALDO|ENTRADA ($)|SAÍDA ($)|BALANÇO
+0|2020/02/19|----|Kairós (estoque anterior)|20|0|20|216|0|-216
+1|2020/02/21|18|Fabrício - amigo Rafa |0|3|17|0|45|-171
+2|2020/02/27|26|Mestre Cervejeiro |0|6|11|0|90|-81
+3|2020/02/29|27|Casa Gourmet |0|3|8|0|45|-36
+4|2020/02/29|28|L'jaica (Bar) |0|4|4|0|60|24
+5|2020/03/11|32|Posto Serra Azul |0|1|3|0|15|39
+6|2020/03/11|34|Le Bateau |0|2|1|0|30|69

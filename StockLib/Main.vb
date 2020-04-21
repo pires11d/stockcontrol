@@ -415,6 +415,23 @@ Public Module Main
     End Function
 
     ''' <summary>
+    ''' Calculates all individual <see cref="Product.Discount"/> values for the list of <see cref="Order.Products"/>
+    ''' </summary>
+    ''' <param name="thisOrder"></param>
+    Public Sub GetProportionalDiscounts(thisOrder As Order)
+        If thisOrder.Products.Count = 0 Then Exit Sub
+
+        For Each p In thisOrder.Products.Values
+            If p.HasDiscount Then
+                p.Discount = (p.Value * p.Quantity) * thisOrder.TotalDiscount / thisOrder.Products.Values.Where(Function(x) x.HasDiscount).Select(Function(y) y.Quantity * y.Value).Sum() / p.Quantity
+            Else
+                p.Discount = 0
+            End If
+        Next
+
+    End Sub
+
+    ''' <summary>
     ''' Updates all tables locally, replacing the old CSV files by new ones
     ''' </summary>
     Public Sub UpdateTables()
@@ -532,7 +549,7 @@ Public Module Main
             For Each e In p.Orders
                 If p.Purchases.ContainsKey(e.ID) Then
                     Dim purchase = TryCast(e, Product.Purchase)
-                    pTable.Rows.Add(purchase.Index,
+                    pTable.Rows.Add(e.Index,
                                     purchase.BuyingDate.ToString("yyyy/MM/dd"),
                                     purchase.ID,
                                     purchase.Description,
@@ -544,7 +561,7 @@ Public Module Main
                                     purchase.Balance)
                 ElseIf p.Sales.ContainsKey(e.ID) Then
                     Dim sale = TryCast(e, Product.Sale)
-                    pTable.Rows.Add(sale.Index,
+                    pTable.Rows.Add(e.Index,
                                     sale.SellingDate.ToString("yyyy/MM/dd"),
                                     sale.ID,
                                     sale.Description,
@@ -557,7 +574,7 @@ Public Module Main
                 End If
             Next
             Dim dvi As New DataView(pTable)
-            dvi.Sort = "N ASC"
+            dvi.Sort = "DATA ASC"
             Dim dti = dvi.ToTable
             Try
                 WriteCSV(dti, p.TableName, "|", True)
@@ -593,7 +610,7 @@ Public Module Main
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Returns the Collection of <see cref="Item"/> objects, those that can either be <see cref="Barrel"/>, <see cref="Cooler"/>, <see cref="Cylinder"/> or <see cref="Valve"/>
     ''' </summary>
     ''' <returns></returns>
     Public Function ItemsCollection() As Dictionary(Of String, Item)
@@ -669,6 +686,7 @@ Public Module Main
             End If
         Next
 
+        currentSync = ""
         MsgBox("Banco de dados atualizado com sucesso!")
 
     End Sub

@@ -7,9 +7,9 @@ Imports System.IO
 
 Public Module Extensions
 
-    Public msgQuestion = ChooseLang("Você deseja fazer o download da versão atualizada?",
+    Private msgQuestion = ChooseLang("Você deseja fazer o download da versão atualizada?",
                          "Do you wish to download the latest version?")
-    Public msgError = ChooseLang("Arquivo não encontrado. Por favor verifique sua conexão com a internet.",
+    Private msgError = ChooseLang("Arquivo não encontrado. Por favor verifique sua conexão com a internet.",
                           "File not found. Please check your internet connection.")
 
     <Extension()>
@@ -305,6 +305,27 @@ Public Module Extensions
         Return strNumber
 
     End Function
+
+    ''' <summary>
+    ''' Returns a price-formatted value as string, given the value typed in the current <paramref name="control"/>
+    ''' </summary>
+    ''' <param name="control"></param>
+    Public Sub Stringify(control As Object)
+        Try
+            Dim value = CDbl(control.Text)
+            control.Text = value.ToString("0.00")
+            If value > 0 Then
+                Dim i = Len(CStr(CInt(value)))
+                control.Select(i, 0)
+            End If
+        Catch ex As Exception
+            'Dim oldValue = control.Text.ToString
+            'Dim value = oldValue.Replace("..", ".")
+            'control.text = value
+            'Dim i = Len(CStr(CInt(value)))
+            'control.Select(i + 1, 0)
+        End Try
+    End Sub
 
     ''' <summary>
     ''' Reads a CSV file and loads its content into a <see cref="DataTable"/> object

@@ -1,11 +1,11 @@
-id|data|compra|preços|total|obs
-la1000|19/02/2020|200 x Chope-Lager; |$6.50; |1300|
-da1001|11/02/2020|15 x Chope-GermanPilsner; 30 x Chope-OatmealStout; 180 x Chope-Pilsen; 60 x PET-IPA; 60 x PET-Pilsen; |$7.90; $12.00; $5.00; $15.40; $9.40; |2866.5|
-da1002|12/02/2020|60 x Chope-IPA; 15 x Chope-Pilsen; |$8.90; $5.00; |609|
-da1003|28/02/2020|60 x Chope-Pilsen; |$5.00; |300|
-da1004|06/03/2020|45 x Chope-IPA; |$8.90; |400.5|
-da3705|17/03/2020|45 x Chope-IPA; 45 x Chope-Pilsen; |$8.90; $5.00; |625.5|
-da3391|17/03/2020|300 x Chope-Pilsen; |$5.00; |1500|
-ka10378|20/02/2020|60 x Chope-WestCoastIPA; 30 x Chope-Witbier; 240 x G600-Weiss; |$14.00; $10.80; $10.80; |3756|
-ka2189|27/02/2020|60 x Chope-DoubleIPA; |$19.82; |1189.2|
-ka10524|28/02/2020|60 x Chope-CreamAle; |$10.64; |638.4|
+ID|DATA|COMPRA|PREÃ‡OS|TOTAL|OBS
+la1000|20/04/2020|200 x Chope-Lager|$6.50|1300|
+da1001|11/02/2020|15 x Chope-GermanPilsner; 30 x Chope-OatmealStout; 180 x Chope-Pilsen; 60 x PET-IPA; 60 x PET-Pilsen|$7.90; $12.00; $5.00; $15.40; $9.40|2866.5|
+da1002|12/02/2020|60 x Chope-IPA; 15 x Chope-Pilsen|$8.90; $5.00|609|
+da1003|28/02/2020|60 x Chope-Pilsen|$5.00|300|
+da1004|06/03/2020|45 x Chope-IPA|$8.90|400.5|
+da3705|17/03/2020|45 x Chope-IPA; 45 x Chope-Pilsen|$8.90; $5.00|625.5|
+da3391|17/03/2020|300 x Chope-Pilsen|$5.00|1500|
+ka10378|20/02/2020|60 x Chope-WestCoastIPA; 30 x Chope-Witbier; 240 x G600-Weiss|$14.00; $10.80; $10.80|3756|
+ka2189|27/02/2020|60 x Chope-DoubleIPA|$19.82|1189.2|
+ka10524|28/02/2020|60 x Chope-CreamAle|$10.64|638.4|

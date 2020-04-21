@@ -36,7 +36,7 @@ Public MustInherit Class Order
 
     Public ReadOnly Property ValueList() As List(Of String)
         Get
-            Return Products.Values.Select(Function(p) p.Value.ToString("$0.00")).ToList
+            Return Products.Values.Select(Function(p) p.ValueWithDiscount.ToString("$0.00")).ToList
         End Get
     End Property
 
@@ -50,30 +50,36 @@ Public MustInherit Class Order
         End Set
     End Property
 
-    Private p_Discount As Double
-    Public Property Discount() As Double
+    Private p_TotalDiscount As Double
+    Public Property TotalDiscount() As Double
         Get
-            Return p_Discount
+            Return p_TotalDiscount
         End Get
         Set(ByVal value As Double)
-            p_Discount = value
+            p_TotalDiscount = value
         End Set
     End Property
 
-    Public ReadOnly Property TotalDiscount() As Double
+    Public ReadOnly Property PercentDiscount() As Double
         Get
-            Return Discount * Total
+            Return TotalDiscount / SubTotal
+        End Get
+    End Property
+
+    Public ReadOnly Property SubTotal() As Double
+        Get
+            Dim value As Double
+            value = 0
+            For Each item In Products.Values
+                value += item.Quantity * item.Value
+            Next
+            Return value
         End Get
     End Property
 
     Public ReadOnly Property Total() As Double
         Get
-            Dim value As Double
-            value = 0
-            For Each item In products.Values
-                value += item.Quantity * item.Value
-            Next
-            Return value
+            Return SubTotal - TotalDiscount
         End Get
     End Property
 

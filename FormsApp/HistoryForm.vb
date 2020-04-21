@@ -32,7 +32,7 @@ Public Class HistoryForm
                                                                    StringFromBoolean(o.Retrieved),
                                                                    Join(o.ProductList.ToArray, "; "),
                                                                    Join(o.ValueList.ToArray, "; "),
-                                                                   o.Total,
+                                                                   o.SubTotal,
                                                                    o.Observation)
 
             Next
@@ -49,7 +49,7 @@ Public Class HistoryForm
                                                                    StringFromBoolean(o.Retrieved),
                                                                    Join(o.ProductList.ToArray, "; "),
                                                                    Join(o.ValueList.ToArray, "; "),
-                                                                   o.Total,
+                                                                   o.SubTotal,
                                                                    o.Observation)
 
             Next

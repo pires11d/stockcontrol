@@ -94,10 +94,10 @@ Partial Class OrderInventoryForm
         'cbbState
         '
         Me.cbbState.AutoSize = True
-        Me.cbbState.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbbState.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbState.Location = New System.Drawing.Point(14, 12)
         Me.cbbState.Name = "cbbState"
-        Me.cbbState.Size = New System.Drawing.Size(150, 23)
+        Me.cbbState.Size = New System.Drawing.Size(154, 25)
         Me.cbbState.TabIndex = 13
         Me.cbbState.Text = "Itens Recolhidos"
         Me.cbbState.UseVisualStyleBackColor = True
