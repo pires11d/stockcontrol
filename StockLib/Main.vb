@@ -543,45 +543,52 @@ Public Module Main
 
         'UPDATES EACH PRODUCT DATATABLE
         For Each p In products.Values
-            Dim pTable = p.Table
-            pTable.Rows.Clear()
-
-            For Each e In p.Orders
-                If p.Purchases.ContainsKey(e.ID) Then
-                    Dim purchase = TryCast(e, Product.Purchase)
-                    pTable.Rows.Add(e.Index,
-                                    purchase.BuyingDate.ToString("yyyy/MM/dd"),
-                                    purchase.ID,
-                                    purchase.Description,
-                                    purchase.Quantity,
-                                    0,
-                                    purchase.Stock,
-                                    purchase.Value,
-                                    0,
-                                    purchase.Balance)
-                ElseIf p.Sales.ContainsKey(e.ID) Then
-                    Dim sale = TryCast(e, Product.Sale)
-                    pTable.Rows.Add(e.Index,
-                                    sale.SellingDate.ToString("yyyy/MM/dd"),
-                                    sale.ID,
-                                    sale.Description,
-                                    0,
-                                    sale.Quantity,
-                                    sale.Stock,
-                                    0,
-                                    sale.Value,
-                                    sale.Balance)
-                End If
-            Next
-            Dim dvi As New DataView(pTable)
-            dvi.Sort = "DATA ASC"
+            Dim dvi As New DataView(p.Table)
+            dvi.Sort = "N ASC"
             Dim dti = dvi.ToTable
             Try
                 WriteCSV(dti, p.TableName, "|", True)
             Catch ex As Exception
             End Try
-
         Next
+
+#Region "OLD"
+        'For Each p In products.Values
+        'Dim pTable = p.Table
+        'pTable.Rows.Clear()
+
+        'For Each e In p.Orders
+        '    If p.Purchases.ContainsKey(e.ID) Then
+        '        Dim purchase = TryCast(e, Product.Purchase)
+        '        pTable.Rows.Add(e.Index,
+        '                        purchase.BuyingDate.ToString("yyyy/MM/dd"),
+        '                        purchase.ID,
+        '                        purchase.Description,
+        '                        purchase.Quantity,
+        '                        0,
+        '                        purchase.Stock,
+        '                        purchase.Value,
+        '                        0,
+        '                        purchase.Balance)
+        '    ElseIf p.Sales.ContainsKey(e.ID) Then
+        '        Dim sale = TryCast(e, Product.Sale)
+        '        pTable.Rows.Add(e.Index,
+        '                        sale.SellingDate.ToString("yyyy/MM/dd"),
+        '                        sale.ID,
+        '                        sale.Description,
+        '                        0,
+        '                        sale.Quantity,
+        '                        sale.Stock,
+        '                        0,
+        '                        sale.Value,
+        '                        sale.Balance)
+        '    End If
+        'Next
+        'Dim dvi As New DataView(pTable)
+        'dvi.Sort = "DATA ASC"
+        'Dim dti = dvi.ToTable
+        'Next
+#End Region
 
         'UPDATES BARRELS TABLE
         With tableBarrels

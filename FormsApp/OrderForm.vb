@@ -113,7 +113,7 @@ Public Class OrderForm
                 lblID.Text = "ID do Pedido:"
                 lblOrder.Text = "Itens do Pedido:"
                 lblPrice.Text = "Preço:"
-                tbID.BackColor = SystemColors.Info
+                tbID.BackColor = MainForm.orangeColor
 
                 lblClient.Visible = True
                 lblResp1.Visible = True
@@ -129,7 +129,7 @@ Public Class OrderForm
                 lblID.Text = "N° da NF:"
                 lblOrder.Text = "Itens da Compra:"
                 lblPrice.Text = "Custo:"
-                tbID.BackColor = SystemColors.GradientInactiveCaption
+                tbID.BackColor = MainForm.blueColor
 
                 lblClient.Visible = False
                 lblResp1.Visible = False
@@ -255,7 +255,7 @@ Public Class OrderForm
                 If Main.sales.ContainsKey(tbID.Text) Then
                     currentSale = Main.sales(tbID.Text)
 
-                    ChangeInputColors(SystemColors.Info)
+                    ChangeInputColors(MainForm.orangeColor)
                     EnableSaleControls()
                     RemoveToolStripMenuItem.Enabled = True
                     InventoryToolStripMenuItem.Enabled = True
@@ -296,7 +296,7 @@ Public Class OrderForm
                 If Main.purchases.ContainsKey(tbID.Text) Then
                     currentPurchase = Main.purchases(tbID.Text)
 
-                    ChangeInputColors(SystemColors.GradientInactiveCaption)
+                    ChangeInputColors(MainForm.blueColor)
                     EnablePurchaseControls()
                     RemoveToolStripMenuItem.Enabled = True
 
@@ -553,22 +553,75 @@ Public Class OrderForm
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+
+        Try
+            Select Case FormType
+                Case FormTypes.Sale
+                    Main.sales(currentSale.ID) = currentSale
+                Case FormTypes.Purchase
+                    Main.purchases(currentPurchase.ID) = currentPurchase
+            End Select
+        Catch ex As Exception
+        End Try
+
+        UpdateProductTables()
+
         Main.UpdateTables()
         Main.GetTables()
         MainForm.LoadTables()
 
         Select Case FormType
-
             Case FormTypes.Sale
                 MainForm.tabs.SelectedIndex = 2
-
             Case FormTypes.Purchase
                 MainForm.tabs.SelectedIndex = 1
-
         End Select
 
         Me.Close()
     End Sub
+
+    ''' <summary>
+    ''' Updates every <see cref="Product.Table"/> of the current <see cref="Sale"/> or <see cref="Purchase"/>
+    ''' </summary>
+    Public Sub UpdateProductTables()
+        Select Case FormType
+            Case FormTypes.Sale
+                For Each p In currentSale.Products.Values
+                    With Main.products(p.Code).Table
+                        For i = 0 To .Rows.Count() - 1
+                            If currentSale.ID = .Rows(i).Item("ID") Then
+                                .Rows(i).Item("DATA") = currentSale.SellingDate.ToString("yyyy/MM/dd")
+                                .Rows(i).Item("HISTÓRICO") = Main.products(p.Code).Sales(currentSale.ID).Description
+                                .Rows(i).Item("ENTRADA") = 0
+                                .Rows(i).Item("SAÍDA") = Main.products(p.Code).Sales(currentSale.ID).Quantity
+                                .Rows(i).Item("SALDO") = Main.products(p.Code).Sales(currentSale.ID).Stock
+                                .Rows(i).Item("ENTRADA ($)") = 0
+                                .Rows(i).Item("SAÍDA ($)") = Main.products(p.Code).Sales(currentSale.ID).Value
+                                .Rows(i).Item("BALANÇO") = Main.products(p.Code).Sales(currentSale.ID).Balance
+                            End If
+                        Next
+                    End With
+                Next
+            Case FormTypes.Purchase
+                For Each p In currentPurchase.Products.Values
+                    With Main.products(p.Code).Table
+                        For i = 0 To .Rows.Count() - 1
+                            If currentPurchase.ID = .Rows(i).Item("ID") Then
+                                .Rows(i).Item("DATA") = currentPurchase.BuyingDate.ToString("yyyy/MM/dd")
+                                .Rows(i).Item("HISTÓRICO") = Main.products(p.Code).Purchases(currentPurchase.ID).Description
+                                .Rows(i).Item("ENTRADA") = Main.products(p.Code).Purchases(currentPurchase.ID).Quantity
+                                .Rows(i).Item("SAÍDA") = 0
+                                .Rows(i).Item("SALDO") = Main.products(p.Code).Purchases(currentPurchase.ID).Stock
+                                .Rows(i).Item("ENTRADA ($)") = Main.products(p.Code).Purchases(currentPurchase.ID).Value
+                                .Rows(i).Item("SAÍDA ($)") = 0
+                                .Rows(i).Item("BALANÇO") = Main.products(p.Code).Purchases(currentPurchase.ID).Balance
+                            End If
+                        Next
+                    End With
+                Next
+        End Select
+    End Sub
+
 
     Private Sub OrderStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderStripMenuItem.Click
         FormType = FormTypes.Sale
@@ -578,7 +631,7 @@ Public Class OrderForm
         cbbResp1.SelectedIndex = 0
 
         LoadControls()
-        ChangeInputColors(SystemColors.Info)
+        ChangeInputColors(MainForm.orangeColor)
         EnableSaleControls()
 
         btnOK.Enabled = False
@@ -593,7 +646,7 @@ Public Class OrderForm
         tbID.Text = ""
 
         LoadControls()
-        ChangeInputColors(SystemColors.GradientInactiveCaption)
+        ChangeInputColors(MainForm.blueColor)
         EnablePurchaseControls()
 
         btnOK.Enabled = False
@@ -1039,8 +1092,13 @@ Public Class OrderForm
                         Return Color.DarkRed
                     Case "Itens do Inventário"
                         Return Color.DarkOrange
+                    Case "Pedido"
+                        Return Color.Maroon
+                    Case "Compra"
+                        Return Color.Navy
                     Case Else
-                        Return SystemColors.ControlText
+                        Return Color.Navy
+                        'Return SystemColors.ControlText
                 End Select
             Else
                 Select Case item.Text
@@ -1050,6 +1108,10 @@ Public Class OrderForm
                         Return MainForm.redColor
                     Case "Itens do Inventário"
                         Return MainForm.yellowColor
+                    Case "Pedido"
+                        Return MainForm.orangeColor
+                    Case "Compra"
+                        Return MainForm.blueColor
                     Case Else
                         Return SystemColors.Control
                 End Select

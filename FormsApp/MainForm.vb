@@ -14,6 +14,8 @@ Public Class MainForm
     Public greenColor As Color = Color.FromArgb(255, 128, 255, 128)
     Public redColor As Color = Color.FromArgb(255, 255, 128, 128)
     Public yellowColor As Color = Color.FromArgb(255, 255, 255, 128)
+    Public blueColor As Color = Color.FromArgb(255, 224, 240, 240)
+    Public orangeColor As Color = Color.FromArgb(255, 255, 240, 192)
     Public oldValue As String
     Public rowAdded As Boolean = False
 
@@ -61,8 +63,8 @@ Public Class MainForm
 
     Public Sub ApplyStylesToTables()
 
-        lvStock.Columns(4).DefaultCellStyle.Format = "R$ 0.00"
-        lvStock.Columns(5).DefaultCellStyle.Format = "R$ 0.00"
+        lvStock.Columns(4).DefaultCellStyle.Format = "0.00"
+        lvStock.Columns(5).DefaultCellStyle.Format = "0.00"
         lvStock.Columns(6).DefaultCellStyle.Format = "R$ 0.00"
         lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
@@ -87,6 +89,8 @@ Public Class MainForm
                 End If
             Next
         End With
+        CUSTODataGridViewTextBoxColumn.DefaultCellStyle.ForeColor = Color.Navy
+        PREÇODataGridViewTextBoxColumn.DefaultCellStyle.ForeColor = Color.Navy
     End Sub
 
     Public Sub ChangePics()
@@ -132,8 +136,10 @@ Public Class MainForm
 
 
         split.BackColor = Color.Black
-        lvOrders.DefaultCellStyle.BackColor = Color.PeachPuff
-        lvPurchases.DefaultCellStyle.BackColor = Color.LightBlue
+        lvOrders.DefaultCellStyle.BackColor = orangeColor
+        lvOrders.DefaultCellStyle.SelectionBackColor = orangeColor
+        lvPurchases.DefaultCellStyle.BackColor = blueColor
+        lvPurchases.DefaultCellStyle.SelectionBackColor = blueColor
 
     End Sub
 
@@ -146,7 +152,10 @@ Public Class MainForm
                 If TypeOf c Is DataGridView Then
                     c.DefaultCellStyle.BackColor = color
                     c.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.Control
-                    c.DefaultCellStyle.SelectionBackColor = color2
+                    c.DefaultCellStyle.SelectionBackColor = color
+                    c.DefaultCellStyle.SelectionForeColor = Color.Navy
+                    c.AlternatingRowsDefaultCellStyle.SelectionBackColor = SystemColors.Control
+                    c.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.Navy
                 End If
             End If
         Catch ex As Exception
@@ -176,6 +185,39 @@ Public Class MainForm
                 End If
             Next
         Next
+
+    End Sub
+
+    Private Sub lvStock_Sorted(sender As Object, e As EventArgs) Handles lvStock.Sorted
+        FormatStock()
+    End Sub
+
+    Private Sub lvStock_CellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellEndEdit
+        Dim pCode As String
+        Try
+            pCode = lvStock.Item(0, e.RowIndex).Value.ToString
+        Catch ex As Exception
+            Exit Sub
+        End Try
+
+        Select Case e.ColumnIndex
+
+            Case 4 'PREÇO  
+                Try
+                    Main.products(pCode).Cost = CDbl(lvStock.Item(e.ColumnIndex, e.RowIndex).Value)
+                Catch ex As Exception
+
+                End Try
+            Case 5 'CUSTO    
+                Try
+                    Main.products(pCode).Price = CDbl(lvStock.Item(e.ColumnIndex, e.RowIndex).Value)
+                Catch ex As Exception
+
+                End Try
+
+        End Select
+
+        Main.UpdateTables()
 
     End Sub
 
@@ -237,38 +279,6 @@ Public Class MainForm
     Private Sub ClientToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientToolStripMenuItem.Click
         Dim clientForm As New ClientForm
         clientForm.Show()
-    End Sub
-
-    Private Sub lvStock_Sorted(sender As Object, e As EventArgs) Handles lvStock.Sorted
-        FormatStock()
-    End Sub
-
-    Private Sub lvStock_CellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellEndEdit
-        Dim pCode As String
-        Try
-            pCode = lvStock.Item(0, e.RowIndex).Value.ToString
-        Catch ex As Exception
-            Exit Sub
-        End Try
-
-        Select Case e.ColumnIndex
-
-            Case 4 'PREÇO  
-                Try
-                    products(pCode).Cost = CDbl(lvStock.Item(e.ColumnIndex, e.RowIndex).Value)
-                Catch ex As Exception
-
-                End Try
-            Case 5 'CUSTO    
-                Try
-                    products(pCode).Price = CDbl(lvStock.Item(e.ColumnIndex, e.RowIndex).Value)
-                Catch ex As Exception
-
-                End Try
-
-        End Select
-
-        Main.UpdateTables()
     End Sub
 
     Private Sub btnSync_Click(sender As Object, e As EventArgs) Handles btnSync.Click

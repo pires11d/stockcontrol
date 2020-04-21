@@ -109,7 +109,11 @@ Public Class GraphForm
                     cht.ChartAreas.First.AxisX.Interval = 1
                     .MarkerSize = 5
                     .BorderWidth = 2
-                Case < 48
+                Case 12
+                    cht.ChartAreas.First.AxisX.Interval = 1
+                    .MarkerSize = 8
+                    .BorderWidth = 3
+                Case < 12
                     cht.ChartAreas.First.AxisX.Interval = 1
                     .MarkerSize = 10
                     .BorderWidth = 4

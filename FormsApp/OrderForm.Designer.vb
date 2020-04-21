@@ -129,6 +129,7 @@ Partial Class OrderForm
         '
         'lblOrder
         '
+        Me.lblOrder.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblOrder.AutoSize = True
         Me.lblOrder.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOrder.Location = New System.Drawing.Point(601, 139)
@@ -200,6 +201,7 @@ Partial Class OrderForm
         '
         'Label10
         '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.Location = New System.Drawing.Point(782, 438)
@@ -230,6 +232,7 @@ Partial Class OrderForm
         '
         'lblSubTotal
         '
+        Me.lblSubTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSubTotal.AutoSize = True
         Me.lblSubTotal.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSubTotal.ForeColor = System.Drawing.SystemColors.ControlDarkDark
@@ -305,6 +308,7 @@ Partial Class OrderForm
         '
         Me.lvItems.AllowUserToAddRows = False
         Me.lvItems.AllowUserToDeleteRows = False
+        Me.lvItems.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.lvItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.lvItems.BackgroundColor = System.Drawing.SystemColors.Control
@@ -345,15 +349,17 @@ Partial Class OrderForm
         '
         'btnOK
         '
+        Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.btnOK.Location = New System.Drawing.Point(360, 622)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(131, 48)
+        Me.btnOK.Size = New System.Drawing.Size(195, 48)
         Me.btnOK.TabIndex = 11
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
         'lblDate1
         '
+        Me.lblDate1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDate1.AutoSize = True
         Me.lblDate1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDate1.Location = New System.Drawing.Point(498, 44)
@@ -365,6 +371,7 @@ Partial Class OrderForm
         '
         'lblDate2
         '
+        Me.lblDate2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDate2.AutoSize = True
         Me.lblDate2.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDate2.Location = New System.Drawing.Point(498, 87)
@@ -376,6 +383,7 @@ Partial Class OrderForm
         '
         'cbbResp1
         '
+        Me.cbbResp1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbResp1.BackColor = System.Drawing.SystemColors.Control
         Me.cbbResp1.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbResp1.FormattingEnabled = True
@@ -387,6 +395,7 @@ Partial Class OrderForm
         '
         'cbbResp2
         '
+        Me.cbbResp2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbResp2.BackColor = System.Drawing.SystemColors.Control
         Me.cbbResp2.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbResp2.FormattingEnabled = True
@@ -398,6 +407,7 @@ Partial Class OrderForm
         '
         'lblResp1
         '
+        Me.lblResp1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblResp1.AutoSize = True
         Me.lblResp1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblResp1.Location = New System.Drawing.Point(790, 44)
@@ -409,6 +419,7 @@ Partial Class OrderForm
         '
         'lblResp2
         '
+        Me.lblResp2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblResp2.AutoSize = True
         Me.lblResp2.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblResp2.Location = New System.Drawing.Point(790, 87)
@@ -420,6 +431,7 @@ Partial Class OrderForm
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(601, 493)
@@ -430,6 +442,8 @@ Partial Class OrderForm
         '
         'tbObs
         '
+        Me.tbObs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tbObs.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbObs.Location = New System.Drawing.Point(605, 521)
         Me.tbObs.Multiline = True
@@ -493,6 +507,7 @@ Partial Class OrderForm
         '
         'datePicker1
         '
+        Me.datePicker1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.datePicker1.CalendarMonthBackground = System.Drawing.SystemColors.Control
         Me.datePicker1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.datePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
@@ -503,6 +518,7 @@ Partial Class OrderForm
         '
         'datePicker2
         '
+        Me.datePicker2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.datePicker2.CalendarMonthBackground = System.Drawing.SystemColors.Control
         Me.datePicker2.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.datePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
@@ -523,6 +539,8 @@ Partial Class OrderForm
         '
         'lblTotal
         '
+        Me.lblTotal.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.AutoSize = True
         Me.lblTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.Red
@@ -534,6 +552,8 @@ Partial Class OrderForm
         '
         'Label1
         '
+        Me.Label1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(816, 647)
@@ -544,6 +564,8 @@ Partial Class OrderForm
         '
         'Label2
         '
+        Me.Label2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(788, 595)
@@ -554,6 +576,8 @@ Partial Class OrderForm
         '
         'tbDiscount
         '
+        Me.tbDiscount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tbDiscount.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbDiscount.ForeColor = System.Drawing.Color.Red
         Me.tbDiscount.Location = New System.Drawing.Point(896, 591)
@@ -563,6 +587,8 @@ Partial Class OrderForm
         '
         'lblDiscount
         '
+        Me.lblDiscount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDiscount.AutoSize = True
         Me.lblDiscount.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDiscount.ForeColor = System.Drawing.Color.Black

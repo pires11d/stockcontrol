@@ -102,11 +102,11 @@ Public Class ReportForm
         For Each p In Main.products.Values
             Dim pTable = Main.products(p.Code).Table
             Dim monthPurchases = p.Purchases.Values.Where(Function(y) y.BuyingDate >= firstDay And y.BuyingDate <= lastDay)
-            Dim monthOrders = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
+            Dim monthSales = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
             Dim monthQttyIn = monthPurchases.Sum(Function(y) y.Quantity)
-            Dim monthQttyOut = monthOrders.Sum(Function(x) x.Quantity)
+            Dim monthQttyOut = monthSales.Sum(Function(x) x.Quantity)
             Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value)
-            Dim monthMoneyIn = monthOrders.Sum(Function(x) x.Value)
+            Dim monthMoneyIn = monthSales.Sum(Function(x) x.Value)
 
             ProductStockSchema.BalanceTable.AddBalanceTableRow(p.Brand,
                                                                p.Code,
@@ -133,13 +133,12 @@ Public Class ReportForm
             Dim monthTotalIn = 0
             Dim stockTotal = 0
 
-            'For Each p In Main.productTables.Keys.Where(Function(b) b.Brand = v.Name)
             For Each p In Main.products.Values.Where(Function(b) b.Brand = v.Name)
                 Dim pTable = Main.products(p.Code).Table
                 Dim monthPurchases = p.Purchases.Values.Where(Function(y) y.BuyingDate >= firstDay And y.BuyingDate <= lastDay)
-                Dim monthOrders = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
-                monthTotalIn += monthPurchases.Sum(Function(y) y.Value)
-                monthTotalOut += monthOrders.Sum(Function(x) x.Value)
+                Dim monthSales = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
+                monthTotalOut += monthPurchases.Sum(Function(y) y.Value)
+                monthTotalIn += monthSales.Sum(Function(x) x.Value)
                 stockTotal += p.LastStock * p.Cost
             Next
 

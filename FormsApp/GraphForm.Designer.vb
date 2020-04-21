@@ -78,36 +78,40 @@ Partial Class GraphForm
         '
         'rb2
         '
-        Me.rb2.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.rb2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rb2.AutoSize = True
         Me.rb2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rb2.Location = New System.Drawing.Point(379, 12)
         Me.rb2.Name = "rb2"
         Me.rb2.Size = New System.Drawing.Size(88, 23)
-        Me.rb2.TabIndex = 1
+        Me.rb2.TabIndex = 2
         Me.rb2.Text = "Monthly"
         Me.rb2.UseVisualStyleBackColor = True
         '
         'rb3
         '
-        Me.rb3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rb3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rb3.AutoSize = True
         Me.rb3.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rb3.Location = New System.Drawing.Point(515, 12)
         Me.rb3.Name = "rb3"
         Me.rb3.Size = New System.Drawing.Size(76, 23)
-        Me.rb3.TabIndex = 1
+        Me.rb3.TabIndex = 3
         Me.rb3.Text = "Yearly"
         Me.rb3.UseVisualStyleBackColor = True
         '
         'cbbValues
         '
+        Me.cbbValues.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbValues.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbValues.FormattingEnabled = True
         Me.cbbValues.Location = New System.Drawing.Point(682, 14)
         Me.cbbValues.Name = "cbbValues"
         Me.cbbValues.Size = New System.Drawing.Size(121, 29)
-        Me.cbbValues.TabIndex = 2
+        Me.cbbValues.TabIndex = 4
         '
         'rb0
         '
@@ -119,7 +123,7 @@ Partial Class GraphForm
         Me.rb0.Location = New System.Drawing.Point(106, 12)
         Me.rb0.Name = "rb0"
         Me.rb0.Size = New System.Drawing.Size(66, 23)
-        Me.rb0.TabIndex = 1
+        Me.rb0.TabIndex = 0
         Me.rb0.TabStop = True
         Me.rb0.Text = "Daily"
         Me.rb0.UseVisualStyleBackColor = True
