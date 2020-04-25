@@ -520,10 +520,7 @@ Public Module Main
                 .Rows(i).Item("OBS") = sale.Observation
             Next
         End With
-        Try
-            WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
-        Catch ex As Exception
-        End Try
+        WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
 
         'UPDATES THE PURCHASES DATATABLE
         With tablePurchases
@@ -536,10 +533,7 @@ Public Module Main
                 .Rows(j).Item("OBS") = purchase.Observation
             Next
         End With
-        Try
-            WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
-        Catch ex As Exception
-        End Try
+        WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
 
         'UPDATES EACH PRODUCT DATATABLE
         For Each p In products.Values

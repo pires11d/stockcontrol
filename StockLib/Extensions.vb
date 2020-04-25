@@ -5,7 +5,11 @@ Imports System.Net
 Imports System.IO
 
 
+''' <summary>
+''' Module designed to contain all necessary tools for either file, text, number or language handling operations
+''' </summary>
 Public Module Extensions
+
 
     Private msgQuestion = ChooseLang("Você deseja fazer o download da versão atualizada?",
                          "Do you wish to download the latest version?")
@@ -331,13 +335,14 @@ Public Module Extensions
     ''' Reads a CSV file and loads its content into a <see cref="DataTable"/> object
     ''' </summary>
     ''' <param name="fileName"></param>
-    ''' <param name="delimiter"></param>   
+    ''' <param name="delimiter"></param>
     ''' <param name="hasTitles"></param>
+    ''' <param name="addIdColumn"></param>
     ''' <returns></returns>
     Public Function ReadCSV(fileName As String,
-                                     Optional delimiter As String = ",",
-                                     Optional hasTitles As Boolean = True,
-                                     Optional addIdColumn As Boolean = False) As DataTable
+                            Optional delimiter As String = ",",
+                            Optional hasTitles As Boolean = True,
+                            Optional addIdColumn As Boolean = False) As DataTable
 
         Dim result As New DataTable
         Dim currentRow As IEnumerable(Of String)
@@ -360,6 +365,11 @@ Public Module Extensions
             Dim counter = 1
             While Not reader.EndOfData
                 currentRow = reader.ReadFields
+
+                'If currentRow.Count = 1 Then
+                '    Continue While
+                'End If
+
                 While currentRow.Count > result.Columns.Count
                     result.Columns.Add()
                 End While
@@ -427,20 +437,14 @@ Public Module Extensions
     ''' <param name="tableName"></param>
     Sub WriteCSV(table As DataTable, tableName As String, Optional delimiter As String = ",", Optional includeHeaders As Boolean = False)
 
-        Dim path As String = appDataFolder
-        'today = DateTime.Now.ToString("yyyy'.'MM'.'dd'-'HH'h'mm'min'")
-        'path += "\" + Today
-
-        If Not Directory.Exists(path) Then
-            Directory.CreateDirectory(path)
-        End If
+        Dim filePath = appDataFolder + tableName + ".csv"
 
         Dim headerRow As New List(Of String)
         For Each col In table.Columns
             headerRow.Add(col.ToString)
         Next
 
-        Using writer As StreamWriter = New StreamWriter(path + tableName + ".csv")
+        Using writer As StreamWriter = New StreamWriter(filePath)
             If includeHeaders Then
                 writer.WriteLine(String.Join(delimiter, headerRow))
             End If
@@ -537,6 +541,13 @@ Public Module Extensions
 
     End Sub
 
+    ''' <summary>
+    ''' Uploads a desired local file into a server, specified by its URL
+    ''' </summary>
+    ''' <param name="localPath"></param>
+    ''' <param name="remotePath"></param>
+    ''' <param name="user"></param>
+    ''' <param name="pass"></param>
     Public Sub UploadFile(localPath As String, remotePath As String,
                            Optional user As String = "", Optional pass As String = "")
 
@@ -561,6 +572,14 @@ Public Module Extensions
 
     End Sub
 
+    ''' <summary>
+    ''' Synchronizes the desired local file with a remote server
+    ''' </summary>
+    ''' <param name="localPath"></param>
+    ''' <param name="uploadPath"></param>
+    ''' <param name="downloadPath"></param>
+    ''' <param name="user"></param>
+    ''' <param name="pass"></param>
     Public Sub SyncFile(localPath As String, uploadPath As String, downloadPath As String,
                         Optional user As String = "", Optional pass As String = "")
 
@@ -585,15 +604,22 @@ Public Module Extensions
         myResponse.Close()
 
         If localDate > remoteDate Then
-            currentSync = "Uploading " + localPath.Split("\").Last
+            'currentSync = "Uploading " + localPath.Split("\").Last
             UploadFile(localPath, uploadPath, user, pass)
         Else
-            currentSync = "Downloading " + downloadPath.Split("/").Last
+            'currentSync = "Downloading " + downloadPath.Split("/").Last
             DownloadFile(downloadPath, localPath, user, pass)
         End If
 
     End Sub
 
+    ''' <summary>
+    ''' Function that returns the list of files inside a remote directory, given its URL and user credentials
+    ''' </summary>
+    ''' <param name="remoteDir"></param>
+    ''' <param name="user"></param>
+    ''' <param name="pass"></param>
+    ''' <returns></returns>
     Public Function ListRemoteFiles(remoteDir As String,
                                     Optional user As String = "", Optional pass As String = "") As List(Of String)
 
@@ -628,6 +654,32 @@ Public Module Extensions
         End If
 
         Return result.Except({".", ".."}).ToList
+
+    End Function
+
+    ''' <summary>
+    ''' Function that searches for a filename recursively inside a folder and its subfolders, returning its filepath, if found
+    ''' </summary>
+    ''' <param name="rootFolder"></param>
+    ''' <param name="filename"></param>
+    ''' <returns></returns>
+    Public Function FindFile(rootFolder As String, filename As String) As String
+
+        Dim files = IO.Directory.GetFileSystemEntries(rootFolder)
+        For Each file In files
+            If file.EndsWith("java.exe") Then
+                Return file
+            End If
+        Next
+
+        Try
+            Dim folders = IO.Directory.GetDirectories(rootFolder)
+            For Each folder In folders
+                FindFile(folder, filename)
+            Next
+        Catch ex As Exception
+            Return Nothing
+        End Try
 
     End Function
 

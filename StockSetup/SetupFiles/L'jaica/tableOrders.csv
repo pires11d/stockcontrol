@@ -1,0 +1,46 @@
+ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL|OBS
+1|L'jaica (Bar)|_2  _8 |20/04/2020|Áureo|20/04/2020|Áureo|True|False|||0|
+2|L'jaica (Bar)|_1  _4 |13/02/2020|Áureo|18/03/2020|Áureo|True|False|||0|
+3|L'jaica (Bar)|B8  B9  B10 |14/02/2020|Áureo|18/03/2020|Áureo|True|False|||0|
+4|Fernando Médico|B3  B11 |20/04/2020|Áureo|20/04/2020|Áureo|True|False|||0|
+5|Mestre Cervejeiro|B13  B14  B15 |14/02/2020|Jota|28/02/2020|Áureo|True|False|||0|
+6|L'jaica (Bar)|_9  _10 |14/02/2020|Áureo|17/03/2020|Áureo|True|False|||0|
+7|Fernando Médico||20/02/2020|Áureo|||False|False|90 x Chope-Pilsen|$10.00|900|
+8|Galpão Mão Pelada|B3 |20/02/2020|Áureo|06/03/2020|Jota|True|False|30 x Chope-Pilsen|$11.00|330|
+9|Ônibus Rota Cervejeira|B7 |20/02/2020|Áureo|06/03/2020|Jota|True|False|30 x Chope-Pilsen|$12.00|360|
+10|Rafael||20/02/2020|Áureo|||False|False|3 x PET-Pilsen|$15.00|45|
+11|Ricardo - Motel Fantasia||20/02/2020|Áureo|||False|False|20 x Chope-Lager|$12.00|240|
+12|L'jaica (Bar)||20/02/2020|Áureo|||False|False|60 x Chope-Witbier|$30.00|1800|
+13|L'jaica (Bar)||13/02/2020|Áureo|||False|False|40 x Chope-WestCoastIPA|$30.00|1200|
+14|L'jaica (Bar)||20/02/2020|Áureo|||False|False|20 x Chope-WestCoastIPA|$30.00|600|
+15|L'jaica (Bar)|_1 |20/04/2020|Áureo|20/04/2020|Áureo|True|False|15 x Chope-Pilsen|$24.00|360|
+16|L'jaica (Bar)||20/02/2020|Áureo|||False|False|15 x Chope-IPA|$30.00|450|
+17|L'jaica (Bar)||20/02/2020|Áureo|||False|False|30 x Chope-IrishRedAle|$30.00|900|
+18|Fabrício - amigo Rafa||21/02/2020|Áureo|||False|False|15 x G600-CreamAle; 3 x G600-IPA; 3 x G600-IrishRedAle; 3 x G600-Witbier|$14.34; $15.00; $15.00; $15.00|350.1|
+19|Fernando Pagliosa||21/02/2020|Áureo|||False|False|6 x PET-IPA; 3 x G600-Witbier|$18.00; $13.00|147|
+20|L'jaica (Bar)||20/02/2020|Áureo|||False|False|80 x Chope-Lager|$22.00|1760|
+21|L'jaica (Bar)||22/02/2020|Áureo|||False|False|15 x Chope-GermanPilsner; 30 x Chope-IPA; 30 x Chope-Pilsen|$22.00; $30.00; $22.00|1890|Chopp Express
+22|L'jaica (Bar)||22/02/2020|Áureo|||False|False|1 x PET-Pilsen|$12.00|12|
+23|Áureo||26/02/2020|Áureo|||False|False|1 x PET-Pilsen|$12.00|12|
+24|George||26/02/2020|George|||False|False|3 x PET-Pilsen; 3 x PET-IPA|$12.00; $18.00|90|
+25|L'jaica (Bar)||27/02/2020|Áureo|||False|False|30 x Chope-DoubleIPA|$40.00|1200|
+26|Mestre Cervejeiro||27/02/2020|Áureo|||False|False|8 x G600-CreamAle; 6 x G600-IPA; 4 x G600-IrishRedAle; 6 x G600-Witbier|$15.00; $15.00; $15.00; $15.00|360|
+27|Casa Gourmet||29/02/2020|Marcos|||False|False|3 x G600-IPA; 3 x G600-Weiss; 3 x G600-Witbier; 3 x PET-Pilsen|$15.00; $15.00; $15.00; $15.00|180|
+28|L'jaica (Bar)||29/02/2020|Marcos|||False|False|4 x G600-IPA|$15.00|60|
+29|Empório Garden||29/02/2020|Áureo|||False|False|30 x Chope-Pilsen|$12.00|360|
+30|L'jaica (Bar)||29/02/2020|Áureo|||False|False|30 x Chope-Pilsen|$22.00|660|
+31|L'jaica (Bar)||29/02/2020|Áureo|||False|False|30 x Chope-CreamAle|$30.00|900|
+32|Posto Serra Azul||29/02/2020|Rafael|||False|False|1 x G600-CreamAle; 1 x G600-IPA; 1 x G600-Witbier|$15.00; $15.00; $15.00|45|
+33|L'jaica (Bar)||06/03/2020|Áureo|||False|False|15 x Chope-IPA|$30.00|450|
+34|Le Bateau||05/03/2020|Jota|||False|False|2 x G600-IPA; 1 x G600-Weiss; 2 x G600-Witbier|$15.00; $15.00; $15.00|75|
+35|Zé da Costela||11/03/2020|Jota|||False|False|50 x Chope-Lager|$8.00|400|
+36|Carlos||11/03/2020|Áureo|||False|False|1 x G600-Witbier; 2 x PET-Pilsen|$15.00; $15.00|45|
+37|Batalhão||11/03/2020|Jota|||False|False|30 x Chope-Lager|$10.00|300|
+38|Grupo L'jaica||17/03/2020|Áureo|||False|False|3 x PET-Pilsen|$12.00|36|
+39|Jota||17/03/2020|Jota|||False|False|1 x G600-CreamAle; 1 x G600-Witbier|$12.00; $12.00|24|
+40|L'jaica (Bar)||17/03/2020|Jota|||False|False|1 x PET-Pilsen|$15.00|15|
+41|Fernando Pagliosa||20/04/2020|Jota|||False|False|24 x G600-Witbier; 12 x PET-Pilsen|$11.80; $10.00|403.2|
+42|L'jaica (Bar)||17/03/2020|Jota|||False|False|2 x PET-Pilsen|$15.00|30|
+43|L'jaica (Bar)||17/03/2020|Áureo|||False|False|30 x Chope-IPA; 30 x Chope-Lager; 15 x Chope-Pilsen|$20.00; $12.00; $15.00|1185|Turma de Medicina
+44|L'jaica (Bar)||17/03/2020|Áureo|||False|False|30 x Chope-Pilsen|$22.00|660|
+45|Fernando Pagliosa||20/04/2020||||False|False|12 x PET-Pilsen; 24 x G600-Witbier|$10.00; $11.80|403.2|
