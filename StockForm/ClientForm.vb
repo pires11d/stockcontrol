@@ -26,14 +26,12 @@ Public Class ClientForm
 
     Public Sub LoadClients()
 
-        'With tableClients
-        '    For i = 0 To .Rows.Count - 1
-        '        lvClients.Rows.Add(.rows)
-        '    Next
-        'End With
+        Try
+            lvClients.Columns.Clear()
+        Catch ex As Exception
 
-        lvClients.Columns.Clear()
-        lvClients.Rows.Clear()
+        End Try
+
         lvClients.DataSource = Main.tableClients
 
         lvClients.DefaultCellStyle.Font = New Font(Main.fontName, 12)

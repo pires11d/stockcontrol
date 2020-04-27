@@ -52,13 +52,13 @@ Partial Class GraphForm
         Series1.ChartArea = "ChartArea1"
         Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea
         Series1.IsValueShownAsLabel = True
+        Series1.IsXValueIndexed = True
         Series1.LabelAngle = 45
         Series1.MarkerBorderColor = System.Drawing.Color.Black
         Series1.MarkerColor = System.Drawing.Color.Green
         Series1.MarkerSize = 10
         Series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle
         Series1.Name = "Series1"
-        Series1.YValuesPerPoint = 2
         Me.cht.Series.Add(Series1)
         Me.cht.Size = New System.Drawing.Size(839, 493)
         Me.cht.TabIndex = 0

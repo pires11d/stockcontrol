@@ -12,6 +12,8 @@ Public Class GraphForm
     Public currentValue As String = "b"
     Public firstDay As Date
     Public lastDay As Date
+    Dim xList As New List(Of Date)
+    Dim yList As New List(Of Double)
 
 
     ''' <summary>
@@ -39,8 +41,8 @@ Public Class GraphForm
 
         Dim n = interval
         Dim balance = 0
-        Dim xList As New List(Of String)
-        Dim yList As New List(Of Double)
+        xList.Clear()
+        yList.Clear()
 
         For i = 1 To n
 
@@ -48,7 +50,8 @@ Public Class GraphForm
                 Case 365
                     Dim y = currentYear
                     Dim entry = New DateTime(currentYear, 1, 1).AddDays(i - 1)
-                    xList.Add(entry.ToString("dd/MM/yyyy"))
+                    'xList.Add(entry.ToString("dd/MM/yyyy"))
+                    xList.Add(entry)
 
                     firstDay = entry
                     lastDay = entry.AddHours(23.999)
@@ -57,20 +60,25 @@ Public Class GraphForm
                     Dim m = Math.Ceiling(i / 4)
                     Dim d = (i Mod 4)
                     Dim entry = New Date(y, m, d * 7 + 1)
-                    xList.Add(entry.ToString("dd/MM/yyyy"))
+                    'xList.Add(entry.ToString("dd/MM/yyyy"))
+                    xList.Add(entry)
 
                     firstDay = New Date(y, m, 1)
                     lastDay = New Date(y, m, d * 7 + 1)
                 Case 12
                     Dim y = currentYear
                     Dim m = i
-                    xList.Add(MonthName(i))
+                    Dim entry = New Date(y, m, 1)
+                    'xList.Add(MonthName(i))
+                    xList.Add(entry)
 
                     firstDay = New Date(y, m, 1)
                     lastDay = New Date(y, m, Date.DaysInMonth(y, m))
                 Case Else
                     Dim y = currentYear - n + i
-                    xList.Add(y.ToString)
+                    Dim entry = New Date(y, 1, 1)
+                    'xList.Add(y.ToString)
+                    xList.Add(entry)
 
                     firstDay = New Date(y, 1, 1)
                     lastDay = New Date(y, 12, 31)
@@ -96,14 +104,14 @@ Public Class GraphForm
 
             .Color = Color.FromArgb(100, MainForm.secondaryColor)
             .BorderColor = MainForm.secondaryColor
-            .MarkerColor = MainForm.primaryColor
-            .MarkerBorderColor = MainForm.secondaryColor
+            .MarkerColor = MainForm.secondaryColor
+            .MarkerBorderColor = MainForm.primaryColor
 
             .Points.Clear()
             Select Case interval
                 Case > 48
                     cht.ChartAreas.First.AxisX.Interval = 7
-                    .MarkerSize = 2
+                    .MarkerSize = 5
                     .BorderWidth = 1
                 Case 48
                     cht.ChartAreas.First.AxisX.Interval = 1
@@ -111,16 +119,16 @@ Public Class GraphForm
                     .BorderWidth = 2
                 Case 12
                     cht.ChartAreas.First.AxisX.Interval = 1
-                    .MarkerSize = 8
+                    .MarkerSize = 5
                     .BorderWidth = 3
                 Case < 12
                     cht.ChartAreas.First.AxisX.Interval = 1
-                    .MarkerSize = 10
+                    .MarkerSize = 5
                     .BorderWidth = 4
             End Select
 
             For i = 0 To xList.Count() - 1
-                .Points.AddXY(xList(i), yList(i))
+                .Points.AddXY(xList(i).ToString("dd/MM/yyyy"), yList(i))
                 .IsValueShownAsLabel = False
                 If yList(i) <> 0 Then .Points.Item(i).Label = yList(i).ToString("R$ 0")
             Next
@@ -176,6 +184,73 @@ Public Class GraphForm
     Private Sub cbbValues_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbValues.SelectedIndexChanged
         currentValue = cbbValues.Text.ToLower.First
         LoadGraph()
+    End Sub
+
+    Private Sub Chart1_GetToolTipText(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataVisualization.Charting.ToolTipEventArgs) Handles cht.GetToolTipText
+
+        Select Case e.HitTestResult.ChartElementType
+            Case System.Windows.Forms.DataVisualization.Charting.ChartElementType.DataPoint
+                Dim dataPoint = e.HitTestResult.Series.Points(e.HitTestResult.PointIndex)
+                e.Text = dataPoint.YValues(0).ToString
+        End Select
+
+        Try
+            With cht.ChartAreas.First
+                Dim x As Double
+                Dim xx = .AxisX.PixelPositionToValue(e.X)
+                Dim yy = .AxisY.PixelPositionToValue(e.Y)
+                Dim ii = .AxisX.Interval
+                Dim n = cht.Series.First.Points.Count - 1
+                For i = 0 To n
+                    ChangePoint(cht, i, 5, MainForm.secondaryColor, MainForm.primaryColor)
+                    If rb0.Checked Then
+                        ii = 1
+                    End If
+                    x = ii * (i + 1)
+                    If xx > x Then
+                        ChangePoint(cht, i, 10, MainForm.primaryColor, MainForm.secondaryColor)
+                        If i = 0 Then
+                            ChangePoint(cht, i + 1, 5, MainForm.secondaryColor, MainForm.primaryColor)
+                        ElseIf i = n Then
+                            ChangePoint(cht, i - 1, 5, MainForm.secondaryColor, MainForm.primaryColor)
+                        Else
+                            ChangePoint(cht, i + 1, 5, MainForm.secondaryColor, MainForm.primaryColor)
+                            ChangePoint(cht, i - 1, 5, MainForm.secondaryColor, MainForm.primaryColor)
+                        End If
+                    End If
+                Next
+            End With
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Public Sub ChangePoint(cht As System.Windows.Forms.DataVisualization.Charting.Chart,
+                           i As Integer,
+                           size As Integer,
+                           color1 As Drawing.Color,
+                           color2 As Drawing.Color)
+
+        cht.Series.First.Points(i).MarkerSize = size
+        cht.Series.First.Points(i).MarkerColor = color1
+        cht.Series.First.Points(i).MarkerBorderColor = color2
+        If size = 10 Then
+            cht.Series.First.Points(i).Font = New Font(cht.Series.First.Points(i).Font, FontStyle.Bold)
+        Else
+            cht.Series.First.Points(i).Font = New Font(cht.Series.First.Points(i).Font, FontStyle.Regular)
+        End If
+
+    End Sub
+
+    Private Sub cht_MouseLeave(sender As Object, e As EventArgs) Handles cht.MouseLeave
+        With cht.Series.First.Points
+            For i = 0 To .Count - 1
+                .Item(i).MarkerSize = 5
+                .Item(i).MarkerColor = MainForm.secondaryColor
+                .Item(i).MarkerBorderColor = MainForm.primaryColor
+            Next
+        End With
     End Sub
 
 End Class

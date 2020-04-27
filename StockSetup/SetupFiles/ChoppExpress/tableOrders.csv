@@ -13,3 +13,5 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 12|PJ Retífica||09/03/2020|Áureo|||False|False|60 x Chope-Pilsen|$10.00|600|
 13|Lucas||09/03/2020|Áureo|||False|False|4 x G500-SessionIPA|$10.00|40|
 14|Áureo||09/03/2020|Áureo|||False|False|1 x GLong-EasyIPA; 31 x GLong-Pilsen; 2 x PET-Pilsen|$5.00; $5.00; $15.00|190|
+15|L'jaica||31/03/2020|Áureo|||False|False|30 x Chope-DryStout; 45 x Chope-GermanPilsner; 45 x Chope-IPA|$16.00; $12.00; $16.00|1740|
+16|?||31/03/2020|Áureo|||False|False|66 x PET-IPA; 40 x PET-Pilsen|$22.00; $15.00|2052|
