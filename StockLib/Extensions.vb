@@ -49,6 +49,13 @@ Public Module Extensions
         Return arg
     End Function
 
+    <Extension()>
+    Public Function ToBoolNotNull(ByVal arg As String) As Boolean
+        If IsNothing(arg) OrElse arg = "" Then arg = False
+        arg = CBool(arg)
+        Return arg
+    End Function
+
     ''' <summary>
     ''' Selects from the input strings the one that is in the program's current language
     ''' </summary>

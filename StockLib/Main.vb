@@ -13,6 +13,8 @@ Public Module Main
     Public uploadDataFolder As String
     Private user As String = "pires11d"
     Private pass As String = "calculera"
+    Public passwordLJ As String = "positividade"
+    Public passwordCE As String = "pires223"
     Public localList As New List(Of String)
     Public remoteList As New List(Of String)
     Public currentSync As String = ""
@@ -162,66 +164,6 @@ Public Module Main
 
     End Sub
 
-    ''' <summary>   
-    ''' Loads every product's history information into a dictionary of <see cref="Product"/> and <see cref="DataTable"/> objects
-    ''' </summary>
-    Public Sub LoadProductTables()
-
-        'ADDS ALL PRODUCT TABLES TO A LIST
-        For Each p In products.Values
-            Try
-                p.Table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, True)
-            Catch exx As Exception
-                p.Table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, False)
-            End Try
-            'productTables.Add(p.Code, table)
-        Next
-
-        'ADDS ORDER AND PURCHASE INFORMATION FOR EACH PRODUCT
-        For Each p In products.Values
-            With p.Table
-                For i = 0 To .Rows.Count - 1
-                    If CDbl(.Rows(i).Item("ENTRADA").ToString.ToZero) > 0 Then
-
-                        Dim purchase As New Product.Purchase(.Rows(i).Item("ID"))
-                        purchase.BuyingDate = DateValue(.Rows(i).Item("DATA"))
-                        purchase.Description = .Rows(i).Item("HISTÓRICO")
-                        purchase.Quantity = .Rows(i).Item("ENTRADA")
-                        'purchase.Stock = .Rows(i).Item("SALDO")
-                        purchase.Value = .Rows(i).Item("ENTRADA ($)")
-                        'purchase.Balance = .Rows(i).Item("BALANÇO")
-                        purchase.Parent = p
-
-                        Try
-                            p.Purchases.Add(purchase.ID, purchase)
-                            p.Orders.Add(purchase)
-                        Catch ex As Exception
-                        End Try
-
-                    ElseIf CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
-
-                        Dim sale As New Product.Sale(.Rows(i).Item("ID"))
-                        sale.SellingDate = DateValue(.Rows(i).Item("DATA"))
-                        sale.Description = .Rows(i).Item("HISTÓRICO")
-                        sale.Quantity = .Rows(i).Item("SAÍDA")
-                        'sale.Stock = .Rows(i).Item("SALDO")
-                        sale.Value = .Rows(i).Item("SAÍDA ($)")
-                        'sale.Balance = .Rows(i).Item("BALANÇO")
-                        sale.Parent = p
-
-                        Try
-                            p.Sales.Add(sale.ID, sale)
-                            p.Orders.Add(sale)
-                        Catch ex As Exception
-                        End Try
-
-                    End If
-                Next
-            End With
-        Next
-
-    End Sub
-
     ''' <summary>
     ''' Loads all client information into a dictionary of <see cref="Client"/> objects
     ''' </summary>
@@ -289,24 +231,28 @@ Public Module Main
         With tableOrders
             For i = 0 To .Rows.Count - 1
                 Dim s As New Sale(.Rows(i).Item("ID"))
+                s.Client = clients(.Rows(i).Item("CLIENTE"))
                 s.SellingDate = DateValue(.Rows(i).Item("DATA1").ToString.ToDateNotNull)
                 s.RetrievingDate = DateValue(.Rows(i).Item("DATA2").ToString.ToDateNotNull)
                 s.SellingResponsible = .Rows(i).Item("RESP1")
                 s.RetrievingResponsible = .Rows(i).Item("RESP2")
                 s.Retrieved = .Rows(i).Item("RECOLHIDO")
+                s.Observation = .Rows(i).Item("OBS")
+                s.Paid = .Rows(i).Item("PAGO").ToString.ToBoolNotNull
+
                 s.Products.Clear()
                 Dim productList = Split(.Rows(i).Item("PEDIDO"), ";").ToList
                 Dim priceList = Split(.Rows(i).Item("PREÇOS"), ";").ToList
                 For Each product In productList.Except({""})
                     Dim code As String = Split(product, " x ").Last
                     Dim qtty As Double = CDbl(Split(product, " x ").First)
-                    Dim pp = New Product(code)
-                    With pp
-                        pp.Brand = products(code).Brand
-                        pp.Value = CDbl(priceList(productList.IndexOf(product)).Replace("$ ", ""))
-                        pp.Quantity = qtty
+                    Dim pr = New Product(code)
+                    With pr
+                        pr.Brand = products(code).Brand
+                        pr.Value = CDbl(priceList(productList.IndexOf(product)).Replace("$ ", ""))
+                        pr.Quantity = qtty
                     End With
-                    s.Products.Add(pp.Code, pp)
+                    s.Products.Add(pr.Code, pr)
                 Next
                 Dim items = Split(.Rows(i).Item("ITENS"), " ").ToList.Except({""})
                 If items.Count > 0 Then
@@ -321,8 +267,6 @@ Public Module Main
                         End If
                     Next
                 End If
-                s.Observation = .Rows(i).Item("OBS")
-                s.Client = clients(.Rows(i).Item("CLIENTE"))
                 sales.Add(s.ID, s)
 
                 clients(s.Client.Name).Sales.Add(s)
@@ -342,27 +286,101 @@ Public Module Main
             For i = 0 To .Rows.Count - 1
                 Dim p As New Purchase(.Rows(i).Item("ID"))
                 p.BuyingDate = DateValue(.Rows(i).Item("DATA").ToString.ToZero)
+                p.Observation = .Rows(i).Item("OBS")
+                p.Paid = .Rows(i).Item("PAGO").ToString.ToBoolNotNull
+
                 p.Products.Clear()
                 Dim productList = Split(.Rows(i).Item("COMPRA"), ";").ToList
                 Dim proceList = Split(.Rows(i).Item("PREÇOS"), ";").ToList
                 For Each product In productList.Except({""})
                     Dim code As String = Split(product, " x ").Last
                     Dim qtty As Double = CDbl(Split(product, " x ").First)
-                    Dim pp = New Product(code)
-                    With pp
-                        pp.Brand = products(code).Brand
-                        pp.Value = CDbl(proceList(productList.IndexOf(product)).Replace("$ ", ""))
-                        pp.Quantity = qtty
+                    Dim pr = New Product(code)
+                    With pr
+                        pr.Brand = products(code).Brand
+                        pr.Value = CDbl(proceList(productList.IndexOf(product)).Replace("$ ", ""))
+                        pr.Quantity = qtty
                     End With
 
-                    p.Products.Add(pp.Code, pp)
+                    p.Products.Add(pr.Code, pr)
                 Next
-                p.Observation = .Rows(i).Item("OBS")
                 purchases.Add(p.ID, p)
 
                 vendors(p.Vendor.Name).Purchases.Add(p)
             Next
         End With
+
+    End Sub
+
+    ''' <summary>   
+    ''' Loads every product's history information into a dictionary of <see cref="Product"/> and <see cref="DataTable"/> objects
+    ''' </summary>
+    Public Sub LoadProductTables()
+
+        'ADDS ALL PRODUCT TABLES TO A LIST
+        For Each p In products.Values
+            Try
+                p.Table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, True)
+            Catch exx As Exception
+                p.Table = ReadCSV(appDataFolder + p.TableName + ".csv", "|", True, False)
+            End Try
+            'productTables.Add(p.Code, table)
+        Next
+
+        'ADDS ORDER AND PURCHASE INFORMATION FOR EACH PRODUCT
+        For Each p In products.Values
+            With p.Table
+                For i = 0 To .Rows.Count - 1
+                    If CDbl(.Rows(i).Item("ENTRADA").ToString.ToZero) > 0 Then
+
+                        Dim purchase As New Product.Purchase(.Rows(i).Item("ID"))
+                        purchase.BuyingDate = DateValue(.Rows(i).Item("DATA"))
+                        purchase.Description = .Rows(i).Item("HISTÓRICO")
+                        purchase.Quantity = .Rows(i).Item("ENTRADA")
+                        'purchase.Stock = .Rows(i).Item("SALDO")
+                        purchase.Value = .Rows(i).Item("ENTRADA ($)")
+                        'purchase.Balance = .Rows(i).Item("BALANÇO")
+                        purchase.Parent = p
+
+                        Try
+                            purchase.Paid = purchases(purchase.ID).Paid
+                        Catch ex As Exception
+
+                        End Try
+
+                        Try
+                            p.Purchases.Add(purchase.ID, purchase)
+                            p.Orders.Add(purchase)
+                        Catch ex As Exception
+                        End Try
+
+                    ElseIf CDbl(.Rows(i).Item("SAÍDA").ToString.ToZero) > 0 Then
+
+                        Dim sale As New Product.Sale(.Rows(i).Item("ID"))
+                        sale.SellingDate = DateValue(.Rows(i).Item("DATA"))
+                        sale.Description = .Rows(i).Item("HISTÓRICO")
+                        sale.Quantity = .Rows(i).Item("SAÍDA")
+                        'sale.Stock = .Rows(i).Item("SALDO")
+                        sale.Value = .Rows(i).Item("SAÍDA ($)")
+                        'sale.Balance = .Rows(i).Item("BALANÇO")
+                        sale.Parent = p
+
+                        Try
+                            sale.Paid = sales(sale.ID).Paid
+                        Catch ex As Exception
+
+                        End Try
+
+                        Try
+                            p.Sales.Add(sale.ID, sale)
+                            p.Orders.Add(sale)
+                        Catch ex As Exception
+                        End Try
+
+                    End If
+                Next
+            End With
+        Next
 
     End Sub
 
@@ -483,6 +501,11 @@ Public Module Main
         End Try
 
         'UPDATES THE PRODUCTS TABLE (STOCK)
+        For Each p In products.Values
+            Dim t = p.Table
+            p.Stock = p.LastStock
+        Next
+
         With tableProducts
             For p = 0 To .Rows.Count - 1
                 .Rows(p).Item("ESTOQUE") = products(.Rows(p).Item("PRODUTO")).Stock
@@ -518,6 +541,7 @@ Public Module Main
                 .Rows(i).Item("PREÇOS") = Join(sale.ValueList.ToArray, "; ")
                 .Rows(i).Item("TOTAL") = sale.Total
                 .Rows(i).Item("OBS") = sale.Observation
+                .Rows(i).Item("PAGO") = sale.Paid
             Next
         End With
         WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
@@ -531,6 +555,7 @@ Public Module Main
                 .Rows(j).Item("PREÇOS") = Join(purchase.ValueList.ToArray, "; ")
                 .Rows(j).Item("TOTAL") = purchase.Total
                 .Rows(j).Item("OBS") = purchase.Observation
+                .Rows(j).Item("PAGO") = purchase.Paid
             Next
         End With
         WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
@@ -647,16 +672,16 @@ Public Module Main
             Dim monthSales = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
             Dim monthQttyIn = monthPurchases.Sum(Function(y) y.Quantity)
             Dim monthQttyOut = monthSales.Sum(Function(x) x.Quantity)
-            Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value)
-            Dim monthMoneyIn = monthSales.Sum(Function(x) x.Value)
+            Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value * CInt(y.Paid))
+            Dim monthMoneyIn = monthSales.Sum(Function(x) x.Value * CInt(x.Paid))
 
             Select Case values.ToLower
                 Case "c"
                     result += monthMoneyOut
                 Case "p"
-                    result += monthMoneyIn
+                    result -= monthMoneyIn
                 Case Else
-                    result += monthMoneyIn - monthMoneyOut
+                    result -= monthMoneyIn - monthMoneyOut
             End Select
 
         Next

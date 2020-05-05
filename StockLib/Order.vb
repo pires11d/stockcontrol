@@ -83,4 +83,14 @@ Public MustInherit Class Order
         End Get
     End Property
 
+    Private p_Paid As Boolean = False
+    Public Property Paid() As Boolean
+        Get
+            Return p_Paid
+        End Get
+        Set(ByVal value As Boolean)
+            p_Paid = value
+        End Set
+    End Property
+
 End Class

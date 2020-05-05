@@ -473,13 +473,10 @@ Public Class OrderForm
 
         Try
             Select Case FormType
-
                 Case FormTypes.Sale
                     currentSale.SellingDate = datePicker1.Value
-
                 Case FormTypes.Purchase
                     currentPurchase.BuyingDate = datePicker1.Value
-
             End Select
         Catch ex As Exception
 
@@ -493,10 +490,8 @@ Public Class OrderForm
 
         Try
             Select Case FormType
-
                 Case FormTypes.Sale
                     currentSale.RetrievingDate = datePicker2.Value
-
             End Select
         Catch ex As Exception
 
@@ -718,6 +713,8 @@ Public Class OrderForm
 
         AddToProductTables()
         Main.UpdateTables()
+        Main.GetTables()
+        MainForm.LoadTables()
 
         currentSale = Nothing
         currentPurchase = Nothing
@@ -730,6 +727,8 @@ Public Class OrderForm
         InventoryToolStripMenuItem.Enabled = False
         NewEntry = False
         tbID.Text = ""
+
+
 
     End Sub
 
@@ -980,7 +979,7 @@ Public Class OrderForm
                         Else
                             selectedProduct.Value = selectedProduct.Price
                         End If
-                        If Not NewEntry Then
+                        If NewEntry Then
                             selectedProduct.Quantity = 0
                         End If
                     End If
@@ -997,7 +996,7 @@ Public Class OrderForm
                         End If
                     Else
                         selectedProduct.Value = selectedProduct.Cost
-                        If Not NewEntry Then
+                        If NewEntry Then
                             selectedProduct.Quantity = 0
                         End If
                     End If

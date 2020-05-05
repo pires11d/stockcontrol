@@ -83,6 +83,11 @@
     <Compile Include="Schemas\ClientRegistry.vb">
       <DependentUpon>ClientRegistry.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Schemas\OrderRegistry.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderRegistry.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Schemas\OrderHistory.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,6 +98,9 @@
     <Compile Include="Product.Sale.vb" />
     <Compile Include="Schemas\OrderHistory.vb">
       <DependentUpon>OrderHistory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\OrderRegistry.vb">
+      <DependentUpon>OrderRegistry.xsd</DependentUpon>
     </Compile>
     <Compile Include="Schemas\ProductHistory.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -162,6 +170,17 @@
     </None>
     <None Include="Schemas\ClientRegistry.xss">
       <DependentUpon>ClientRegistry.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\OrderRegistry.xsc">
+      <DependentUpon>OrderRegistry.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\OrderRegistry.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderRegistry.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Schemas\OrderRegistry.xss">
+      <DependentUpon>OrderRegistry.xsd</DependentUpon>
     </None>
     <None Include="Schemas\OrderHistory.xsc">
       <DependentUpon>OrderHistory.xsd</DependentUpon>

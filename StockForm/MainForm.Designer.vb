@@ -23,10 +23,10 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.tabs = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -41,8 +41,30 @@ Partial Class MainForm
         Me.ProductStockSchema = New StockLib.ProductStock()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.lvPurchases = New System.Windows.Forms.DataGridView()
+        Me.IDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PAGODataGridViewCheckBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.TOTALDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.COMPRADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PREÇOSDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OBSDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OrderRegistrySchema = New StockLib.OrderRegistry()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.lvOrders = New System.Windows.Forms.DataGridView()
+        Me.lvSales = New System.Windows.Forms.DataGridView()
+        Me.IDDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PAGODataGridViewCheckBoxColumn1 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.TOTALDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CLIENTEDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ITENSDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATA1DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RESP1DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PEDIDODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PREÇOSDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATA2DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RESP2DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RECOLHIDODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CHOPEIRADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OBSDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.split = New System.Windows.Forms.Splitter()
         Me.menu = New System.Windows.Forms.MenuStrip()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -72,8 +94,9 @@ Partial Class MainForm
         CType(Me.ProductStockSchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         CType(Me.lvPurchases, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.OrderRegistrySchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage3.SuspendLayout()
-        CType(Me.lvOrders, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lvSales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.menu.SuspendLayout()
         CType(Me.picLogoCE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,14 +147,14 @@ Partial Class MainForm
         Me.lvStock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.PRODUTODataGridViewTextBoxColumn, Me.MARCADataGridViewTextBoxColumn, Me.ESTOQUEDataGridViewTextBoxColumn, Me.UNIDDataGridViewTextBoxColumn, Me.CUSTODataGridViewTextBoxColumn, Me.PREÇODataGridViewTextBoxColumn, Me.ESTOQUEDataGridViewTextBoxColumn1})
         Me.lvStock.DataMember = "StockTable"
         Me.lvStock.DataSource = Me.ProductStockSchema
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.Navy
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvStock.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Navy
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvStock.DefaultCellStyle = DataGridViewCellStyle2
         Me.lvStock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvStock.Location = New System.Drawing.Point(0, 0)
         Me.lvStock.MultiSelect = False
@@ -145,8 +168,8 @@ Partial Class MainForm
         '
         Me.PRODUTODataGridViewTextBoxColumn.ActiveLinkColor = System.Drawing.Color.White
         Me.PRODUTODataGridViewTextBoxColumn.DataPropertyName = "PRODUTO"
-        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.White
-        Me.PRODUTODataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        Me.PRODUTODataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle1
         Me.PRODUTODataGridViewTextBoxColumn.FillWeight = 200.0!
         Me.PRODUTODataGridViewTextBoxColumn.HeaderText = "PRODUTO"
         Me.PRODUTODataGridViewTextBoxColumn.LinkColor = System.Drawing.Color.Navy
@@ -219,30 +242,93 @@ Partial Class MainForm
         Me.lvPurchases.AllowUserToDeleteRows = False
         Me.lvPurchases.AllowUserToOrderColumns = True
         Me.lvPurchases.AllowUserToResizeRows = False
+        Me.lvPurchases.AutoGenerateColumns = False
         Me.lvPurchases.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.lvPurchases.BackgroundColor = System.Drawing.SystemColors.Control
         Me.lvPurchases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.Red
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvPurchases.DefaultCellStyle = DataGridViewCellStyle27
+        Me.lvPurchases.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IDDataGridViewTextBoxColumn, Me.PAGODataGridViewCheckBoxColumn, Me.TOTALDataGridViewTextBoxColumn, Me.DATADataGridViewTextBoxColumn, Me.COMPRADataGridViewTextBoxColumn, Me.PREÇOSDataGridViewTextBoxColumn, Me.OBSDataGridViewTextBoxColumn})
+        Me.lvPurchases.DataMember = "PurchasesTable"
+        Me.lvPurchases.DataSource = Me.OrderRegistrySchema
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Red
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvPurchases.DefaultCellStyle = DataGridViewCellStyle3
         Me.lvPurchases.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvPurchases.Location = New System.Drawing.Point(0, 0)
         Me.lvPurchases.MultiSelect = False
         Me.lvPurchases.Name = "lvPurchases"
-        Me.lvPurchases.ReadOnly = True
         Me.lvPurchases.RowHeadersVisible = False
         Me.lvPurchases.Size = New System.Drawing.Size(1121, 542)
         Me.lvPurchases.TabIndex = 4
         '
+        'IDDataGridViewTextBoxColumn
+        '
+        Me.IDDataGridViewTextBoxColumn.DataPropertyName = "ID"
+        Me.IDDataGridViewTextBoxColumn.HeaderText = "ID"
+        Me.IDDataGridViewTextBoxColumn.Name = "IDDataGridViewTextBoxColumn"
+        Me.IDDataGridViewTextBoxColumn.ReadOnly = True
+        Me.IDDataGridViewTextBoxColumn.Width = 53
+        '
+        'PAGODataGridViewCheckBoxColumn
+        '
+        Me.PAGODataGridViewCheckBoxColumn.DataPropertyName = "PAGO"
+        Me.PAGODataGridViewCheckBoxColumn.HeaderText = "PAGO"
+        Me.PAGODataGridViewCheckBoxColumn.Name = "PAGODataGridViewCheckBoxColumn"
+        Me.PAGODataGridViewCheckBoxColumn.Width = 62
+        '
+        'TOTALDataGridViewTextBoxColumn
+        '
+        Me.TOTALDataGridViewTextBoxColumn.DataPropertyName = "TOTAL"
+        Me.TOTALDataGridViewTextBoxColumn.HeaderText = "TOTAL"
+        Me.TOTALDataGridViewTextBoxColumn.Name = "TOTALDataGridViewTextBoxColumn"
+        Me.TOTALDataGridViewTextBoxColumn.ReadOnly = True
+        Me.TOTALDataGridViewTextBoxColumn.Width = 91
+        '
+        'DATADataGridViewTextBoxColumn
+        '
+        Me.DATADataGridViewTextBoxColumn.DataPropertyName = "DATA"
+        Me.DATADataGridViewTextBoxColumn.HeaderText = "DATA"
+        Me.DATADataGridViewTextBoxColumn.Name = "DATADataGridViewTextBoxColumn"
+        Me.DATADataGridViewTextBoxColumn.ReadOnly = True
+        Me.DATADataGridViewTextBoxColumn.Width = 81
+        '
+        'COMPRADataGridViewTextBoxColumn
+        '
+        Me.COMPRADataGridViewTextBoxColumn.DataPropertyName = "COMPRA"
+        Me.COMPRADataGridViewTextBoxColumn.HeaderText = "COMPRA"
+        Me.COMPRADataGridViewTextBoxColumn.Name = "COMPRADataGridViewTextBoxColumn"
+        Me.COMPRADataGridViewTextBoxColumn.ReadOnly = True
+        Me.COMPRADataGridViewTextBoxColumn.Width = 108
+        '
+        'PREÇOSDataGridViewTextBoxColumn
+        '
+        Me.PREÇOSDataGridViewTextBoxColumn.DataPropertyName = "PREÇOS"
+        Me.PREÇOSDataGridViewTextBoxColumn.HeaderText = "PREÇOS"
+        Me.PREÇOSDataGridViewTextBoxColumn.Name = "PREÇOSDataGridViewTextBoxColumn"
+        Me.PREÇOSDataGridViewTextBoxColumn.ReadOnly = True
+        Me.PREÇOSDataGridViewTextBoxColumn.Width = 103
+        '
+        'OBSDataGridViewTextBoxColumn
+        '
+        Me.OBSDataGridViewTextBoxColumn.DataPropertyName = "OBS"
+        Me.OBSDataGridViewTextBoxColumn.HeaderText = "OBS"
+        Me.OBSDataGridViewTextBoxColumn.Name = "OBSDataGridViewTextBoxColumn"
+        Me.OBSDataGridViewTextBoxColumn.ReadOnly = True
+        Me.OBSDataGridViewTextBoxColumn.Width = 68
+        '
+        'OrderRegistrySchema
+        '
+        Me.OrderRegistrySchema.DataSetName = "OrderRegistry"
+        Me.OrderRegistrySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.Transparent
-        Me.TabPage3.Controls.Add(Me.lvOrders)
+        Me.TabPage3.Controls.Add(Me.lvSales)
         Me.TabPage3.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabPage3.Location = New System.Drawing.Point(4, 34)
         Me.TabPage3.Name = "TabPage3"
@@ -250,30 +336,144 @@ Partial Class MainForm
         Me.TabPage3.TabIndex = 1
         Me.TabPage3.Text = "Histórico de Saídas"
         '
-        'lvOrders
+        'lvSales
         '
-        Me.lvOrders.AllowUserToAddRows = False
-        Me.lvOrders.AllowUserToDeleteRows = False
-        Me.lvOrders.AllowUserToOrderColumns = True
-        Me.lvOrders.AllowUserToResizeRows = False
-        Me.lvOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.lvOrders.BackgroundColor = System.Drawing.SystemColors.Control
-        Me.lvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.Red
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.lvOrders.DefaultCellStyle = DataGridViewCellStyle28
-        Me.lvOrders.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvOrders.Location = New System.Drawing.Point(0, 0)
-        Me.lvOrders.MultiSelect = False
-        Me.lvOrders.Name = "lvOrders"
-        Me.lvOrders.RowHeadersVisible = False
-        Me.lvOrders.Size = New System.Drawing.Size(1121, 542)
-        Me.lvOrders.TabIndex = 4
+        Me.lvSales.AllowUserToAddRows = False
+        Me.lvSales.AllowUserToDeleteRows = False
+        Me.lvSales.AllowUserToOrderColumns = True
+        Me.lvSales.AllowUserToResizeRows = False
+        Me.lvSales.AutoGenerateColumns = False
+        Me.lvSales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.lvSales.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.lvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.lvSales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IDDataGridViewTextBoxColumn1, Me.PAGODataGridViewCheckBoxColumn1, Me.TOTALDataGridViewTextBoxColumn1, Me.CLIENTEDataGridViewTextBoxColumn, Me.ITENSDataGridViewTextBoxColumn, Me.DATA1DataGridViewTextBoxColumn, Me.RESP1DataGridViewTextBoxColumn, Me.PEDIDODataGridViewTextBoxColumn, Me.PREÇOSDataGridViewTextBoxColumn1, Me.DATA2DataGridViewTextBoxColumn, Me.RESP2DataGridViewTextBoxColumn, Me.RECOLHIDODataGridViewTextBoxColumn, Me.CHOPEIRADataGridViewTextBoxColumn, Me.OBSDataGridViewTextBoxColumn1})
+        Me.lvSales.DataMember = "SalesTable"
+        Me.lvSales.DataSource = Me.OrderRegistrySchema
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Century", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Red
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.lvSales.DefaultCellStyle = DataGridViewCellStyle4
+        Me.lvSales.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvSales.Location = New System.Drawing.Point(0, 0)
+        Me.lvSales.MultiSelect = False
+        Me.lvSales.Name = "lvSales"
+        Me.lvSales.RowHeadersVisible = False
+        Me.lvSales.Size = New System.Drawing.Size(1121, 542)
+        Me.lvSales.TabIndex = 4
+        '
+        'IDDataGridViewTextBoxColumn1
+        '
+        Me.IDDataGridViewTextBoxColumn1.DataPropertyName = "ID"
+        Me.IDDataGridViewTextBoxColumn1.HeaderText = "ID"
+        Me.IDDataGridViewTextBoxColumn1.Name = "IDDataGridViewTextBoxColumn1"
+        Me.IDDataGridViewTextBoxColumn1.ReadOnly = True
+        Me.IDDataGridViewTextBoxColumn1.Width = 53
+        '
+        'PAGODataGridViewCheckBoxColumn1
+        '
+        Me.PAGODataGridViewCheckBoxColumn1.DataPropertyName = "PAGO"
+        Me.PAGODataGridViewCheckBoxColumn1.HeaderText = "PAGO"
+        Me.PAGODataGridViewCheckBoxColumn1.Name = "PAGODataGridViewCheckBoxColumn1"
+        Me.PAGODataGridViewCheckBoxColumn1.Width = 62
+        '
+        'TOTALDataGridViewTextBoxColumn1
+        '
+        Me.TOTALDataGridViewTextBoxColumn1.DataPropertyName = "TOTAL"
+        Me.TOTALDataGridViewTextBoxColumn1.HeaderText = "TOTAL"
+        Me.TOTALDataGridViewTextBoxColumn1.Name = "TOTALDataGridViewTextBoxColumn1"
+        Me.TOTALDataGridViewTextBoxColumn1.ReadOnly = True
+        Me.TOTALDataGridViewTextBoxColumn1.Width = 91
+        '
+        'CLIENTEDataGridViewTextBoxColumn
+        '
+        Me.CLIENTEDataGridViewTextBoxColumn.DataPropertyName = "CLIENTE"
+        Me.CLIENTEDataGridViewTextBoxColumn.HeaderText = "CLIENTE"
+        Me.CLIENTEDataGridViewTextBoxColumn.Name = "CLIENTEDataGridViewTextBoxColumn"
+        Me.CLIENTEDataGridViewTextBoxColumn.ReadOnly = True
+        Me.CLIENTEDataGridViewTextBoxColumn.Width = 112
+        '
+        'ITENSDataGridViewTextBoxColumn
+        '
+        Me.ITENSDataGridViewTextBoxColumn.DataPropertyName = "ITENS"
+        Me.ITENSDataGridViewTextBoxColumn.HeaderText = "ITENS"
+        Me.ITENSDataGridViewTextBoxColumn.Name = "ITENSDataGridViewTextBoxColumn"
+        Me.ITENSDataGridViewTextBoxColumn.ReadOnly = True
+        Me.ITENSDataGridViewTextBoxColumn.Width = 87
+        '
+        'DATA1DataGridViewTextBoxColumn
+        '
+        Me.DATA1DataGridViewTextBoxColumn.DataPropertyName = "DATA1"
+        Me.DATA1DataGridViewTextBoxColumn.HeaderText = "DATA1"
+        Me.DATA1DataGridViewTextBoxColumn.Name = "DATA1DataGridViewTextBoxColumn"
+        Me.DATA1DataGridViewTextBoxColumn.ReadOnly = True
+        Me.DATA1DataGridViewTextBoxColumn.Width = 90
+        '
+        'RESP1DataGridViewTextBoxColumn
+        '
+        Me.RESP1DataGridViewTextBoxColumn.DataPropertyName = "RESP1"
+        Me.RESP1DataGridViewTextBoxColumn.HeaderText = "RESP1"
+        Me.RESP1DataGridViewTextBoxColumn.Name = "RESP1DataGridViewTextBoxColumn"
+        Me.RESP1DataGridViewTextBoxColumn.ReadOnly = True
+        Me.RESP1DataGridViewTextBoxColumn.Width = 88
+        '
+        'PEDIDODataGridViewTextBoxColumn
+        '
+        Me.PEDIDODataGridViewTextBoxColumn.DataPropertyName = "PEDIDO"
+        Me.PEDIDODataGridViewTextBoxColumn.HeaderText = "PEDIDO"
+        Me.PEDIDODataGridViewTextBoxColumn.Name = "PEDIDODataGridViewTextBoxColumn"
+        Me.PEDIDODataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'PREÇOSDataGridViewTextBoxColumn1
+        '
+        Me.PREÇOSDataGridViewTextBoxColumn1.DataPropertyName = "PREÇOS"
+        Me.PREÇOSDataGridViewTextBoxColumn1.HeaderText = "PREÇOS"
+        Me.PREÇOSDataGridViewTextBoxColumn1.Name = "PREÇOSDataGridViewTextBoxColumn1"
+        Me.PREÇOSDataGridViewTextBoxColumn1.ReadOnly = True
+        Me.PREÇOSDataGridViewTextBoxColumn1.Width = 103
+        '
+        'DATA2DataGridViewTextBoxColumn
+        '
+        Me.DATA2DataGridViewTextBoxColumn.DataPropertyName = "DATA2"
+        Me.DATA2DataGridViewTextBoxColumn.HeaderText = "DATA2"
+        Me.DATA2DataGridViewTextBoxColumn.Name = "DATA2DataGridViewTextBoxColumn"
+        Me.DATA2DataGridViewTextBoxColumn.ReadOnly = True
+        Me.DATA2DataGridViewTextBoxColumn.Width = 90
+        '
+        'RESP2DataGridViewTextBoxColumn
+        '
+        Me.RESP2DataGridViewTextBoxColumn.DataPropertyName = "RESP2"
+        Me.RESP2DataGridViewTextBoxColumn.HeaderText = "RESP2"
+        Me.RESP2DataGridViewTextBoxColumn.Name = "RESP2DataGridViewTextBoxColumn"
+        Me.RESP2DataGridViewTextBoxColumn.ReadOnly = True
+        Me.RESP2DataGridViewTextBoxColumn.Width = 88
+        '
+        'RECOLHIDODataGridViewTextBoxColumn
+        '
+        Me.RECOLHIDODataGridViewTextBoxColumn.DataPropertyName = "RECOLHIDO"
+        Me.RECOLHIDODataGridViewTextBoxColumn.HeaderText = "RECOLHIDO"
+        Me.RECOLHIDODataGridViewTextBoxColumn.Name = "RECOLHIDODataGridViewTextBoxColumn"
+        Me.RECOLHIDODataGridViewTextBoxColumn.ReadOnly = True
+        Me.RECOLHIDODataGridViewTextBoxColumn.Width = 137
+        '
+        'CHOPEIRADataGridViewTextBoxColumn
+        '
+        Me.CHOPEIRADataGridViewTextBoxColumn.DataPropertyName = "CHOPEIRA"
+        Me.CHOPEIRADataGridViewTextBoxColumn.HeaderText = "CHOPEIRA"
+        Me.CHOPEIRADataGridViewTextBoxColumn.Name = "CHOPEIRADataGridViewTextBoxColumn"
+        Me.CHOPEIRADataGridViewTextBoxColumn.ReadOnly = True
+        Me.CHOPEIRADataGridViewTextBoxColumn.Width = 125
+        '
+        'OBSDataGridViewTextBoxColumn1
+        '
+        Me.OBSDataGridViewTextBoxColumn1.DataPropertyName = "OBS"
+        Me.OBSDataGridViewTextBoxColumn1.HeaderText = "OBS"
+        Me.OBSDataGridViewTextBoxColumn1.Name = "OBSDataGridViewTextBoxColumn1"
+        Me.OBSDataGridViewTextBoxColumn1.ReadOnly = True
+        Me.OBSDataGridViewTextBoxColumn1.Width = 68
         '
         'split
         '
@@ -315,7 +515,7 @@ Partial Class MainForm
         '
         Me.EmpresaToolStripComboBox.AutoSize = False
         Me.EmpresaToolStripComboBox.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmpresaToolStripComboBox.Items.AddRange(New Object() {"L'jaica", "ChoppExpress"})
+        Me.EmpresaToolStripComboBox.Items.AddRange(New Object() {"ChoppExpress", "L'jaica"})
         Me.EmpresaToolStripComboBox.Name = "EmpresaToolStripComboBox"
         Me.EmpresaToolStripComboBox.Size = New System.Drawing.Size(190, 33)
         '
@@ -406,6 +606,7 @@ Partial Class MainForm
         Me.picLogoCE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picLogoCE.TabIndex = 4
         Me.picLogoCE.TabStop = False
+        Me.picLogoCE.Visible = False
         '
         'lblTitle
         '
@@ -439,6 +640,7 @@ Partial Class MainForm
         Me.picLogoLJ.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picLogoLJ.TabIndex = 4
         Me.picLogoLJ.TabStop = False
+        Me.picLogoLJ.Visible = False
         '
         'btnSync
         '
@@ -481,19 +683,19 @@ Partial Class MainForm
         'ShowToolStripMenuItem
         '
         Me.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem"
-        Me.ShowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ShowToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
         Me.ShowToolStripMenuItem.Text = "Show"
         '
         'HideToolStripMenuItem
         '
         Me.HideToolStripMenuItem.Name = "HideToolStripMenuItem"
-        Me.HideToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.HideToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
         Me.HideToolStripMenuItem.Text = "Hide"
         '
         'ExitStripMenuItem
         '
         Me.ExitStripMenuItem.Name = "ExitStripMenuItem"
-        Me.ExitStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitStripMenuItem.Size = New System.Drawing.Size(103, 22)
         Me.ExitStripMenuItem.Text = "Exit"
         '
         'MainForm
@@ -523,8 +725,9 @@ Partial Class MainForm
         CType(Me.ProductStockSchema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         CType(Me.lvPurchases, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.OrderRegistrySchema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage3.ResumeLayout(False)
-        CType(Me.lvOrders, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lvSales, System.ComponentModel.ISupportInitialize).EndInit()
         Me.menu.ResumeLayout(False)
         Me.menu.PerformLayout()
         CType(Me.picLogoCE, System.ComponentModel.ISupportInitialize).EndInit()
@@ -556,7 +759,7 @@ Partial Class MainForm
     Friend WithEvents InventoryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnSync As PictureBox
     Friend WithEvents bgw As System.ComponentModel.BackgroundWorker
-    Friend WithEvents lvOrders As DataGridView
+    Friend WithEvents lvSales As DataGridView
     Friend WithEvents EmpresaToolStripComboBox As ToolStripComboBox
     Friend WithEvents lblSync As Label
     Friend WithEvents ProductStockSchema As StockLib.ProductStock
@@ -574,4 +777,26 @@ Partial Class MainForm
     Friend WithEvents ShowToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HideToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitStripMenuItem As ToolStripMenuItem
+    Friend WithEvents IDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PAGODataGridViewCheckBoxColumn As DataGridViewCheckBoxColumn
+    Friend WithEvents TOTALDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DATADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents COMPRADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PREÇOSDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents OBSDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents OrderRegistrySchema As StockLib.OrderRegistry
+    Friend WithEvents IDDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents PAGODataGridViewCheckBoxColumn1 As DataGridViewCheckBoxColumn
+    Friend WithEvents TOTALDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents CLIENTEDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ITENSDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DATA1DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents RESP1DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PEDIDODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PREÇOSDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents DATA2DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents RESP2DataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents RECOLHIDODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents CHOPEIRADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents OBSDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
 End Class

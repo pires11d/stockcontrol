@@ -20,15 +20,19 @@ Public Class MainForm
     Public rowAdded As Boolean = False
 
     Private Sub MainForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+
         Me.WindowState = FormWindowState.Minimized
         Me.WindowState = FormWindowState.Maximized
+
     End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        EmpresaToolStripComboBox.SelectedIndex = 0
-        Main.Start()
-        LoadTables()
+        EmpresaToolStripComboBox.SelectedText = ""
+
+        For Each item In menu.Items
+            item.Enabled = Equals(item, EmpresaToolStripComboBox)
+        Next
 
     End Sub
 
@@ -51,13 +55,46 @@ Public Class MainForm
             Next i
         End With
 
-        'LOADS PURCHASES TABLE INTO DATAGRIDVIEW
-        lvPurchases.DataSource = tablePurchases
+        'LOADS PURCHASES TABLE INTO DATAGRIDVIEW 
+        OrderRegistrySchema.PurchasesTable.Clear()
+        With tablePurchases
+            For i = 0 To .Rows.Count - 1
+                OrderRegistrySchema.PurchasesTable.AddPurchasesTableRow(.Rows(i).Item(0),
+                                                                        .Rows(i).Item(6).ToString.ToBoolNotNull,
+                                                                        CDbl(.Rows(i).Item(4)),
+                                                                        .Rows(i).Item(1),
+                                                                        .Rows(i).Item(2),
+                                                                        .Rows(i).Item(3),
+                                                                        .Rows(i).Item(5))
+            Next
+        End With
 
         'LOADS ORDERS TABLE INTO DATAGRIDVIEW
-        lvOrders.DataSource = tableOrders
+        OrderRegistrySchema.SalesTable.Clear()
+        With tableOrders
+            For i = 0 To .Rows.Count - 1
+                OrderRegistrySchema.SalesTable.AddSalesTableRow(CInt(.Rows(i).Item(0)),
+                                                                .Rows(i).Item(13).ToString.ToBoolNotNull,
+                                                                CDbl(.Rows(i).Item(11)),
+                                                                .Rows(i).Item(1),
+                                                                .Rows(i).Item(2),
+                                                                .Rows(i).Item(3),
+                                                                .Rows(i).Item(4),
+                                                                .Rows(i).Item(9),
+                                                                .Rows(i).Item(10),
+                                                                .Rows(i).Item(5),
+                                                                .Rows(i).Item(6),
+                                                                .Rows(i).Item(7),
+                                                                .Rows(i).Item(8),
+                                                                .Rows(i).Item(12))
+            Next i
+        End With
 
         ApplyStylesToTables()
+
+        For Each item In menu.Items
+            item.Enabled = True
+        Next
 
     End Sub
 
@@ -66,15 +103,31 @@ Public Class MainForm
         lvStock.Columns(4).DefaultCellStyle.Format = "0.00"
         lvStock.Columns(5).DefaultCellStyle.Format = "0.00"
         lvStock.Columns(6).DefaultCellStyle.Format = "R$ 0.00"
+        lvSales.Columns(2).DefaultCellStyle.Format = "R$ 0.00"
+        lvPurchases.Columns(2).DefaultCellStyle.Format = "R$ 0.00"
         lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvPurchases.DefaultCellStyle.Font = New Font(fontName, 12)
         lvPurchases.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
-        lvOrders.DefaultCellStyle.Font = New Font(fontName, 12)
-        lvOrders.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
+        lvSales.DefaultCellStyle.Font = New Font(fontName, 12)
+        lvSales.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
 
         FormatStock()
+        FormatPurchases()
+        FormatSales()
 
+    End Sub
+
+    Public Sub FormatPurchases()
+        For i = 0 To lvPurchases.Rows.Count - 1
+            FormatPayment(lvPurchases, i, lvPurchases.Item(1, i).Value)
+        Next
+    End Sub
+
+    Public Sub FormatSales()
+        For i = 0 To lvSales.Rows.Count - 1
+            FormatPayment(lvSales, i, lvSales.Item(1, i).Value)
+        Next
     End Sub
 
     Public Sub FormatStock()
@@ -136,8 +189,8 @@ Public Class MainForm
 
 
         split.BackColor = Color.Black
-        lvOrders.DefaultCellStyle.BackColor = orangeColor
-        lvOrders.DefaultCellStyle.SelectionBackColor = orangeColor
+        lvSales.DefaultCellStyle.BackColor = orangeColor
+        lvSales.DefaultCellStyle.SelectionBackColor = orangeColor
         lvPurchases.DefaultCellStyle.BackColor = blueColor
         lvPurchases.DefaultCellStyle.SelectionBackColor = blueColor
 
@@ -191,8 +244,15 @@ Public Class MainForm
     Private Sub lvStock_Sorted(sender As Object, e As EventArgs) Handles lvStock.Sorted
         FormatStock()
     End Sub
+    Private Sub lvPurchases_Sorted(sender As Object, e As EventArgs) Handles lvPurchases.Sorted
+        FormatPurchases()
+    End Sub
+    Private Sub lvSales_Sorted(sender As Object, e As EventArgs) Handles lvSales.Sorted
+        FormatSales()
+    End Sub
 
     Private Sub lvStock_CellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles lvStock.CellEndEdit
+
         Dim pCode As String
         Try
             pCode = lvStock.Item(0, e.RowIndex).Value.ToString
@@ -206,13 +266,11 @@ Public Class MainForm
                 Try
                     Main.products(pCode).Cost = CDbl(lvStock.Item(e.ColumnIndex, e.RowIndex).Value)
                 Catch ex As Exception
-
                 End Try
             Case 5 'CUSTO    
                 Try
                     Main.products(pCode).Price = CDbl(lvStock.Item(e.ColumnIndex, e.RowIndex).Value)
                 Catch ex As Exception
-
                 End Try
 
         End Select
@@ -224,20 +282,6 @@ Public Class MainForm
     Private Sub lvClients_Change(sender As Object, e As DataGridViewCellEventArgs)
         Try
             WriteCSV(tableClients, NameOf(tableClients), "|", True)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub lvOrders_Change(sender As Object, e As DataGridViewCellEventArgs)
-        Try
-            WriteCSV(tableOrders, NameOf(tableOrders), "|", True)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub lvPurchases_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles lvPurchases.CellLeave
-        Try
-            WriteCSV(tablePurchases, NameOf(tablePurchases), "|", True)
         Catch ex As Exception
 
         End Try
@@ -314,16 +358,12 @@ Public Class MainForm
 
         Main.companyName = EmpresaToolStripComboBox.Text
 
-        If Main.companyName = "ChoppExpress" Then
+        If Main.companyName = "ChoppExpress" Or Main.companyName = "L'jaica" Then
             Dim loginForm As New LoginForm
             loginForm.Show()
-            Exit Sub
+            loginForm.BringToFront()
         End If
 
-        Main.Start()
-        LoadTables()
-        ChangePics()
-        ChangeColors()
     End Sub
 
     Private Sub MainForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
@@ -333,11 +373,9 @@ Public Class MainForm
     End Sub
 
     Private Sub lvStock_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles lvStock.CellFormatting
-
         If {6}.Contains(e.ColumnIndex) And e.Value.ToString = "0" Then
             e.Value = "-"
         End If
-
     End Sub
 
     Private Sub GraphToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GraphToolStripMenuItem.Click
@@ -346,11 +384,8 @@ Public Class MainForm
     End Sub
 
     Private Sub notifyIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles notifyIcon.MouseDoubleClick
-
-    End Sub
-
-    Private Sub contextMenu_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles contextMenu.Opening
-
+        Show()
+        WindowState = FormWindowState.Normal
     End Sub
 
     Private Sub ShowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowToolStripMenuItem.Click
@@ -365,6 +400,110 @@ Public Class MainForm
 
     Private Sub ExitStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitStripMenuItem.Click
         Application.Exit()
+    End Sub
+
+    Private Sub lvSales_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles lvSales.CellMouseUp
+        If e.ColumnIndex = 1 Then
+            Try
+                lvSales.Item(1, e.RowIndex).Value = Not lvSales.Item(1, e.RowIndex).Value
+
+                Dim id = lvSales.Item(0, e.RowIndex).Value.ToString
+                Dim paid = lvSales.Item(1, e.RowIndex).Value.ToString.ToBoolNotNull
+                FormatPayment(lvSales, e.RowIndex, paid)
+                PaySale(id, paid)
+                lvSales.RefreshEdit()
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub lvPurchases_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles lvPurchases.CellMouseUp
+        If e.ColumnIndex = 1 Then
+            Try
+                lvPurchases.Item(1, e.RowIndex).Value = Not lvPurchases.Item(1, e.RowIndex).Value
+
+                Dim id = lvPurchases.Item(0, e.RowIndex).Value.ToString
+                Dim paid = lvPurchases.Item(1, e.RowIndex).Value.ToString.ToBoolNotNull
+                FormatPayment(lvPurchases, e.RowIndex, paid)
+                PayPurchase(id, paid)
+                lvPurchases.RefreshEdit()
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub lvSales_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvSales.CellDoubleClick
+        If e.ColumnIndex = 1 Then
+            Try
+                lvSales.Item(1, e.RowIndex).Value = Not lvSales.Item(1, e.RowIndex).Value
+
+                Dim id = lvSales.Item(0, e.RowIndex).Value.ToString
+                Dim paid = lvSales.Item(1, e.RowIndex).Value.ToString.ToBoolNotNull
+                FormatPayment(lvSales, e.RowIndex, paid)
+                PaySale(id, paid)
+                lvSales.RefreshEdit()
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub lvPurchases_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvPurchases.CellDoubleClick
+        If e.ColumnIndex = 1 Then
+            Try
+                lvPurchases.Item(1, e.RowIndex).Value = Not lvPurchases.Item(1, e.RowIndex).Value
+
+                Dim id = lvPurchases.Item(0, e.RowIndex).Value.ToString
+                Dim paid = lvPurchases.Item(1, e.RowIndex).Value.ToString.ToBoolNotNull
+                FormatPayment(lvPurchases, e.RowIndex, paid)
+                PayPurchase(id, paid)
+                lvPurchases.RefreshEdit()
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Public Sub FormatPayment(dgv As DataGridView, row As Integer, state As Boolean)
+
+        For col = 0 To dgv.Columns.Count - 1
+            If state Then
+                dgv.Item(col, row).Style.ForeColor = Color.Black
+                'dgv.Item(col, row).Style.Font = New Font(dgv.Item(col, row).Style.Font, FontStyle.Regular)
+            Else
+                dgv.Item(col, row).Style.ForeColor = Color.Red
+                'dgv.Item(col, row).Style.Font = New Font(dgv.Item(col, row).Style.Font, FontStyle.Bold)
+            End If
+        Next
+
+    End Sub
+
+    Public Sub PayPurchase(id As String, paid As Boolean)
+
+        Main.purchases(id).Paid = paid
+        For Each p In Main.products.Values
+            If p.Purchases.ContainsKey(id) Then
+                p.Purchases(id).Paid = paid
+            End If
+        Next
+
+        Main.UpdateTables()
+
+    End Sub
+
+    Public Sub PaySale(id As String, paid As Boolean)
+
+        Main.sales(id).Paid = paid
+        For Each p In Main.products.Values
+            If p.Sales.ContainsKey(id) Then
+                p.Sales(id).Paid = paid
+            End If
+        Next
+
+        Main.UpdateTables()
+
     End Sub
 
 End Class

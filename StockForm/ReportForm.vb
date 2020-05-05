@@ -105,8 +105,8 @@ Public Class ReportForm
             Dim monthSales = p.Sales.Values.Where(Function(x) x.SellingDate >= firstDay And x.SellingDate <= lastDay)
             Dim monthQttyIn = monthPurchases.Sum(Function(y) y.Quantity)
             Dim monthQttyOut = monthSales.Sum(Function(x) x.Quantity)
-            Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value)
-            Dim monthMoneyIn = monthSales.Sum(Function(x) x.Value)
+            Dim monthMoneyOut = monthPurchases.Sum(Function(y) y.Value * CInt(y.Paid))
+            Dim monthMoneyIn = monthSales.Sum(Function(x) x.Value * CInt(x.Paid))
 
             ProductStockSchema.BalanceTable.AddBalanceTableRow(p.Brand,
                                                                p.Code,

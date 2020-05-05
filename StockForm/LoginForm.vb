@@ -6,26 +6,35 @@
 ''' </summary>
 Public Class LoginForm
 
-    Private passwordLJ As String = "positividade"
-    Private passwordCE As String = "pires223"
-
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Me.AcceptButton = btnConfirm
+
     End Sub
 
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
-        If tbPass.Text = passwordCE Then
+        If tbPass.Text = Main.passwordCE And Main.companyName = "ChoppExpress" Then
 
             Main.Start()
-            MainForm.LoadTables()
+            Main.GetTables()
             MainForm.ChangePics()
             MainForm.ChangeColors()
+            MainForm.LoadTables()
+
+        ElseIf tbPass.Text = Main.passwordLJ And Main.companyName = "L'jaica" Then
+
+            Main.Start()
+            Main.GetTables()
+            MainForm.ChangePics()
+            MainForm.ChangeColors()
+            MainForm.LoadTables()
 
         Else
 
             MsgBox("Senha incorreta.", MsgBoxStyle.Critical, "Erro")
-            MainForm.EmpresaToolStripComboBox.SelectedIndex = 0
+            MainForm.EmpresaToolStripComboBox.Text = ""
+            'Application.Exit()
 
         End If
 

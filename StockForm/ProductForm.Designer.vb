@@ -25,6 +25,7 @@ Partial Class ProductForm
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductForm))
         Me.lvHistory = New System.Windows.Forms.DataGridView()
+        Me.ProductHistorySchema = New StockLib.ProductHistory()
         Me.NDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DATADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -35,7 +36,6 @@ Partial Class ProductForm
         Me.ENTRADADataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SAÍDADataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SALDODataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductHistorySchema = New StockLib.ProductHistory()
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ProductHistorySchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -69,12 +69,18 @@ Partial Class ProductForm
         Me.lvHistory.Size = New System.Drawing.Size(1284, 281)
         Me.lvHistory.TabIndex = 3
         '
+        'ProductHistorySchema
+        '
+        Me.ProductHistorySchema.DataSetName = "ProductHistory"
+        Me.ProductHistorySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'NDataGridViewTextBoxColumn
         '
         Me.NDataGridViewTextBoxColumn.DataPropertyName = "N"
         Me.NDataGridViewTextBoxColumn.FillWeight = 40.0!
         Me.NDataGridViewTextBoxColumn.HeaderText = "N"
         Me.NDataGridViewTextBoxColumn.Name = "NDataGridViewTextBoxColumn"
+        Me.NDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
         '
         'DATADataGridViewTextBoxColumn
         '
@@ -136,12 +142,7 @@ Partial Class ProductForm
         Me.SALDODataGridViewTextBoxColumn1.HeaderText = "SALDO($)"
         Me.SALDODataGridViewTextBoxColumn1.Name = "SALDODataGridViewTextBoxColumn1"
         '
-        'ProductHistorySchema
-        '
-        Me.ProductHistorySchema.DataSetName = "ProductHistory"
-        Me.ProductHistorySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'HistoryProductForm
+        'ProductForm
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.AutoScroll = True
@@ -152,7 +153,7 @@ Partial Class ProductForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.MaximumSize = New System.Drawing.Size(2491, 1273)
-        Me.Name = "HistoryProductForm"
+        Me.Name = "ProductForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Histórico"
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).EndInit()

@@ -602,6 +602,7 @@ Partial Class OrderForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ClientSize = New System.Drawing.Size(1008, 689)
         Me.Controls.Add(Me.tbDiscount)
         Me.Controls.Add(Me.cbDiscount)
@@ -647,6 +648,7 @@ Partial Class OrderForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.menu
         Me.Margin = New System.Windows.Forms.Padding(5)
+        Me.MinimumSize = New System.Drawing.Size(1024, 726)
         Me.Name = "OrderForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Formulário"

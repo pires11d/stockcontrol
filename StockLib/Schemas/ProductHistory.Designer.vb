@@ -455,9 +455,9 @@ Partial Public Class ProductHistory
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overloads Function AddHistoryTableRow(ByVal N As Integer, ByVal DATA As String, ByVal ID As String, ByVal DESCRIÇÃO As String, ByVal ENTRADA As Double, ByVal SAÍDA As Double, ByVal SALDO As Double, ByVal _ENTRADA___ As Double, ByVal _SAÍDA___ As Double, ByVal _SALDO___ As Double) As HistoryTableRow
+        Public Overloads Function AddHistoryTableRow(ByVal DATA As String, ByVal ID As String, ByVal DESCRIÇÃO As String, ByVal ENTRADA As Double, ByVal SAÍDA As Double, ByVal SALDO As Double, ByVal _ENTRADA___ As Double, ByVal _SAÍDA___ As Double, ByVal _SALDO___ As Double) As HistoryTableRow
             Dim rowHistoryTableRow As HistoryTableRow = CType(Me.NewRow,HistoryTableRow)
-            Dim columnValuesArray() As Object = New Object() {N, DATA, ID, DESCRIÇÃO, ENTRADA, SAÍDA, SALDO, _ENTRADA___, _SAÍDA___, _SALDO___}
+            Dim columnValuesArray() As Object = New Object() {Nothing, DATA, ID, DESCRIÇÃO, ENTRADA, SAÍDA, SALDO, _ENTRADA___, _SAÍDA___, _SALDO___}
             rowHistoryTableRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowHistoryTableRow)
             Return rowHistoryTableRow
@@ -521,7 +521,11 @@ Partial Public Class ProductHistory
             Me._columnSALDO___.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnSALDO___")
             Me._columnSALDO___.ExtendedProperties.Add("Generator_UserColumnName", "SALDO($)")
             MyBase.Columns.Add(Me._columnSALDO___)
-            Me.columnN.DefaultValue = CType(0,Integer)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnN}, false))
+            Me.columnN.AutoIncrement = true
+            Me.columnN.AllowDBNull = false
+            Me.columnN.ReadOnly = true
+            Me.columnN.Unique = true
             Me.columnENTRADA.DefaultValue = CType(0R,Double)
             Me.columnSAÍDA.DefaultValue = CType(0R,Double)
             Me.columnSALDO.DefaultValue = CType(0R,Double)
@@ -676,11 +680,7 @@ Partial Public Class ProductHistory
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Property N() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableHistoryTable.NColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'N' in table 'HistoryTable' is DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableHistoryTable.NColumn),Integer)
             End Get
             Set
                 Me(Me.tableHistoryTable.NColumn) = value
@@ -821,18 +821,6 @@ Partial Public Class ProductHistory
                 Me(Me.tableHistoryTable._SALDO___Column) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Function IsNNull() As Boolean
-            Return Me.IsNull(Me.tableHistoryTable.NColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Sub SetNNull()
-            Me(Me.tableHistoryTable.NColumn) = Global.System.Convert.DBNull
-        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
