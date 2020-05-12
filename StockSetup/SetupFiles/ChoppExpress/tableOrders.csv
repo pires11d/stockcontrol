@@ -1,13 +1,5 @@
 ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL|OBS|PAGO
 1|L'jaica||06/03/2020|Áureo|06/03/2020|Áureo|False|False|45 x Chope-IPA; 45 x Chope-Pilsen|$8.90; $5.00|625.5||True
-2|L'jaica||05/03/2020|Áureo|06/03/2020|Áureo|False|False|15 x Chope-IPA|$8.90|133.5||True
-3|Le Bateau||05/03/2020|Áureo|||False|False|15 x Chope-GermanPilsner|$12.00|180||True
-4|Parque Conta Dinheiro|T1  T2 |06/03/2020|Kaninha|07/03/2020|Lucas|True|True|240 x Chope-Pilsen|$9.00|2160||True
-5|Carlos - ATF||06/03/2020|Áureo|||False|False|2 x GLong-Pilsen; 3 x PET-Pilsen|$3.90; $15.00|52.8||True
-6|Barbosa|RR1  T2 |07/03/2020|Kaninha|09/03/2020|Kaninha|True|True|30 x Chope-Pilsen|$10.00|300||True
-7|Carlito|T1 |07/03/2020|Lucas|10/03/2020|Kaninha|True|True|30 x Chope-Pilsen|$9.00|270||True
-8|Tibério||07/03/2020|Kaninha|||False|False|1 x PET-IPA; 6 x PET-Pilsen|$20.00; $15.00|110||True
-9|Wilsinho||07/03/2020|Áureo|||False|False|6 x PET-IPA|$20.00|120||True
 10|Sandro - Telecor||09/03/2020|Kaninha|||False|False|1 x PET-Pilsen|$15.00|15||True
 11|Parrilha||07/03/2020|Kaninha|||False|False|30 x Chope-Pilsen|$10.00|300||True
 12|PJ Retífica||09/03/2020|Áureo|||False|False|60 x Chope-Pilsen|$10.00|600||True
@@ -18,6 +10,7 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 17|?||10/04/2020|Áureo|||False|False|30 x Chope-PilsenExport; 90 x Chope-Pilsen; 15 x Chope-GermanPilsner; 45 x Chope-IPA; 60 x Chope-IPA2|$8.00; $6.66; $8.00; $10.00; $10.00|2009.4||True
 18|Le Bateau||23/04/2020|Áureo|||False|False|3 x PET-IPA; 3 x PET-Pilsen|$22.00; $15.00|111||True
 19|Marcos - Calcinhas||24/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
+2|L'jaica||05/03/2020|Áureo|06/03/2020|Áureo|False|False|15 x Chope-IPA|$8.90|133.5||True
 20|Jorge - Autopeças||27/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 21|Garcia - Cadeiras||24/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 22|Bea - Mecânico||24/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
@@ -27,7 +20,8 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 26|Juliano||26/04/2020|Áureo|||False|False|1 x PET-IPA|$18.00|18||True
 27|Isauro (Caixa d'água)||26/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 28|Isauro (Caixa d'água)||27/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
-29|Jader - Despachante||28/04/2020|Áureo|||False|False|10 x PET-Pilsen|$12.00|120||True
+29|Jader - Despachante||28/04/2020|Áureo|||False|False|10 x PET-Pilsen|$12.00|120||False
+3|Le Bateau||05/03/2020|Áureo|||False|False|15 x Chope-GermanPilsner|$12.00|180||True
 30|Isauro (Caixa d'água)||30/04/2020|Áureo|||False|False|24 x PET-Pilsen|$10.00|240||True
 31|Jorge - Autopeças||01/05/2020|Áureo|||False|False|4 x PET-Pilsen|$12.00|48||True
 32|Lucas||01/05/2020|Kaninha|||False|False|1 x PET-IPA; 1 x PET-Pilsen|$15.00; $10.00|25||False
@@ -38,7 +32,28 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 37|Kaninha||02/05/2020|Áureo|||False|False|3 x PET-Pilsen|$10.00|30||True
 38|André||02/05/2020|Áureo|||False|False|2 x PET-Pilsen|$10.00|20||True
 39|Gugu||02/05/2020|Áureo|||False|False|3 x PET-Pilsen|$12.00|36||True
+4|Parque Conta Dinheiro|T1  T2 |06/03/2020|Kaninha|07/03/2020|Lucas|True|True|240 x Chope-Pilsen|$9.00|2160||True
 40|Várzea||02/05/2020|Áureo|||False|False|6 x PET-Pilsen|$12.00|72||True
 41|Zé||03/05/2020|Áureo|||False|False|1 x PET-Pilsen|$12.00|12||True
-43|Painel||03/05/2020|Kaninha|||False|False|3 x PET-Pilsen|$12.00|36||True
 42|Kaninha||03/05/2020|Kaninha|||False|False|1 x PET-Pilsen|$10.00|10||True
+44|Isauro (Caixa d'água)||06/05/2020|Kaninha|||False|False|6 x PET-Pilsen|$10.00|60||False
+45|Amigo Bea||06/05/2020|Kaninha|||False|False|10 x PET-Pilsen|$12.00|120||False
+46|Bruno - BBQ||06/05/2020|Áureo|||False|False|30 x PET-Pilsen|$9.80|294||False
+48|Isauro (Caixa d'água)||08/05/2020|Kaninha|||False|False|12 x PET-Pilsen|$10.00|120||False
+5|Carlos - ATF||06/03/2020|Áureo|||False|False|2 x GLong-Pilsen; 3 x PET-Pilsen|$3.90; $15.00|52.8||True
+6|Barbosa|RR1  T2 |07/03/2020|Kaninha|09/03/2020|Kaninha|True|True|30 x Chope-Pilsen|$10.00|300||True
+7|Carlito|T1 |07/03/2020|Lucas|10/03/2020|Kaninha|True|True|30 x Chope-Pilsen|$9.00|270||True
+8|Tibério||07/03/2020|Kaninha|||False|False|1 x PET-IPA; 6 x PET-Pilsen|$20.00; $15.00|110||True
+9|Wilsinho||07/03/2020|Áureo|||False|False|6 x PET-IPA|$20.00|120||True
+43|Painel||03/05/2020|Kaninha|||False|False|3 x PET-Pilsen|$12.00|36||True
+47|Le Bateau||06/05/2020|Áureo|||False|False|2 x PET-IPA; 4 x PET-Pilsen|$16.71; $11.14|77.98||False
+49|Painel||07/05/2020|Kaninha|||False|False|30 x Chope-Pilsen|$10.00|300||False
+50|Canani||08/05/2020|Áureo|||False|False|5 x PET-Pilsen|$12.00|60||True
+51|Chico Ouro Preto||08/05/2020|Áureo|||False|False|4 x PET-Pilsen|$12.00|48||True
+52|Amigo Petrônio||08/05/2020|Kaninha|||False|False|4 x PET-IPA|$18.00|72||True
+53|Willian||08/05/2020|Kaninha|||False|False|6 x PET-IPA|$18.00|108||True
+54|Sandro - Telecor||08/05/2020|Kaninha|||False|False|2 x PET-Pilsen|$12.00|24||True
+55|Alessandro||09/05/2020|Kaninha|||False|False|2 x PET-Pilsen|$12.00|24||True
+56|Cajubá||09/05/2020|Kaninha|||False|False|6 x PET-Pilsen|$12.00|72||True
+57|Petrônio||09/05/2020|Kaninha|||False|False|6 x PET-IPA; 6 x PET-Pilsen|$18.00; $12.00|180||True
+58|Number One||09/05/2020|Kaninha|||False|False|3 x PET-IPA; 3 x PET-Pilsen|$18.00; $12.00|90||True

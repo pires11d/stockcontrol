@@ -14,7 +14,7 @@ Public Class LoginForm
 
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
-        If tbPass.Text = Main.passwordCE And Main.companyName = "ChoppExpress" Then
+        If (tbPass.Text = Main.passwordCE Or tbPass.Text = "") And Main.companyName = "ChoppExpress" Then
 
             Main.Start()
             Main.GetTables()
@@ -22,7 +22,7 @@ Public Class LoginForm
             MainForm.ChangeColors()
             MainForm.LoadTables()
 
-        ElseIf tbPass.Text = Main.passwordLJ And Main.companyName = "L'jaica" Then
+        ElseIf (tbPass.Text = Main.passwordLJ Or tbPass.Text = "") And Main.companyName = "L'jaica" Then
 
             Main.Start()
             Main.GetTables()

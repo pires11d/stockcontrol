@@ -12,6 +12,11 @@ Public Class ProductAddForm
     Public pCost As Double = 0
     Public pPrice As Double = 0
 
+    Private Sub FormClosingEvent(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        MainForm.Show()
+        MainForm.BringToFront()
+    End Sub
+
     Private Sub NewProductForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         cbbKind.Items.Clear()

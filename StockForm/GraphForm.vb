@@ -10,11 +10,19 @@ Public Class GraphForm
     Public currentMonth As Integer = Month(Today)
     Public currentYear As Integer = Year(Today)
     Public currentValue As String = "b"
+    Public accumulatedValue As Boolean = False
+    Public days As Integer = 365
+    Public weeks As Integer = 52
+    Public months As Integer = 12
     Public firstDay As Date
     Public lastDay As Date
     Dim xList As New List(Of Date)
     Dim yList As New List(Of Double)
 
+    Private Sub FormClosingEvent(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        MainForm.Show()
+        MainForm.BringToFront()
+    End Sub
 
     ''' <summary>
     ''' 
@@ -40,14 +48,17 @@ Public Class GraphForm
     Public Sub LoadGraph()
 
         Dim n = interval
-        Dim balance = 0
+        Dim acc = 0
         xList.Clear()
         yList.Clear()
+        Dim f = New Date(currentYear, 1, 1)
+        days = IIf(Date.IsLeapYear(currentYear), 366, 365)
+        weeks = IIf(Date.IsLeapYear(currentYear), 53, 52)
 
         For i = 1 To n
 
             Select Case n
-                Case 365
+                Case days
                     Dim y = currentYear
                     Dim entry = New DateTime(currentYear, 1, 1).AddDays(i - 1)
                     'xList.Add(entry.ToString("dd/MM/yyyy"))
@@ -55,17 +66,17 @@ Public Class GraphForm
 
                     firstDay = entry
                     lastDay = entry.AddHours(23.999)
-                Case 48
+                Case weeks
                     Dim y = currentYear
-                    Dim m = Math.Ceiling(i / 4)
-                    Dim d = (i Mod 4)
-                    Dim entry = New Date(y, m, d * 7 + 1)
+                    'Dim m = Math.Ceiling(i / 4)
+                    'Dim d = (i Mod 4)
+                    Dim entry = f.AddDays(6.999 * (i - 1))
                     'xList.Add(entry.ToString("dd/MM/yyyy"))
                     xList.Add(entry)
 
-                    firstDay = New Date(y, m, 1)
-                    lastDay = New Date(y, m, d * 7 + 1)
-                Case 12
+                    firstDay = entry
+                    lastDay = entry.AddDays(6.999)
+                Case months
                     Dim y = currentYear
                     Dim m = i
                     Dim entry = New Date(y, m, 1)
@@ -85,7 +96,15 @@ Public Class GraphForm
 
             End Select
 
-            yList.Add(GetBalanceFrom(firstDay, lastDay, currentValue))
+            acc += GetBalanceFrom(firstDay, lastDay, currentValue)
+
+            If accumulatedValue Then
+                yList.Add(acc)
+            Else
+                yList.Add(GetBalanceFrom(firstDay, lastDay, currentValue))
+            End If
+
+            If lastDay > Today Then Exit For
 
         Next
 
@@ -109,19 +128,19 @@ Public Class GraphForm
 
             .Points.Clear()
             Select Case interval
-                Case > 48
+                Case > weeks
                     cht.ChartAreas.First.AxisX.Interval = 7
                     .MarkerSize = 5
                     .BorderWidth = 1
-                Case 48
+                Case weeks
                     cht.ChartAreas.First.AxisX.Interval = 1
                     .MarkerSize = 5
                     .BorderWidth = 2
-                Case 12
+                Case months
                     cht.ChartAreas.First.AxisX.Interval = 1
                     .MarkerSize = 5
                     .BorderWidth = 3
-                Case < 12
+                Case < months
                     cht.ChartAreas.First.AxisX.Interval = 1
                     .MarkerSize = 5
                     .BorderWidth = 4
@@ -130,7 +149,11 @@ Public Class GraphForm
             For i = 0 To xList.Count() - 1
                 .Points.AddXY(xList(i).ToString("dd/MM/yyyy"), yList(i))
                 .IsValueShownAsLabel = False
-                If yList(i) <> 0 Then .Points.Item(i).Label = yList(i).ToString("R$ 0")
+                If i > 0 Then
+                    If yList(i) <> yList(i - 1) Then
+                        If yList(i) <> 0 Then .Points.Item(i).Label = yList(i).ToString("R$ 0")
+                    End If
+                End If
             Next
 
         End With
@@ -139,7 +162,7 @@ Public Class GraphForm
 
     Private Sub rb0_CheckedChanged(sender As Object, e As EventArgs) Handles rb0.CheckedChanged
         If rb0.Checked Then
-            interval = 365
+            interval = days
             rb1.Checked = False
             rb2.Checked = False
             rb3.Checked = False
@@ -150,7 +173,7 @@ Public Class GraphForm
 
     Private Sub rb1_CheckedChanged(sender As Object, e As EventArgs) Handles rb1.CheckedChanged
         If rb1.Checked Then
-            interval = 48
+            interval = weeks
             rb0.Checked = False
             rb2.Checked = False
             rb3.Checked = False
@@ -161,7 +184,7 @@ Public Class GraphForm
 
     Private Sub rb2_CheckedChanged(sender As Object, e As EventArgs) Handles rb2.CheckedChanged
         If rb2.Checked Then
-            interval = 12
+            interval = months
             rb0.Checked = False
             rb1.Checked = False
             rb3.Checked = False
@@ -251,6 +274,13 @@ Public Class GraphForm
                 .Item(i).MarkerBorderColor = MainForm.primaryColor
             Next
         End With
+    End Sub
+
+    Private Sub cbAcc_CheckedChanged(sender As Object, e As EventArgs) Handles cbAcc.CheckedChanged
+
+        accumulatedValue = cbAcc.Checked
+        LoadGraph()
+
     End Sub
 
 End Class

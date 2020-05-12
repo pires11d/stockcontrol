@@ -11,6 +11,11 @@ Public Class ReportForm
     Public firstDay As Date
     Public lastDay As Date
 
+    Private Sub FormClosingEvent(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        MainForm.Show()
+        MainForm.BringToFront()
+    End Sub
+
     Private Sub ReportForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'LOADS STOCK TABLE ONLY ONCE IN THE BEGINNING

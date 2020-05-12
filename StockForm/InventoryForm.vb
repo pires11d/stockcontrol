@@ -6,6 +6,11 @@
 ''' </summary>
 Public Class InventoryForm
 
+    Private Sub FormClosingEvent(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        MainForm.Show()
+        MainForm.BringToFront()
+    End Sub
+
     Private Sub InventoryForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         LoadTreeViews()

@@ -14,6 +14,11 @@ Public Class ClientForm
         Me.WindowState = FormWindowState.Maximized
     End Sub
 
+    Private Sub FormClosingEvent(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        MainForm.Show()
+        MainForm.BringToFront()
+    End Sub
+
     Private Sub ClientForm_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
         Main.UpdateTables()
     End Sub

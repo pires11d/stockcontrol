@@ -12,7 +12,7 @@ Public Class OrderForm
     End Enum
 
     Public FormType As FormTypes
-    Public NewEntry As Boolean = False
+    Public NewOrder As Boolean = False
     Public selectedProduct As Product
     Public currentSale As Sale = Nothing
     Public currentPurchase As Purchase = Nothing
@@ -48,6 +48,8 @@ Public Class OrderForm
         tbDiscount.Enabled = False
         cbDiscount.Enabled = False
 
+        OrderToolStripMenuItem.Visible = False
+        PurchaseToolStripMenuItem.Visible = False
         InventoryToolStripMenuItem.Enabled = False
         RemoveToolStripMenuItem.Enabled = False
 
@@ -65,7 +67,7 @@ Public Class OrderForm
         tbDiscount.Enabled = True
         cbDiscount.Enabled = True
 
-        InventoryToolStripMenuItem.Enabled = True
+        OrderToolStripMenuItem.Visible = True
 
     End Sub
 
@@ -78,6 +80,8 @@ Public Class OrderForm
         tbObs.Enabled = True
         tbDiscount.Enabled = True
         cbDiscount.Enabled = True
+
+        PurchaseToolStripMenuItem.Visible = True
 
     End Sub
 
@@ -124,6 +128,9 @@ Public Class OrderForm
                 cbbResp2.Visible = True
                 datePicker2.Visible = True
 
+                OrderToolStripMenuItem.Visible = True
+                InventoryToolStripMenuItem.Enabled = True
+
             Case FormTypes.Purchase
                 Me.Text = "Compra"
                 lblID.Text = "N° da NF:"
@@ -139,6 +146,8 @@ Public Class OrderForm
                 cbbResp1.Visible = False
                 cbbResp2.Visible = False
                 datePicker2.Visible = False
+
+                PurchaseToolStripMenuItem.Visible = True
 
         End Select
 
@@ -161,6 +170,10 @@ Public Class OrderForm
             cbbResp1.Items.Add(tableOwners.Rows(r).Item(0))
             cbbResp2.Items.Add(tableOwners.Rows(r).Item(0))
         Next
+        If Main.companyName = "ChoppExpress" Then
+            cbbResp1.Text = "Kaninha"
+            cbbResp2.Text = "Kaninha"
+        End If
 
         'LOADS PRODUCTS INTO THE TREEVIEW
         tvItems.Nodes.Clear()
@@ -202,7 +215,7 @@ Public Class OrderForm
 
         DisableGenericControls()
 
-        If NewEntry Then
+        If NewOrder Then
             If tbID.Text = "" Then
                 AddToolStripMenuItem.Enabled = False
             Else
@@ -225,6 +238,15 @@ Public Class OrderForm
             'ChangeInputColors(SystemColors.Window)
 
             Exit Sub
+        Else
+
+            Select Case FormType
+                Case FormTypes.Sale
+                    OrderToolStripMenuItem.Visible = True
+                Case FormTypes.Purchase
+                    PurchaseToolStripMenuItem.Visible = True
+            End Select
+
         End If
 
         'RESETS THE CONTROL VALUES TO THEIR DEFAULTS   
@@ -413,7 +435,7 @@ Public Class OrderForm
         End Try
 
         If lvItems.Rows.Count > 0 Then
-            If NewEntry Then
+            If NewOrder Then
                 AddToolStripMenuItem.Enabled = True
             Else
                 AddToolStripMenuItem.Enabled = False
@@ -428,7 +450,7 @@ Public Class OrderForm
 
         Try
             Dim test = Convert.ToDouble(tbPrice.Text)
-            'Extensions.Stringify(tbPrice)
+            Extensions.Stringify(tbPrice)
         Catch ex As Exception
             Exit Sub
         End Try
@@ -645,12 +667,11 @@ Public Class OrderForm
         End Select
     End Sub
 
-
-    Private Sub OrderStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderStripMenuItem.Click
+    Private Sub OrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderToolStripMenuItem.Click
         FormType = FormTypes.Sale
-        NewEntry = True
+        NewOrder = True
         currentSale = New Sale(tbID.Text)
-        tbID.Text = CStr(CDbl(Main.sales.Keys.Last) + 1)
+        tbID.Text = Main.sales.Values.Select(Function(s) CInt(s.ID)).Max + 1
         cbbResp1.SelectedIndex = 0
 
         LoadControls()
@@ -663,8 +684,9 @@ Public Class OrderForm
     End Sub
 
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
+
         FormType = FormTypes.Purchase
-        NewEntry = True
+        NewOrder = True
         currentPurchase = New Purchase("")
         tbID.Text = ""
 
@@ -678,6 +700,8 @@ Public Class OrderForm
         InventoryToolStripMenuItem.Enabled = False
     End Sub
 
+
+
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
 
         Select Case FormType
@@ -689,6 +713,11 @@ Public Class OrderForm
                 currentSale.RetrievingResponsible = cbbResp2.Text
                 currentSale.Observation = tbObs.Text
                 currentSale.Client = Main.clients(cbbClient.Text)
+
+                If Main.sales.ContainsKey(currentSale.ID) Then
+                    MsgBox("O pedido de n° " + currentSale.ID + " já existe!" + vbNewLine + "Por favor altere o n° deste pedido.", MsgBoxStyle.Exclamation, "Erro!")
+                    Exit Sub
+                End If
 
                 AddToSalesTable()
 
@@ -704,6 +733,11 @@ Public Class OrderForm
                 currentPurchase.Observation = tbObs.Text
 
                 If currentPurchase.Products.Count = 0 Then
+                    Exit Sub
+                End If
+
+                If Main.purchases.ContainsKey(currentPurchase.ID) Then
+                    MsgBox("A compra com NF de n° " + currentPurchase.ID + " já existe!" + vbNewLine + "Por favor altere o n° da NF desta compra.", MsgBoxStyle.Exclamation, "Erro!")
                     Exit Sub
                 End If
 
@@ -725,19 +759,14 @@ Public Class OrderForm
         AddToolStripMenuItem.Enabled = False
         RemoveToolStripMenuItem.Enabled = True
         InventoryToolStripMenuItem.Enabled = False
-        NewEntry = False
+        NewOrder = False
         tbID.Text = ""
-
 
 
     End Sub
 
     Public Sub AddToSalesTable()
 
-        If Main.sales.ContainsKey(currentSale.ID) Then
-            MsgBox("O pedido de n° " + currentSale.ID + " já existe!" + vbNewLine + "Por favor altere o n° deste pedido.", MsgBoxStyle.Exclamation, "Erro!")
-            Exit Sub
-        End If
         Main.sales.Add(currentSale.ID, currentSale)
         tableOrders.Rows.Add(currentSale.ID,
                             currentSale.Client.Name,
@@ -757,10 +786,6 @@ Public Class OrderForm
 
     Public Sub AddToPurchasesTable()
 
-        If Main.purchases.ContainsKey(currentPurchase.ID) Then
-            MsgBox("A compra com NF de n° " + currentPurchase.ID + " já existe!" + vbNewLine + "Por favor altere o n° da NF desta compra.", MsgBoxStyle.Exclamation, "Erro!")
-            Exit Sub
-        End If
         Main.purchases.Add(currentPurchase.ID, currentPurchase)
         tablePurchases.Rows.Add(currentPurchase.ID,
                                 currentPurchase.BuyingDate.ToShortDateString,
@@ -979,7 +1004,7 @@ Public Class OrderForm
                         Else
                             selectedProduct.Value = selectedProduct.Price
                         End If
-                        If NewEntry Then
+                        If NewOrder Then
                             selectedProduct.Quantity = 0
                         End If
                     End If
@@ -996,7 +1021,7 @@ Public Class OrderForm
                         End If
                     Else
                         selectedProduct.Value = selectedProduct.Cost
-                        If NewEntry Then
+                        If NewOrder Then
                             selectedProduct.Quantity = 0
                         End If
                     End If
@@ -1048,7 +1073,10 @@ Public Class OrderForm
 
     Private Sub tvItems_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles tvItems.AfterCheck
 
-        If e.Action = TreeViewAction.ByMouse Then Exit Sub
+        If e.Action = TreeViewAction.ByMouse Then
+            e.Node.Checked = Not e.Node.Checked
+            Exit Sub
+        End If
 
         If Not IsNothing(e.Node.Parent) Then
             If e.Node.Checked Then
@@ -1117,64 +1145,6 @@ Public Class OrderForm
             End If
         End With
     End Sub
-
-    Private Class MyRenderer : Inherits ToolStripProfessionalRenderer
-        Protected Overrides Sub OnRenderMenuItemBackground(ByVal e As System.Windows.Forms.ToolStripItemRenderEventArgs)
-            Dim rc As New Rectangle(Point.Empty, e.Item.Size)
-            If e.Item.Enabled Then
-                If e.Item.Selected Then
-                    e.Graphics.FillRectangle(New SolidBrush(ChooseItemColor(e.Item)), rc)
-                    e.Graphics.DrawRectangle(New Pen(ChooseItemColor(e.Item, True)), 1, 0, rc.Width - 2, rc.Height - 1)
-
-                    e.Item.ForeColor = ChooseItemColor(e.Item, True)
-                Else
-                    e.Graphics.FillRectangle(New SolidBrush(ChooseItemColor(e.Item)), rc)
-                    'e.Graphics.DrawRectangle(Pens.Gray, 1, 0, rc.Width - 2, rc.Height - 1)
-
-                    e.Item.ForeColor = Color.Black
-                End If
-            End If
-        End Sub
-
-        Public Function ChooseItemColor(item As ToolStripMenuItem, Optional strong As Boolean = False) As Color
-
-            If strong Then
-                Select Case item.Text
-                    Case "Adicionar"
-                        Return Color.DarkGreen
-                    Case "Remover"
-                        Return Color.DarkRed
-                    Case "Itens do Inventário"
-                        Return Color.DarkOrange
-                    Case "Pedido"
-                        Return Color.Maroon
-                    Case "Compra"
-                        Return Color.Navy
-                    Case Else
-                        Return Color.Navy
-                        'Return SystemColors.ControlText
-                End Select
-            Else
-                Select Case item.Text
-                    Case "Adicionar"
-                        Return MainForm.greenColor
-                    Case "Remover"
-                        Return MainForm.redColor
-                    Case "Itens do Inventário"
-                        Return MainForm.yellowColor
-                    Case "Pedido"
-                        Return MainForm.orangeColor
-                    Case "Compra"
-                        Return MainForm.blueColor
-                    Case Else
-                        Return SystemColors.Control
-                End Select
-            End If
-
-        End Function
-
-    End Class
-
     Private Sub cbDiscount_CheckedChanged(sender As Object, e As EventArgs) Handles cbDiscount.CheckedChanged
 
         Try
@@ -1253,5 +1223,64 @@ Public Class OrderForm
         tbDiscount_TextChanged(sender, e)
     End Sub
 
+    Private Class MyRenderer : Inherits ToolStripProfessionalRenderer
+        Protected Overrides Sub OnRenderMenuItemBackground(ByVal e As System.Windows.Forms.ToolStripItemRenderEventArgs)
+            Dim rc As New Rectangle(Point.Empty, e.Item.Size)
+            If e.Item.Enabled Then
+                If e.Item.Selected Then
+                    e.Graphics.FillRectangle(New SolidBrush(ChooseItemColor(e.Item)), rc)
+                    e.Graphics.DrawRectangle(New Pen(ChooseItemColor(e.Item, True)), 1, 0, rc.Width - 2, rc.Height - 1)
+
+                    e.Item.ForeColor = ChooseItemColor(e.Item, True)
+                Else
+                    e.Graphics.FillRectangle(New SolidBrush(ChooseItemColor(e.Item)), rc)
+
+                    e.Item.ForeColor = Color.Black
+                End If
+            End If
+        End Sub
+
+        Public Function ChooseItemColor(item As ToolStripMenuItem, Optional strong As Boolean = False) As Color
+
+            If strong Then
+                Select Case item.Text
+                    Case "Adicionar"
+                        Return Color.DarkGreen
+                    Case "Remover"
+                        Return Color.DarkRed
+                    Case "Itens do Inventário"
+                        Return Color.DarkOrange
+                    Case "Novo Pedido"
+                        Return Color.Maroon
+                    Case "Nova Compra"
+                        Return Color.Navy
+                    Case Else
+                        Return SystemColors.ControlText
+                End Select
+            Else
+                Select Case item.Text
+                    Case "Adicionar"
+                        Return MainForm.greenColor
+                    Case "Remover"
+                        Return MainForm.redColor
+                    Case "Itens do Inventário"
+                        Return MainForm.yellowColor
+                    Case "Novo Pedido"
+                        Return MainForm.orangeColor
+                    Case "Nova Compra"
+                        Return MainForm.blueColor
+                    Case Else
+                        Return SystemColors.Control
+                End Select
+            End If
+
+        End Function
+
+    End Class
+
+    Private Sub FormClosingEvent(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        MainForm.Show()
+        MainForm.BringToFront()
+    End Sub
 
 End Class

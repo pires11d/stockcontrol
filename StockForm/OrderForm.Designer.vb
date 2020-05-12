@@ -58,9 +58,8 @@ Partial Class OrderForm
         Me.Label5 = New System.Windows.Forms.Label()
         Me.tbObs = New System.Windows.Forms.TextBox()
         Me.menu = New System.Windows.Forms.MenuStrip()
-        Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PurchaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OrderStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OrderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -455,31 +454,24 @@ Partial Class OrderForm
         'menu
         '
         Me.menu.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem, Me.AddToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.InventoryToolStripMenuItem})
+        Me.menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PurchaseToolStripMenuItem, Me.OrderToolStripMenuItem, Me.AddToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.InventoryToolStripMenuItem})
         Me.menu.Location = New System.Drawing.Point(0, 0)
         Me.menu.Name = "menu"
         Me.menu.Size = New System.Drawing.Size(1008, 29)
         Me.menu.TabIndex = 12
         Me.menu.Text = "MenuStrip1"
         '
-        'NewToolStripMenuItem
-        '
-        Me.NewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PurchaseToolStripMenuItem, Me.OrderStripMenuItem})
-        Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(78, 25)
-        Me.NewToolStripMenuItem.Text = "Novo(a)"
-        '
         'PurchaseToolStripMenuItem
         '
         Me.PurchaseToolStripMenuItem.Name = "PurchaseToolStripMenuItem"
-        Me.PurchaseToolStripMenuItem.Size = New System.Drawing.Size(136, 26)
-        Me.PurchaseToolStripMenuItem.Text = "Compra"
+        Me.PurchaseToolStripMenuItem.Size = New System.Drawing.Size(119, 25)
+        Me.PurchaseToolStripMenuItem.Text = "Nova Compra"
         '
-        'OrderStripMenuItem
+        'OrderToolStripMenuItem
         '
-        Me.OrderStripMenuItem.Name = "OrderStripMenuItem"
-        Me.OrderStripMenuItem.Size = New System.Drawing.Size(136, 26)
-        Me.OrderStripMenuItem.Text = "Pedido"
+        Me.OrderToolStripMenuItem.Name = "OrderToolStripMenuItem"
+        Me.OrderToolStripMenuItem.Size = New System.Drawing.Size(111, 25)
+        Me.OrderToolStripMenuItem.Text = "Novo Pedido"
         '
         'AddToolStripMenuItem
         '
@@ -692,9 +684,6 @@ Partial Class OrderForm
     Friend WithEvents Label5 As Label
     Friend WithEvents tbObs As TextBox
     Friend WithEvents menu As MenuStrip
-    Friend WithEvents NewToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PurchaseToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OrderStripMenuItem As ToolStripMenuItem
     Friend WithEvents RemoveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents datePicker1 As DateTimePicker
@@ -708,4 +697,6 @@ Partial Class OrderForm
     Friend WithEvents lblDiscount As Label
     Friend WithEvents ItemColumn As DataGridViewTextBoxColumn
     Friend WithEvents PriceColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PurchaseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OrderToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -71,6 +71,9 @@ Public Class MainForm
 
         'LOADS ORDERS TABLE INTO DATAGRIDVIEW
         OrderRegistrySchema.SalesTable.Clear()
+        Dim dv2 As New DataView(tableOrders)
+        dv2.Sort = "ID ASC"
+        Dim dt2 = dv2.ToTable
         With tableOrders
             For i = 0 To .Rows.Count - 1
                 OrderRegistrySchema.SalesTable.AddSalesTableRow(CInt(.Rows(i).Item(0)),
@@ -100,17 +103,20 @@ Public Class MainForm
 
     Public Sub ApplyStylesToTables()
 
+        lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
+        lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
         lvStock.Columns(4).DefaultCellStyle.Format = "0.00"
         lvStock.Columns(5).DefaultCellStyle.Format = "0.00"
         lvStock.Columns(6).DefaultCellStyle.Format = "R$ 0.00"
-        lvSales.Columns(2).DefaultCellStyle.Format = "R$ 0.00"
-        lvPurchases.Columns(2).DefaultCellStyle.Format = "R$ 0.00"
-        lvStock.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
-        lvStock.DefaultCellStyle.Font = New Font(fontName, 14, FontStyle.Bold)
+
         lvPurchases.DefaultCellStyle.Font = New Font(fontName, 12)
         lvPurchases.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
+        lvPurchases.Columns(2).DefaultCellStyle.Format = "R$ 0.00"
+
         lvSales.DefaultCellStyle.Font = New Font(fontName, 12)
         lvSales.ColumnHeadersDefaultCellStyle.Font = New Font(fontName, 12, FontStyle.Bold)
+        lvSales.Columns(2).DefaultCellStyle.Format = "R$ 0.00"
+        'lvSales.Columns(0).DefaultCellStyle.Format = "000"
 
         FormatStock()
         FormatPurchases()
@@ -290,6 +296,7 @@ Public Class MainForm
     Private Sub NewProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewProductToolStripMenuItem.Click
         Dim addProductForm As New ProductAddForm
         With addProductForm
+            Me.Hide()
             .Show()
         End With
     End Sub
@@ -297,6 +304,7 @@ Public Class MainForm
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
         Dim purchaseForm As New OrderForm
         With purchaseForm
+            Me.Hide()
             .FormType = OrderForm.FormTypes.Purchase
             .Show()
         End With
@@ -305,6 +313,7 @@ Public Class MainForm
     Private Sub OrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderToolStripMenuItem.Click
         Dim orderForm As New OrderForm
         With orderForm
+            Me.Hide()
             .FormType = OrderForm.FormTypes.Sale
             .Show()
         End With
@@ -312,16 +321,19 @@ Public Class MainForm
 
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         Dim inventoryForm As New InventoryForm
+        Me.Hide()
         inventoryForm.Show()
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
         Dim reportForm As New ReportForm
+        Me.Hide()
         reportForm.Show()
     End Sub
 
     Private Sub ClientToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientToolStripMenuItem.Click
         Dim clientForm As New ClientForm
+        Me.Hide()
         clientForm.Show()
     End Sub
 
@@ -380,6 +392,7 @@ Public Class MainForm
 
     Private Sub GraphToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GraphToolStripMenuItem.Click
         Dim graphForm As New GraphForm
+        Me.Hide()
         graphForm.Show()
     End Sub
 
@@ -504,6 +517,24 @@ Public Class MainForm
 
         Main.UpdateTables()
 
+    End Sub
+
+    Private Sub lvSales_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvSales.CellContentClick
+        If e.ColumnIndex = 0 And e.RowIndex >= 0 Then
+            Dim frm As New OrderForm
+            frm.FormType = OrderForm.FormTypes.Sale
+            frm.Show()
+            frm.tbID.Text = lvSales.Item(0, e.RowIndex).Value
+        End If
+    End Sub
+
+    Private Sub lvPurchases_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvPurchases.CellContentClick
+        If e.ColumnIndex = 0 And e.RowIndex >= 0 Then
+            Dim frm As New OrderForm
+            frm.FormType = OrderForm.FormTypes.Purchase
+            frm.Show()
+            frm.tbID.Text = lvPurchases.Item(0, e.RowIndex).Value
+        End If
     End Sub
 
 End Class
