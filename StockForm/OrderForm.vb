@@ -36,6 +36,8 @@ Public Class OrderForm
 
     Public Sub DisableGenericControls()
 
+        tbID.Enabled = True
+
         cbbClient.Enabled = False
         cbbResp1.Enabled = False
         cbbResp2.Enabled = False
@@ -128,8 +130,10 @@ Public Class OrderForm
                 cbbResp2.Visible = True
                 datePicker2.Visible = True
 
-                OrderToolStripMenuItem.Visible = True
                 InventoryToolStripMenuItem.Enabled = True
+
+                OrderToolStripMenuItem.Visible = True
+                OrderToolStripMenuItem.Enabled = True
 
             Case FormTypes.Purchase
                 Me.Text = "Compra"
@@ -148,6 +152,7 @@ Public Class OrderForm
                 datePicker2.Visible = False
 
                 PurchaseToolStripMenuItem.Visible = True
+                PurchaseToolStripMenuItem.Enabled = True
 
         End Select
 
@@ -220,12 +225,14 @@ Public Class OrderForm
                 AddToolStripMenuItem.Enabled = False
             Else
                 AddToolStripMenuItem.Enabled = True
+
                 Select Case FormType
                     Case FormTypes.Sale
                         EnableSaleControls()
                     Case FormTypes.Purchase
                         EnablePurchaseControls()
                 End Select
+
             End If
 
             Select Case FormType
@@ -522,6 +529,7 @@ Public Class OrderForm
     End Sub
 
     Private Sub cbbResp1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbResp1.SelectedIndexChanged
+
         If cbbResp1.Text = "" Then
             datePicker1.Enabled = False
             Exit Sub
@@ -541,6 +549,7 @@ Public Class OrderForm
     End Sub
 
     Private Sub cbbResp2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbResp2.SelectedIndexChanged
+
         If cbbResp2.Text = "" Then
             datePicker2.Enabled = False
             Exit Sub
@@ -560,6 +569,7 @@ Public Class OrderForm
     End Sub
 
     Private Sub cbbClient_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbClient.SelectedIndexChanged
+
         If cbbClient.Text = "" Then Exit Sub
 
         Try
@@ -573,12 +583,26 @@ Public Class OrderForm
 
     End Sub
 
+    ''' <summary>
+    ''' Handles the events that happen when the OK button is clicked
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         Try
             Select Case FormType
                 Case FormTypes.Sale
                     If Not IsNothing(currentSale) Then
+
+                        If currentSale.Retrieved Then
+                            currentSale.RetrievingDate = datePicker2.Value
+                            currentSale.RetrievingResponsible = cbbResp2.Text
+                        Else
+                            currentSale.RetrievingDate = Date.Today
+                            currentSale.RetrievingResponsible = ""
+                        End If
+
                         Main.sales(currentSale.ID) = currentSale
                         RemoveFromSalesTable()
                         AddToSalesTable()
@@ -678,9 +702,12 @@ Public Class OrderForm
         ChangeInputColors(MainForm.orangeColor)
         EnableSaleControls()
 
+        tbID.Enabled = False
         btnOK.Enabled = False
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
+        OrderToolStripMenuItem.Enabled = False
+
     End Sub
 
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
@@ -698,9 +725,9 @@ Public Class OrderForm
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
         InventoryToolStripMenuItem.Enabled = False
+        PurchaseToolStripMenuItem.Enabled = False
+
     End Sub
-
-
 
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
 
@@ -709,8 +736,13 @@ Public Class OrderForm
             Case FormTypes.Sale
                 currentSale.SellingDate = datePicker1.Value
                 currentSale.SellingResponsible = cbbResp1.Text
-                currentSale.RetrievingDate = datePicker2.Value
-                currentSale.RetrievingResponsible = cbbResp2.Text
+                If currentSale.Retrieved Then
+                    currentSale.RetrievingDate = datePicker2.Value
+                    currentSale.RetrievingResponsible = cbbResp2.Text
+                Else
+                    currentSale.RetrievingDate = Date.Today
+                    currentSale.RetrievingResponsible = ""
+                End If
                 currentSale.Observation = tbObs.Text
                 currentSale.Client = Main.clients(cbbClient.Text)
 

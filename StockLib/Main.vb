@@ -450,6 +450,25 @@ Public Module Main
     End Sub
 
     ''' <summary>
+    ''' Updates the Sales data for a client
+    ''' </summary>
+    ''' <param name="oldClient"></param>
+    ''' <param name="newClient"></param>
+    Public Sub UpdateClientSales(oldClient As Client, newClient As Client)
+
+        For Each s In sales.Values
+            If s.Client.Name = oldClient.Name Then
+                s.Client = newClient
+                For Each p In s.Products.Keys
+                    products(p).Sales(s.ID).Client = newClient
+                Next
+            End If
+        Next
+
+
+    End Sub
+
+    ''' <summary>
     ''' Updates all tables locally, replacing the old CSV files by new ones
     ''' </summary>
     Public Sub UpdateTables()

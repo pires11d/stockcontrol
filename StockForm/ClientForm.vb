@@ -33,16 +33,17 @@ Public Class ClientForm
 
         Try
             lvClients.Columns.Clear()
+
+            lvClients.DataSource = Main.tableClients
+
+            lvClients.DefaultCellStyle.Font = New Font(Main.fontName, 12)
+            lvClients.Columns(0).DefaultCellStyle.Font = New Font(lvClients.DefaultCellStyle.Font, FontStyle.Bold + FontStyle.Underline)
+            lvClients.Columns(0).DefaultCellStyle.ForeColor = Color.Navy
+            lvClients.ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 12, FontStyle.Bold)
+
         Catch ex As Exception
 
         End Try
-
-        lvClients.DataSource = Main.tableClients
-
-        lvClients.DefaultCellStyle.Font = New Font(Main.fontName, 12)
-        lvClients.Columns(0).DefaultCellStyle.Font = New Font(lvClients.DefaultCellStyle.Font, FontStyle.Bold + FontStyle.Underline)
-        lvClients.Columns(0).DefaultCellStyle.ForeColor = Color.Navy
-        lvClients.ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 12, FontStyle.Bold)
 
     End Sub
 
@@ -63,14 +64,27 @@ Public Class ClientForm
                 Exit Sub
             End Try
         Else
-            If oldValue <> lvClients.Item(0, e.RowIndex).Value.ToString.NotNull Then
-                Main.clients.Remove(oldValue)
-                Dim cli As New Client(lvClients.Item(0, e.RowIndex).Value)
+            Dim newValue = lvClients.Item(0, e.RowIndex).Value.ToString.NotNull
+
+            If oldValue <> newValue And Not Main.clients.ContainsKey(newValue) Then
+                Dim oldClient = Main.clients(oldValue)
+
+                Dim newClient As New Client(newValue)
+                newClient.Address = oldClient.Address
+                newClient.AddressComplement = oldClient.AddressComplement
+                newClient.Location = oldClient.Location
+                newClient.Phone = oldClient.Phone
+                newClient.Sales = oldClient.Sales
+
+                Main.UpdateClientSales(oldClient, newClient)
+
                 Try
-                    Main.clients.Add(cli.Name, cli)
+                    Main.clients.Remove(oldValue)
+                    Main.clients.Add(newClient.Name, newClient)
                 Catch ex As Exception
                     Exit Sub
                 End Try
+
             End If
         End If
 
@@ -89,7 +103,7 @@ Public Class ClientForm
         rowAdded = False
 
         Main.UpdateTables()
-        LoadClients()
+        'LoadClients()
     End Sub
 
     Private Sub lvClients_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles lvClients.UserAddedRow
@@ -101,6 +115,7 @@ Public Class ClientForm
         Main.UpdateTables()
         Main.GetTables()
         MainForm.LoadTables()
+
     End Sub
 
     Private Sub lvClients_UserDeletingRow(sender As Object, e As DataGridViewRowCancelEventArgs) Handles lvClients.UserDeletingRow

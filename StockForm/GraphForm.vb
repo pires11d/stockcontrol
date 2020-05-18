@@ -230,7 +230,7 @@ Public Class GraphForm
                         ii = 1
                     End If
                     x = ii * (i + 1)
-                    If xx > x Then
+                    If xx >= x Then
                         ChangePoint(cht, i, 10, MainForm.primaryColor, MainForm.secondaryColor)
                         If i = 0 Then
                             ChangePoint(cht, i + 1, 5, MainForm.secondaryColor, MainForm.primaryColor)
@@ -244,7 +244,6 @@ Public Class GraphForm
                 Next
             End With
         Catch ex As Exception
-
         End Try
 
     End Sub

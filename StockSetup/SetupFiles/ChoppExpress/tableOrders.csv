@@ -14,7 +14,6 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 20|Jorge - Autopeças||27/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 21|Garcia - Cadeiras||24/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 22|Bea - Mecânico||24/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
-23|Luciana||25/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 24|Maicon||25/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 25|Bea - Mecânico||25/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 26|Juliano||26/04/2020|Áureo|||False|False|1 x PET-IPA|$18.00|18||True
@@ -57,3 +56,14 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 56|Cajubá||09/05/2020|Kaninha|||False|False|6 x PET-Pilsen|$12.00|72||True
 57|Petrônio||09/05/2020|Kaninha|||False|False|6 x PET-IPA; 6 x PET-Pilsen|$18.00; $12.00|180||True
 58|Number One||09/05/2020|Kaninha|||False|False|3 x PET-IPA; 3 x PET-Pilsen|$18.00; $12.00|90||True
+59|Isauro (Caixa d'água)||09/05/2020|Kaninha|18/05/2020|Kaninha|False|False|12 x PET-Pilsen|$10.00|120||False
+60|Isauro (Caixa d'água)||14/05/2020|Kaninha|18/05/2020|Kaninha|False|False|12 x PET-Pilsen|$10.00|120||False
+61|Marcos - Calcinhas||15/05/2020|Kaninha|18/05/2020|Kaninha|False|False|6 x PET-Pilsen|$12.00|72||True
+23|Luciano||25/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
+62|Pickler||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|15 x PET-Pilsen|$12.00|180||False
+63|Sandro - Telecor||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|2 x PET-Pilsen|$12.00|24||True
+64|Isauro (Caixa d'água)||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|12 x PET-Pilsen|$10.00|120||False
+65|Amigo Luciano||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|6 x PET-Pilsen|$12.00|72||True
+66|Divine||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|3 x PET-Pilsen; 1 x PET-IPA|$12.00; $18.00|54||False
+67|Kaninha||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|2 x PET-Pilsen|$10.00|20||False
+68|Luciano||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|4 x PET-Pilsen|$12.00|48||True

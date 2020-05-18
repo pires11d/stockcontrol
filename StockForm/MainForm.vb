@@ -28,7 +28,7 @@ Public Class MainForm
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        EmpresaToolStripComboBox.SelectedText = ""
+        EmpresaToolStripComboBox.SelectedText = "<Empresa>"
 
         For Each item In menu.Items
             item.Enabled = Equals(item, EmpresaToolStripComboBox)
@@ -370,7 +370,7 @@ Public Class MainForm
 
         Main.companyName = EmpresaToolStripComboBox.Text
 
-        If Main.companyName = "ChoppExpress" Or Main.companyName = "L'jaica" Then
+        If EmpresaToolStripComboBox.Items.Contains(Main.companyName) Then
             Dim loginForm As New LoginForm
             loginForm.Show()
             loginForm.BringToFront()
@@ -415,7 +415,7 @@ Public Class MainForm
         Application.Exit()
     End Sub
 
-    Private Sub lvSales_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles lvSales.CellMouseUp
+    Private Sub lvSales_CellMouseUp(sender As Object, e As DataGridViewCellMouseEventArgs) Handles lvSales.CellMouseUp
         If e.ColumnIndex = 1 Then
             Try
                 lvSales.Item(1, e.RowIndex).Value = Not lvSales.Item(1, e.RowIndex).Value
@@ -431,7 +431,7 @@ Public Class MainForm
         End If
     End Sub
 
-    Private Sub lvPurchases_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles lvPurchases.CellMouseUp
+    Private Sub lvPurchases_CellMouseUp(sender As Object, e As DataGridViewCellMouseEventArgs) Handles lvPurchases.CellMouseUp
         If e.ColumnIndex = 1 Then
             Try
                 lvPurchases.Item(1, e.RowIndex).Value = Not lvPurchases.Item(1, e.RowIndex).Value

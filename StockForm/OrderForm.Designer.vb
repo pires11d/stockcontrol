@@ -77,8 +77,9 @@ Partial Class OrderForm
         '
         'tvItems
         '
-        Me.tvItems.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.tvItems.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tvItems.BackColor = System.Drawing.SystemColors.Control
         Me.tvItems.CheckBoxes = True
         Me.tvItems.Cursor = System.Windows.Forms.Cursors.Hand
@@ -91,18 +92,20 @@ Partial Class OrderForm
         Me.tvItems.Margin = New System.Windows.Forms.Padding(5)
         Me.tvItems.Name = "tvItems"
         Me.tvItems.ShowNodeToolTips = True
-        Me.tvItems.Size = New System.Drawing.Size(300, 504)
+        Me.tvItems.Size = New System.Drawing.Size(356, 504)
         Me.tvItems.TabIndex = 2
         '
         'cbbClient
         '
+        Me.cbbClient.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbClient.BackColor = System.Drawing.SystemColors.Control
         Me.cbbClient.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbClient.FormattingEnabled = True
         Me.cbbClient.Location = New System.Drawing.Point(155, 83)
         Me.cbbClient.Margin = New System.Windows.Forms.Padding(5)
         Me.cbbClient.Name = "cbbClient"
-        Me.cbbClient.Size = New System.Drawing.Size(237, 31)
+        Me.cbbClient.Size = New System.Drawing.Size(215, 31)
         Me.cbbClient.TabIndex = 1
         '
         'lblID
@@ -140,9 +143,10 @@ Partial Class OrderForm
         '
         'lblKind
         '
+        Me.lblKind.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblKind.AutoSize = True
         Me.lblKind.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblKind.Location = New System.Drawing.Point(322, 166)
+        Me.lblKind.Location = New System.Drawing.Point(401, 166)
         Me.lblKind.Name = "lblKind"
         Me.lblKind.Size = New System.Drawing.Size(51, 22)
         Me.lblKind.TabIndex = 5
@@ -150,9 +154,10 @@ Partial Class OrderForm
         '
         'lblName
         '
+        Me.lblName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblName.AutoSize = True
         Me.lblName.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblName.Location = New System.Drawing.Point(322, 208)
+        Me.lblName.Location = New System.Drawing.Point(401, 208)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(98, 23)
         Me.lblName.TabIndex = 5
@@ -160,9 +165,10 @@ Partial Class OrderForm
         '
         'lblBrand
         '
+        Me.lblBrand.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblBrand.AutoSize = True
         Me.lblBrand.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBrand.Location = New System.Drawing.Point(322, 254)
+        Me.lblBrand.Location = New System.Drawing.Point(401, 254)
         Me.lblBrand.Name = "lblBrand"
         Me.lblBrand.Size = New System.Drawing.Size(84, 22)
         Me.lblBrand.TabIndex = 5
@@ -170,9 +176,10 @@ Partial Class OrderForm
         '
         'lblQtty
         '
+        Me.lblQtty.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblQtty.AutoSize = True
         Me.lblQtty.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQtty.Location = New System.Drawing.Point(322, 314)
+        Me.lblQtty.Location = New System.Drawing.Point(401, 314)
         Me.lblQtty.Name = "lblQtty"
         Me.lblQtty.Size = New System.Drawing.Size(128, 23)
         Me.lblQtty.TabIndex = 5
@@ -180,9 +187,10 @@ Partial Class OrderForm
         '
         'lblPrice
         '
+        Me.lblPrice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPrice.AutoSize = True
         Me.lblPrice.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPrice.Location = New System.Drawing.Point(322, 493)
+        Me.lblPrice.Location = New System.Drawing.Point(401, 493)
         Me.lblPrice.Name = "lblPrice"
         Me.lblPrice.Size = New System.Drawing.Size(68, 23)
         Me.lblPrice.TabIndex = 5
@@ -190,9 +198,10 @@ Partial Class OrderForm
         '
         'lblStockLabel
         '
+        Me.lblStockLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStockLabel.AutoSize = True
         Me.lblStockLabel.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStockLabel.Location = New System.Drawing.Point(322, 406)
+        Me.lblStockLabel.Location = New System.Drawing.Point(401, 406)
         Me.lblStockLabel.Name = "lblStockLabel"
         Me.lblStockLabel.Size = New System.Drawing.Size(120, 23)
         Me.lblStockLabel.TabIndex = 5
@@ -211,8 +220,9 @@ Partial Class OrderForm
         '
         'lblStock
         '
+        Me.lblStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStock.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStock.Location = New System.Drawing.Point(322, 438)
+        Me.lblStock.Location = New System.Drawing.Point(401, 438)
         Me.lblStock.Name = "lblStock"
         Me.lblStock.Size = New System.Drawing.Size(69, 23)
         Me.lblStock.TabIndex = 5
@@ -221,9 +231,10 @@ Partial Class OrderForm
         '
         'tbQtty
         '
+        Me.tbQtty.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tbQtty.BackColor = System.Drawing.SystemColors.Control
         Me.tbQtty.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbQtty.Location = New System.Drawing.Point(327, 342)
+        Me.tbQtty.Location = New System.Drawing.Point(406, 342)
         Me.tbQtty.Name = "tbQtty"
         Me.tbQtty.Size = New System.Drawing.Size(63, 31)
         Me.tbQtty.TabIndex = 3
@@ -243,9 +254,10 @@ Partial Class OrderForm
         '
         'tbPrice
         '
+        Me.tbPrice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tbPrice.BackColor = System.Drawing.SystemColors.Control
         Me.tbPrice.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPrice.Location = New System.Drawing.Point(327, 521)
+        Me.tbPrice.Location = New System.Drawing.Point(406, 521)
         Me.tbPrice.Name = "tbPrice"
         Me.tbPrice.Size = New System.Drawing.Size(65, 31)
         Me.tbPrice.TabIndex = 4
@@ -253,9 +265,10 @@ Partial Class OrderForm
         '
         'lblPriceUnit
         '
+        Me.lblPriceUnit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPriceUnit.AutoSize = True
         Me.lblPriceUnit.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPriceUnit.Location = New System.Drawing.Point(394, 523)
+        Me.lblPriceUnit.Location = New System.Drawing.Point(473, 523)
         Me.lblPriceUnit.Name = "lblPriceUnit"
         Me.lblPriceUnit.Size = New System.Drawing.Size(49, 23)
         Me.lblPriceUnit.TabIndex = 5
@@ -263,9 +276,10 @@ Partial Class OrderForm
         '
         'lblQttyUnit
         '
+        Me.lblQttyUnit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblQttyUnit.AutoSize = True
         Me.lblQttyUnit.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQttyUnit.Location = New System.Drawing.Point(393, 438)
+        Me.lblQttyUnit.Location = New System.Drawing.Point(472, 438)
         Me.lblQttyUnit.Name = "lblQttyUnit"
         Me.lblQttyUnit.Size = New System.Drawing.Size(18, 23)
         Me.lblQttyUnit.TabIndex = 5
@@ -273,9 +287,10 @@ Partial Class OrderForm
         '
         'lblStockUnit
         '
+        Me.lblStockUnit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStockUnit.AutoSize = True
         Me.lblStockUnit.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStockUnit.Location = New System.Drawing.Point(393, 342)
+        Me.lblStockUnit.Location = New System.Drawing.Point(472, 342)
         Me.lblStockUnit.Name = "lblStockUnit"
         Me.lblStockUnit.Size = New System.Drawing.Size(18, 23)
         Me.lblStockUnit.TabIndex = 5
@@ -348,10 +363,10 @@ Partial Class OrderForm
         '
         'btnOK
         '
-        Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnOK.Location = New System.Drawing.Point(360, 622)
+        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOK.Location = New System.Drawing.Point(413, 622)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(195, 48)
+        Me.btnOK.Size = New System.Drawing.Size(179, 48)
         Me.btnOK.TabIndex = 11
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
@@ -521,8 +536,9 @@ Partial Class OrderForm
         '
         'cbDiscount
         '
+        Me.cbDiscount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbDiscount.AutoSize = True
-        Me.cbDiscount.Location = New System.Drawing.Point(326, 566)
+        Me.cbDiscount.Location = New System.Drawing.Point(405, 566)
         Me.cbDiscount.Name = "cbDiscount"
         Me.cbDiscount.Size = New System.Drawing.Size(183, 25)
         Me.cbDiscount.TabIndex = 13
