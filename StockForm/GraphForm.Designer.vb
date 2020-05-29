@@ -105,8 +105,7 @@ Partial Class GraphForm
         '
         'cbbValues
         '
-        Me.cbbValues.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cbbValues.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbbValues.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbbValues.FormattingEnabled = True
         Me.cbbValues.Location = New System.Drawing.Point(705, 12)
@@ -129,6 +128,7 @@ Partial Class GraphForm
         '
         'cbAcc
         '
+        Me.cbAcc.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbAcc.AutoSize = True
         Me.cbAcc.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbAcc.Location = New System.Drawing.Point(531, 14)

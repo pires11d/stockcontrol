@@ -3003,7 +3003,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:StockControl"
         "ProductCode" = "8:{F5C35D4A-D174-4704-8ABB-BAC67032E32F}"
-        "PackageCode" = "8:{AE339ACA-1884-429B-97C4-7C764A43620A}"
+        "PackageCode" = "8:{797A0736-D418-45D3-B2C3-93058B528B68}"
         "UpgradeCode" = "8:{8C6D2FE6-AC89-4FAB-88BF-108569D2F1C1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3125,7 +3125,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_06C21FC6F29A4280B051084729B6B086"
             {
-            "Name" = "8:StockControl 2.0"
+            "Name" = "8:StockControl 2.2"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -3139,7 +3139,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_73DE31E4A3BF43C58CBF984F1C07C199"
             {
-            "Name" = "8:StockControl 2.0"
+            "Name" = "8:StockControl 2.2"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

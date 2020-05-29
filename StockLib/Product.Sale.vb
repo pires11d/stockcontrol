@@ -86,11 +86,21 @@ Partial Public Class Product
 
         Public Property Description() As String
             Get
-                Return (Me.Client.Name + " " + Me.Observation).Replace("  ", " ")
+                If Me.Observation = "" Then
+                    Return Me.Client.Name
+                Else
+                    Return CStr(Me.Client.Name + ": " + Me.Observation).Replace("  ", " ")
+                End If
             End Get
             Set(value As String)
-                Me.Client = Main.clients(Main.GetClientName(value))
-                Me.Observation = value.Replace(Client.Name, "")
+                'Me.Observation = value.Replace(Client.Name, "")
+                If value.Contains(": ") Then
+                    Me.Observation = value.Split(": ").LastOrDefault
+                    Me.Client = Main.clients(Main.GetClientName(value.Split(": ").FirstOrDefault))
+                Else
+                    Me.Observation = ""
+                    Me.Client = Main.clients(Main.GetClientName(value))
+                End If
             End Set
         End Property
 

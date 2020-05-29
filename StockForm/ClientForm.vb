@@ -40,7 +40,6 @@ Public Class ClientForm
             lvClients.Columns(0).DefaultCellStyle.Font = New Font(lvClients.DefaultCellStyle.Font, FontStyle.Bold + FontStyle.Underline)
             lvClients.Columns(0).DefaultCellStyle.ForeColor = Color.Navy
             lvClients.ColumnHeadersDefaultCellStyle.Font = New Font(Main.fontName, 12, FontStyle.Bold)
-
         Catch ex As Exception
 
         End Try
@@ -103,7 +102,10 @@ Public Class ClientForm
         rowAdded = False
 
         Main.UpdateTables()
-        'LoadClients()
+        Main.GetTables()
+        MainForm.LoadTables()
+        LoadClients()
+
     End Sub
 
     Private Sub lvClients_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles lvClients.UserAddedRow
@@ -126,6 +128,7 @@ Public Class ClientForm
         Main.UpdateTables()
         Main.GetTables()
         MainForm.LoadTables()
+
     End Sub
 
     Private Sub lvClients_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles lvClients.CellContentClick

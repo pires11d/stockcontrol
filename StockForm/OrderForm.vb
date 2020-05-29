@@ -112,7 +112,7 @@ Public Class OrderForm
 
         DisableGenericControls()
 
-        'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE   
+        'RESETS SPECIFIC CONTROLS ACCORDING TO FORMTYPE
         Select Case FormType
             Case FormTypes.Sale
                 Me.Text = "Pedido"
@@ -707,6 +707,7 @@ Public Class OrderForm
         'AddToolStripMenuItem.Enabled = True
         RemoveToolStripMenuItem.Enabled = False
         OrderToolStripMenuItem.Enabled = False
+        datePicker2.Enabled = False
 
     End Sub
 
@@ -793,7 +794,6 @@ Public Class OrderForm
         InventoryToolStripMenuItem.Enabled = False
         NewOrder = False
         tbID.Text = ""
-
 
     End Sub
 

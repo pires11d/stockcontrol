@@ -86,11 +86,21 @@ Partial Public Class Product
 
         Public Property Description() As String
             Get
-                Return CStr(Me.Vendor.Name + " " + Observation).Replace("  ", " ")
+                If Me.Observation = "" Then
+                    Return Me.Vendor.Name
+                Else
+                    Return CStr(Me.Vendor.Name + ": " + Me.Observation).Replace("  ", " ")
+                End If
             End Get
             Set(value As String)
-                Me.Vendor = Main.vendors(Main.GetVendorName(value))
-                Me.Observation = value.Replace(Vendor.Name, "")
+                'Me.Observation = value.Replace(Vendor.Name, "")
+                If value.Contains(": ") Then
+                    Me.Observation = value.Split(": ").LastOrDefault
+                    Me.Vendor = Main.vendors(Main.GetVendorName(value.Split(": ").FirstOrDefault))
+                Else
+                    Me.Observation = ""
+                    Me.Vendor = Main.vendors(Main.GetVendorName(value))
+                End If
             End Set
         End Property
 

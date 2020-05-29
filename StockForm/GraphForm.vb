@@ -36,6 +36,7 @@ Public Class GraphForm
         cbbValues.SelectedIndex = 0
 
         rb0.Checked = True
+        cbAcc.Checked = True
 
         LoadGraph()
 

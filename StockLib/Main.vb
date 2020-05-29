@@ -459,12 +459,17 @@ Public Module Main
         For Each s In sales.Values
             If s.Client.Name = oldClient.Name Then
                 s.Client = newClient
-                For Each p In s.Products.Keys
-                    products(p).Sales(s.ID).Client = newClient
+                For Each p In s.Products.Values
+                    products(p.Code).Sales(s.ID).Client = newClient
+                    Dim pTable = products(p.Code).Table
+                    For i = 0 To pTable.Rows.Count - 1
+                        If pTable.Rows(i).Item("ID") = s.ID Then
+                            pTable.Rows(i).Item("HISTÓRICO") = products(p.Code).Sales(s.ID).Description
+                        End If
+                    Next
                 Next
             End If
         Next
-
 
     End Sub
 

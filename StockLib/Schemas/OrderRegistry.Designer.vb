@@ -326,8 +326,6 @@ Partial Public Class OrderRegistry
         
         Private columnCLIENTE As Global.System.Data.DataColumn
         
-        Private columnITENS As Global.System.Data.DataColumn
-        
         Private columnDATA1 As Global.System.Data.DataColumn
         
         Private columnRESP1 As Global.System.Data.DataColumn
@@ -335,6 +333,8 @@ Partial Public Class OrderRegistry
         Private columnPEDIDO As Global.System.Data.DataColumn
         
         Private columnPREÇOS As Global.System.Data.DataColumn
+        
+        Private columnITENS As Global.System.Data.DataColumn
         
         Private columnDATA2 As Global.System.Data.DataColumn
         
@@ -415,14 +415,6 @@ Partial Public Class OrderRegistry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public ReadOnly Property ITENSColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnITENS
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public ReadOnly Property DATA1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnDATA1
@@ -450,6 +442,14 @@ Partial Public Class OrderRegistry
         Public ReadOnly Property PREÇOSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnPREÇOS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public ReadOnly Property ITENSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITENS
             End Get
         End Property
         
@@ -530,9 +530,9 @@ Partial Public Class OrderRegistry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overloads Function AddSalesTableRow(ByVal ID As Integer, ByVal PAGO As Boolean, ByVal TOTAL As Double, ByVal CLIENTE As String, ByVal ITENS As String, ByVal DATA1 As String, ByVal RESP1 As String, ByVal PEDIDO As String, ByVal PREÇOS As String, ByVal DATA2 As String, ByVal RESP2 As String, ByVal RECOLHIDO As String, ByVal CHOPEIRA As String, ByVal OBS As String) As SalesTableRow
+        Public Overloads Function AddSalesTableRow(ByVal ID As Integer, ByVal PAGO As Boolean, ByVal TOTAL As Double, ByVal CLIENTE As String, ByVal DATA1 As String, ByVal RESP1 As String, ByVal PEDIDO As String, ByVal PREÇOS As String, ByVal ITENS As String, ByVal DATA2 As String, ByVal RESP2 As String, ByVal RECOLHIDO As String, ByVal CHOPEIRA As String, ByVal OBS As String) As SalesTableRow
             Dim rowSalesTableRow As SalesTableRow = CType(Me.NewRow,SalesTableRow)
-            Dim columnValuesArray() As Object = New Object() {ID, PAGO, TOTAL, CLIENTE, ITENS, DATA1, RESP1, PEDIDO, PREÇOS, DATA2, RESP2, RECOLHIDO, CHOPEIRA, OBS}
+            Dim columnValuesArray() As Object = New Object() {ID, PAGO, TOTAL, CLIENTE, DATA1, RESP1, PEDIDO, PREÇOS, ITENS, DATA2, RESP2, RECOLHIDO, CHOPEIRA, OBS}
             rowSalesTableRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowSalesTableRow)
             Return rowSalesTableRow
@@ -559,11 +559,11 @@ Partial Public Class OrderRegistry
             Me.columnPAGO = MyBase.Columns("PAGO")
             Me.columnTOTAL = MyBase.Columns("TOTAL")
             Me.columnCLIENTE = MyBase.Columns("CLIENTE")
-            Me.columnITENS = MyBase.Columns("ITENS")
             Me.columnDATA1 = MyBase.Columns("DATA1")
             Me.columnRESP1 = MyBase.Columns("RESP1")
             Me.columnPEDIDO = MyBase.Columns("PEDIDO")
             Me.columnPREÇOS = MyBase.Columns("PREÇOS")
+            Me.columnITENS = MyBase.Columns("ITENS")
             Me.columnDATA2 = MyBase.Columns("DATA2")
             Me.columnRESP2 = MyBase.Columns("RESP2")
             Me.columnRECOLHIDO = MyBase.Columns("RECOLHIDO")
@@ -582,8 +582,6 @@ Partial Public Class OrderRegistry
             MyBase.Columns.Add(Me.columnTOTAL)
             Me.columnCLIENTE = New Global.System.Data.DataColumn("CLIENTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnCLIENTE)
-            Me.columnITENS = New Global.System.Data.DataColumn("ITENS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnITENS)
             Me.columnDATA1 = New Global.System.Data.DataColumn("DATA1", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnDATA1)
             Me.columnRESP1 = New Global.System.Data.DataColumn("RESP1", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -592,6 +590,8 @@ Partial Public Class OrderRegistry
             MyBase.Columns.Add(Me.columnPEDIDO)
             Me.columnPREÇOS = New Global.System.Data.DataColumn("PREÇOS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnPREÇOS)
+            Me.columnITENS = New Global.System.Data.DataColumn("ITENS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITENS)
             Me.columnDATA2 = New Global.System.Data.DataColumn("DATA2", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnDATA2)
             Me.columnRESP2 = New Global.System.Data.DataColumn("RESP2", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -606,11 +606,11 @@ Partial Public Class OrderRegistry
             Me.columnPAGO.DefaultValue = CType(false,Boolean)
             Me.columnTOTAL.ReadOnly = true
             Me.columnCLIENTE.ReadOnly = true
-            Me.columnITENS.ReadOnly = true
             Me.columnDATA1.ReadOnly = true
             Me.columnRESP1.ReadOnly = true
             Me.columnPEDIDO.ReadOnly = true
             Me.columnPREÇOS.ReadOnly = true
+            Me.columnITENS.ReadOnly = true
             Me.columnDATA2.ReadOnly = true
             Me.columnRESP2.ReadOnly = true
             Me.columnRECOLHIDO.ReadOnly = true
@@ -1159,21 +1159,6 @@ Partial Public Class OrderRegistry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Property ITENS() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableSalesTable.ITENSColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITENS' in table 'SalesTable' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableSalesTable.ITENSColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Property DATA1() As String
             Get
                 Try 
@@ -1229,6 +1214,21 @@ Partial Public Class OrderRegistry
             End Get
             Set
                 Me(Me.tableSalesTable.PREÇOSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Property ITENS() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableSalesTable.ITENSColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITENS' in table 'SalesTable' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableSalesTable.ITENSColumn) = value
             End Set
         End Property
         
@@ -1357,18 +1357,6 @@ Partial Public Class OrderRegistry
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Function IsITENSNull() As Boolean
-            Return Me.IsNull(Me.tableSalesTable.ITENSColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Sub SetITENSNull()
-            Me(Me.tableSalesTable.ITENSColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Function IsDATA1Null() As Boolean
             Return Me.IsNull(Me.tableSalesTable.DATA1Column)
         End Function
@@ -1413,6 +1401,18 @@ Partial Public Class OrderRegistry
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub SetPREÇOSNull()
             Me(Me.tableSalesTable.PREÇOSColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Function IsITENSNull() As Boolean
+            Return Me.IsNull(Me.tableSalesTable.ITENSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Sub SetITENSNull()
+            Me(Me.tableSalesTable.ITENSColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
