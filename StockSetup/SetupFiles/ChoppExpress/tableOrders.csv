@@ -19,13 +19,13 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 26|Juliano||26/04/2020|Áureo|||False|False|1 x PET-IPA|$18.00|18||True
 27|Isauro (Caixa d'água)||26/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
 28|Isauro (Caixa d'água)||27/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
-29|Jader - Despachante||28/04/2020|Áureo|||False|False|10 x PET-Pilsen|$12.00|120||False
+29|Jader - Despachante||28/04/2020|Áureo|||False|False|10 x PET-Pilsen|$12.00|120||True
 3|Le Bateau||05/03/2020|Áureo|||False|False|15 x Chope-GermanPilsner|$12.00|180||True
 30|Isauro (Caixa d'água)||30/04/2020|Áureo|||False|False|24 x PET-Pilsen|$10.00|240||True
 31|Jorge - Autopeças||01/05/2020|Áureo|||False|False|4 x PET-Pilsen|$12.00|48||True
 32|Lucas||01/05/2020|Kaninha|||False|False|1 x PET-IPA; 1 x PET-Pilsen|$15.00; $10.00|25||True
 33|Petrônio||01/05/2020|Áureo|||False|False|4 x PET-IPA|$18.00|72||True
-34|Isauro (Caixa d'água)||02/05/2020|Áureo|||False|False|10 x PET-Pilsen|$10.00|100||False
+34|Isauro (Caixa d'água)||02/05/2020|Áureo|||False|False|10 x PET-Pilsen|$10.00|100||True
 35|Ivan - Academia||02/05/2020|Áureo|||False|False|2 x PET-Pilsen|$10.00|20||True
 36|Cajubá||02/05/2020|Áureo|||False|False|2 x PET-Pilsen|$12.00|24||True
 37|Kaninha||02/05/2020|Áureo|||False|False|3 x PET-Pilsen|$10.00|30||True
@@ -60,17 +60,28 @@ ID|CLIENTE|ITENS|DATA1|RESP1|DATA2|RESP2|RECOLHIDO|CHOPEIRA|PEDIDO|PREÇOS|TOTAL
 60|Isauro (Caixa d'água)||14/05/2020|Kaninha|18/05/2020|Kaninha|False|False|12 x PET-Pilsen|$10.00|120||True
 61|Marcos - Calcinhas||15/05/2020|Kaninha|18/05/2020|Kaninha|False|False|6 x PET-Pilsen|$12.00|72||True
 23|Luciano||25/04/2020|Áureo|||False|False|12 x PET-Pilsen|$10.00|120||True
-62|Pickler||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|15 x PET-Pilsen|$12.00|180||False
+62|Pickler||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|15 x PET-Pilsen|$12.00|180||True
 63|Sandro - Telecor||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|2 x PET-Pilsen|$12.00|24||True
-64|Isauro (Caixa d'água)||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|12 x PET-Pilsen|$10.00|120||False
+64|Isauro (Caixa d'água)||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|12 x PET-Pilsen|$10.00|120||True
 65|Amigo Luciano||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|6 x PET-Pilsen|$12.00|72||True
-66|Divine||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|3 x PET-Pilsen; 1 x PET-IPA|$12.00; $18.00|54||False
+66|Divine||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|3 x PET-Pilsen; 1 x PET-IPA|$12.00; $18.00|54||True
 67|Kaninha||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|2 x PET-Pilsen|$10.00|20||True
 68|Luciano||16/05/2020|Kaninha|18/05/2020|Kaninha|False|False|4 x PET-Pilsen|$12.00|48||True
-69|Giovani||18/05/2020|Kaninha|||False|False|6 x PET-Pilsen|$12.00|72||False
-70|Cunhado Petrônio||19/05/2020|Kaninha|||False|False|3 x PET-IPA|$18.00|54||False
-71|Alessandro||20/05/2020|Kaninha|||False|False|2 x PET-Pilsen|$12.00|24||False
-72|Ed Motta||22/05/2020|Kaninha|||False|False|2 x PET-Pilsen|$12.00|24||False
+69|Giovani||18/05/2020|Kaninha|||False|False|6 x PET-Pilsen|$12.00|72||True
+70|Cunhado Petrônio||19/05/2020|Kaninha|||False|False|3 x PET-IPA|$18.00|54||True
+71|Alessandro||20/05/2020|Kaninha|||False|False|2 x PET-Pilsen|$12.00|24||True
+72|Ed Motta||22/05/2020|Kaninha|||False|False|2 x PET-Pilsen|$12.00|24||True
 73|Lucas||22/05/2020|Kaninha|||False|False|3 x PET-IPA|$15.00|45||True
-74|Isauro (Caixa d'água)||22/05/2020|Kaninha|||False|False|12 x PET-Pilsen|$10.00|120||False
-75|Rafael Oneda||23/05/2020|Kaninha|||False|False|30 x Chope-Pilsen|$10.00|300||False
+74|Isauro (Caixa d'água)||22/05/2020|Kaninha|||False|False|12 x PET-Pilsen|$10.00|120||True
+75|Rafael Oneda||23/05/2020|Kaninha|||False|False|30 x Chope-Pilsen|$10.00|300||True
+76|Isauro (Caixa d'água)||28/05/2020|Kaninha|||False|False|12 x PET-Pilsen|$12.00|144||True
+77|Ivan - Academia||29/05/2020|Kaninha|||False|False|8 x PET-Pilsen|$10.00|80||True
+78|Zé||29/05/2020|Kaninha|||False|False|1 x PET-Pilsen|$12.00|12||True
+79|Isauro (Caixa d'água)||29/05/2020|Kaninha|||False|False|12 x PET-Pilsen|$12.00|144||True
+80|Isauro (Caixa d'água)||03/06/2020|Kaninha|||False|False|12 x PET-Pilsen|$12.00|144||False
+81|Divine||03/06/2020|Kaninha|||False|False|3 x PET-Pilsen|$12.00|36||True
+82|Bea - Mecânico||03/06/2020|Kaninha|||False|False|3 x PET-Pilsen|$14.00|42||True
+83|Garcia - Cadeiras||03/06/2020|Kaninha|||False|False|3 x PET-Pilsen; 2 x PET-IPA|$12.00; $18.00|72||True
+84|Ivan - Academia||03/06/2020|Kaninha|||False|False|1 x PET-IPA; 1 x PET-Pilsen|$18.00; $12.00|30||True
+85|Água Azul||05/06/2020|Kaninha|||False|False|3 x PET-Pilsen|$12.00|36||True
+86|Isauro (Caixa d'água)||05/06/2020|Kaninha|||False|False|6 x PET-Pilsen|$12.00|72||False

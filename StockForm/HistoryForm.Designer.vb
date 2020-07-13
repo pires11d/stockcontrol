@@ -24,7 +24,6 @@ Partial Class HistoryForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HistoryForm))
         Me.lvHistory = New System.Windows.Forms.DataGridView()
-        Me.OrderHistorySchema = New StockLib.OrderHistory()
         Me.IDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CLIENTEDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ITENSDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -37,6 +36,7 @@ Partial Class HistoryForm
         Me.PREÇOSDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TOTALDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.OBSDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OrderHistorySchema = New StockLib.OrderHistory()
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.OrderHistorySchema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -60,11 +60,6 @@ Partial Class HistoryForm
         Me.lvHistory.RowHeadersVisible = False
         Me.lvHistory.Size = New System.Drawing.Size(1350, 281)
         Me.lvHistory.TabIndex = 0
-        '
-        'OrderHistorySchema
-        '
-        Me.OrderHistorySchema.DataSetName = "OrderHistory"
-        Me.OrderHistorySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'IDDataGridViewTextBoxColumn
         '
@@ -142,6 +137,11 @@ Partial Class HistoryForm
         Me.OBSDataGridViewTextBoxColumn.HeaderText = "OBS"
         Me.OBSDataGridViewTextBoxColumn.Name = "OBSDataGridViewTextBoxColumn"
         '
+        'OrderHistorySchema
+        '
+        Me.OrderHistorySchema.DataSetName = "OrderHistory"
+        Me.OrderHistorySchema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'HistoryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
@@ -152,6 +152,7 @@ Partial Class HistoryForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "HistoryForm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "OrderHistoryForm"
         CType(Me.lvHistory, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.OrderHistorySchema, System.ComponentModel.ISupportInitialize).EndInit()

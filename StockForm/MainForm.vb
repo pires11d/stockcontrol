@@ -296,7 +296,7 @@ Public Class MainForm
     Private Sub NewProductToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewProductToolStripMenuItem.Click
         Dim addProductForm As New ProductAddForm
         With addProductForm
-            Me.Hide()
+            'Me.Hide()
             .Show()
         End With
     End Sub
@@ -304,36 +304,38 @@ Public Class MainForm
     Private Sub PurchaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PurchaseToolStripMenuItem.Click
         Dim purchaseForm As New OrderForm
         With purchaseForm
-            Me.Hide()
+            'Me.Hide()
             .FormType = OrderForm.FormTypes.Purchase
             .Show()
+            .WindowState = FormWindowState.Maximized
         End With
     End Sub
 
     Private Sub OrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderToolStripMenuItem.Click
         Dim orderForm As New OrderForm
         With orderForm
-            Me.Hide()
+            'Me.Hide()
             .FormType = OrderForm.FormTypes.Sale
             .Show()
+            .WindowState = FormWindowState.Maximized
         End With
     End Sub
 
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         Dim inventoryForm As New InventoryForm
-        Me.Hide()
+        'Me.Hide()
         inventoryForm.Show()
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
         Dim reportForm As New ReportForm
-        Me.Hide()
+        'Me.Hide()
         reportForm.Show()
     End Sub
 
     Private Sub ClientToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientToolStripMenuItem.Click
         Dim clientForm As New ClientForm
-        Me.Hide()
+        'Me.Hide()
         clientForm.Show()
     End Sub
 
@@ -392,7 +394,7 @@ Public Class MainForm
 
     Private Sub GraphToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GraphToolStripMenuItem.Click
         Dim graphForm As New GraphForm
-        Me.Hide()
+        'Me.Hide()
         graphForm.Show()
     End Sub
 
