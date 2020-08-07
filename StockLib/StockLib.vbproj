@@ -73,6 +73,7 @@
     <Compile Include="Barrel.vb" />
     <Compile Include="Cooler.vb" />
     <Compile Include="Client.vb" />
+    <Compile Include="Fridge.vb" />
     <Compile Include="Item.vb" />
     <Compile Include="Order.vb" />
     <Compile Include="Schemas\ClientRegistry.Designer.vb">

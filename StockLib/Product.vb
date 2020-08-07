@@ -38,6 +38,16 @@ Public Class Product
         "unid."
     }
 
+    Private p_ID As Integer
+    Public Property ID() As Integer
+        Get
+            Return p_ID
+        End Get
+        Set(ByVal value As Integer)
+            p_ID = value
+        End Set
+    End Property
+
     Private p_Code As String
     Public Property Code() As String
         Get
@@ -242,6 +252,16 @@ Public Class Product
         End Get
         Set(ByVal value As DataTable)
             p_Table = value
+        End Set
+    End Property
+
+    Private p_ExpirationDate As Date
+    Public Property ExpirationDate() As Date
+        Get
+            Return p_ExpirationDate
+        End Get
+        Set(ByVal value As Date)
+            p_ExpirationDate = value
         End Set
     End Property
 

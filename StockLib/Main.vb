@@ -89,6 +89,14 @@ Public Module Main
 
         LoadProductTables()
 
+        LoadFridges()
+
+    End Sub
+
+    Public Sub LoadFridges()
+
+
+
     End Sub
 
     ''' <summary>
